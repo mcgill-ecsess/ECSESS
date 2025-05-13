@@ -12,7 +12,8 @@
 	<NavButton href="/events">Events</NavButton>
 	<NavButton href="/resources">Resources</NavButton>
 	<NavButton href="/join">Join ECSESS</NavButton>
+	<NavButton href="/ctrlz">Ctrl-Z</NavButton>
 	{#if import.meta.env.DEV}
-		<NavButton href="/showroom">Componenets</NavButton>
+		<NavButton href="/showroom">Components</NavButton>
 	{/if}
 </nav>
