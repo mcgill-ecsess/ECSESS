@@ -1,6 +1,4 @@
 <script>
-	// import { goto } from '$app/navigation';
-	// goto('/https://google.com');
 	import { onMount } from 'svelte';
 
     onMount(() => {
