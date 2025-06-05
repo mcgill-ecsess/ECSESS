@@ -9,15 +9,18 @@
 	<p class="page-title">Meet the council!</p>
 
 	<p>Group picture!</p>
-	{#each data.members as councilMember}
-		<CouncilCard
-			name={councilMember.name}
-			position={councilMember.position}
-			email={councilMember.email}
-			positionDescription={councilMember.positionDescription}
-			yearProgram={councilMember.yearProgram}
-		></CouncilCard>
-	{/each}
+	<div class="flex flex-row flex-wrap items-center align-middle gap-10 p-4">
+		{#each data.members as councilMember}
+			<CouncilCard
+				name={councilMember.name}
+				position={councilMember.position}
+				email={councilMember.email}
+				positionDescription={councilMember.positionDescription}
+				yearProgram={councilMember.yearProgram}
+				image={councilMember.image}
+			></CouncilCard>
+		{/each}
+	</div>
 
 	<p>Here are the members of the ECSESS council!</p>
 	<div>
