@@ -1,10 +1,10 @@
 import { getFromCMS } from 'utils/utils.js';
 
 // needs to concat and format this text
-const query = `*[_type == "homepage"].description[].children[].text`;
+const query = `*[_type == "members"]`;
 
 export const load = async () => {
 	return {
-		description: await getFromCMS(query)
+		members: await getFromCMS(query)
 	};
 };
