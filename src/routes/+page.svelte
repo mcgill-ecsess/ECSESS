@@ -1,6 +1,8 @@
 <script>
+	import FaqAccordion from 'components/FAQAccordion.svelte';
 	import Section from 'components/Section.svelte';
 	import { PortableText } from '@portabletext/svelte';
+
 	/** loading things from the server side */
 	let { data } = $props();
 </script>
@@ -19,20 +21,17 @@
 
 <!-- Picture, FAQ -->
 <Section black>
-	<h1>Our student council</h1>
-	<div class="flex justify-around gap-12">
-		<div>
-			<img src={data.councilPhoto} alt="ECSESS Council" />
-		</div>
+	<div>
+		<h1>Our Student Council</h1>
+		<img src={data.councilPhoto} alt="ECSESS Council" />
 	</div>
-</Section>
-
-<!-- Office Hours Calendar -->
-<Section>
 	<div>
 		<h1>FAQ</h1>
-		<p>Under development</p>
+		<FaqAccordion entries={data.faqs} />
 	</div>
+</Section>
+<!-- Office Hours Calendar -->
+<Section>
 	<div>
 		<h1 class="text-2xl">Office Hours</h1>
 		<p>Under development</p>
