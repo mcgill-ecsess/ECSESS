@@ -1,6 +1,7 @@
 import { mdsvex } from 'mdsvex';
-import adapter from '@sveltejs/adapter-node';
+// import adapter from '@sveltejs/adapter-node';
 // import adapter from '@sveltejs/adapter-static';
+import adapter from '@sveltejs/adapter-vercel';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -14,6 +15,7 @@ const config = {
         }
 	},
 
+  out: 'build',
 	preprocess: [mdsvex()],
 	extensions: ['.svelte', '.svx']
 };
