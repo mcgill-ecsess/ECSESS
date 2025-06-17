@@ -45,3 +45,16 @@ bun run dev
 bun run build
 bun run preview # to preview the production build
 ```
+
+# Deployment
+- Other than the deployment on EUS server with AWS Caddy, there are alternative ways to deploy the website!
+## Docker
+- Edit the `.env` file to include the `SANITY_ID` of the CMS
+- From the root directory of the project
+```sh
+# Build the website with `nightly` tag
+docker build -t ecsess-website:nightly .
+docker run -p 4173:4173 ecsess-website:nightly
+```
+- The site should now be running on `localhost:4173`
+

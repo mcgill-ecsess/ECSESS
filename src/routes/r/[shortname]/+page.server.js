@@ -18,5 +18,6 @@ export const load = async ({ params }) => {
 
     return {
         shortname: shortname,
+        availableShortnames: CMSresponse,
     }
 };
