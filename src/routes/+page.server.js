@@ -22,5 +22,3 @@ export const load = async () => {
 		// FAQs: "",
 	};
 };
-
-export const csr = true;
