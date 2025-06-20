@@ -21,11 +21,13 @@
 		align-items: center;
 		gap: 1rem;
 		background-color:transparent;
-		padding: 1.5rem;
 		border-radius: 20px;
+		padding:1.5rem; 
 		color:  #0A3D2A;
-		background-color: #E8FFD9;
-		max-width: 500px;
+		border-color:transparent;
+		background-image: linear-gradient(to bottom right, #E8FFD9, #97C583);
+		max-width: 450px;
+		height: 250px;
 	}
 
 	.profile-img{
@@ -35,13 +37,11 @@
 
 	.profile-img :global(img) {
     object-fit: cover;
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
   }
-
 </style>
 
-<div class="card h-1/2 max-h-1/2 w-full max-w-1/6 rounded-lg border-4 p-4">
+<div class="card">
 	<!-- <img class="size-4/5" src={placeholder} alt="Placeholder"> -->
 	<!-- <Avatar src={placeholder} {name} /> -->
 	<div class="avatar-container justify-left">
@@ -61,6 +61,6 @@
 		<p class="pb-2 text-xs">{positionDescription}</p>
 		<hr />
 
-		<p class="py-2 text-sm underline">{email}</p>
+		<a href="mailto:{email}" class="py-2 text-sm underline">{email}</a>
 	</div>
 </div>

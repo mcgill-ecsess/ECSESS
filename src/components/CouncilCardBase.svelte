@@ -1,7 +1,8 @@
 <script>
-  let { name, position, image } = $props();
+  let { onViewProfile, name, position, image } = $props();
   import placeholder from 'assets/placeholderAvatar.png';
   import { Avatar } from '@skeletonlabs/skeleton-svelte';
+
 </script>
 
 <style>
@@ -68,7 +69,7 @@
   <div class="info">
     <div class="name">{name}</div>
     <div class="role">{position}</div>
-    <a href="#" class="button">View Profile</a>
+    <button class="button" onclick={onViewProfile}>View Profile</button>
   </div>
 </div>
 

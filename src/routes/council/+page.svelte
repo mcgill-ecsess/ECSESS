@@ -27,6 +27,15 @@
 			president = member
 		}
 	})
+
+	let selectedMember = $state<CouncilMember | null>(null);
+
+	function handleViewProfile(member: CouncilMember) {
+		selectedMember = member;
+	}
+
+	// svelte-ignore state_referenced_locally
+		console.log(selectedMember)
 </script>
 
 <title> ECSESS council </title>
@@ -41,6 +50,7 @@
 				name={president.name}
 				position={president.position}
 				image={president.image}
+				onViewProfile={() => handleViewProfile(president!)}
 			></CouncilCardBase>
 		{/if}
 	</div>
@@ -51,6 +61,7 @@
 				name={councilMember.name}
 				position={councilMember.position}
 				image={councilMember.image}
+				onViewProfile={() => handleViewProfile(councilMember)}
 			></CardCouncilBase>
 		{/each}
 		{#each ureps as councilMember}
@@ -58,8 +69,34 @@
 			name={councilMember.name}
 			position={councilMember.position}
 			image={councilMember.image}
+			onViewProfile={() => handleViewProfile(councilMember)}
 		></CardCouncilBase>
 		{/each}
 		</div>
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		{#if selectedMember}
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<div class="fixed inset-0 bg-black/60 flex justify-center items-center z-50"
+		onclick={() => (selectedMember = null)}
+		>
+				<CouncilCard
+					name={selectedMember.name}
+					position={selectedMember.position}
+					email={selectedMember.email}
+					positionDescription={selectedMember.positionDescription}
+					yearProgram={selectedMember.yearProgram}
+					image={selectedMember.image}
+			/>
+		</div>
+		{/if}
 	</div>
 </Section>
+
+<!-- <CouncilCard
+		name={vps[1].name}
+		position={vps[1].position}
+		email={vps[1].email}
+		positionDescription={vps[1].positionDescription}
+		yearProgram={vps[1].yearProgram}
+		image={vps[1].image}
+	></CouncilCard> -->
