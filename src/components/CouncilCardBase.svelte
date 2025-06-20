@@ -13,7 +13,7 @@
     background-color:transparent;
     padding: 1.5rem;
     border-radius: 0.5rem;
-    color: white;
+    color: #A9B7A0;
     max-width: 400px;
   }
 
@@ -40,12 +40,12 @@
   }
 
   .role {
-    color: #a0aec0;
+    color: #828282;
     margin-bottom: 0.5rem;
   }
 
   .button {
-    background-color: #2d3748;
+    background-color: #2C2C2C;
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 0.375rem;
@@ -54,7 +54,7 @@
   }
 
   .button:hover {
-    background-color: #4a5568;
+    background-color: #1E1E1E;
   }
 </style>
 
