@@ -15,17 +15,40 @@
 	import { Avatar } from '@skeletonlabs/skeleton-svelte';
 </script>
 
-<div class="card h-1/2 max-h-1/2 w-full max-w-1/6 rounded-lg border-4 p-4">
+<style lang="postcss">
+	@reference '../app.css';
+
+	.card {
+		@apply flex items-center gap-4 bg-transparent rounded-2xl p-6 text-ecsess-800 border-transparent max-w-[450px] h-[250px];
+		background-image: linear-gradient(to bottom right, #E8FFD9, #97C583);
+	}
+
+	.profile-img {
+		@apply rounded-[10%] overflow-hidden;
+	}
+
+	.profile-img :global(img) {
+		@apply object-cover max-w-full;
+  	}
+</style>
+
+<div class="card">
 	<!-- <img class="size-4/5" src={placeholder} alt="Placeholder"> -->
 	<!-- <Avatar src={placeholder} {name} /> -->
-	{#if image}
-		<Avatar src={image} {name} />
-	{:else}
-		<Avatar src={placeholder} {name} />
-	{/if}
-	<p class="pb-2 text-xl font-bold">{name} - <span class="text-sm"> {yearProgram} </span></p>
-	<hr />
-	<p class="py-2 text-base font-bold">~ {position} ~</p>
-	<p class="underline">{email}</p>
-	<p class="text-sm">{positionDescription}</p>
+	<div class="avatar-container justify-left">
+		<div class="profile-img justify-center">
+			{#if image}
+				<Avatar src={image} {name}/>
+			{:else}
+				<Avatar src={placeholder} {name} />
+			{/if}
+		</div>	
+	<span class="yearProgram text-sm justify-center"> {yearProgram} </span>
+	</div>
+	<div class="content">
+		<p class="pb-2 text-xl font-bold">{name} </p>
+		<p class="py-2 text-base">{position}</p>
+		<p class="pb-2 text-xs">{positionDescription}</p>
+		<a href="mailto:{email}" class="py-2 text-sm underline">{email}</a>
+	</div>
 </div>

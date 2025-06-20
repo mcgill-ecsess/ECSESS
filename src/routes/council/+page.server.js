@@ -9,8 +9,13 @@ const query = `*[_type == "members"]{
   yearProgram
 }`;
 
+const councilGoofyPicQuery = `*[_type == "homepage"]{
+  "url": councilGoofyPic.asset->url+"?h=1000&fm=webp" 
+}[0]`;
+
 export const load = async () => {
 	return {
-		members: await getFromCMS(query)
+		members: await getFromCMS(query),
+    councilGoofyPic: await getFromCMS(councilGoofyPicQuery),
 	};
 };
