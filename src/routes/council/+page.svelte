@@ -3,30 +3,31 @@
 	import Section from 'components/Section.svelte';
 	import CardCouncilBase from 'components/CouncilCardBase.svelte';
 	import CouncilCardBase from 'components/CouncilCardBase.svelte';
-	import type CouncilMember from 'utils/schemas'
+	import type CouncilMember from 'utils/schemas';
 
 	let { data } = $props();
-	let years = ["U4", "U3", "U2", "U1", "U0"]
-	let vps : CouncilMember[] = []
-	let ureps : CouncilMember[] = []
+	let years = ['U4', 'U3', 'U2', 'U1', 'U0'];
+	let vps: CouncilMember[] = [];
+	let ureps: CouncilMember[] = [];
 	// svelte-ignore non_reactive_update
-		let president: CouncilMember | null = null;
+	let president: CouncilMember | null = null;
 	data.members.forEach((member: CouncilMember) => {
-		if (member.position.includes("VP") || member.position.includes("Equity and Mental Health Officer")){
-			vps.push(member); 
-		}
-		else if (member.position.includes("Representative")){
-			ureps.push(member)
+		if (
+			member.position.includes('VP') ||
+			member.position.includes('Equity and Mental Health Officer')
+		) {
+			vps.push(member);
+		} else if (member.position.includes('Representative')) {
+			ureps.push(member);
 			ureps.sort((a, b) => {
-				const aYear = years.findIndex(y => a.position.includes(y))
-				const bYear = years.findIndex(y => b.position.includes(y))
-				return aYear - bYear
-			})
+				const aYear = years.findIndex((y) => a.position.includes(y));
+				const bYear = years.findIndex((y) => b.position.includes(y));
+				return aYear - bYear;
+			});
+		} else if (member.position.includes('President')) {
+			president = member;
 		}
-		else if (member.position.includes("President")){
-			president = member
-		}
-	})
+	});
 
 	let selectedMember = $state<CouncilMember | null>(null);
 
@@ -35,15 +36,18 @@
 	}
 
 	// svelte-ignore state_referenced_locally
-		console.log(selectedMember)
+	// console.log(selectedMember);
 </script>
 
 <title> ECSESS council </title>
 <Section>
 	<p class="page-title">Meet the council!</p>
-	<p>Group picture!</p>
+	<div>
+		<h1>Our Student Council</h1>
+		<img src={data.councilGoofyPic.url} alt="ECSESS Council, but we are goofy" />
+	</div>
 </Section>
-<Section >
+<Section>
 	<div class="president">
 		{#if president}
 			<CouncilCardBase
@@ -55,30 +59,31 @@
 		{/if}
 	</div>
 	<div class="flex justify-center">
-		<div class="flex flex-row flex-wrap justify-center align-middle gap-10 p-4">
-		{#each vps as councilMember}
-			<CardCouncilBase
-				name={councilMember.name}
-				position={councilMember.position}
-				image={councilMember.image}
-				onViewProfile={() => handleViewProfile(councilMember)}
-			></CardCouncilBase>
-		{/each}
-		{#each ureps as councilMember}
-		<CardCouncilBase
-			name={councilMember.name}
-			position={councilMember.position}
-			image={councilMember.image}
-			onViewProfile={() => handleViewProfile(councilMember)}
-		></CardCouncilBase>
-		{/each}
+		<div class="flex flex-row flex-wrap justify-center gap-10 p-4 align-middle">
+			{#each vps as councilMember}
+				<CardCouncilBase
+					name={councilMember.name}
+					position={councilMember.position}
+					image={councilMember.image}
+					onViewProfile={() => handleViewProfile(councilMember)}
+				></CardCouncilBase>
+			{/each}
+			{#each ureps as councilMember}
+				<CardCouncilBase
+					name={councilMember.name}
+					position={councilMember.position}
+					image={councilMember.image}
+					onViewProfile={() => handleViewProfile(councilMember)}
+				></CardCouncilBase>
+			{/each}
 		</div>
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		{#if selectedMember}
-		<!-- svelte-ignore a11y_click_events_have_key_events -->
-		<div class="fixed inset-0 bg-black/60 flex justify-center items-center z-50"
-		onclick={() => (selectedMember = null)}
-		>
+			<!-- svelte-ignore a11y_click_events_have_key_events -->
+			<div
+				class="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+				onclick={() => (selectedMember = null)}
+			>
 				<CouncilCard
 					name={selectedMember.name}
 					position={selectedMember.position}
@@ -86,8 +91,8 @@
 					positionDescription={selectedMember.positionDescription}
 					yearProgram={selectedMember.yearProgram}
 					image={selectedMember.image}
-			/>
-		</div>
+				/>
+			</div>
 		{/if}
 	</div>
 </Section>
