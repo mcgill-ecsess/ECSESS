@@ -2,59 +2,35 @@
   let { onViewProfile, name, position, image } = $props();
   import placeholder from 'assets/placeholderAvatar.png';
   import { Avatar } from '@skeletonlabs/skeleton-svelte';
+	import Button from 'components/Button.svelte';
 
 </script>
 
-<style>
+<style lang="postcss">
+	@reference '../app.css';
+
   .card {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background-color:transparent;
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    color: #A9B7A0;
-    max-width: 400px;
+    @apply flex items-center gap-4 bg-transparent p-6 rounded-lg text-ecsess-200 max-w-[400px];
   }
 
   .profile-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
+    @apply size-[100px] rounded-full overflow-hidden; 
   }
 
   .profile-img :global(img) {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+    @apply object-cover size-full;
   }
 
   .info {
-    flex: 1;
+    @apply flex-1;
   }
 
   .name {
-    font-size: 1.25rem;
-    font-weight: bold;
+    @apply text-xl font-bold;
   }
 
   .role {
-    color: #828282;
-    margin-bottom: 0.5rem;
-  }
-
-  .button {
-    background-color: #2C2C2C;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  .button:hover {
-    background-color: #1E1E1E;
+    @apply text-ecsess-200 mb-2;
   }
 </style>
 
@@ -69,7 +45,8 @@
   <div class="info">
     <div class="name">{name}</div>
     <div class="role">{position}</div>
-    <button class="button" onclick={onViewProfile}>View Profile</button>
+    <!-- <button class="button" onclick={onViewProfile}>View Profile</button> -->
+    <Button onclick={onViewProfile}>View Profile</Button>
   </div>
 </div>
 

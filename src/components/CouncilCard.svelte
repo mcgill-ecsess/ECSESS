@@ -15,30 +15,21 @@
 	import { Avatar } from '@skeletonlabs/skeleton-svelte';
 </script>
 
-<style>
-	.card{
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-		background-color:transparent;
-		border-radius: 20px;
-		padding:1.5rem; 
-		color:  #0A3D2A;
-		border-color:transparent;
+<style lang="postcss">
+	@reference '../app.css';
+
+	.card {
+		@apply flex items-center gap-4 bg-transparent rounded-2xl p-6 text-ecsess-800 border-transparent max-w-[450px] h-[250px];
 		background-image: linear-gradient(to bottom right, #E8FFD9, #97C583);
-		max-width: 450px;
-		height: 250px;
 	}
 
-	.profile-img{
-    border-radius: 10%;
-    overflow: hidden;
+	.profile-img {
+		@apply rounded-[10%] overflow-hidden;
 	}
 
 	.profile-img :global(img) {
-    object-fit: cover;
-    max-width: 100%;
-  }
+		@apply object-cover max-w-full;
+  	}
 </style>
 
 <div class="card">
@@ -56,11 +47,8 @@
 	</div>
 	<div class="content">
 		<p class="pb-2 text-xl font-bold">{name} </p>
-		<hr />
 		<p class="py-2 text-base">{position}</p>
 		<p class="pb-2 text-xs">{positionDescription}</p>
-		<hr />
-
 		<a href="mailto:{email}" class="py-2 text-sm underline">{email}</a>
 	</div>
 </div>
