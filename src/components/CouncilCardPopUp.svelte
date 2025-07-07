@@ -1,15 +1,4 @@
 <script>
-	/**
-	 * Schemas for Council Members:
-	 * {
-	 *   email,
-	 *   name,
-	 *   position,
-	 *   positionDescription,
-	 *   yearProgram,
-	 * 	 image // CDN URL from Sanity CMS
-	 * }
-	 */
 	let { name, position, email, positionDescription, yearProgram, image } = $props();
 	import placeholder from 'assets/placeholderAvatar.png';
 </script>
@@ -37,8 +26,6 @@
 </style>
 
 <div class="card">
-	<!-- <img class="size-4/5" src={placeholder} alt="Placeholder"> -->
-	<!-- <Avatar src={placeholder} {name} /> -->
 	<div class="avatar-container justify-left">
 		<div class="profile-img justify-center">
 			<img src={image || placeholder} alt={name} />
