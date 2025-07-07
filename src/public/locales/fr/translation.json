@@ -1,0 +1,10 @@
+{
+    "nav":{
+        "home": "Accueil", 
+        "meet-the-countil": "Le Conseil", 
+        "events": "Évènements", 
+        "resources":"Resources", 
+        "join-ecsess":"Joindre ECSESS",
+        "components":"Components"
+    }
+}
