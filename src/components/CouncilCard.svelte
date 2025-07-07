@@ -12,7 +12,6 @@
 	 */
 	let { name, position, email, positionDescription, yearProgram, image } = $props();
 	import placeholder from 'assets/placeholderAvatar.png';
-	import { Avatar } from '@skeletonlabs/skeleton-svelte';
 </script>
 
 <style lang="postcss">
@@ -24,12 +23,13 @@
 	}
 
 	.profile-img {
-		@apply rounded-[10%] overflow-hidden;
+		@apply w-32 h-32 shadow-md overflow-hidden rounded-lg;
 	}
 
 	.profile-img :global(img) {
-		@apply object-cover max-w-full;
-  	}
+		@apply w-full h-full object-cover;
+	}
+
 </style>
 
 <div class="card">
@@ -37,11 +37,7 @@
 	<!-- <Avatar src={placeholder} {name} /> -->
 	<div class="avatar-container justify-left">
 		<div class="profile-img justify-center">
-			{#if image}
-				<Avatar src={image} {name}/>
-			{:else}
-				<Avatar src={placeholder} {name} />
-			{/if}
+			<img src={image || placeholder} alt={name} />
 		</div>	
 	<span class="yearProgram text-sm justify-center"> {yearProgram} </span>
 	</div>

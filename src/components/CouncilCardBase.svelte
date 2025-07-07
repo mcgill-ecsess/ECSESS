@@ -1,7 +1,6 @@
 <script>
   let { onViewProfile, name, position, image } = $props();
   import placeholder from 'assets/placeholderAvatar.png';
-  import { Avatar } from '@skeletonlabs/skeleton-svelte';
 	import Button from 'components/Button.svelte';
 
 </script>
@@ -36,11 +35,7 @@
 
 <div class="card">
 	<div class="profile-img">
-		{#if image}
-			<Avatar src={image} {name}/>
-		{:else}
-			<Avatar src={placeholder} {name} />
-		{/if}
+		<img src={image || placeholder} alt={name} />
 	</div>
   <div class="info">
     <div class="name">{name}</div>
