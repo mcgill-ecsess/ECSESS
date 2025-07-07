@@ -1,8 +1,7 @@
 <script lang="ts">
-	import CouncilCard from 'components/CouncilCard.svelte';
+	import CouncilCardPopUp from 'components/CouncilCardPopUp.svelte';
 	import Section from 'components/Section.svelte';
-	import CardCouncilBase from 'components/CouncilCardBase.svelte';
-	import CouncilCardBase from 'components/CouncilCardBase.svelte';
+	import CardCouncil from 'components/CouncilCard.svelte';
 	import type CouncilMember from 'utils/schemas';
 
 	let { data } = $props();
@@ -52,31 +51,31 @@
 <Section>
 	<div class="president">
 		{#if president}
-			<CouncilCardBase
+			<CardCouncil
 				name={president.name}
 				position={president.position}
 				image={president.image}
 				onViewProfile={() => handleViewProfile(president!)}
-			></CouncilCardBase>
+			/>
 		{/if}
 	</div>
 	<div class="flex justify-center">
 		<div class="flex flex-row flex-wrap justify-center gap-10 p-4 align-middle">
 			{#each vps as councilMember}
-				<CardCouncilBase
+				<CardCouncil
 					name={councilMember.name}
 					position={councilMember.position}
 					image={councilMember.image}
 					onViewProfile={() => handleViewProfile(councilMember)}
-				></CardCouncilBase>
+				/>
 			{/each}
 			{#each ureps as councilMember}
-				<CardCouncilBase
+				<CardCouncil
 					name={councilMember.name}
 					position={councilMember.position}
 					image={councilMember.image}
 					onViewProfile={() => handleViewProfile(councilMember)}
-				></CardCouncilBase>
+				/>
 			{/each}
 		</div>
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -86,7 +85,7 @@
 				class="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
 				onclick={() => (selectedMember = null)}
 			>
-				<CouncilCard
+				<CouncilCardPopUp
 					name={selectedMember.name}
 					position={selectedMember.position}
 					email={selectedMember.email}
