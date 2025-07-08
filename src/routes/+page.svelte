@@ -2,6 +2,7 @@
 	import FaqAccordion from 'components/FAQAccordion.svelte';
 	import Section from 'components/Section.svelte';
 	import { PortableText } from '@portabletext/svelte';
+	import Sponsor from 'components/Sponsor.svelte';
 
 	/** loading things from the server side */
 	let { data } = $props();
@@ -35,5 +36,12 @@
 	<div>
 		<h1 class="text-2xl">Office Hours</h1>
 		<p>Under development</p>
+	</div>
+</Section>
+
+<Section black>
+	<div>
+		<h1>Sponsors</h1>
+		<Sponsor name="Schneider Electric" logo="" url="example.com"/>
 	</div>
 </Section>
