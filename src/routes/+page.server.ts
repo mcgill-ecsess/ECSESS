@@ -11,7 +11,7 @@ const ohQuery = `*[_type=="officeHours"]{
   day,
   startTime,
   endTime,
-  "host": {
+  "member": {
     "name": member->name,
     "position": member->position
   }

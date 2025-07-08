@@ -29,7 +29,7 @@
 		<div>
 			{DOTW}
 			{#each sortedOHs.filter((OH) => OH.day == DOTW) as OH}
-				<OhBlock member={OH.host.name} startTime={OH.startTime} endTime={OH.endTime}></OhBlock>
+				<OhBlock member={OH.member} startTime={OH.startTime} endTime={OH.endTime}></OhBlock>
 			{/each}
 		</div>
 	{/each}
