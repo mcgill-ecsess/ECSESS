@@ -5,6 +5,10 @@
 
 	/** loading things from the server side */
 	let { data } = $props();
+
+	// Temporary progress bar. Update the value below!
+	import { Progress } from '@skeletonlabs/skeleton-svelte';
+	let progress = 60;
 </script>
 
 <title> McGill ECSESS </title>
@@ -15,6 +19,14 @@
 		<p class="page-title">What is ECSESS?</p>
 		<div id="test">
 			<PortableText value={data.description} />
+		</div>
+
+		<br />
+		<p class="italic">
+			Current development progress: {progress}%
+		</p>
+		<div id="progress" class="w-[80vw] lg:w-1/2 border-2">
+			<Progress value={progress} max={100} meterBg="bg-ecsess-200" height="h-4"></Progress>
 		</div>
 	</div>
 </Section>
