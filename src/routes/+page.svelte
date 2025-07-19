@@ -34,13 +34,15 @@
 
 <!-- Picture, FAQ -->
 <Section black>
-	<div>
-		<h1>Our Student Council</h1>
-		<img src={data.councilPhoto} alt="ECSESS Council" />
-	</div>
-	<div>
-		<h1>FAQ</h1>
-		<FaqAccordion entries={data.faqs} />
+	<div class="md:grid md:grid-cols-3 md:gap-6">
+		<div class="col-span-2">
+			<h1>Our Student Council</h1>
+			<img src={data.councilPhoto} alt="ECSESS Council" />
+		</div>
+		<div class="col-span-1 place-self-center md:place-content-around m-6 w-full">
+			<h1>FAQ</h1>
+			<FaqAccordion entries={data.faqs} />
+		</div>
 	</div>
 </Section>
 <!-- Office Hours Calendar -->
