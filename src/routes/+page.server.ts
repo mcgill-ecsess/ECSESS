@@ -3,7 +3,7 @@ import type { HomepageCMSResponse, OhCMSResponse } from '$lib/schemas';
 
 const homepageQuery = `*[_type == "homepage"]{
 	"description": description[],
-	"councilPhoto": councilPhoto.asset->url,
+	"councilPhoto": councilPhoto.asset->url+"?h=1200&fm=webp",
 	"faqs": faqs[]{ question, answer },
 }[0]`;
 

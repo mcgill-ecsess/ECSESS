@@ -11,6 +11,11 @@ export type EventPost = {
 	payment: string; // event payment link (e.g., Zeffy)
 };
 
+export type FAQ = {
+	question: string;
+	answer: string;
+}
+
 import type { InputValue } from '@portabletext/svelte';
 
 export type HomepageCMSResponse = {
