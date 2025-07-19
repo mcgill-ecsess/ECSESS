@@ -13,8 +13,10 @@
 			<p>{event.name}</p>
 			<p>{event.date}</p>
 			<p>{event.location}</p>
-			<PortableText value={event.description} />
-            Category:
+			{#if event.description}
+				<PortableText value={event.description} />
+			{/if}
+			Category:
 			<div class="list">
 				<ul class="list-inside list-disc space-y-2">
 					{#each event.category as cat}
