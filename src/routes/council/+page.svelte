@@ -2,30 +2,34 @@
 	import CouncilCardPopUp from 'components/CouncilCardPopUp.svelte';
 	import Section from 'components/Section.svelte';
 	import CardCouncil from 'components/CouncilCard.svelte';
-	import type CouncilMember from 'utils/schemas';
+	import type { CouncilMember } from '$lib/schemas';
+	import { fly, slide } from 'svelte/transition';
 
 	let { data } = $props();
+
+	// Get members by 3 main categories:
+	// - Preseident
+	// - VPs + Equity and Mental Health Officer
+	// - UReps
+	let president: CouncilMember = data.members.filter((member: CouncilMember) =>
+		member.position.includes('President')
+	)[0];
+
+	let vps: CouncilMember[] = data.members.filter(
+		(member: CouncilMember) =>
+			member.position.includes('VP') || member.position.includes('Equity and Mental Health Officer')
+	);
+
+	let ureps: CouncilMember[] = data.members.filter((member: CouncilMember) =>
+		member.position.includes('Representative')
+	);
+
 	let years = ['U4', 'U3', 'U2', 'U1', 'U0'];
-	let vps: CouncilMember[] = [];
-	let ureps: CouncilMember[] = [];
-	// svelte-ignore non_reactive_update
-	let president: CouncilMember | null = null;
-	data.members.forEach((member: CouncilMember) => {
-		if (
-			member.position.includes('VP') ||
-			member.position.includes('Equity and Mental Health Officer')
-		) {
-			vps.push(member);
-		} else if (member.position.includes('Representative')) {
-			ureps.push(member);
-			ureps.sort((a, b) => {
-				const aYear = years.findIndex((y) => a.position.includes(y));
-				const bYear = years.findIndex((y) => b.position.includes(y));
-				return aYear - bYear;
-			});
-		} else if (member.position.includes('President')) {
-			president = member;
-		}
+
+	ureps.sort((a, b) => {
+		const aYear = years.findIndex((year) => a.position.includes(year));
+		const bYear = years.findIndex((year) => b.position.includes(year));
+		return aYear - bYear;
 	});
 
 	let selectedMember = $state<CouncilMember | null>(null);
@@ -33,11 +37,6 @@
 	function handleViewProfile(member: CouncilMember) {
 		selectedMember = member;
 	}
-
-	console.log(ureps);
-
-	// svelte-ignore state_referenced_locally
-	// console.log(selectedMember);
 </script>
 
 <title> ECSESS council </title>
@@ -45,39 +44,39 @@
 	<p class="page-title">Meet the council!</p>
 	<div>
 		<h1>Our Student Council</h1>
-		<img src={data.councilGoofyPic.url} alt="ECSESS Council, but we are goofy" />
+		<img src={data.councilGoofyPic.url} alt="ECSESS Council, but we are goofy" transition:fly />
 	</div>
 </Section>
 <Section>
-	<div class="president">
-		{#if president}
-			<CardCouncil
-				name={president.name}
-				position={president.position}
-				image={president.image}
-				onViewProfile={() => handleViewProfile(president!)}
-			/>
-		{/if}
+	<div>
+		<CardCouncil
+			name={president.name}
+			position={president.position}
+			image={president.image}
+			onViewProfile={() => handleViewProfile(president!)}
+		/>
 	</div>
+
 	<div class="flex justify-center">
 		<div class="flex flex-row flex-wrap justify-center gap-10 p-4 align-middle">
-			{#each vps as councilMember}
+			{#each vps as vp}
 				<CardCouncil
-					name={councilMember.name}
-					position={councilMember.position}
-					image={councilMember.image}
-					onViewProfile={() => handleViewProfile(councilMember)}
+					name={vp.name}
+					position={vp.position}
+					image={vp.image}
+					onViewProfile={() => handleViewProfile(vp)}
 				/>
 			{/each}
-			{#each ureps as councilMember}
+			{#each ureps as urep}
 				<CardCouncil
-					name={councilMember.name}
-					position={councilMember.position}
-					image={councilMember.image}
-					onViewProfile={() => handleViewProfile(councilMember)}
+					name={urep.name}
+					position={urep.position}
+					image={urep.image}
+					onViewProfile={() => handleViewProfile(urep)}
 				/>
 			{/each}
 		</div>
+
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		{#if selectedMember}
 			<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -97,12 +96,3 @@
 		{/if}
 	</div>
 </Section>
-
-<!-- <CouncilCard
-		name={vps[1].name}
-		position={vps[1].position}
-		email={vps[1].email}
-		positionDescription={vps[1].positionDescription}
-		yearProgram={vps[1].yearProgram}
-		image={vps[1].image}
-	></CouncilCard> -->
