@@ -10,7 +10,7 @@ const eventQuery = `*[_type == "events"]{
   "lastUpdated": _updatedAt,
 }`;
 
-export const load = async () => {
+export const load = async () => {  
 	return {
 		events: await getFromCMS(eventQuery),
 	};
