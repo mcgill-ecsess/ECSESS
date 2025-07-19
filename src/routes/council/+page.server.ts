@@ -1,4 +1,4 @@
-import { getFromCMS } from 'utils/utils.js';
+import { getFromCMS } from '$lib/utils.js';
 
 const query = `*[_type == "members"]{
   name,

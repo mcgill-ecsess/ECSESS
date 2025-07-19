@@ -1,4 +1,4 @@
-import { getFromCMS } from 'utils/utils.js';
+import { getFromCMS } from '$lib/utils.js';
 import type { HomepageCMSResponse, OhCMSResponse } from '$lib/schemas';
 
 const homepageQuery = `*[_type == "homepage"]{
