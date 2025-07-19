@@ -16,12 +16,17 @@
     font-family: "Saira", sans-serif;
     font-optical-sizing: auto;
     font-weight: 500;
+    scroll-behavior: smooth;
 }
 
 h1 {
-    @apply text-3xl font-bold py-4;
+    @apply text-2xl md:text-3xl font-bold py-4;
+}
+
+h2 {
+    @apply text-xl md:text-2xl font-bold py-3;
 }
 
 .page-title {
-    @apply text-4xl md:text-6xl font-bold py-4;
+    @apply text-3xl md:text-4xl lg:text-6xl font-bold py-4;
 }

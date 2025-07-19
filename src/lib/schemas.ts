@@ -27,7 +27,7 @@ export type HomepageCMSResponse = {
 	}[];
 };
 
-export type OhCMSResponse = {
+export type OfficeHour = {
 	day: string;
 	startTime: string;
 	endTime: string;
@@ -35,7 +35,7 @@ export type OhCMSResponse = {
 		name: string;
 		position: string;
 	};
-}[];
+};
 
 export type CouncilMember = {
 	name: string;
