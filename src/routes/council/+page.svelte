@@ -16,8 +16,7 @@
 	)[0];
 
 	let vps: CouncilMember[] = data.members.filter(
-		(member: CouncilMember) =>
-			member.position.includes('VP') || member.position.includes('Equity and Mental Health Officer')
+		(member: CouncilMember) => member.position.includes('VP') || member.position.includes('Equity')
 	);
 
 	let ureps: CouncilMember[] = data.members.filter((member: CouncilMember) =>
@@ -43,11 +42,16 @@
 <Section>
 	<p class="page-title">Meet the council!</p>
 	<div>
-		<h1>Our Student Council</h1>
-		<img src={data.councilGoofyPic.url} alt="ECSESS Council, but we are goofy" transition:fly />
+		<img
+			src={data.councilGoofyPic.url}
+			alt="ECSESS Council, but we are goofy"
+			class="ring-ecsess-400 shadow-ecsess-black mb-8 place-self-center rounded-lg shadow-2xl ring-4 lg:w-[90%]"
+			transition:fly
+		/>
 	</div>
-</Section>
-<Section>
+
+	<h1 class="border-b-ecsess-200 w-full border-b-2 lg:w-1/2">Our Student Council!</h1>
+
 	<div>
 		<CardCouncil
 			name={president.name}
@@ -57,8 +61,13 @@
 		/>
 	</div>
 
-	<div class="flex justify-center">
-		<div class="flex flex-row flex-wrap justify-center gap-10 p-4 align-middle">
+	<div class="flex flex-col justify-center">
+		<h2
+			class="border-b-ecsess-200 w-full place-self-center-safe border-b-2 border-dashed md:w-1/2 lg:w-1/3"
+		>
+			Vice Presidents
+		</h2>
+		<div class="flex flex-row flex-wrap justify-baseline gap-10 p-4 align-middle md:justify-center">
 			{#each vps as vp}
 				<CardCouncil
 					name={vp.name}
@@ -67,6 +76,14 @@
 					onViewProfile={() => handleViewProfile(vp)}
 				/>
 			{/each}
+		</div>
+
+		<h2
+			class="border-b-ecsess-200 w-full place-self-center-safe border-b-2 border-dashed md:w-1/2 lg:w-1/3"
+		>
+			Year Representative
+		</h2>
+		<div class="flex flex-row flex-wrap justify-baseline gap-10 p-4 align-middle md:justify-center">
 			{#each ureps as urep}
 				<CardCouncil
 					name={urep.name}
@@ -76,23 +93,22 @@
 				/>
 			{/each}
 		</div>
-
-		<!-- svelte-ignore a11y_no_static_element_interactions -->
-		{#if selectedMember}
-			<!-- svelte-ignore a11y_click_events_have_key_events -->
-			<div
-				class="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
-				onclick={() => (selectedMember = null)}
-			>
-				<CouncilCardPopUp
-					name={selectedMember.name}
-					position={selectedMember.position}
-					email={selectedMember.email}
-					positionDescription={selectedMember.positionDescription}
-					yearProgram={selectedMember.yearProgram}
-					image={selectedMember.image}
-				/>
-			</div>
-		{/if}
 	</div>
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	{#if selectedMember}
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<div
+			class="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+			onclick={() => (selectedMember = null)}
+		>
+			<CouncilCardPopUp
+				name={selectedMember.name}
+				position={selectedMember.position}
+				email={selectedMember.email}
+				positionDescription={selectedMember.positionDescription}
+				yearProgram={selectedMember.yearProgram}
+				image={selectedMember.image}
+			/>
+		</div>
+	{/if}
 </Section>
