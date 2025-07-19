@@ -19,18 +19,18 @@
 	<div class="place-self-center-safe md:grid md:gap-6 lg:grid-cols-3">
 		<div class="m-8 w-full place-self-center md:place-content-around lg:col-span-1">
 			<div class="flex h-1/2 flex-col items-center justify-center text-center">
+				<p class="page-title">What is ECSESS?</p>
+				<div class="p-4">
+					<PortableText value={data.description} />
+				</div>
+
 				<div class="animate-pulse">
 					<p class="italic">
 						Development progress: {progress}%
 					</p>
-					<div id="progress" class="my-2 w-[80vw] border-2 lg:w-1/2">
+					<div id="progress" class="my-2 border-2">
 						<Progress value={progress} max={100} meterBg="bg-ecsess-200" height="h-4"></Progress>
 					</div>
-				</div>
-
-				<p class="page-title">What is ECSESS?</p>
-				<div class="p-4">
-					<PortableText value={data.description} />
 				</div>
 			</div>
 		</div>
