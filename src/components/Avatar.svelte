@@ -10,6 +10,7 @@
 	{src}
     font={"text-xl text-ecsess-black"}
 	{size}
+    rounded={"rounded-full"}
 	background="bg-ecsess-400"
 	imageBase="object-cover w-full h-full"
 />
