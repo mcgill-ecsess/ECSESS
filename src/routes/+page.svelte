@@ -2,6 +2,7 @@
 	import FaqAccordion from 'components/FAQAccordion.svelte';
 	import Section from 'components/Section.svelte';
 	import { PortableText } from '@portabletext/svelte';
+	import OhSchedule from 'components/OHSchedule.svelte';
 
 	/** loading things from the server side */
 	let { data } = $props();
@@ -46,6 +47,6 @@
 <Section>
 	<div>
 		<h1 class="text-2xl">Office Hours</h1>
-		<p>Under development</p>
+		<OhSchedule allOhs={data.allOHs}/>
 	</div>
 </Section>

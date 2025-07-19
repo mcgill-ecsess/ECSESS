@@ -1,4 +1,4 @@
-import { getFromCMS } from 'utils/utils.js';
+import { getFromCMS } from '$lib/utils.js';
 
 // needs to concat and format this text
 const query = `*[_type == "resources"]{

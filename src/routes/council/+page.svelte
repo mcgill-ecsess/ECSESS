@@ -34,7 +34,7 @@
 		selectedMember = member;
 	}
 
-	console.log(ureps)
+	console.log(ureps);
 
 	// svelte-ignore state_referenced_locally
 	// console.log(selectedMember);
