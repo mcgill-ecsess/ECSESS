@@ -1,7 +1,7 @@
 <script>
 	import FaqAccordion from 'components/FAQAccordion.svelte';
 	import Section from 'components/Section.svelte';
-	import { PortableText } from '@portabletext/svelte';
+	import RichText from 'components/RichText.svelte';
 	import OhSchedule from 'components/OHSchedule.svelte';
 
 	/** loading things from the server side */
@@ -18,9 +18,7 @@
 <Section>
 	<div class="flex h-1/2 flex-col items-center justify-center text-center">
 		<p class="page-title">What is ECSESS?</p>
-		<div id="test">
-			<PortableText value={data.description} />
-		</div>
+		<RichText value={data.description}/>
 
 		<br />
 		<p class="italic">
