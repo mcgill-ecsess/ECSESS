@@ -1,32 +1,186 @@
 @import url('https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'tailwindcss';
-@plugin '@tailwindcss/typography';
-
 
 @theme {
-    --color-ecsess-200: #A9B7A0;
-    --color-ecsess-400: #5C8A5C;
-    --color-ecsess-600: #3B6A3A;
-    --color-ecsess-800: #0A3D2A;
-    --color-ecsess-black: #1F1F1F;
-    --color-ecsess-black-hover:#2c2c2c;
+	--color-ecsess-200: #a9b7a0;
+	--color-ecsess-400: #5c8a5c;
+	--color-ecsess-600: #3b6a3a;
+	--color-ecsess-800: #0a3d2a;
+	--color-ecsess-black: #1f1f1f;
+	--color-ecsess-black-hover: #2c2c2c;
 }
 
 * {
-    font-family: "Saira", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    scroll-behavior: smooth;
+	font-family: 'Saira', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 500;
+	scroll-behavior: smooth;
 }
 
 h1 {
-    @apply text-2xl md:text-3xl font-bold py-4;
+	@apply py-4 text-2xl font-bold md:text-3xl;
 }
 
 h2 {
-    @apply text-xl md:text-2xl font-bold py-3;
+	@apply py-3 text-xl font-bold md:text-2xl;
 }
 
 .page-title {
-    @apply text-3xl md:text-4xl lg:text-6xl font-bold py-4;
+	@apply py-4 text-3xl font-bold md:text-4xl lg:text-6xl;
+}
+
+.typography {
+	@apply text-sm md:text-base lg:text-lg;
+
+	p {
+		@apply my-2 leading-relaxed;
+	}
+
+	strong, b {
+		@apply font-bold;
+	}
+
+	i {
+		@apply italic;
+	}
+
+	blockquote {
+		@apply bg-ecsess-200 text-ecsess-600 border-l-ecsess-800 my-4 rounded-sm border-l-4 py-[0.01rem] ps-4 italic;
+	}
+
+	h1 {
+		@apply my-4 text-4xl leading-10 font-extrabold;
+	}
+
+	h2 {
+		@apply mt-4 mb-3 text-2xl leading-8 font-black;
+	}
+
+	h3 {
+		@apply mt-4 mb-1 text-xl leading-relaxed font-bold;
+	}
+
+	h4 {
+		@apply mt-6 mb-2 leading-6;
+	}
+
+	img,
+	picture,
+	video {
+		@apply my-8;
+	}
+
+	picture > img {
+		@apply mt-0 mb-0;
+	}
+
+	code,
+	kbd {
+		@apply rounded-md font-mono text-sm;
+	}
+
+	h2 code {
+		@apply text-[1.3125rem]; /* 21px */
+	}
+
+	h3 code {
+		@apply text-[1.125rem]; /* 18px */
+	}
+
+	pre {
+		@apply my-3 rounded-md px-4 pt-3 pb-3 font-mono text-sm leading-6;
+	}
+
+	ol,
+	ul {
+		@apply my-2 list-outside list-disc ps-[1.625rem];
+	}
+
+	li {
+		@apply my-1 leading-relaxed;
+	}
+
+	ol > li,
+	ul > li {
+		@apply ps-1;
+	}
+
+	> ul > li p {
+		@apply my-2 leading-relaxed;
+	}
+
+	ul ul,
+	ul ol,
+	ol ul,
+	ol ol {
+		@apply my-1;
+	}
+
+	dl {
+		@apply my-5;
+	}
+
+	dt {
+		@apply mt-5;
+	}
+
+	dd {
+		@apply mt-2 ps-[1.625rem];
+	}
+
+	hr {
+		@apply my-12;
+	}
+
+	hr + *,
+	h2 + *,
+	h3 + *,
+	h4 + * {
+		@apply mt-0;
+	}
+
+	table {
+		@apply w-full;
+	}
+
+	thead {
+		@apply border-ecsess-400 border-b-2;
+	}
+
+	thead th {
+		@apply text-ecsess-400 p-2 text-left text-base font-bold;
+	}
+
+	tbody td,
+	tfoot td {
+		@apply p-2.5;
+	}
+
+	td > a {
+		@apply underline transition-colors;
+	}
+
+	tbody tr:nth-child(odd) {
+		@apply bg-ecsess-200/24;
+	}
+
+	td + td {
+		@apply border-l;
+	}
+
+	tfoot {
+		@apply border-t;
+	}
+
+	figure {
+		@apply my-8;
+	}
+
+	figure > * {
+		@apply my-0;
+	}
+
+	figcaption {
+		@apply mt-3 text-sm leading-5;
+	}
 }

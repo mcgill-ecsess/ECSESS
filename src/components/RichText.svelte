@@ -4,6 +4,6 @@
 	let { value } = $props();
 </script>
 
-<div id="test" class="prose prose-base lg:prose-lg **:text-ecsess-200">
+<div id="test" class="typography">
 	<PortableText {value} />
 </div>
