@@ -39,7 +39,7 @@
 	{#each entries as entry, index}
 		<Accordion.Item
 			value={index.toString()}
-			classes="border-ecsess-200 mb-4 rounded-xl border-2 hover:bg-ecsess-black-hover"
+			classes="border-ecsess-200 mb-4 rounded-xl border-2 hover:bg-ecsess-600/48 transition-all"
 			leadClasses="text-lg font-bold"
 			controlClasses="
             flex cursor-pointer justify-between

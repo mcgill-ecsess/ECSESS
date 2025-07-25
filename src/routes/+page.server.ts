@@ -1,5 +1,5 @@
 import { getFromCMS } from '$lib/utils.js';
-import type { HomepageCMSResponse, OfficeHour } from '$lib/schemas';
+import type { HomepageCMSResponse, OfficeHour, Sponsors } from '$lib/schemas';
 
 const homepageQuery = `*[_type == "homepage"]{
 	"description": description[],
@@ -17,6 +17,12 @@ const ohQuery = `*[_type=="officeHours"]{
   }
 }`;
 
+const sponsorQuery = `*[_type=="sponsors"]{
+    name,
+    url,
+    "logo": logo.asset->url+"?h=100&fm=webp"
+}`;
+
 export const load = async () => {
 	/**
 	 * @description Response data type based on the `homepageQuery` above.
@@ -24,11 +30,13 @@ export const load = async () => {
 	 */
 	let homepageResp: HomepageCMSResponse = await getFromCMS(homepageQuery);
 	let officeHourResp: OfficeHour[] = await getFromCMS(ohQuery);
+	let sponsorsResp: Sponsors[] = await getFromCMS(sponsorQuery);
 
 	return {
 		description: homepageResp.description,
 		councilPhoto: homepageResp.councilPhoto,
 		faqs: homepageResp.faqs,
-		allOHs: officeHourResp
+		allOHs: officeHourResp,
+		sponsors: sponsorsResp
 	};
 };

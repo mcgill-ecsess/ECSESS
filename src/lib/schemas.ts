@@ -14,7 +14,7 @@ export type EventPost = {
 export type FAQ = {
 	question: string;
 	answer: string;
-}
+};
 
 import type { InputValue } from '@portabletext/svelte';
 
@@ -50,6 +50,12 @@ export type Resource = {
 	title: string;
 	url: string;
 	description: string;
-}
+};
+
+export type Sponsors = {
+	name: string;
+	url: string;
+	logo: string;
+};
 
 export type Redirect = { shortname: string; url: string };
