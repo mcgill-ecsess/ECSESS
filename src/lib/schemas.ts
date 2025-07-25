@@ -46,4 +46,10 @@ export type CouncilMember = {
 	yearProgram: string;
 };
 
+export type Resource = {
+	title: string;
+	url: string;
+	description: string;
+}
+
 export type Redirect = { shortname: string; url: string };

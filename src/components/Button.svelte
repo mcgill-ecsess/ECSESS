@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { children, onclick } = $props();
+	let { children, onclick = null } = $props();
 </script>
 
 <button

@@ -1,4 +1,5 @@
 <script>
+	import ResourceCard from 'components/ResourceCard.svelte';
 	import Section from 'components/Section.svelte';
 	let { data } = $props();
 </script>
@@ -8,12 +9,11 @@
 <Section>
 	<p class="page-title">Resources</p>
 
-	<h1>Resources for ECSE students at McGill University, presented by ECSESS!</h1>
-
-	{#each data.resources as re}
-		{re.title} <br>
-		{re.url} <br>
-		{re.description} <br>
-		<p>==============</p>
-	{/each}
+	<div class="flex flex-col gap-8">
+		{#each data.resources as re}
+		<ResourceCard title={re.title} link={re.url}>
+			{re.description}
+		</ResourceCard>
+		{/each}
+	</div>
 </Section>
