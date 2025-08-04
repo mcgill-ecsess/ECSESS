@@ -49,34 +49,31 @@
 <!-- Office Hours Calendar -->
 <Section black>
 	<div class="w-full">
-		<div class="">
-			<h1 id="office-hours">Office Hours</h1>
-			<OhSchedule allOhs={data.allOHs} />
-		</div>
+		<h1 id="office-hours">Office Hours</h1>
+		<OhSchedule allOhs={data.allOHs} />
 	</div>
 </Section>
 
 <Section>
-	<div class="grid grid-cols-2 w-full max-w-[80vw] gap-24">
-
-		<div class="col-span-1">
+	<div class="grid w-full max-w-[80vw] grid-cols-1 gap-12 lg:gap-24 lg:grid-cols-2">
+		<div>
 			<h1>FAQs</h1>
-			<hr class="hr py-4 border-dashed w-full">
+			<hr class="hr w-full border-dashed py-4" />
 			<FaqAccordion entries={data.faqs} />
 		</div>
-		<div id="sponsors" class="col-span-1">
+		<div id="sponsors" class="mb-24">
 			<h1>Sponsors</h1>
-			<hr class="hr py-4 border-dashed w-full">
-			
+			<hr class="hr w-full border-dashed py-4" />
+
 			<div class="flex gap-12">
 				{#each data.sponsors as sponsor}
-				<div class="max-h-20">
-					<Link href={sponsor.url}>
-						<img src={sponsor.logo} alt="{sponsor.name} Logo" class="max-h-24"/>
-					</Link>
-				</div>
+					<div class="max-h-20">
+						<Link href={sponsor.url}>
+							<img src={sponsor.logo} alt="{sponsor.name} Logo" class="max-h-24" />
+						</Link>
+					</div>
 				{/each}
 			</div>
 		</div>
 	</div>
-	</Section>
+</Section>
