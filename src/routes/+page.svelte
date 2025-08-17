@@ -55,7 +55,7 @@
 </Section>
 
 <Section>
-	<div class="grid w-full max-w-[80vw] grid-cols-1 gap-12 lg:gap-24 lg:grid-cols-2">
+	<div class="grid w-full max-w-[80vw] grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-24">
 		<div>
 			<h1>FAQs</h1>
 			<hr class="hr w-full border-dashed py-4" />
