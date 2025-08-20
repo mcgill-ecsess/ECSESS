@@ -1,39 +1,79 @@
 <script>
 	import FaqAccordion from 'components/FAQAccordion.svelte';
 	import Section from 'components/Section.svelte';
-	import { PortableText } from '@portabletext/svelte';
+	import RichText from 'components/RichText.svelte';
+	import OhSchedule from 'components/OHSchedule.svelte';
+	import Link from 'components/Link.svelte';
 
 	/** loading things from the server side */
 	let { data } = $props();
+
+	// Temporary progress bar. Update the value below!
+	import { Progress } from '@skeletonlabs/skeleton-svelte';
+	let progress = 63.33;
 </script>
 
 <title> McGill ECSESS </title>
 
 <!-- ECSESS Introduction -->
 <Section>
-	<div class="flex h-1/2 flex-col items-center justify-center text-center">
-		<p class="page-title">What is ECSESS?</p>
-		<div id="test">
-			<PortableText value={data.description} />
+	<div class="place-self-center-safe md:grid md:gap-6 lg:grid-cols-3">
+		<div class="m-8 w-full place-self-center md:place-content-around lg:col-span-1">
+			<div class="flex h-1/2 flex-col items-center justify-center text-center">
+				<p class="page-title">What is ECSESS?</p>
+				<div class="p-4">
+					<RichText value={data.description} />
+				</div>
+
+				<div class="animate-pulse">
+					<p class="italic">
+						Development progress: {progress}%
+					</p>
+					<div id="progress" class="my-2 border-2">
+						<Progress value={progress} max={100} meterBg="bg-ecsess-200" height="h-4"></Progress>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="m-4 place-content-around lg:col-span-2 lg:mx-12 lg:my-0">
+			<img
+				src={data.councilPhoto}
+				alt="ECSESS Council"
+				class="ring-ecsess-600 shadow-ecsess-400 rounded-2xl shadow-md ring-4"
+			/>
 		</div>
 	</div>
 </Section>
 
 <!-- Picture, FAQ -->
+<!-- Office Hours Calendar -->
 <Section black>
-	<div>
-		<h1>Our Student Council</h1>
-		<img src={data.councilPhoto} alt="ECSESS Council" />
-	</div>
-	<div>
-		<h1>FAQ</h1>
-		<FaqAccordion entries={data.faqs} />
+	<div class="w-full">
+		<h1 id="office-hours">Office Hours</h1>
+		<OhSchedule allOhs={data.allOHs} />
 	</div>
 </Section>
-<!-- Office Hours Calendar -->
+
 <Section>
-	<div>
-		<h1 class="text-2xl">Office Hours</h1>
-		<p>Under development</p>
+	<div class="grid w-full max-w-[80vw] grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-24">
+		<div>
+			<h1>FAQs</h1>
+			<hr class="hr w-full border-dashed py-4" />
+			<FaqAccordion entries={data.faqs} />
+		</div>
+		<div id="sponsors" class="mb-24">
+			<h1>Sponsors</h1>
+			<hr class="hr w-full border-dashed py-4" />
+
+			<div class="flex gap-12">
+				{#each data.sponsors as sponsor}
+					<div class="max-h-20">
+						<Link href={sponsor.url}>
+							<img src={sponsor.logo} alt="{sponsor.name} Logo" class="max-h-24" />
+						</Link>
+					</div>
+				{/each}
+			</div>
+		</div>
 	</div>
 </Section>

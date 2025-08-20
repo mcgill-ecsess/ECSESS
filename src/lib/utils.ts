@@ -12,7 +12,7 @@ const client = createClient({
  * 
  * @param {String} query the GROQ query from Sanity CMS
  */
-export async function getFromCMS(query) {
+export async function getFromCMS(query: string) {
    return await client.fetch(query);
 }
 
