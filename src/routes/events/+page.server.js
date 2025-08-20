@@ -1,17 +1,21 @@
 import { getFromCMS } from 'utils/utils.js';
 
 // needs to concat and format this text
+//Todo: figure out why its not grabbing the links and images
 const eventQuery = `*[_type == "events"]{
   name,
   category,
   date,
   location,
   description,
+  link, 
+  payment, 
+  image,
   "lastUpdated": _updatedAt,
 }`;
 
 export const load = async () => {
 	return {
-		events: await getFromCMS(eventQuery),
+		events: await getFromCMS(eventQuery)
 	};
 };
