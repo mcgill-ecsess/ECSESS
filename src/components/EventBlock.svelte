@@ -1,188 +1,106 @@
 <script lang="ts">
-    import { PortableText } from '@portabletext/svelte';
-    import { CalendarDays, MapPin, Link, FilePen } from 'lucide-svelte';
-    let {eventTitle, date, location, eventDescription, thumbnail, registrationLink, paymentLink, eventCategory} = $props()
+  import { PortableText } from '@portabletext/svelte';
+  import { CalendarDays, MapPin, Link as LinkIcon, FilePen } from 'lucide-svelte';
+
+  let {
+    eventTitle,
+    date,
+    location,
+    eventDescription,
+    thumbnail,
+    registrationLink,
+    paymentLink,
+    eventCategory
+  } = $props();
 </script>
 
-<style lang="postcss">
-  @reference '../app.css';
-
-  .eventCard {
-    background: #E8FFD9 ; 
-    color: var(--color-ecsess-800);
-    border-radius: 22px;
-    padding: 22px;
-    box-shadow:
-      0 0 0 4px rgba(255,255,255,.25) inset,
-      0 10px 18px rgba(0,0,0,.12);
-    max-width: 980px;
-    margin: 0 auto;
-  }
-
-  .frame {
-    background: var(--color-ecsess-400);
-    border-radius: 20px;
-  }
-
-  .thumbnail {
-    height: 140px;
-    border-radius: 16px;
-    background: var(--color-ecsess-600);
-    display: grid;
-    justify-content: center; 
-    align-items: center;     
-    overflow: hidden;
-  }
-  .thumbnail img {
-    width: 100%;
-    height: 100%;
-  }
-
-  .content {
-    margin-top: 22px;
-    display: grid;
-    gap: 18px;
-  }
-
-  h2 {
-    font-size: clamp(26px, 3vw, 34px);
-    line-height: 1.05;
-    margin: 0;
-    letter-spacing: .3px;
-    color: var(--color-ecsess-black);
-  }
-
-  .desc {
-    color: #5E8174;
-    max-width: 75ch;
-    line-height: 1.5;
-    letter-spacing: .2px;
-    margin: 0;
-    text-align: left;
-    justify-self: start;
-  }
-
-  .info-row {
-    margin-top: 6px;
-    display: grid;
-    gap: 16px;
-  }
-  @media (min-width: 740px) {
-    .info-row { grid-template-columns: 1fr 1fr; }
-  }
-
-  .pill {
-    background: #CCE7BA;
-    border-radius: 16px;
-    padding: 14px 16px;
-    display: grid;
-    gap: 10px;
-  }
-
-.row {
-  display: flex;
-  grid-template-columns: max-content 1fr;  
-  align-items: center;
-  gap: 8px; 
-}
-
-.row .label {
-  color: #0A3D2A;
-  font-weight: 700;  
-  margin: 0;
-  letter-spacing: .2px;
-  text-align: left;
-  justify-self: start;
-}
-
-.row .value {
-  color: #0A3D2A;     
-  text-align: left;
-  justify-self: start;   
-}
-
-.row :global(svg.lucide) {
-  stroke-width: 2.5;
-}
-
-.link {
-  color: var(--color-ecsess-black);
-  text-decoration: none;
-  text-underline-offset: 3px;
-  text-align: left;
-  justify-self: start; 
-}
-.link:hover {
-  color: var(--color-ecsess-black-hover);
-  text-decoration: underline;
-}
-</style>
-
-<div class="eventCard">
-    <div class="frame">
-        <div class="thumbnail" aria-label="Event banner">
-            {#if thumbnail}
-                <img src={thumbnail} alt="Event banner"/>
-            {:else if eventCategory[0] === "social"}
-                <img src="/Social.jpg" alt="Social Placeholder" />
-            {:else if eventCategory[0] === "technical"}
-                <img src="/Technical.jpg" alt="Technical Placeholder" />
-            {:else if eventCategory[0] === "professional"}
-                <img src="/Professional.jpg" alt="Professional Placeholder" />
-            {:else if eventCategory[0] === "academic"}
-                <img src="/Academic.jpg" alt="Academic Placeholder" />
-            {:else}
-                <img src="/ECSESS.png" alt="Default Placeholder" />
-            {/if}
-        </div>
+<div
+  class="mx-auto max-w-[980px] rounded-[22px] bg-[#E8FFD9] p-[22px] shadow-[inset_0_0_0_4px_rgba(255,255,255,0.25),0_10px_18px_rgba(0,0,0,0.12)] text-[#0A3D2A]"
+>
+  <div class="rounded-[20px] bg-[#A6D6B8]">
+    <div
+      class="grid h-[140px] place-items-center overflow-hidden rounded-[16px] bg-[#5CAF95]"
+      aria-label="Event banner"
+    >
+      {#if thumbnail}
+        <img class="h-full w-full object-cover" src={thumbnail} alt="Event banner" />
+      {:else if eventCategory?.[0] === 'social'}
+        <img class="h-full w-full object-cover" src="/Social.jpg" alt="Social Placeholder" />
+      {:else if eventCategory?.[0] === 'technical'}
+        <img class="h-full w-full object-cover" src="/Technical.jpg" alt="Technical Placeholder" />
+      {:else if eventCategory?.[0] === 'professional'}
+        <img class="h-full w-full object-cover" src="/Professional.jpg" alt="Professional Placeholder" />
+      {:else if eventCategory?.[0] === 'academic'}
+        <img class="h-full w-full object-cover" src="/Academic.jpg" alt="Academic Placeholder" />
+      {:else}
+        <img class="h-full w-full object-cover" src="/ECSESS.png" alt="Default Placeholder" />
+      {/if}
     </div>
+  </div>
 
-    <div class="content">
-        <h2>{eventTitle}</h2>
-        <p class="desc">
-             {#if eventDescription}
-                <PortableText value={eventDescription}/> 
-             {/if}
-        </p>
-        <div class="info-row">
-            <div class="pill">
-                <div class="row">
-                    <CalendarDays/>
-                    <span class="label"> Datetime: </span>
-                    <p class="value">{date}</p>
-                </div>
-                <div class="row">
-                    <MapPin/>
-                    <span class="label"> Location: </span>
-                    <p class="value">
-                    {#if location}
-                        {location}
-                    {:else}
-                        TBA 
-                    {/if}
-                    </p>
-                </div>
-            </div>
-            <div class="pill">
-                <div class="row">
-                    <FilePen/>
-                    <span class="label"> Registration: </span>
-                    {#if registrationLink}
-                        <a class="link" href={registrationLink} target="_blank" rel="noopener noreferrer">Register Here</a>
-                    {:else}
-                        <p class="value">Just drop in!</p>
-                    {/if}
-                </div>
-                <div class="row">
-                  <Link/>
-                    <span class=label> Payment: </span>
-                    {#if paymentLink}
-                        <a class="link" href={paymentLink} target="_blank" rel="noopener noreferrer">Pay Here</a>
-                    {:else}
-                        <p class="value">Free!</p>
-                    {/if}
-                </div>
-            </div>
+  <!-- content -->
+  <div class="mt-[22px] grid gap-[18px]">
+    <p class="m-0 text-center text-[clamp(26px,3vw,34px)] leading-[1.05] tracking-[0.3px] text-[#0A3D2A]">
+      {eventTitle}
+    </p>
+
+    {#if eventDescription}
+      <div class="max-w-[75ch] mx-auto leading-relaxed text-[#5E8174]">
+        <PortableText value={eventDescription} />
+      </div>
+    {/if}
+
+    <div class="mt-[6px] grid gap-4 md:grid-cols-2">
+
+      <div class="grid gap-[10px] rounded-2xl bg-[#CCE7BA] px-4 py-[14px]">
+        <div class="flex items-center gap-2 text-[#0A3D2A]">
+          <CalendarDays class="shrink-0" strokeWidth={2.5} />
+          <span class="font-bold tracking-[0.2px]">Datetime:</span>
+          <p class="m-0 text-left">{date}</p>
         </div>
+
+        <div class="flex items-center gap-2 text-[#0A3D2A]">
+          <MapPin class="shrink-0" strokeWidth={2.5} />
+          <span class="font-bold tracking-[0.2px]">Location:</span>
+          <p class="m-0 text-left">{location ?? 'TBA'}</p>
+        </div>
+      </div>
+
+      <div class="grid gap-[10px] rounded-2xl bg-[#CCE7BA] px-4 py-[14px]">
+        <div class="flex items-center gap-2 text-[#0A3D2A]">
+          <FilePen class="shrink-0" strokeWidth={2.5} />
+          <span class="font-bold tracking-[0.2px]">Registration:</span>
+          {#if registrationLink}
+            <a
+              href={registrationLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-left text-[#0A3D2A] underline-offset-4 hover:underline"
+            >
+              Register Here
+            </a>
+          {:else}
+            <p class="m-0 text-left">Just drop in!</p>
+          {/if}
+        </div>
+
+        <div class="flex items-center gap-2 text-[#0A3D2A]">
+          <LinkIcon class="shrink-0" strokeWidth={2.5} />
+          <span class="font-bold tracking-[0.2px]">Payment:</span>
+          {#if paymentLink}
+            <a
+              href={paymentLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-left text-[#0A3D2A] underline-offset-4 hover:underline"
+            >
+              Pay Here
+            </a>
+          {:else}
+            <p class="m-0 text-left">Free!</p>
+          {/if}
+        </div>
+      </div>
     </div>
+  </div>
 </div>
