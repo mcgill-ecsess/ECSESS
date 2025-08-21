@@ -1,17 +1,7 @@
 <script lang="ts">
+    import { PortableText } from '@portabletext/svelte';
+    import { CalendarDays, MapPin, Link, FilePen } from 'lucide-svelte';
     let {eventTitle, date, location, eventDescription, thumbnail, registrationLink, paymentLink, eventCategory} = $props()
-    
-    //TODO: Refactor this to be cleaner 
-    const description =
-    Array.isArray(eventDescription)
-        ? eventDescription
-            .map(b =>
-            Array.isArray(b?.children)
-                ? b.children.map((c : any) => (typeof c?.text === "string" ? c.text : "")).join("")
-                : ""
-            )
-            .join("\n")
-        : "";
 </script>
 
 <style lang="postcss">
@@ -89,14 +79,14 @@
     gap: 10px;
   }
 
-.item {
-  display: grid;
+.row {
+  display: flex;
   grid-template-columns: max-content 1fr;  
-  column-gap: 12px;
   align-items: center;
+  gap: 8px; 
 }
 
-.item .label {
+.row .label {
   color: #0A3D2A;
   font-weight: 700;  
   margin: 0;
@@ -105,24 +95,28 @@
   justify-self: start;
 }
 
-.item .value {
+.row .value {
   color: #0A3D2A;     
   text-align: left;
   justify-self: start;   
 }
 
-  .link {
-    color: var(--color-ecsess-black);
-    text-decoration: none;
-    text-underline-offset: 3px;
-  }
-  .link:hover {
-    color: var(--color-ecsess-black-hover);
-    text-decoration: underline;
-  }
+.row :global(svg.lucide) {
+  stroke-width: 2.5;
+}
+
+.link {
+  color: var(--color-ecsess-black);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  text-align: left;
+  justify-self: start; 
+}
+.link:hover {
+  color: var(--color-ecsess-black-hover);
+  text-decoration: underline;
+}
 </style>
-
-
 
 <div class="eventCard">
     <div class="frame">
@@ -146,16 +140,19 @@
     <div class="content">
         <h2>{eventTitle}</h2>
         <p class="desc">
-             {description}
+             {#if eventDescription}
+                <PortableText value={eventDescription}/> 
+             {/if}
         </p>
-
         <div class="info-row">
             <div class="pill">
-                <div class="item">
+                <div class="row">
+                    <CalendarDays/>
                     <span class="label"> Datetime: </span>
                     <p class="value">{date}</p>
                 </div>
-                <div class="item">
+                <div class="row">
+                    <MapPin/>
                     <span class="label"> Location: </span>
                     <p class="value">
                     {#if location}
@@ -167,20 +164,22 @@
                 </div>
             </div>
             <div class="pill">
-                <div class="item">
+                <div class="row">
+                    <FilePen/>
                     <span class="label"> Registration: </span>
                     {#if registrationLink}
-                        <a class="link" href={registrationLink} target="_blank" rel="noopener noreferrer">Open registration form</a>
+                        <a class="link" href={registrationLink} target="_blank" rel="noopener noreferrer">Register Here</a>
                     {:else}
-                        <p class="value">TBA</p>
+                        <p class="value">Just drop in!</p>
                     {/if}
                 </div>
-                <div class="item">
-                    <span class=label> Payment Link: </span>
+                <div class="row">
+                  <Link/>
+                    <span class=label> Payment: </span>
                     {#if paymentLink}
-                        <a class="link" href={paymentLink} target="_blank" rel="noopener noreferrer">Open payment form</a>
+                        <a class="link" href={paymentLink} target="_blank" rel="noopener noreferrer">Pay Here</a>
                     {:else}
-                        <p class="value">TBA</p>
+                        <p class="value">Free!</p>
                     {/if}
                 </div>
             </div>

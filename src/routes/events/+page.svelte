@@ -1,16 +1,15 @@
 <script lang="ts">
-	import { PortableText } from '@portabletext/svelte';
 	import Section from 'components/Section.svelte';
 	import EventBlock from "components/EventBlock.svelte"
-	import type Event from 'utils/schemas';
+	import type { EventPost } from '../../lib/schemas';
 	import { Tabs, TabItem } from "flowbite-svelte";
 	// import Tabs from "components/Tabs.svelte"
 	
 	let { data } = $props();
 	console.log(data)
 
-	let events: Event[] = []
-	data.events.forEach((event: Event) => {
+	let events: EventPost[] = []
+	data.events.forEach((event: EventPost) => {
 		events.push(event)
 	})
 	console.log(events)
@@ -28,9 +27,9 @@
                     date={e.date}
                     location={e.location}
                     eventDescription={e.description}
-                    thumbnail={e.image}
-                    registrationLink={e.link}
-                    paymentLink={e.payment}
+                    thumbnail={e.thumbnail}
+                    registrationLink={e.reglink}
+                    paymentLink={e.paylink}
                     eventCategory={e.category}
                 ></EventBlock>
                 {/each}
@@ -47,9 +46,9 @@
                         date={e.date}
                         location={e.location}
                         eventDescription={e.description}
-                        thumbnail={e.image}
-                        registrationLink={e.link}
-                        paymentLink={e.payment}
+                        thumbnail={e.thumbnail}
+                        registrationLink={e.reglink}
+                        paymentLink={e.paylink}
                         eventCategory={e.category}
                     ></EventBlock>
                 {/if}
@@ -67,9 +66,9 @@
                         date={e.date}
                         location={e.location}
                         eventDescription={e.description}
-                        thumbnail={e.image}
-                        registrationLink={e.link}
-                        paymentLink={e.payment}
+                        thumbnail={e.thumbnail}
+                        registrationLink={e.reglink}
+                        paymentLink={e.paylink}
                         eventCategory={e.category}
                     ></EventBlock>
                 {/if}
@@ -87,9 +86,9 @@
                         date={e.date}
                         location={e.location}
                         eventDescription={e.description}
-                        thumbnail={e.image}
-                        registrationLink={e.link}
-                        paymentLink={e.payment}
+                        thumbnail={e.thumbnail}
+                        registrationLink={e.reglink}
+                        paymentLink={e.paylink}
                         eventCategory={e.category}
                     ></EventBlock>
                 {/if}
@@ -107,9 +106,9 @@
                         date={e.date}
                         location={e.location}
                         eventDescription={e.description}
-                        thumbnail={e.image}
-                        registrationLink={e.link}
-                        paymentLink={e.payment}
+                        thumbnail={e.thumbnail}
+                        registrationLink={e.reglink}
+                        paymentLink={e.paylink}
                         eventCategory={e.category}
                     ></EventBlock>
                 {/if}
