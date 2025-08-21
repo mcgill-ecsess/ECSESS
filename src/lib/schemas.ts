@@ -1,14 +1,14 @@
 export type EventPost = {
 	id: string;
-	title: string;
+	name: string;
 	description: string;
 	date: string;
 	time: string;
 	location: string;
-	image: string;
-	link: string;
+	thumbnail: string;
+	reglink: string;
 	category: string;
-	payment: string; // event payment link (e.g., Zeffy)
+	paylink: string; // event payment link (e.g., Zeffy)
 };
 
 export type FAQ = {

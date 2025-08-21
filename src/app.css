@@ -6,8 +6,8 @@
 	--color-ecsess-400: #5c8a5c;
 	--color-ecsess-600: #3b6a3a;
 	--color-ecsess-800: #0a3d2a;
-	--color-ecsess-black: #1f1f1f;
-	--color-ecsess-black-hover: #2c2c2c;
+	--color-ecsess-black: #1F1F1F;
+	--color-ecsess-black-hover: #168059; 
 }
 
 * {
@@ -183,4 +183,8 @@ h2 {
 	figcaption {
 		@apply mt-3 text-sm leading-5;
 	}
+}
+
+.event{
+    @apply grid gap-6;
 }
