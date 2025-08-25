@@ -1,18 +1,11 @@
 <script>
-	import { getFromCMS } from '$lib/utils';
-	import { onMount } from 'svelte';
-
 	let {
 		title = "Electrical, Computer & Software Engineering Students' Society at McGill - ECSESS",
 		description = 'Meet the student council, get access to academic and technical resources, registration for events, and much more!',
 		canonical = 'https://ecsess.mcgilleus.ca'
 	} = $props();
 
-	let thumbnail = $state(null);
-
-	onMount(async() => {
-		thumbnail = await getFromCMS(`*[_type == "homepage"][0].councilPhoto.asset->url+"?h=628&fm=webp"`);
-	})
+	let thumbnail = "https://cdn.sanity.io/images/vmtsvpe2/production/5d68504038cc692805dc5e51af83adedfefde442-5304x3443.jpg?h=628&fm=webp";
 </script>
 
 <svelte:head>
