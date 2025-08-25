@@ -23,7 +23,7 @@ const sponsorQuery = `*[_type=="sponsors"]{
     "logo": logo.asset->url+"?h=100&fm=webp"
 }`;
 
-export const load = async ({url}) => {
+export const load = async ({ url }) => {
 	/**
 	 * @description Response data type based on the `homepageQuery` above.
 	 * Note that `description` is a rich/portable text type
