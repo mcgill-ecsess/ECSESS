@@ -4,6 +4,7 @@
 	import RichText from 'components/RichText.svelte';
 	import OhSchedule from 'components/OHSchedule.svelte';
 	import Link from 'components/Link.svelte';
+	import { fade } from 'svelte/transition';
 
 	/** loading things from the server side */
 	let { data } = $props();
@@ -17,10 +18,14 @@
 
 <!-- ECSESS Introduction -->
 <Section>
-	<div class="place-self-center-safe md:grid md:gap-6 lg:grid-cols-3">
-		<div class="m-8 w-full place-self-center md:place-content-around lg:col-span-1">
-			<div class="flex h-1/2 flex-col items-center justify-center text-center">
-				<p class="page-title">What is ECSESS?</p>
+	<div class="place-self-center md:grid md:grid-cols-1 md:gap-6 lg:grid-cols-3">
+		<div class="place-self-center md:place-content-around lg:col-span-1 lg:m-8">
+			<div class="flex h-1/2 flex-col place-content-center text-center">
+				<p>
+					{#each 'We are ECSESS!' as char, i}
+						<span class="page-title" in:fade|global={{ delay: 200 + i * 100, duration: 800 }}>{char}</span>
+					{/each}
+				</p>
 				<div class="p-4">
 					<RichText value={data.description} />
 				</div>
@@ -35,7 +40,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="m-4 place-content-around lg:col-span-2 lg:mx-12 lg:my-0">
+		<div class="m-2 place-content-around lg:col-span-2 lg:mx-12 lg:my-0">
 			<img
 				src={data.councilPhoto}
 				alt="ECSESS Council"
