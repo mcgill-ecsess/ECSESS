@@ -3,6 +3,8 @@
 	let { data } = $props();
 </script>
 
+<title> Hmm... you're not supposed to be here :/ </title>
+
 <Section>
 	<p class="page-title">Can't redirect you to <code>"r/{data.shortname}"</code>!</p>
 	<hr class="border-2 w-1/2">

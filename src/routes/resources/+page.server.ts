@@ -8,9 +8,10 @@ const query = `*[_type == "resources"]{
   description,
 }`;
 
-export const load = async () => {
+export const load = async ({ url }) => {
 	const resources: Resource[] = await getFromCMS(query);
 	return {
-		resources: resources
+		resources: resources,
+		canonical: url.href
 	};
 };

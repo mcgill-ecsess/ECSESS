@@ -10,8 +10,9 @@ const eventQuery = `*[_type == "events"]{
   "lastUpdated": _updatedAt,
 }`;
 
-export const load = async () => {  
+export const load = async ({ url }) => {
 	return {
 		events: await getFromCMS(eventQuery),
+		canonical: url.href
 	};
 };
