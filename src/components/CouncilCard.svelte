@@ -1,11 +1,10 @@
 <script>
 	let { onViewProfile, name, position, image } = $props();
-	import placeholder from 'assets/placeholderAvatar.png';
 	import Button from 'components/Button.svelte';
 	import Avatar from 'components/Avatar.svelte';
 </script>
 
-<div class="text-ecsess-200 flex max-w-md items-center gap-6 justify-between p-3">
+<div class="text-ecsess-200 flex max-w-md items-center gap-6 p-3">
 	<!-- Profile picture -->
   <div>
     <Avatar {name} size={"size-26 md:size-32"} src={image}/>
