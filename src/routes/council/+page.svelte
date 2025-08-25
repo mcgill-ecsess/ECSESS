@@ -5,6 +5,7 @@
 	import type { CouncilMember } from '$lib/schemas';
 	import { fly } from 'svelte/transition';
 	import Button from 'components/Button.svelte';
+	import SeoMetaTags from 'components/SeoMetaTags.svelte';
 
 	let { data } = $props();
 
@@ -38,7 +39,12 @@
 	}
 </script>
 
-<title> ECSESS council </title>
+<SeoMetaTags
+	title="Meet the ECSESS student council members!"
+	description="Greetings from ECSESS student council!"
+	canonical={data.canonical}
+/>
+
 <Section>
 	<div class="flex flex-col place-items-center">
 		<p class="page-title">Meet the council!</p>
