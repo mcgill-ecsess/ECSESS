@@ -1,10 +1,16 @@
 <script>
 	import { PortableText } from '@portabletext/svelte';
 	import Section from 'components/Section.svelte';
+	import SeoMetaTags from 'components/SeoMetaTags.svelte';
 	let { data } = $props();
 </script>
 
-<title> ECSESS Events </title>
+
+<SeoMetaTags
+	title="Events by ECSESS"
+	description="Checkout our events! ECSESS organizes academic events, professional & social networkings, technical workshops, and more!"
+	canonical={data.canonical}
+/>
 
 <Section>
 	<p class="page-title">Events</p>
