@@ -7,7 +7,7 @@
 
 <SeoMetaTags
 	title="ECSESS Resources - Academic, Technical, Involvement, etc."
-	description="ECSESS resource hub for everything relating to academic, technical, involvement, sustainablity, equity, campus life, and more!"
+	description="ECSESS resource hub for everything relating to academic, technical, involvement, sustainability, equity, campus life, and more!"
 	canonical={data.canonical}
 />
 
