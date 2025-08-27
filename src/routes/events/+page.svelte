@@ -2,7 +2,7 @@
 	import Section from 'components/Section.svelte';
 	import EventBlock from "components/EventBlock.svelte"
 	import type { EventPost } from '../../lib/schemas';
-	import { Tabs, TabItem } from "flowbite-svelte";
+    import { Tabs } from '@skeletonlabs/skeleton-svelte';
 	// import Tabs from "components/Tabs.svelte"
 	
 	let { data } = $props();
@@ -12,15 +12,33 @@
 	data.events.forEach((event: EventPost) => {
 		events.push(event)
 	})
-	console.log(events)
+    let group = $state('allEvents');
 </script>
 
 <title> ECSESS Events </title>
 <Section>
 	<p class="page-title">Events</p>
-    <Tabs>
-        <TabItem open title="All">
-            <div class="event">
+    <Tabs value={group} onValueChange={(e) => (group = e.value)} fluid>
+        {#snippet list()}
+            <Tabs.Control value="allEvents">
+            All Events
+            </Tabs.Control>
+            <Tabs.Control value="academic">
+            Academic
+            </Tabs.Control>
+            <Tabs.Control value="professional">
+            Professional
+            </Tabs.Control>
+            <Tabs.Control value="social">
+            Social
+            </Tabs.Control>
+            <Tabs.Control value="technical">
+            Technical
+            </Tabs.Control>
+        {/snippet}
+        {#snippet content()}
+            <Tabs.Panel value="allEvents">
+                <div class="event">
                 {#each events as e}
                 <EventBlock
                     eventTitle={e.name} 
@@ -34,8 +52,8 @@
                 ></EventBlock>
                 {/each}
             </div>
-        </TabItem>
-        <TabItem title="Academic">
+            </Tabs.Panel>
+            <Tabs.Panel value="academic">
             <div class="event">
                 {#each events as e}
                 {#if Array.isArray(e.category) 
@@ -54,8 +72,8 @@
                 {/if}
                 {/each}
             </div>
-        </TabItem>
-        <TabItem title="Professional">
+            </Tabs.Panel>
+            <Tabs.Panel value="professional">
             <div class="event">
                 {#each events as e}
                 {#if Array.isArray(e.category) 
@@ -74,8 +92,8 @@
                 {/if}
                 {/each}
             </div>
-        </TabItem>
-        <TabItem title="Social">
+            </Tabs.Panel>
+            <Tabs.Panel value="social">
             <div class="event">
                 {#each events as e}
                 {#if Array.isArray(e.category) 
@@ -94,9 +112,9 @@
                 {/if}
                 {/each}
             </div>
-        </TabItem>
-        <TabItem title="Technical">
-            <div class="event">
+            </Tabs.Panel>
+            <Tabs.Panel value="technical">
+                <div class="event">
                 {#each events as e}
                 {#if Array.isArray(e.category) 
                     ? e.category.includes("technical") 
@@ -112,8 +130,9 @@
                         eventCategory={e.category}
                     ></EventBlock>
                 {/if}
-            {/each}
+                {/each}
             </div>
-        </TabItem>
+            </Tabs.Panel>
+        {/snippet}
     </Tabs>
 </Section>
