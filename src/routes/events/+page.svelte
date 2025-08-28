@@ -3,8 +3,8 @@
 	import EventBlock from 'components/EventBlock.svelte';
 	import type { EventPost } from '$lib/schemas';
 	import { Tabs } from '@skeletonlabs/skeleton-svelte';
+    import EventTabControl from 'components/EventTabControl.svelte';
 
-	import EventTabControl from 'components/EventTabControl.svelte';
 	let { data } = $props();
 	console.log(data);
 
@@ -18,28 +18,11 @@
 <title> ECSESS Events </title>
 <Section>
 	<p class="page-title">Events</p>
-	<Tabs value={group} onValueChange={(e) => (group = e.value)}>
+	<Tabs value={group} onValueChange={(e) => (group = e.value)} listClasses="flex-wrap">
 		{#snippet list()}
-			<Tabs.Control
-				value="allEvents"
-				classes="hover:border-b-ecsess-200 border-b-4 transition-all ease-in-out pb-2 text-lg active:border-b-ecsess-600"
-				stateActive="border-b-ecsess-400"
-			>
-				All Events
-			</Tabs.Control>
-			<Tabs.Control
-				value="academic"
-				classes="hover:border-b-ecsess-200 border-b-4 transition-all ease-in-out pb-2 text-lg  active:border-b-ecsess-600"
-				stateActive="border-b-ecsess-400"
-				>Academic
-			</Tabs.Control>
-
-			<Tabs.Control
-				value="professional"
-				classes="hover:border-b-ecsess-200 border-b-4 transition-all ease-in-out pb-2 text-lg  active:border-b-ecsess-600"
-				stateActive="border-b-ecsess-400"
-				>Professional
-			</Tabs.Control>
+			<EventTabControl value="allEvents">All Events</EventTabControl>
+            <EventTabControl value="academic">Academic</EventTabControl>
+            <EventTabControl value="professional">Professional</EventTabControl>
 			<EventTabControl value="social">Social</EventTabControl>
 			<Tabs.Control
 				value="technical"
