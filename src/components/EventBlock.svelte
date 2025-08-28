@@ -1,6 +1,6 @@
 <script lang="ts">
   import { PortableText } from '@portabletext/svelte';
-  import { CalendarDays, MapPin, Link as LinkIcon, FilePen } from 'lucide-svelte';
+  import { CalendarDays, MapPin, Link as LinkIcon, FilePen } from '@lucide/svelte';
 
   let {
     eventTitle,
@@ -19,21 +19,21 @@
 >
   <div class="rounded-[20px] bg-[#A6D6B8]">
     <div
-      class="grid h-[140px] place-items-center overflow-hidden rounded-[16px] bg-[#5CAF95]"
+      class="grid h-[200px] place-items-center overflow-hidden rounded-[16px] bg-[#5CAF95]"
       aria-label="Event banner"
     >
       {#if thumbnail}
-        <img class="h-full w-full object-cover" src={thumbnail} alt="Event banner" />
+        <img class="h-full object-fill" src={thumbnail} alt="Event banner" />
       {:else if eventCategory?.[0] === 'social'}
-        <img class="h-full w-full object-cover" src="/Social.jpg" alt="Social Placeholder" />
+        <img class="h-full object-fill" src="/Social.jpg" alt="Social Placeholder" />
       {:else if eventCategory?.[0] === 'technical'}
-        <img class="h-full w-full object-cover" src="/Technical.jpg" alt="Technical Placeholder" />
+        <img class="h-full object-fill" src="/Technical.jpg" alt="Technical Placeholder" />
       {:else if eventCategory?.[0] === 'professional'}
-        <img class="h-full w-full object-cover" src="/Professional.jpg" alt="Professional Placeholder" />
+        <img class="h-full object-fill" src="/Professional.jpg" alt="Professional Placeholder" />
       {:else if eventCategory?.[0] === 'academic'}
-        <img class="h-full w-full object-cover" src="/Academic.jpg" alt="Academic Placeholder" />
+        <img class="h-full object-fill" src="/Academic.jpg" alt="Academic Placeholder" />
       {:else}
-        <img class="h-full w-full object-cover" src="/ECSESS.png" alt="Default Placeholder" />
+        <img class="h-full object-fill" src="/ECSESS.png" alt="Default Placeholder" />
       {/if}
     </div>
   </div>
