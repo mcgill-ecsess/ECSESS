@@ -37,7 +37,6 @@
 	"dependencies": {
 		"@lucide/svelte": "^0.540.0",
 		"@sanity/client": "^7.9.0",
-		"lucide-svelte": "^0.540.0",
 		"vercel": "^46.0.2"
 	}
 }
