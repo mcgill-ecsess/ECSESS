@@ -21,7 +21,7 @@
 </script>
 
 <Tabs.Panel {value}>
-	<div class="flex flex-wrap gap-4 p-4">
+	<div class="flex flex-wrap gap-4 m-1 lg:m-4">
 		{#each filtered as e (e._id ?? e.name)}
 			<EventBlock
 				eventTitle={e.name}

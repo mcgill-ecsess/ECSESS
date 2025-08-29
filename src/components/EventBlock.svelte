@@ -15,7 +15,7 @@
 </script>
 
 <div
-  class="mx-auto max-w-[980px] rounded-[22px] bg-[#E8FFD9] p-[22px] shadow-[inset_0_0_0_4px_rgba(255,255,255,0.25),0_10px_18px_rgba(0,0,0,0.12)] text-[#0A3D2A]"
+  class="mx-auto lg:w-[64%] lg:max-w-3xl w-[100%] rounded-2xl bg-[#E8FFD9] p-5 text-[#0A3D2A]"
 >
   <div class="rounded-[20px] bg-[#A6D6B8]">
     <div
@@ -29,7 +29,7 @@
       {:else if eventCategory?.[0] === 'technical'}
         <img class="h-full object-fill" src="/Technical.jpg" alt="Technical Placeholder" />
       {:else if eventCategory?.[0] === 'professional'}
-        <img class="h-full object-fill" src="/Professional.jpg" alt="Professional Placeholder" />
+        <img class="h-full w-full object-cover" src="/Professional.jpg" alt="Professional Placeholder" />
       {:else if eventCategory?.[0] === 'academic'}
         <img class="h-full object-fill" src="/Academic.jpg" alt="Academic Placeholder" />
       {:else}
