@@ -1,7 +1,6 @@
+import type { EventPost } from '$lib/schemas';
 import { getFromCMS } from '$lib/utils.js';
 
-// needs to concat and format this text
-//Todo: figure out why its not grabbing the links and images
 const eventQuery = `*[_type == "events"]{
   name,
   category,
@@ -15,7 +14,12 @@ const eventQuery = `*[_type == "events"]{
 }`;
 
 export const load = async () => {
+	let listOfEvents: EventPost[] = await getFromCMS(eventQuery);
+	//TODO: Why is this mad?
+	let sortedEvents = listOfEvents.sort(
+		(a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+	);
 	return {
-		events: await getFromCMS(eventQuery)
+		events: sortedEvents
 	};
 };
