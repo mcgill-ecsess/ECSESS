@@ -1,29 +1,32 @@
-<script>
-	import { PortableText } from '@portabletext/svelte';
+<script lang="ts">
 	import Section from 'components/Section.svelte';
-	let { data } = $props();
-</script>
+	import EventTabControl from 'components/EventTabControl.svelte';
+	import { Tabs } from '@skeletonlabs/skeleton-svelte';
+	import EventTabPanel from 'components/EventTabPanel.svelte';
+	import type { EventPost } from '$lib/schemas';
 
-<title> ECSESS Events </title>
+	let { data } = $props();
+	let events: EventPost[] = data.events ?? [];
+	let group = $state('allEvents');
+</script>
 
 <Section>
 	<p class="page-title">Events</p>
-	{#each data.events as event}
-		<div class="rounded-lg border-4 p-4">
-			<p>{event.name}</p>
-			<p>{event.date}</p>
-			<p>{event.location}</p>
-			{#if event.description}
-				<PortableText value={event.description} />
-			{/if}
-			Category:
-			<div class="list">
-				<ul class="list-inside list-disc space-y-2">
-					{#each event.category as cat}
-						<li>{cat}</li>
-					{/each}
-				</ul>
-			</div>
-		</div>
-	{/each}
+	<Tabs value={group} onValueChange={(e) => (group = e.value)} listClasses="flex-wrap place-content-center">
+		{#snippet list()}
+			<EventTabControl value="allEvents">All Events</EventTabControl>
+			<EventTabControl value="academic">Academic</EventTabControl>
+			<EventTabControl value="professional">Professional</EventTabControl>
+			<EventTabControl value="social">Social</EventTabControl>
+			<EventTabControl value="technical">Technical</EventTabControl>
+		{/snippet}
+
+		{#snippet content()}
+			<EventTabPanel value="allEvents" category="allEvents" {events} />
+			<EventTabPanel value="academic" category="academic" {events} />
+			<EventTabPanel value="professional" category="professional" {events} />
+			<EventTabPanel value="social" category="social" {events} />
+			<EventTabPanel value="technical" category="technical" {events} />
+		{/snippet}
+	</Tabs>
 </Section>
