@@ -9,7 +9,7 @@ const eventQuery = `*[_type == "events"]{
   description,
   reglink, 
   paylink,
-  "thumbnail": thumbnail.asset->url, 
+  "thumbnail": thumbnail.asset->url+"?h=700&fm=webp", 
   "lastUpdated": _updatedAt,
 }`;
 
