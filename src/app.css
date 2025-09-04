@@ -2,12 +2,20 @@
 @import 'tailwindcss';
 
 @theme {
+	--color-ecsess-50: #e8ffd9;
+	--color-ecsess-100: #CCE7BA;
 	--color-ecsess-200: #a9b7a0;
+	--color-ecsess-300: #82a17f;
 	--color-ecsess-400: #5c8a5c;
+	--color-ecsess-500: #4b7b4b;
 	--color-ecsess-600: #3b6a3a;
+	--color-ecsess-700: #235323;
 	--color-ecsess-800: #0a3d2a;
+	--color-ecsess-900: #062c20;
+	--color-ecsess-950: #031c15;
+	--color-ecsess-teal: #168059;
 	--color-ecsess-black: #1F1F1F;
-	--color-ecsess-black-hover: #168059; 
+	--color-ecsess-black-hover: #161917;
 }
 
 * {
