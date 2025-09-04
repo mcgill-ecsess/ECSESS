@@ -1,5 +1,4 @@
 <script>
-	import Button from './Button.svelte';
 	import NavButton from './NavButton.svelte';
 	import ECSESS from 'assets/ECSESS.png';
 	import { Menu } from '@lucide/svelte';
@@ -16,7 +15,7 @@
 
 			<button
 				type="button"
-				class="bg-ecsess-black-hover hover:bg-ecsess-800 grid size-10 place-items-center rounded-lg transition-colors ease-in-out active:bg-green-900"
+				class="bg-ecsess-teal hover:bg-ecsess-800 grid size-10 place-items-center rounded-lg transition-colors ease-in-out active:bg-green-900"
 				onclick={() => {
 					menuHidden = !menuHidden;
 				}}
