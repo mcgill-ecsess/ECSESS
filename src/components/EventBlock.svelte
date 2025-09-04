@@ -14,10 +14,10 @@
 	} = $props();
 </script>
 
-<div class="mx-auto w-[100%] rounded-2xl bg-ecsess-lime p-5 text-ecsess-800 lg:w-[64%] lg:max-w-3xl">
-	<div class="rounded-[20px] bg-ecsess-200">
+<div class="bg-ecsess-50 text-ecsess-800 mx-auto w-[100%] rounded-2xl p-5 lg:w-[64%] lg:max-w-3xl">
+	<div class="bg-ecsess-200 rounded-[20px]">
 		<div
-			class="grid h-[200px] place-items-center overflow-hidden rounded-[16px] bg-ecsess-200"
+			class="bg-ecsess-200 grid h-[200px] place-items-center overflow-hidden rounded-[16px]"
 			aria-label="Event banner"
 		>
 			{#if thumbnail}
@@ -38,33 +38,35 @@
 
 	<!-- content -->
 	<div class="mt-[22px] grid gap-[18px]">
-		<p class="text-ecsess-800 my-0 text-center text-xl lg:text-2xl text-wrap lg:leading-8 leading-6 tracking-[0.3px]">
+		<p
+			class="text-ecsess-800 my-0 text-center text-xl leading-6 tracking-[0.3px] text-wrap lg:text-2xl lg:leading-8"
+		>
 			{eventTitle}
 		</p>
 
 		{#if eventDescription}
-			<div class="mx-auto max-w-[75ch] leading-relaxed text-ecsess-400">
+			<div class="text-ecsess-400 mx-auto max-w-[75ch] leading-relaxed">
 				<PortableText value={eventDescription} />
 			</div>
 		{/if}
 
 		<div class="mt-[6px] grid gap-4 md:grid-cols-2">
-			<div class="grid gap-[10px] rounded-2xl bg-ecsess-lime-hover px-4 py-[14px]">
-				<div class="flex items-center gap-2 text-ecsess-800">
+			<div class="bg-ecsess-100 grid gap-[10px] rounded-2xl px-4 py-[14px]">
+				<div class="text-ecsess-800 flex items-center gap-2">
 					<CalendarDays class="shrink-0" strokeWidth={2.5} />
 					<span class="font-bold tracking-[0.2px]">Datetime:</span>
 					<p class="m-0 text-left">{date}</p>
 				</div>
 
-				<div class="flex items-center gap-2 text-ecsess-800">
+				<div class="text-ecsess-800 flex items-center gap-2">
 					<MapPin class="shrink-0" strokeWidth={2.5} />
 					<span class="font-bold tracking-[0.2px]">Location:</span>
 					<p class="m-0 text-left">{location ?? 'TBA'}</p>
 				</div>
 			</div>
 
-			<div class="grid gap-[10px] rounded-2xl bg-ecsess-lime-hover px-4 py-[14px]">
-				<div class="flex items-center gap-2 text-ecsess-800">
+			<div class="bg-ecsess-100 grid gap-[10px] rounded-2xl px-4 py-[14px]">
+				<div class="text-ecsess-800 flex items-center gap-2">
 					<FilePen class="shrink-0" strokeWidth={2.5} />
 					<span class="font-bold tracking-[0.2px]">Registration:</span>
 					{#if registrationLink}
@@ -72,7 +74,7 @@
 							href={registrationLink}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="text-left text-ecsess-800 underline-offset-4 hover:underline"
+							class="text-ecsess-800 text-left underline-offset-4 hover:underline"
 						>
 							Register Here
 						</a>
@@ -81,7 +83,7 @@
 					{/if}
 				</div>
 
-				<div class="flex items-center gap-2 text-ecsess-800">
+				<div class="text-ecsess-800 flex items-center gap-2">
 					<LinkIcon class="shrink-0" strokeWidth={2.5} />
 					<span class="font-bold tracking-[0.2px]">Payment:</span>
 					{#if paymentLink}
@@ -89,7 +91,7 @@
 							href={paymentLink}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="text-left text-ecsess-800 underline-offset-4 hover:underline"
+							class="text-ecsess-800 text-left underline-offset-4 hover:underline"
 						>
 							Pay Here
 						</a>
