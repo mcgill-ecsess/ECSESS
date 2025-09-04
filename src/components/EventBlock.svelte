@@ -14,10 +14,10 @@
 	} = $props();
 </script>
 
-<div class="mx-auto w-[100%] rounded-2xl bg-[#E8FFD9] p-5 text-[#0A3D2A] lg:w-[64%] lg:max-w-3xl">
-	<div class="rounded-[20px] bg-[#A6D6B8]">
+<div class="mx-auto w-[100%] rounded-2xl bg-ecsess-lime p-5 text-ecsess-800 lg:w-[64%] lg:max-w-3xl">
+	<div class="rounded-[20px] bg-ecsess-200">
 		<div
-			class="grid h-[200px] place-items-center overflow-hidden rounded-[16px] bg-[#5CAF95]"
+			class="grid h-[200px] place-items-center overflow-hidden rounded-[16px] bg-ecsess-200"
 			aria-label="Event banner"
 		>
 			{#if thumbnail}
@@ -43,28 +43,28 @@
 		</p>
 
 		{#if eventDescription}
-			<div class="mx-auto max-w-[75ch] leading-relaxed text-[#5E8174]">
+			<div class="mx-auto max-w-[75ch] leading-relaxed text-ecsess-400">
 				<PortableText value={eventDescription} />
 			</div>
 		{/if}
 
 		<div class="mt-[6px] grid gap-4 md:grid-cols-2">
-			<div class="grid gap-[10px] rounded-2xl bg-[#CCE7BA] px-4 py-[14px]">
-				<div class="flex items-center gap-2 text-[#0A3D2A]">
+			<div class="grid gap-[10px] rounded-2xl bg-ecsess-lime-hover px-4 py-[14px]">
+				<div class="flex items-center gap-2 text-ecsess-800">
 					<CalendarDays class="shrink-0" strokeWidth={2.5} />
 					<span class="font-bold tracking-[0.2px]">Datetime:</span>
 					<p class="m-0 text-left">{date}</p>
 				</div>
 
-				<div class="flex items-center gap-2 text-[#0A3D2A]">
+				<div class="flex items-center gap-2 text-ecsess-800">
 					<MapPin class="shrink-0" strokeWidth={2.5} />
 					<span class="font-bold tracking-[0.2px]">Location:</span>
 					<p class="m-0 text-left">{location ?? 'TBA'}</p>
 				</div>
 			</div>
 
-			<div class="grid gap-[10px] rounded-2xl bg-[#CCE7BA] px-4 py-[14px]">
-				<div class="flex items-center gap-2 text-[#0A3D2A]">
+			<div class="grid gap-[10px] rounded-2xl bg-ecsess-lime-hover px-4 py-[14px]">
+				<div class="flex items-center gap-2 text-ecsess-800">
 					<FilePen class="shrink-0" strokeWidth={2.5} />
 					<span class="font-bold tracking-[0.2px]">Registration:</span>
 					{#if registrationLink}
@@ -72,7 +72,7 @@
 							href={registrationLink}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="text-left text-[#0A3D2A] underline-offset-4 hover:underline"
+							class="text-left text-ecsess-800 underline-offset-4 hover:underline"
 						>
 							Register Here
 						</a>
@@ -81,7 +81,7 @@
 					{/if}
 				</div>
 
-				<div class="flex items-center gap-2 text-[#0A3D2A]">
+				<div class="flex items-center gap-2 text-ecsess-800">
 					<LinkIcon class="shrink-0" strokeWidth={2.5} />
 					<span class="font-bold tracking-[0.2px]">Payment:</span>
 					{#if paymentLink}
@@ -89,7 +89,7 @@
 							href={paymentLink}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="text-left text-[#0A3D2A] underline-offset-4 hover:underline"
+							class="text-left text-ecsess-800 underline-offset-4 hover:underline"
 						>
 							Pay Here
 						</a>
