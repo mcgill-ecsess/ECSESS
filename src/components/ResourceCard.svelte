@@ -1,22 +1,25 @@
 <script>
-	import {  CircleArrowRight } from '@lucide/svelte';
-	import Link from '././Link.svelte';
-	let { title = '_Resource Title_', children, link = 'https://example.com' } = $props();
+	import { CircleArrowRight } from '@lucide/svelte';
+	import Link from 'components/Link.svelte';
+	let { title = '_Resource Title_', description = "Lorem ipsum", link = 'https://example.com' } = $props();
 </script>
 
-<div class="h-fit w-xl px-4 bg-ecsess-50 rounded-lg relative">
-	<div class="grid grid-cols-[5fr_1fr]">
+<div class="bg-ecsess-50 relative h-fit max-w-xl min-w-12 rounded-lg px-4 py-2 md:py-0">
+	<div class="grid grid-cols-1 md:grid-cols-[7fr_1fr]">
 		<div class="flex flex-col items-start p-4">
-			<p class="text-ecsess-900 my-1 text-left text-xl font-semibold"> 
-				{title} 
+			<p class="text-ecsess-900 my-1 pb-1 text-left text-xl font-extrabold">
+				{title}
 			</p>
-			<p class="text-ecsess-400 text-left"> 
-				{@render children()}
+			<p class="text-ecsess-600 text-left text-base">
+				{description}
 			</p>
 		</div>
-		<div class="absolute bottom-2 right-2">
+		<div class="m-4 place-self-center">
 			<Link href={link}>
-				<CircleArrowRight size="42" class="stroke-ecsess-800 hover:stroke-ecsess-400 active:scale-90 transition duration-200 cursor-pointer"/>
+				<CircleArrowRight
+					size="42"
+					class="stroke-ecsess-800 hover:stroke-ecsess-400 cursor-pointer transition duration-200 active:scale-90"
+				/>
 			</Link>
 		</div>
 	</div>
