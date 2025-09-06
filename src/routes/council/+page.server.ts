@@ -17,10 +17,12 @@ const councilGoofyPicQuery = `*[_type == "homepage"]{
   "url": councilGoofyPic.asset->url+"?h=1200&fm=webp" 
 }[0]`;
 
-export const load = async () => {
+export const load = async ({ url }) => {
 	let councilMembers: CouncilMember[] = await getFromCMS(councilQuery);
+
 	return {
 		members: councilMembers,
-		councilGoofyPic: await getFromCMS(councilGoofyPicQuery)
+		councilGoofyPic: await getFromCMS(councilGoofyPicQuery),
+		canonical: url.href
 	};
 };

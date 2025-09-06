@@ -1,18 +1,30 @@
 <script lang="ts">
 	import Section from 'components/Section.svelte';
+	import SeoMetaTags from 'components/SeoMetaTags.svelte';
+	let { data } = $props();
+
 	import EventTabControl from 'components/EventTabControl.svelte';
 	import { Tabs } from '@skeletonlabs/skeleton-svelte';
 	import EventTabPanel from 'components/EventTabPanel.svelte';
 	import type { EventPost } from '$lib/schemas';
 
-	let { data } = $props();
 	let events: EventPost[] = data.events ?? [];
 	let group = $state('allEvents');
 </script>
 
+<SeoMetaTags
+	title="Events by ECSESS"
+	description="Checkout our events! ECSESS organizes academic events, professional & social networkings, technical workshops, and more!"
+	canonical={data.canonical}
+/>
+
 <Section>
 	<p class="page-title">Events</p>
-	<Tabs value={group} onValueChange={(e) => (group = e.value)} listClasses="flex-wrap place-content-center">
+	<Tabs
+		value={group}
+		onValueChange={(e) => (group = e.value)}
+		listClasses="flex-wrap place-content-center"
+	>
 		{#snippet list()}
 			<EventTabControl value="allEvents">All Events</EventTabControl>
 			<EventTabControl value="academic">Academic</EventTabControl>

@@ -4,6 +4,7 @@
 	import RichText from 'components/RichText.svelte';
 	import OhSchedule from 'components/OHSchedule.svelte';
 	import Link from 'components/Link.svelte';
+	import SeoMetaTags from 'components/SeoMetaTags.svelte';
 	import { fade } from 'svelte/transition';
 
 	/** loading things from the server side */
@@ -11,10 +12,11 @@
 
 	// Temporary progress bar. Update the value below!
 	import { Progress } from '@skeletonlabs/skeleton-svelte';
-	let progress = 63.33;
+	let progress = 80;
 </script>
 
-<title> McGill ECSESS </title>
+<!-- SEO Meta header tags. Root page can use default values -->
+<SeoMetaTags canonical={data.canonical} />
 
 <!-- ECSESS Introduction -->
 <Section>
@@ -23,7 +25,9 @@
 			<div class="flex h-1/2 flex-col place-content-center text-center">
 				<p>
 					{#each 'We are ECSESS!' as char, i}
-						<span class="page-title" in:fade|global={{ delay: 200 + i * 100, duration: 800 }}>{char}</span>
+						<span class="page-title" in:fade|global={{ delay: 200 + i * 100, duration: 800 }}
+							>{char}</span
+						>
 					{/each}
 				</p>
 				<div class="p-4">
