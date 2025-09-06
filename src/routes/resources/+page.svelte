@@ -9,11 +9,13 @@
 <Section>
 	<p class="page-title">Resources</p>
 
-	<div class="flex flex-col gap-8">
+	<div class="grid gap-4">
 		{#each data.resources as re}
-		<ResourceCard title={re.title} link={re.url}>
-			{re.description}
-		</ResourceCard>
+			<ResourceCard
+				title={re.title}
+				link={re.url}
+				description={re.description}
+			/>
 		{/each}
 	</div>
 </Section>
