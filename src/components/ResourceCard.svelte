@@ -1,18 +1,26 @@
 <script>
-	import { slide } from 'svelte/transition';
-	import Button from './Button.svelte';
-	import Link from './Link.svelte';
-	let { title = '_Resource Title_', children, link = 'https://example.com' } = $props();
+	import { CircleArrowRight } from '@lucide/svelte';
+	import Link from 'components/Link.svelte';
+	let { title = '_Resource Title_', description = "Lorem ipsum", link = 'https://example.com' } = $props();
 </script>
 
-<div class="bg-ecsess-200 ring-6 ring-ecsess-600 hover:ring-ecsess-200/60 hover:shadow-3xl max-w-sm rounded-lg w-full transition-all" transition:slide>
-	<Link href={link}>
-		<div class="px-8 py-4">
-			<p class="text-ecsess-800 px-2 text-xl font-semibold lg:text-2xl">
+<div class="bg-ecsess-50 relative h-fit max-w-xl min-w-12 rounded-lg px-4 py-2 md:py-0">
+	<div class="grid grid-cols-1 md:grid-cols-[7fr_1fr]">
+		<div class="flex flex-col items-start p-4">
+			<p class="text-ecsess-900 my-1 pb-1 text-left text-xl font-extrabold">
 				{title}
 			</p>
-
-			<p class="text-ecsess-black pt-3 text-base font-normal lg:text-lg">{@render children()}</p>
+			<p class="text-ecsess-600 text-left text-base">
+				{description}
+			</p>
 		</div>
-	</Link>
+		<div class="m-4 place-self-center">
+			<Link href={link}>
+				<CircleArrowRight
+					size="42"
+					class="stroke-ecsess-800 hover:stroke-ecsess-400 cursor-pointer transition duration-200 active:scale-90"
+				/>
+			</Link>
+		</div>
+	</div>
 </div>
