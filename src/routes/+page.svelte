@@ -12,7 +12,7 @@
 
 	// Temporary progress bar. Update the value below!
 	import { Progress } from '@skeletonlabs/skeleton-svelte';
-	let progress = 63.33;
+	let progress = 80;
 </script>
 
 <!-- SEO Meta header tags. Root page can use default values -->
