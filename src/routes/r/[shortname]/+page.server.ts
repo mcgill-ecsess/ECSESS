@@ -2,14 +2,14 @@ import { redirect } from '@sveltejs/kit';
 import { getFromCMS } from '$lib/utils.js';
 import type { Redirect } from '$lib/schemas';
 
-const redirectQuery = `*[_type == "redirects"]{ shortname, url }`;
+const redirectQuery = `*[_type == "redirects"]{ name, shortname, url }`;
 
 export const load = async ({ params }) => {
-	let CMSresponse: Redirect[] = await getFromCMS(redirectQuery);
+	let allRedirects: Redirect[] = await getFromCMS(redirectQuery);
 
 	const { shortname } = params;
 
-	CMSresponse.forEach((res) => {
+	allRedirects.forEach((res) => {
 		if (res.shortname == shortname) {
 			// if match
 			throw redirect(302, res.url);
@@ -18,6 +18,6 @@ export const load = async ({ params }) => {
 
 	return {
 		shortname: shortname,
-		availableShortnames: CMSresponse
+		availableShortnames: allRedirects
 	};
 };

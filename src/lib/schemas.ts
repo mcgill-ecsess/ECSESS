@@ -58,4 +58,8 @@ export type Sponsors = {
 	logo: string;
 };
 
-export type Redirect = { shortname: string; url: string };
+export type Redirect = {
+	name: string;
+	shortname: string;
+	url: string;
+};

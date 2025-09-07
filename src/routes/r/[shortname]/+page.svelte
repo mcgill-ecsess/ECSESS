@@ -1,5 +1,6 @@
 <script>
 	import Section from 'components/Section.svelte';
+	import Link from 'components/Link.svelte';
 	let { data } = $props();
 </script>
 
@@ -11,11 +12,12 @@
 	<div>
 		Maybe you were trying to get to:
 		<ul>
-			{#each data.availableShortnames as s}
-			<li class="list-disc list-inside">
-				<a href={s.url}>
-					/r/{s.shortname}
-				</a>
+			{#each data.availableShortnames as redirect}
+			<li class="list-disc list-inside text-lg my-1">
+				{redirect.name} ~
+				<Link href={redirect.url}>
+					/r/{redirect.shortname}
+				</Link>
 			</li>
 			{/each}
 		</ul>
