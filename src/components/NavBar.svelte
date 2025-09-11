@@ -4,6 +4,7 @@
 	import ECSESS from 'assets/ECSESS.png';
 	import { Menu } from '@lucide/svelte';
 	import { slide } from 'svelte/transition';
+	let isElectionTime = $state(false);
 	let menuHidden = $state(true);
 </script>
 
@@ -31,7 +32,9 @@
 				<NavButton href="/council">Meet the council</NavButton>
 				<NavButton href="/events">Events</NavButton>
 				<NavButton href="/resources">Resources</NavButton>
+				{#if isElectionTime}
 				<NavButton href="/join">Join ECSESS</NavButton>
+				{/if}
 			</div>
 		{/if}
 	</div>
@@ -45,7 +48,9 @@
 			<NavButton href="/council">Meet the council</NavButton>
 			<NavButton href="/events">Events</NavButton>
 			<NavButton href="/resources">Resources</NavButton>
-			<NavButton href="/join">Join ECSESS</NavButton>
+			{#if isElectionTime}
+				<NavButton href="/join">Join ECSESS</NavButton>
+			{/if}
 		</div>
 	</div>
 </nav>
