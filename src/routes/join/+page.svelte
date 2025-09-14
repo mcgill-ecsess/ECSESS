@@ -16,9 +16,9 @@
 	<p class="page-title">Want to join ECSESS Council?</p>
 	<p>Come back around March for application period!</p>
 
-	{#if isElectionTime}
+	<!-- {#if isElectionTime}
 		<ResourceCard title="Involvement Booklet">
 			A guide to involvement with ECSESS and its subcommittees (The Factory, IEEE McGill, CodeJam).
 		</ResourceCard>
-	{:else}{/if}
+	{:else}{/if} -->
 </Section>
