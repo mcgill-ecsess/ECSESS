@@ -8,7 +8,7 @@
 	let menuHidden = $state(true);
 </script>
 
-<nav class="bg-ecsess-black text-ecsess-200 sticky w-screen py-1">
+<nav class="bg-ecsess-black text-ecsess-200 sticky w-full py-1">
 	<div class="block md:hidden">
 		<div class="mx-4 flex items-center-safe justify-between">
 			<a href="/">
