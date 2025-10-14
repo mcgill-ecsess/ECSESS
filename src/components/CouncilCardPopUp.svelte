@@ -1,6 +1,6 @@
 <script>
 	let { name, position, email, positionDescription, yearProgram, image } = $props();
-	import { Mail, NotepadText } from '@lucide/svelte';
+	import { Mail } from '@lucide/svelte';
 	import placeholder from 'assets/placeholderAvatar.png';
 	import { slide } from 'svelte/transition';
 </script>

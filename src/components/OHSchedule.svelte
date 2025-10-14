@@ -29,7 +29,7 @@
           class="bg-ecsess-200 text-ecsess-black m-2 grid h-28 lg:h-36 grid-cols-1 grid-rows-[2fr_4fr_3fr]
             place-content-center rounded-xl p-3 text-center"
         >
-          <p class="border-b-ecsess-600 md:text-md border-b-2 text-base lg:text-lg">
+          <p class="border-b-ecsess-600 border-b-2 text-base md:text-base lg:text-lg">
             {OH.startTime} - {OH.endTime}
           </p>
 
