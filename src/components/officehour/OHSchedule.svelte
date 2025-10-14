@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { OfficeHour } from '$lib/schemas';
+	import OHBlock from './OHBlock.svelte';
 
 	// Constants
 	const SLOT_HEIGHT = 40; // pixels per 30-minute slot
@@ -8,7 +9,7 @@
 	const BLOCK_VERTICAL_PADDING = 8; // pixels total (4px top + 4px bottom)
 	const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as const;
 	const DEFAULT_START_TIME = 10 * 60; // 10 AM in minutes
-	const DEFAULT_END_TIME = 17 * 60 ; // 5 PM in minutes
+	const DEFAULT_END_TIME = 17 * 60; // 5 PM in minutes
 
 	type Segment = {
 		startSlot: number;
@@ -42,14 +43,17 @@
 	};
 
 	const getSegmentId = (ohs: OfficeHour[]): string =>
-		ohs.map(oh => `${oh.member.name}|${oh.startTime}`).sort().join('||');
+		ohs
+			.map((oh) => `${oh.member.name}|${oh.startTime}`)
+			.sort()
+			.join('||');
 
 	// Derived values using Svelte 5 $derived
 	const timeRange = $derived.by(() => {
-		const allTimes = allOhs.flatMap(oh => [parseTime(oh.startTime), parseTime(oh.endTime)]);
+		const allTimes = allOhs.flatMap((oh) => [parseTime(oh.startTime), parseTime(oh.endTime)]);
 		return {
 			min: Math.min(...allTimes, DEFAULT_START_TIME),
-			max: Math.max(...allTimes, DEFAULT_END_TIME),
+			max: Math.max(...allTimes, DEFAULT_END_TIME)
 		};
 	});
 
@@ -74,7 +78,7 @@
 
 	// Get office hours active at a specific time slot
 	const getActiveOHs = (day: string, timeSlot: number): OfficeHour[] =>
-		allOhs.filter(oh => {
+		allOhs.filter((oh) => {
 			if (oh.day !== day) return false;
 			const start = parseTime(oh.startTime);
 			const end = parseTime(oh.endTime);
@@ -100,44 +104,44 @@
 				segments.push({
 					startSlot: currentSlot,
 					endSlot: currentSlot + SLOT_DURATION,
-					ohs: activeOHs,
+					ohs: activeOHs
 				});
 			}
 		}
 
 		return segments;
 	};
-
-	const shortenPosition = (position: string): string =>
-		position.replace(/Engineering Representative/gi, 'Rep.');
 </script>
 
 <div class="overflow-x-auto">
-	<div class="min-w-[800px] max-w-7xl mx-auto">
+	<div class="mx-auto max-w-7xl min-w-[800px]">
 		<!-- Header row -->
-		<div class="grid gap-0 mb-2" style:grid-template-columns="80px repeat(5, 1fr)">
-			<div class="text-center font-semibold text-ecsess-200 text-base px-2">Time</div>
+		<div class="mb-2 grid gap-0" style:grid-template-columns="80px repeat(5, 1fr)">
+			<div class="text-ecsess-50 px-2 text-center text-base font-semibold">Time</div>
 			{#each DAYS as day}
-				<div class="text-center font-semibold text-ecsess-200 text-base md:text-lg px-2">
+				<div class="text-ecsess-50 px-2 text-center text-base font-semibold md:text-lg">
 					{day}
 				</div>
 			{/each}
 		</div>
 
 		<!-- Calendar grid -->
-		<div class="grid gap-0 border-t-2 border-ecsess-600" style:grid-template-columns="80px repeat(5, 1fr)">
+		<div
+			class="border-ecsess-500 grid gap-0 border-t-2"
+			style:grid-template-columns="80px repeat(5, 1fr)"
+		>
 			{#each DAYS as day, dayIndex}
 				{@const segments = getSegmentsForDay(day)}
 
 				<!-- Time column (only for first day) -->
 				{#if dayIndex === 0}
-					<div class="relative border-b-2 border-ecsess-600">
+					<div class="border-ecsess-500 relative border-b-2">
 						{#each timeSlots as timeSlot}
 							{@const isHourMark = timeSlot % 60 === 0}
 							<div
-								class="flex items-start pt-1 text-right pr-2 text-sm text-ecsess-200 border-t border-ecsess-700"
+								class="text-ecsess-50 border-ecsess-400 flex items-start justify-end border-t pt-1 pr-2 text-sm"
 								class:border-t-4={isHourMark}
-								class:border-ecsess-600={isHourMark}
+								class:border-ecsess-500={isHourMark}
 								class:font-semibold={isHourMark}
 								style:height="{SLOT_HEIGHT}px"
 							>
@@ -148,14 +152,17 @@
 				{/if}
 
 				<!-- Day column with segments -->
-				<div class="relative border-l border-b-2 border-ecsess-700 border-b-ecsess-600" style:min-height="{timeSlots.length * SLOT_HEIGHT}px">
+				<div
+					class="border-ecsess-500 border-b-ecsess-500 relative border-b-2 border-l"
+					style:min-height="{timeSlots.length * SLOT_HEIGHT}px"
+				>
 					<!-- Background grid lines -->
 					{#each timeSlots as timeSlot, idx}
 						{@const isHourMark = timeSlot % 60 === 0}
 						<div
-							class="absolute inset-x-0 border-t border-ecsess-700"
+							class="border-ecsess-400 absolute inset-x-0 border-t"
 							class:border-t-4={isHourMark}
-							class:border-ecsess-600={isHourMark}
+							class:border-ecsess-500={isHourMark}
 							style:top="{idx * SLOT_HEIGHT}px"
 							style:height="{SLOT_HEIGHT}px"
 						></div>
@@ -163,32 +170,21 @@
 
 					<!-- Office hour segments -->
 					{#each segments as segment}
-						{@const startIndex = timeSlots.findIndex(ts => ts >= segment.startSlot)}
+						{@const startIndex = timeSlots.findIndex((ts) => ts >= segment.startSlot)}
 						{@const duration = segment.endSlot - segment.startSlot}
 						{@const heightPx = (duration / SLOT_DURATION) * SLOT_HEIGHT}
-						{@const isShortBlock = duration <= SLOT_DURATION}
+						{@const isShortBlock = duration <= 30}
 
 						<div
-							class="absolute grid gap-0.5 z-10"
-							style:top="{startIndex * SLOT_HEIGHT + BLOCK_MARGIN}px"
-							style:height="{heightPx - BLOCK_VERTICAL_PADDING}px"
+							class="absolute z-10 grid gap-0.5"
+							style:top="{startIndex * SLOT_HEIGHT + BLOCK_MARGIN + 3}px"
+							style:height="{heightPx - BLOCK_VERTICAL_PADDING - 3}px"
 							style:left="{BLOCK_MARGIN}px"
 							style:right="{BLOCK_MARGIN}px"
 							style:grid-template-columns="repeat({segment.ohs.length}, 1fr)"
 						>
 							{#each segment.ohs as oh}
-								<div class="min-w-0 bg-ecsess-200 rounded-sm flex items-center justify-center">
-									<div class="text-center px-1">
-										<p class="text-ecsess-800 font-extrabold text-base lg:text-lg">
-											{oh.member.name.split(' ')[0]}
-										</p>
-										{#if !isShortBlock}
-											<p class="italic text-sm leading-tight text-ecsess-900">
-												{shortenPosition(oh.member.position)}
-											</p>
-										{/if}
-									</div>
-								</div>
+								<OHBlock officeHour={oh} {isShortBlock} />
 							{/each}
 						</div>
 					{/each}

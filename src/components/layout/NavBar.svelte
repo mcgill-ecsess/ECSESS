@@ -7,7 +7,7 @@
 	let menuHidden = $state(true);
 </script>
 
-<nav class="bg-ecsess-black text-ecsess-200 sticky w-full py-1">
+<nav class="bg-ecsess-black text-ecsess-100 sticky w-full py-1">
 	<div class="block md:hidden">
 		<div class="mx-4 flex items-center-safe justify-between">
 			<a href="/">
@@ -16,7 +16,7 @@
 
 			<button
 				type="button"
-				class="bg-ecsess-black-hover hover:bg-ecsess-800 grid size-10 place-items-center rounded-lg transition-colors ease-in-out active:bg-green-900"
+				class="bg-ecsess-black-hover hover:bg-ecsess-800 grid size-10 place-items-center rounded-md transition-colors ease-in-out active:bg-ecsess-900"
 				onclick={() => {
 					menuHidden = !menuHidden;
 				}}

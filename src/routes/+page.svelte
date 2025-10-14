@@ -38,8 +38,8 @@
 					<p class="italic">
 						Development progress: {progress}%
 					</p>
-					<div id="progress" class="my-2 border-2">
-						<Progress value={progress} max={100} meterBg="bg-ecsess-200" height="h-4"></Progress>
+					<div id="progress" class="my-2 border-2 border-ecsess-300">
+						<Progress value={progress} max={100} meterBg="bg-ecsess-150" height="h-4"></Progress>
 					</div>
 				</div>
 			</div>
@@ -48,7 +48,7 @@
 			<img
 				src={data.councilPhoto}
 				alt="ECSESS Council"
-				class="ring-ecsess-600 shadow-ecsess-400 rounded-2xl shadow-md ring-4"
+				class="ring-ecsess-500 shadow-ecsess-350 rounded-md shadow-md ring-4 hover:ring-ecsess-400 transition-all"
 			/>
 		</div>
 	</div>

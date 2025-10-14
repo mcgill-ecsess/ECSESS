@@ -7,16 +7,16 @@
 
 <div
 	class="text-ecsess-800 m-4 flex h-[275px] max-w-[564px]
-			items-center gap-3 rounded-2xl border-transparent bg-transparent
-			bg-[linear-gradient(to_bottom_right,_#E8FFD9,_#97C583)] p-6"
+			items-center gap-3 rounded-md border-transparent bg-transparent
+			bg-gradient-to-br from-ecsess-50 to-ecsess-300 p-6"
 	transition:slide
 >
 	<!-- AVATAR -->
 	<div class="avatar">
-		<div class="size-36 justify-center place-self-center-safe overflow-hidden rounded-lg shadow-md">
+		<div class="size-36 justify-center place-self-center-safe overflow-hidden rounded-md shadow-md">
 			<img src={image || placeholder} alt={name} class="h-full w-full object-cover" />
 		</div>
-		<span class="yearProgram justify-center text-sm"> Major: {yearProgram} </span>
+		<span class="yearProgram justify-center text-sm"> {yearProgram} </span>
 	</div>
 	<!-- CONTENT -->
 	<div class="content">

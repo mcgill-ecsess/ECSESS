@@ -2,18 +2,31 @@
 @import 'tailwindcss';
 
 @theme {
+	/* Light shades - for backgrounds and cards */
 	--color-ecsess-50: #e8ffd9;
 	--color-ecsess-100: #CCE7BA;
-	--color-ecsess-200: #a9b7a0;
-	--color-ecsess-300: #82a17f;
-	--color-ecsess-400: #5c8a5c;
-	--color-ecsess-500: #4b7b4b;
-	--color-ecsess-600: #3b6a3a;
-	--color-ecsess-700: #235323;
+	--color-ecsess-150: #b8dda8;
+	--color-ecsess-200: #a9d0a0;
+	
+	/* Mid-light shades - for borders and hover states */
+	--color-ecsess-300: #8fb98a;
+	--color-ecsess-350: #7aa876;
+	--color-ecsess-400: #6a9a6a;
+	
+	/* Mid shades - for accents and interactive elements */
+	--color-ecsess-500: #5a8b5a;
+	--color-ecsess-550: #4d7a4d;
+	--color-ecsess-600: #3f6a3f;
+	
+	/* Mid-dark shades - for text on light backgrounds */
+	--color-ecsess-700: #2d5a2d;
 	--color-ecsess-800: #0a3d2a;
+	
+	/* Dark shades - for text and backgrounds */
 	--color-ecsess-900: #062c20;
 	--color-ecsess-950: #031c15;
-	--color-ecsess-teal: #168059;
+	
+	/* Black variants for UI elements */
 	--color-ecsess-black: #1F1F1F;
 	--color-ecsess-black-hover: #161917;
 }
@@ -53,7 +66,7 @@ h2 {
 	}
 
 	blockquote {
-		@apply bg-ecsess-200 text-ecsess-600 border-l-ecsess-800 my-4 rounded-sm border-l-4 py-[0.01rem] ps-4 italic;
+		@apply bg-ecsess-100 text-ecsess-700 border-l-ecsess-600 my-4 rounded-md border-l-4 py-[0.01rem] ps-4 italic;
 	}
 
 	h1 {
@@ -152,11 +165,11 @@ h2 {
 	}
 
 	thead {
-		@apply border-ecsess-400 border-b-2;
+		@apply border-ecsess-500 border-b-2;
 	}
 
 	thead th {
-		@apply text-ecsess-400 p-2 text-left text-base font-bold;
+		@apply text-ecsess-500 p-2 text-left text-base font-bold;
 	}
 
 	tbody td,
@@ -169,7 +182,7 @@ h2 {
 	}
 
 	tbody tr:nth-child(odd) {
-		@apply bg-ecsess-200/24;
+		@apply bg-ecsess-150/24;
 	}
 
 	td + td {

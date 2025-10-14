@@ -52,12 +52,12 @@
 		<img
 			src={data.councilGoofyPic.url}
 			alt="ECSESS Council, but we are goofy"
-			class="ring-ecsess-400 shadow-ecsess-black mb-8 rounded-lg shadow-2xl ring-4 lg:w-[90%]"
+			class="ring-ecsess-350 shadow-ecsess-black mb-8 rounded-md shadow-2xl ring-4 lg:w-[90%] hover:ring-ecsess-300 transition-all"
 			transition:fly
 		/>
 	</div>
 
-	<h1 class="border-b-ecsess-200 w-full border-b-2 lg:w-1/2">Our Student Council!</h1>
+	<h1 class="border-b-ecsess-300 w-full border-b-2 lg:w-1/2">Our Student Council!</h1>
 
 	<div>
 		<CardCouncil
@@ -70,7 +70,7 @@
 
 	<div class="grid place-items-center">
 		<h2
-			class="border-b-ecsess-200 w-full place-self-center-safe border-b-2 border-dashed md:w-1/2 lg:w-1/3"
+			class="border-b-ecsess-300 w-full place-self-center-safe border-b-2 border-dashed md:w-1/2 lg:w-1/3"
 		>
 			Vice Presidents
 		</h2>
@@ -85,7 +85,7 @@
 			{/each}
 		</div>
 		<h2
-			class="border-b-ecsess-200 w-full place-self-center-safe border-b-2 border-dashed md:w-1/2 lg:w-1/3"
+			class="border-b-ecsess-300 w-full place-self-center-safe border-b-2 border-dashed md:w-1/2 lg:w-1/3"
 		>
 			Year Representative
 		</h2>

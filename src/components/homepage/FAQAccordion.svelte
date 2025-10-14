@@ -39,12 +39,12 @@
 	{#each entries as entry, index}
 		<Accordion.Item
 			value={index.toString()}
-			classes="border-ecsess-200 mb-4 rounded-xl border-2 hover:bg-ecsess-600/48 transition-all"
+			classes="border-ecsess-300 mb-4 rounded-md border-2 hover:bg-ecsess-500/30 transition-all"
 			leadClasses="text-lg font-bold"
 			controlClasses="
             flex cursor-pointer justify-between
             py-4 ease-in-out"
-			panelClasses=" border-t-ecsess-200 border-t-2 bg-transparent p-4 bg-ecsess-400"
+			panelClasses=" border-t-ecsess-300 border-t-2 bg-transparent p-4 bg-ecsess-350/50"
 		>
 			<!-- Control -->
 			{#snippet lead()}
