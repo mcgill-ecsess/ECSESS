@@ -12,7 +12,10 @@ const config = {
 		}
 	},
 	preprocess: [],
-	extensions: ['.svelte']
+
+	compilerOptions: {
+		runes: true
+	}
 };
 
 export default config;
