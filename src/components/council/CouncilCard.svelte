@@ -1,7 +1,7 @@
 <script>
 	let { onViewProfile, name, position, image } = $props();
 	import Button from 'components/Button.svelte';
-	import Avatar from 'components/Avatar.svelte';
+	import Avatar from 'components/council/Avatar.svelte';
 </script>
 
 <div class="text-ecsess-200 flex max-w-md items-center gap-6 p-3">

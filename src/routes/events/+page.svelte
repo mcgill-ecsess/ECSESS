@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Section from 'components/Section.svelte';
-	import SeoMetaTags from 'components/SeoMetaTags.svelte';
+	import Section from 'components/layout/Section.svelte';
+	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
 	let { data } = $props();
 
-	import EventTabControl from 'components/EventTabControl.svelte';
+	import EventTabControl from 'components/event/EventTabControl.svelte';
 	import { Tabs } from '@skeletonlabs/skeleton-svelte';
-	import EventTabPanel from 'components/EventTabPanel.svelte';
+	import EventTabPanel from 'components/event/EventTabPanel.svelte';
 	import type { EventPost } from '$lib/schemas';
 
 	let events: EventPost[] = data.events ?? [];

@@ -1,11 +1,11 @@
 <script lang="ts">
-	import CouncilCardPopUp from 'components/CouncilCardPopUp.svelte';
-	import Section from 'components/Section.svelte';
-	import CardCouncil from 'components/CouncilCard.svelte';
+	import CouncilCardPopUp from 'components/council/CouncilCardPopUp.svelte';
+	import Section from 'components/layout/Section.svelte';
+	import CardCouncil from 'components/council/CouncilCard.svelte';
 	import type { CouncilMember } from '$lib/schemas';
 	import { fly } from 'svelte/transition';
 	import Button from 'components/Button.svelte';
-	import SeoMetaTags from 'components/SeoMetaTags.svelte';
+	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
 
 	let { data } = $props();
 

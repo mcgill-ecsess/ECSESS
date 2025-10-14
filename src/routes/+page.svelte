@@ -1,10 +1,10 @@
 <script>
-	import FaqAccordion from 'components/FAQAccordion.svelte';
-	import Section from 'components/Section.svelte';
+	import FaqAccordion from 'components/homepage/FAQAccordion.svelte';
+	import Section from 'components/layout/Section.svelte';
 	import RichText from 'components/RichText.svelte';
-	import OhSchedule from 'components/OHSchedule.svelte';
+	import OhSchedule from 'components/officehour/OHSchedule.svelte';
 	import Link from 'components/Link.svelte';
-	import SeoMetaTags from 'components/SeoMetaTags.svelte';
+	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
 	import { fade } from 'svelte/transition';
 
 	/** loading things from the server side */

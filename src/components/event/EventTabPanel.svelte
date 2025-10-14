@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Tabs } from '@skeletonlabs/skeleton-svelte';
-	import EventBlock from 'components/EventBlock.svelte';
+	import EventBlock from 'components/event/EventBlock.svelte';
 	import type { EventPost } from '$lib/schemas';
 
 	type Category = 'allEvents' | 'academic' | 'professional' | 'social' | 'technical';

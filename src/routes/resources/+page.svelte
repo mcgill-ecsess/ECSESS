@@ -1,7 +1,7 @@
 <script>
-	import ResourceCard from 'components/ResourceCard.svelte';
-	import Section from 'components/Section.svelte';
-	import SeoMetaTags from 'components/SeoMetaTags.svelte';
+	import ResourceCard from 'components/resource/ResourceCard.svelte';
+	import Section from 'components/layout/Section.svelte';
+	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
 	let { data } = $props();
 </script>
 

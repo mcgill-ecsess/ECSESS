@@ -1,5 +1,4 @@
 <script>
-	import Button from './Button.svelte';
 	import NavButton from './NavButton.svelte';
 	import ECSESS from 'assets/ECSESS.png';
 	import { Menu } from '@lucide/svelte';
