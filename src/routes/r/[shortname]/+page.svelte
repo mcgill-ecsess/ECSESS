@@ -1,5 +1,5 @@
 <script>
-	import Section from 'components/Section.svelte';
+	import Section from 'components/layout/Section.svelte';
 	import Link from 'components/Link.svelte';
 	let { data } = $props();
 </script>
