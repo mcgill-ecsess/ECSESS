@@ -1,44 +1,199 @@
 <script lang="ts">
-  import type { OfficeHour } from '$lib/schemas';
+	import type { OfficeHour } from '$lib/schemas';
 
-  function parseTime(timeStr: string): number {
-    let timeRegexMatch = timeStr.match(/^(\d{1,2})(?::(\d{2}))?(AM|PM)$/i);
-    if (!timeRegexMatch) return 0;
+	// Constants
+	const SLOT_HEIGHT = 40; // pixels per 30-minute slot
+	const SLOT_DURATION = 30; // minutes
+	const BLOCK_MARGIN = 4; // pixels
+	const BLOCK_VERTICAL_PADDING = 8; // pixels total (4px top + 4px bottom)
+	const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as const;
+	const DEFAULT_START_TIME = 10 * 60; // 10 AM in minutes
+	const DEFAULT_END_TIME = 17 * 60 ; // 5 PM in minutes
 
-    let hours = parseInt(timeRegexMatch[1], 10);
-    let minutes = parseInt(timeRegexMatch[2] || '0', 10);
-    let period = timeRegexMatch[3];
+	type Segment = {
+		startSlot: number;
+		endSlot: number;
+		ohs: OfficeHour[];
+	};
 
-    if (period.toUpperCase() === 'PM' && hours !== 12) hours += 12;
-    if (period.toUpperCase() === 'AM' && hours === 12) hours = 0;
+	let { allOhs }: { allOhs: OfficeHour[] } = $props();
 
-    return Number(hours * 60 + minutes); // total minutes since midnight
-  }
-  let { allOhs }: { allOhs: OfficeHour[] } = $props();
-  let sortedOHs = allOhs.sort((a, b) => {
-    return parseTime(a.startTime) - parseTime(b.startTime);
-  });
+	// Time parsing utilities
+	const parseTime = (timeStr: string): number => {
+		const match = timeStr.match(/^(\d{1,2})(?::(\d{2}))?(AM|PM)$/i);
+		if (!match) return 0;
+
+		let hours = parseInt(match[1], 10);
+		const minutes = parseInt(match[2] || '0', 10);
+		const period = match[3].toUpperCase();
+
+		if (period === 'PM' && hours !== 12) hours += 12;
+		if (period === 'AM' && hours === 12) hours = 0;
+
+		return hours * 60 + minutes;
+	};
+
+	const formatTime = (minutes: number): string => {
+		const hours = Math.floor(minutes / 60);
+		const mins = minutes % 60;
+		const period = hours >= 12 ? 'PM' : 'AM';
+		const displayHours = hours === 0 ? 12 : hours > 12 ? hours - 12 : hours;
+		return `${displayHours}:${mins.toString().padStart(2, '0')} ${period}`;
+	};
+
+	const getSegmentId = (ohs: OfficeHour[]): string =>
+		ohs.map(oh => `${oh.member.name}|${oh.startTime}`).sort().join('||');
+
+	// Derived values using Svelte 5 $derived
+	const timeRange = $derived.by(() => {
+		const allTimes = allOhs.flatMap(oh => [parseTime(oh.startTime), parseTime(oh.endTime)]);
+		return {
+			min: Math.min(...allTimes, DEFAULT_START_TIME),
+			max: Math.max(...allTimes, DEFAULT_END_TIME),
+		};
+	});
+
+	const timeSlots = $derived.by(() => {
+		const startHour = Math.floor(timeRange.min / 60);
+		const endHour = Math.ceil(timeRange.max / 60);
+		const slots: number[] = [];
+
+		for (let hour = startHour; hour < endHour; hour++) {
+			slots.push(hour * 60);
+			if (hour * 60 + SLOT_DURATION <= timeRange.max) {
+				slots.push(hour * 60 + SLOT_DURATION);
+			}
+		}
+
+		if (endHour * 60 <= timeRange.max) {
+			slots.push(endHour * 60);
+		}
+
+		return slots;
+	});
+
+	// Get office hours active at a specific time slot
+	const getActiveOHs = (day: string, timeSlot: number): OfficeHour[] =>
+		allOhs.filter(oh => {
+			if (oh.day !== day) return false;
+			const start = parseTime(oh.startTime);
+			const end = parseTime(oh.endTime);
+			return start <= timeSlot && timeSlot < end;
+		});
+
+	// Create continuous segments for a day
+	const getSegmentsForDay = (day: string): Segment[] => {
+		const segments: Segment[] = [];
+
+		for (const currentSlot of timeSlots) {
+			const activeOHs = getActiveOHs(day, currentSlot);
+			if (activeOHs.length === 0) continue;
+
+			const currentId = getSegmentId(activeOHs);
+			const lastSegment = segments.at(-1);
+
+			if (lastSegment && getSegmentId(lastSegment.ohs) === currentId) {
+				// Continue existing segment
+				lastSegment.endSlot = currentSlot + SLOT_DURATION;
+			} else {
+				// Create new segment
+				segments.push({
+					startSlot: currentSlot,
+					endSlot: currentSlot + SLOT_DURATION,
+					ohs: activeOHs,
+				});
+			}
+		}
+
+		return segments;
+	};
+
+	const shortenPosition = (position: string): string =>
+		position.replace(/Engineering Representative/gi, 'Rep.');
 </script>
 
-<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2">
-  {#each ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as day}
-    <div class="items-stretch justify-self-center min-w-[80%] max-w-[16rem] md:min-w-[90%] md:max-w-[20rem]">
-      <p class="text-center text-xl">{day}</p>
-      {#each sortedOHs.filter((OH) => OH.day == day) as OH}
-        <div
-          class="bg-ecsess-200 text-ecsess-black m-2 grid h-28 lg:h-36 grid-cols-1 grid-rows-[2fr_4fr_3fr]
-            place-content-center rounded-xl p-3 text-center"
-        >
-          <p class="border-b-ecsess-600 border-b-2 text-base md:text-base lg:text-lg">
-            {OH.startTime} - {OH.endTime}
-          </p>
+<div class="overflow-x-auto">
+	<div class="min-w-[800px] max-w-7xl mx-auto">
+		<!-- Header row -->
+		<div class="grid gap-0 mb-2" style:grid-template-columns="80px repeat(5, 1fr)">
+			<div class="text-center font-semibold text-ecsess-200 text-base px-2">Time</div>
+			{#each DAYS as day}
+				<div class="text-center font-semibold text-ecsess-200 text-base md:text-lg px-2">
+					{day}
+				</div>
+			{/each}
+		</div>
 
-          <p class="text-ecsess-800 place-self-center font-extrabold text-lg md:text-xl lg:text-xl">
-            {OH.member.name.split(' ')[0]}
-          </p>
-          <p class="text-sm italic lg:text-base">{OH.member.position}</p>
-        </div>
-      {/each}
-    </div>
-  {/each}
+		<!-- Calendar grid -->
+		<div class="grid gap-0 border-t-2 border-ecsess-600" style:grid-template-columns="80px repeat(5, 1fr)">
+			{#each DAYS as day, dayIndex}
+				{@const segments = getSegmentsForDay(day)}
+
+				<!-- Time column (only for first day) -->
+				{#if dayIndex === 0}
+					<div class="relative border-b-2 border-ecsess-600">
+						{#each timeSlots as timeSlot}
+							{@const isHourMark = timeSlot % 60 === 0}
+							<div
+								class="flex items-start pt-1 text-right pr-2 text-sm text-ecsess-200 border-t border-ecsess-700"
+								class:border-t-4={isHourMark}
+								class:border-ecsess-600={isHourMark}
+								class:font-semibold={isHourMark}
+								style:height="{SLOT_HEIGHT}px"
+							>
+								{#if isHourMark}{formatTime(timeSlot)}{/if}
+							</div>
+						{/each}
+					</div>
+				{/if}
+
+				<!-- Day column with segments -->
+				<div class="relative border-l border-b-2 border-ecsess-700 border-b-ecsess-600" style:min-height="{timeSlots.length * SLOT_HEIGHT}px">
+					<!-- Background grid lines -->
+					{#each timeSlots as timeSlot, idx}
+						{@const isHourMark = timeSlot % 60 === 0}
+						<div
+							class="absolute inset-x-0 border-t border-ecsess-700"
+							class:border-t-4={isHourMark}
+							class:border-ecsess-600={isHourMark}
+							style:top="{idx * SLOT_HEIGHT}px"
+							style:height="{SLOT_HEIGHT}px"
+						></div>
+					{/each}
+
+					<!-- Office hour segments -->
+					{#each segments as segment}
+						{@const startIndex = timeSlots.findIndex(ts => ts >= segment.startSlot)}
+						{@const duration = segment.endSlot - segment.startSlot}
+						{@const heightPx = (duration / SLOT_DURATION) * SLOT_HEIGHT}
+						{@const isShortBlock = duration <= SLOT_DURATION}
+
+						<div
+							class="absolute grid gap-0.5 z-10"
+							style:top="{startIndex * SLOT_HEIGHT + BLOCK_MARGIN}px"
+							style:height="{heightPx - BLOCK_VERTICAL_PADDING}px"
+							style:left="{BLOCK_MARGIN}px"
+							style:right="{BLOCK_MARGIN}px"
+							style:grid-template-columns="repeat({segment.ohs.length}, 1fr)"
+						>
+							{#each segment.ohs as oh}
+								<div class="min-w-0 bg-ecsess-200 rounded-sm flex items-center justify-center">
+									<div class="text-center px-1">
+										<p class="text-ecsess-800 font-extrabold text-base lg:text-lg">
+											{oh.member.name.split(' ')[0]}
+										</p>
+										{#if !isShortBlock}
+											<p class="italic text-sm leading-tight text-ecsess-900">
+												{shortenPosition(oh.member.position)}
+											</p>
+										{/if}
+									</div>
+								</div>
+							{/each}
+						</div>
+					{/each}
+				</div>
+			{/each}
+		</div>
+	</div>
 </div>
