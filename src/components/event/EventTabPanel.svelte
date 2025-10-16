@@ -6,7 +6,7 @@
 	type Category = 'allEvents' | 'academic' | 'professional' | 'social' | 'technical';
 
 	let { value, category, events } = $props<{
-		value: Category; 
+		value: Category;
 		category: Category;
 		events: EventPost[];
 	}>();
@@ -21,7 +21,7 @@
 </script>
 
 <Tabs.Panel {value}>
-	<div class="flex flex-wrap gap-4 m-1 lg:m-4">
+	<div class="m-1 flex flex-wrap gap-4 lg:m-4">
 		{#each filtered as e (e._id ?? e.name)}
 			<EventBlock
 				eventTitle={e.name}

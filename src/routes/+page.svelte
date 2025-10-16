@@ -5,6 +5,7 @@
 	import OhSchedule from 'components/officehour/OHSchedule.svelte';
 	import Link from 'components/Link.svelte';
 	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
+	import SocialLinks from 'components/homepage/SocialLinks.svelte';
 	import { fade } from 'svelte/transition';
 
 	/** loading things from the server side */
@@ -38,7 +39,7 @@
 					<p class="italic">
 						Development progress: {progress}%
 					</p>
-					<div id="progress" class="my-2 border-2 border-ecsess-300">
+					<div id="progress" class="border-ecsess-300 my-2 border-2">
 						<Progress value={progress} max={100} meterBg="bg-ecsess-150" height="h-4"></Progress>
 					</div>
 				</div>
@@ -48,7 +49,7 @@
 			<img
 				src={data.councilPhoto}
 				alt="ECSESS Council"
-				class="ring-ecsess-500 shadow-ecsess-350 rounded-md shadow-md ring-4 hover:ring-ecsess-400 transition-all"
+				class="ring-ecsess-500 shadow-ecsess-350 hover:ring-ecsess-400 rounded-md shadow-md ring-4 transition-all"
 			/>
 		</div>
 	</div>
