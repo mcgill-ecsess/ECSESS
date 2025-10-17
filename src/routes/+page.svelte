@@ -5,7 +5,7 @@
 	import OhSchedule from 'components/officehour/OHSchedule.svelte';
 	import Link from 'components/Link.svelte';
 	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
-	import SocialLinks from 'components/homepage/SocialLinks.svelte';
+	import AffiliatedClubs from 'components/homepage/AffiliatedClubs.svelte';
 	import { fade } from 'svelte/transition';
 
 	/** loading things from the server side */
@@ -55,7 +55,6 @@
 	</div>
 </Section>
 
-<!-- Picture, FAQ -->
 <!-- Office Hours Calendar -->
 <Section black>
 	<div class="w-full">
@@ -64,6 +63,10 @@
 	</div>
 </Section>
 
+<!-- Affiliated Clubs -->
+<AffiliatedClubs />
+
+<!-- FAQs and Sponsors -->
 <Section>
 	<div class="grid w-full max-w-[80vw] grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-24">
 		<div>

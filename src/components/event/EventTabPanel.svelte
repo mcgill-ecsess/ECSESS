@@ -17,22 +17,121 @@
 		return Array.isArray(c) ? c.includes(category) : (c as string) === category;
 	};
 
+	const parseEventDate = (dateString: string): Date => {
+		// Try to parse various date formats
+		const parsed = new Date(dateString);
+		return isNaN(parsed.getTime()) ? new Date() : parsed;
+	};
+
+	const formatEventDate = (dateString: string): string => {
+		const date = parseEventDate(dateString);
+
+		// Check if the time is midnight (00:00) which likely means no time was specified
+		const isMidnight = date.getUTCHours() === 0 && date.getUTCMinutes() === 0;
+
+		if (isMidnight) {
+			// Format without time - just the date
+			return date.toLocaleDateString('en-US', {
+				weekday: 'long',
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			});
+		} else {
+			// Format with time
+			return date.toLocaleDateString('en-US', {
+				weekday: 'long',
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric',
+				hour: 'numeric',
+				minute: '2-digit',
+				hour12: true
+			});
+		}
+	};
+
+	const isPastEvent = (dateString: string): boolean => {
+		const eventDate = parseEventDate(dateString);
+		const now = new Date();
+		return eventDate < now;
+	};
+
 	const filtered = $derived((events ?? []).filter(matchCategory));
+
+	const upcomingEvents = $derived(
+		filtered
+			.filter((e) => !isPastEvent(e.date))
+			.sort((a, b) => parseEventDate(a.date).getTime() - parseEventDate(b.date).getTime())
+	);
+
+	const finishedEvents = $derived(
+		filtered
+			.filter((e) => isPastEvent(e.date))
+			.sort((a, b) => parseEventDate(b.date).getTime() - parseEventDate(a.date).getTime())
+	);
 </script>
 
 <Tabs.Panel {value}>
-	<div class="m-1 flex flex-wrap gap-4 lg:m-4">
-		{#each filtered as e (e._id ?? e.name)}
-			<EventBlock
-				eventTitle={e.name}
-				date={e.date}
-				location={e.location}
-				eventDescription={e.description}
-				thumbnail={e.thumbnail}
-				registrationLink={e.reglink}
-				paymentLink={e.paylink}
-				eventCategory={e.category}
-			/>
-		{/each}
+	<div class="space-y-12 px-4 py-8 lg:px-8">
+		<!-- Upcoming Events -->
+		{#if upcomingEvents.length > 0}
+			<section>
+				<div class="mb-6 flex items-center gap-3">
+					<div class="bg-ecsess-500 h-1 w-12 rounded-full"></div>
+					<h2 class="text-ecsess-600 text-3xl font-bold">Upcoming Events</h2>
+				</div>
+				<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+					{#each upcomingEvents as e (e._id ?? e.name)}
+						<EventBlock
+							eventTitle={e.name}
+							date={formatEventDate(e.date)}
+							location={e.location}
+							eventDescription={e.description}
+							thumbnail={e.thumbnail}
+							registrationLink={e.reglink}
+							paymentLink={e.paylink}
+							eventCategory={e.category}
+							isPastEvent={false}
+						/>
+					{/each}
+				</div>
+			</section>
+		{/if}
+
+		<!-- Finished Events -->
+		{#if finishedEvents.length > 0}
+			<section>
+				<div class="mb-6 flex items-center gap-3">
+					<div class="h-1 w-12 rounded-full bg-gray-400"></div>
+					<h2 class="text-3xl font-bold text-gray-700">Past Events</h2>
+				</div>
+				<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+					{#each finishedEvents as e (e._id ?? e.name)}
+						<EventBlock
+							eventTitle={e.name}
+							date={formatEventDate(e.date)}
+							location={e.location}
+							eventDescription={e.description}
+							thumbnail={e.thumbnail}
+							registrationLink={e.reglink}
+							paymentLink={e.paylink}
+							eventCategory={e.category}
+							isPastEvent={true}
+						/>
+					{/each}
+				</div>
+			</section>
+		{/if}
+
+		<!-- No events message -->
+		{#if upcomingEvents.length === 0 && finishedEvents.length === 0}
+			<div class="flex min-h-[400px] items-center justify-center">
+				<div class="text-center">
+					<p class="text-xl font-semibold text-gray-600">No events in this category yet</p>
+					<p class="mt-2 text-gray-500">Check back soon for updates!</p>
+				</div>
+			</div>
+		{/if}
 	</div>
 </Tabs.Panel>
