@@ -32,12 +32,6 @@
 			url: 'mailto:ecsess.president@mcgilleus.ca',
 			icon: 'email',
 			ariaLabel: 'Send us an email'
-		},
-		{
-			name: 'Lounge Location',
-			url: 'https://maps.app.goo.gl/4RHKGJEE8FfcDs1H8',
-			icon: 'location',
-			ariaLabel: 'View lounge location on map'
 		}
 	];
 </script>
@@ -45,19 +39,17 @@
 <footer class="bg-ecsess-black text-ecsess-100 mx-auto min-w-fit px-4 py-8">
 	<div class="mx-auto max-w-7xl">
 		<!-- Business Card Layout -->
-		<div class="mb-6 grid grid-cols-1 gap-8 md:grid-cols-3">
-			<!-- Left: ECSESS Info & Location -->
-			<div class="text-center md:text-left">
-				<h3 class="text-ecsess-150 mb-2 text-xl font-bold">ECSESS</h3>
-				<p class="text-ecsess-200 mb-3 text-sm">
-					Electrical, Computer & Software<br />
-					Engineering Students' Society
+		<div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
+			<!-- Left: ECSESS Lounge -->
+			<div class="border-ecsess-800 border-b-1 pb-4 text-center md:border-0 md:text-left">
+				<p class="text-ecsess-300 mb-3 text-lg">
+					Visit the ECSESS lounge!
 				</p>
 				<a
-					href="https://maps.app.goo.gl/4RHKGJEE8FfcDs1H8"
+					href="https://maps.app.goo.gl/m9ZqjTrPM7pcBzhbA"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="text-ecsess-200 hover:text-ecsess-100 inline-flex items-center gap-2 transition-colors"
+					class="text-ecsess-300 hover:text-ecsess-100 border-b-1 border-b-transparent hover:border-b-ecsess-100 inline-flex items-center gap-2 justify-baseline transition-all pb-0.5"
 				>
 					<svg
 						class="h-4 w-4 flex-shrink-0"
@@ -79,15 +71,15 @@
 							d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
 						/>
 					</svg>
-					<span class="text-sm">ENGTR 1060</span>
+					<span class="text-base">ENGTR 1060</span>
 				</a>
 			</div>
 
 			<!-- Center: Connect With Us -->
-			<div class="text-center">
+			<div class="border-ecsess-800 border-b-1 pb-8 text-center md:border-0">
 				<h3 class="text-ecsess-150 mb-3 text-lg font-semibold">Connect With Us</h3>
 				<div class="flex flex-wrap items-center justify-center gap-3">
-					{#each socialLinks.filter((link) => link.icon !== 'location') as link}
+					{#each socialLinks as link}
 						<a
 							href={link.url}
 							target={link.icon === 'email' ? '_self' : '_blank'}
@@ -166,12 +158,12 @@
 
 			<!-- Right: Contribute -->
 			<div class="text-center md:text-right">
-				<p class="text-ecsess-200 mb-3 text-sm">
-					Want to report an issue or <br />
-					contribute to the website?
+				<p class="text-ecsess-200 mb-3 text-base">
+					Catch a bug or have an idea? <br />
+					Let us know!
 				</p>
 				<a
-					href="https://github.com/mcgill-ecsess/ecsess-site"
+					href="https://github.com/mcgill-ecsess/ECSESS"
 					target="_blank"
 					rel="noopener noreferrer"
 					class="bg-ecsess-800 hover:bg-ecsess-600 inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors"
@@ -183,7 +175,7 @@
 							clip-rule="evenodd"
 						/>
 					</svg>
-					<span>GitHub Repo</span>
+					<span>ECSESS on GitHub</span>
 				</a>
 			</div>
 		</div>
@@ -194,8 +186,8 @@
 		<!-- Copyright -->
 		<div>
 			<p class="text-ecsess-150 text-center text-sm">
-				Created by ECSESS with love {'<3'}. <br />
-				&copy; ECSESS {year}, under GNU General Public License v3.0.
+				🄯 ECSESS {year} under GNU General Public License v3.0. <br />
+				Designed with love {'<3'}.
 			</p>
 		</div>
 	</div>
