@@ -5,7 +5,6 @@
 	import OhSchedule from 'components/officehour/OHSchedule.svelte';
 	import Link from 'components/Link.svelte';
 	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
-	import SocialLinks from 'components/homepage/SocialLinks.svelte';
 	import { fade } from 'svelte/transition';
 
 	/** loading things from the server side */
