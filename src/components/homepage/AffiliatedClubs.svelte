@@ -27,7 +27,12 @@
 				'One of the largest IEEE student branches in Eastern Canada. Dedicated to professional development through networking, workshops, competitions, and industry connections.',
 			website: 'https://ieee.mcgilleus.ca/',
 			icon: Zap,
-			features: ['Technical Talks', 'Arduino Workshops', 'IEEEXtreme Competition', 'Networking Events']
+			features: [
+				'Technical Talks',
+				'Arduino Workshops',
+				'IEEEXtreme Competition',
+				'Networking Events'
+			]
 		},
 		{
 			name: 'CodeJam',
@@ -35,7 +40,12 @@
 				"McGill Engineering's largest and longest-running hackathon. A 36-hour programming competition where students create innovative solutions to real-world problems.",
 			website: 'https://codejam.mcgilleus.ca/',
 			icon: CodeXml,
-			features: ['Annual Hackathon', 'Industry Mentors', 'Networking Opportunities', "Big Prize Pool"]
+			features: [
+				'Annual Hackathon',
+				'Industry Mentors',
+				'Networking Opportunities',
+				'Big Prize Pool'
+			]
 		}
 	];
 </script>
@@ -60,7 +70,7 @@
 		{#each clubs as club, i (club.name)}
 			{@const Icon = club.icon}
 			<article
-				class="group bg-ecsess-950 relative flex flex-col overflow-hidden rounded-2xl shadow-ecsess-800 shadow-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+				class="group bg-ecsess-950 shadow-ecsess-800 relative flex flex-col overflow-hidden rounded-2xl shadow-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
 				aria-labelledby={`club-${i}-title`}
 			>
 				<!-- Decorative gradient bar -->
@@ -88,7 +98,7 @@
 					</div>
 
 					<!-- Description -->
-					<p class="text-ecsess-700 dark:text-ecsess-200 mb-6 flex-1 text-base leading-relaxed">
+					<p class="text-ecsess-200 mb-6 flex-1 text-base leading-relaxed">
 						{club.description}
 					</p>
 
