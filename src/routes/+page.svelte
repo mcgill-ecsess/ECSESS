@@ -20,7 +20,7 @@
 <SeoMetaTags canonical={data.canonical} />
 
 <!-- ECSESS Introduction -->
-<Section>
+<Section from="from-ecsess-black" to="to-ecsess-900">
 	<div class="place-self-center md:grid md:grid-cols-1 md:gap-6 lg:grid-cols-3">
 		<div class="place-self-center md:place-content-around lg:col-span-1 lg:m-8">
 			<div class="flex h-1/2 flex-col place-content-center text-center">
@@ -56,7 +56,7 @@
 </Section>
 
 <!-- Office Hours Calendar -->
-<Section black>
+<Section from="from-ecsess-900" to="to-ecsess-800">
 	<div class="w-full">
 		<h1 id="office-hours">Office Hours</h1>
 		<OhSchedule allOhs={data.allOHs} />
@@ -64,10 +64,11 @@
 </Section>
 
 <!-- Affiliated Clubs -->
-<AffiliatedClubs />
-
+<Section from="from-ecsess-800" to="to-ecsess-950">
+	<AffiliatedClubs />
+</Section>
 <!-- FAQs and Sponsors -->
-<Section>
+<Section from="from-ecsess-950" to="to-ecsess-black">
 	<div class="grid w-full max-w-[80vw] grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-24">
 		<div>
 			<h1>FAQs</h1>
