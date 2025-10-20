@@ -53,13 +53,10 @@
 <div class="container mx-auto px-4">
 	<!-- Section Header -->
 	<div class="mb-12 text-center">
-		<h2
-			id="affiliated-clubs-title"
-			class="text-ecsess-800 dark:text-ecsess-100 mb-4 text-4xl font-bold md:text-5xl"
-		>
+		<h2 id="affiliated-clubs-title" class="text-ecsess-100 mb-4 text-4xl font-bold md:text-5xl">
 			Affiliated Clubs & Labs
 		</h2>
-		<p class="text-ecsess-700 dark:text-ecsess-200 mx-auto max-w-2xl text-lg">
+		<p class="text-ecsess-200 mx-auto max-w-2xl text-lg">
 			Explore opportunities to enhance your skills, build innovative projects, and connect with the
 			engineering community through our affiliated organizations.
 		</p>
@@ -83,16 +80,13 @@
 							class="group-hover:bg-ecsess-500 bg-ecsess-800 flex h-14 w-14 items-center justify-center rounded-xl shadow-md transition-all duration-300 group-hover:scale-110"
 						>
 							<Icon
-								class="text-ecsess-600 dark:text-ecsess-300 h-7 w-7 transition-colors group-hover:text-white"
+								class="text-ecsess-300 h-7 w-7 transition-colors group-hover:text-white"
 								strokeWidth={2.5}
 								aria-hidden="true"
 								focusable="false"
 							/>
 						</div>
-						<h3
-							id={`club-${i}-title`}
-							class="text-ecsess-800 dark:text-ecsess-50 text-2xl font-bold"
-						>
+						<h3 id={`club-${i}-title`} class="text-ecsess-50 text-2xl font-bold">
 							{club.name}
 						</h3>
 					</div>
@@ -107,7 +101,7 @@
 						{#each club.features as feature (feature)}
 							<li class="flex items-center gap-2 pl-3">
 								<div class="bg-ecsess-500 h-1.5 w-1.5 rounded-full" aria-hidden="true"></div>
-								<span class="text-ecsess-600 dark:text-ecsess-300 text-base font-semibold">
+								<span class="text-ecsess-300 text-base font-semibold">
 									{feature}
 								</span>
 							</li>
@@ -120,7 +114,7 @@
 						target="_blank"
 						rel="noopener noreferrer external"
 						aria-label={`Visit ${club.name} website`}
-						class="bg-ecsess-500 hover:bg-ecsess-600 dark:bg-ecsess-400 dark:hover:bg-ecsess-500 flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
+						class="bg-ecsess-400 hover:bg-ecsess-500 flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
 					>
 						Visit Website
 						<ExternalLink class="h-4 w-4" strokeWidth={2.5} aria-hidden="true" focusable="false" />
@@ -132,7 +126,7 @@
 
 	<!-- Bottom CTA -->
 	<div class="mt-12 text-center">
-		<p class="text-ecsess-600 dark:text-ecsess-300 text-sm">
+		<p class="text-ecsess-300 text-sm">
 			Want to get involved? Visit their websites to learn about upcoming events and how to join!
 		</p>
 	</div>

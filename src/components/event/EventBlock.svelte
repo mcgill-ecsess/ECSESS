@@ -50,7 +50,7 @@
 </script>
 
 <div
-	class="group dark:bg-ecsess-950 dark:shadow-ecsess-950/50 relative flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+	class="group bg-ecsess-950 shadow-ecsess-950/50 relative flex h-full flex-col overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
 >
 	<!-- Image Container with Gradient Overlay -->
 	<div class="relative h-64 overflow-hidden">
@@ -94,20 +94,20 @@
 
 		<!-- Gradient overlay -->
 		<div
-			class="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/80 dark:to-black/90"
+			class="absolute inset-0 bg-gradient-to-b from-transparent via-ecsess-800/30 to-ecsess-950"
 		></div>
 
 		<!-- Badges -->
 		<div class="absolute top-0 right-0 left-0 flex items-start justify-between gap-2 p-4">
 			{#if isPastEvent}
 				<span
-					class="dark:bg-ecsess-900/95 rounded-full bg-gray-800/95 px-4 py-1.5 text-xs font-bold tracking-wider text-gray-300 uppercase backdrop-blur-sm"
+					class="bg-ecsess-900 rounded-full px-4 py-1.5 text-xs font-bold tracking-wider text-gray-300 uppercase backdrop-blur-sm"
 				>
 					Past Event
 				</span>
 			{:else}
 				<span
-					class="bg-ecsess-500/95 dark:bg-ecsess-400/95 rounded-full px-4 py-1.5 text-xs font-bold tracking-wider text-white uppercase backdrop-blur-sm"
+					class="bg-ecsess-400/95 rounded-full px-4 py-1.5 text-xs font-bold tracking-wider text-white uppercase backdrop-blur-sm"
 				>
 					Upcoming
 				</span>
@@ -117,7 +117,7 @@
 				<div class="flex flex-wrap justify-end gap-2">
 					{#each eventCategory as category}
 						<span
-							class="bg-ecsess-600/95 dark:bg-ecsess-500/95 rounded-full px-3 py-1.5 text-xs font-bold tracking-wider text-white uppercase backdrop-blur-sm"
+							class="bg-ecsess-500/95 rounded-full px-3 py-1.5 text-xs font-bold tracking-wider text-white uppercase backdrop-blur-sm"
 						>
 							{category}
 						</span>
@@ -139,33 +139,33 @@
 		<!-- Description -->
 		{#if eventDescription}
 			<div
-				class="text-ecsess-800 dark:text-ecsess-100 mb-6 line-clamp-3 flex-1 text-sm leading-relaxed"
+				class="text-ecsess-100 mb-6 line-clamp-3 flex-1 text-sm leading-relaxed"
 			>
 				<PortableText value={eventDescription} />
 			</div>
 		{/if}
 
 		<!-- Info Grid -->
-		<div class="bg-ecsess-50 dark:bg-ecsess-900/40 mb-6 space-y-3 rounded-xl p-4">
+		<div class="bg-ecsess-900/40 mb-6 space-y-3 rounded-xl p-4">
 			<div class="flex items-center gap-3">
 				<div
-					class="bg-ecsess-500 dark:bg-ecsess-400 flex h-10 w-10 items-center justify-center rounded-full shadow-md"
+					class="bg-ecsess-400 flex h-10 w-10 items-center justify-center rounded-full shadow-md"
 				>
 					<CalendarDays class="h-5 w-5 text-white" strokeWidth={2.5} />
 				</div>
 				<div class="flex-1">
-					<p class="text-ecsess-900 dark:text-ecsess-50 text-sm font-semibold">{date}</p>
+					<p class="text-ecsess-50 text-sm font-semibold">{date}</p>
 				</div>
 			</div>
 
 			<div class="flex items-center gap-3">
 				<div
-					class="bg-ecsess-500 dark:bg-ecsess-400 flex h-10 w-10 items-center justify-center rounded-full shadow-md"
+					class="bg-ecsess-400 flex h-10 w-10 items-center justify-center rounded-full shadow-md"
 				>
 					<MapPin class="h-5 w-5 text-white" strokeWidth={2.5} />
 				</div>
 				<div class="flex-1">
-					<p class="text-ecsess-900 dark:text-ecsess-50 text-sm font-semibold">
+					<p class="text-ecsess-50 text-sm font-semibold">
 						{location ?? 'TBA'}
 					</p>
 				</div>
@@ -178,7 +178,7 @@
 				<!-- Add to Calendar Button -->
 				<button
 					onclick={addToCalendar}
-					class="bg-ecsess-500 hover:bg-ecsess-600 dark:bg-ecsess-400 dark:hover:bg-ecsess-500 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
+					class="bg-ecsess-400 hover:bg-ecsess-500 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
 				>
 					<CalendarPlus class="h-5 w-5" strokeWidth={2.5} />
 					Add to Calendar
@@ -191,14 +191,14 @@
 							href={registrationLink}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="bg-ecsess-600 hover:bg-ecsess-700 dark:bg-ecsess-500 dark:hover:bg-ecsess-600 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
+							class="bg-ecsess-500 hover:bg-ecsess-600 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
 						>
 							<FilePen class="h-4 w-4" strokeWidth={2.5} />
 							Register
 						</a>
 					{:else}
 						<div
-							class="bg-ecsess-150 text-ecsess-800 dark:bg-ecsess-900 dark:text-ecsess-200 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold"
+							class="bg-ecsess-900 text-ecsess-200 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold"
 						>
 							<FilePen class="h-4 w-4" strokeWidth={2.5} />
 							Drop In
@@ -210,14 +210,14 @@
 							href={paymentLink}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="bg-ecsess-700 hover:bg-ecsess-800 dark:bg-ecsess-600 dark:hover:bg-ecsess-700 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
+							class="bg-ecsess-600 hover:bg-ecsess-700 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
 						>
 							<LinkIcon class="h-4 w-4" strokeWidth={2.5} />
 							Pay
 						</a>
 					{:else}
 						<div
-							class="bg-ecsess-400 dark:bg-ecsess-500 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md"
+							class="bg-ecsess-500 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md"
 						>
 							Free!
 						</div>
