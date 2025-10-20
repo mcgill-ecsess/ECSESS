@@ -1,12 +1,12 @@
 <script lang="ts">
+	import type { EventPost } from '$lib/schemas';
+	import { Tabs } from '@skeletonlabs/skeleton-svelte';
 	import Section from 'components/layout/Section.svelte';
 	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
-	let { data } = $props();
-
 	import EventTabControl from 'components/event/EventTabControl.svelte';
-	import { Tabs } from '@skeletonlabs/skeleton-svelte';
 	import EventTabPanel from 'components/event/EventTabPanel.svelte';
-	import type { EventPost } from '$lib/schemas';
+
+	let { data } = $props();
 
 	let events: EventPost[] = data.events ?? [];
 	let group = $state('allEvents');
@@ -18,7 +18,7 @@
 	canonical={data.canonical}
 />
 
-<Section>
+<Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-600" direction="to-b">
 	<p class="page-title">Events</p>
 	<Tabs
 		value={group}

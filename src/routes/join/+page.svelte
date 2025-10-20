@@ -12,7 +12,7 @@
 	canonical={data.canonical}
 />
 
-<Section>
+<Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-800" direction="to-b">
 	<p class="page-title">Want to join ECSESS Council?</p>
 	<p>Come back around March for application period!</p>
 

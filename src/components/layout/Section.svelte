@@ -9,6 +9,7 @@
 		children = () => 'Section placeholder',
 		from = '',
 		to = '',
+		via = '',
 		direction = 'to-b', // to bottom
 		black = false
 	} = $props();
@@ -21,7 +22,7 @@
 
 	$effect(() => {
 		if (from && to) {
-			tailwindClasses = `${base} bg-gradient-${direction} ${from} ${to}`;
+			tailwindClasses = `${base} bg-gradient-${direction} ${from} ${to} ${via}`;
 		} else {
 			tailwindClasses = base + (black ? ' bg-ecsess-black' : ' bg-ecsess-800');
 		}

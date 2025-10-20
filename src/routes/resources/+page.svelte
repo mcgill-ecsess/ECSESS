@@ -11,16 +11,12 @@
 	canonical={data.canonical}
 />
 
-<Section>
+<Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-800" direction="to-b">
 	<p class="page-title">Resources</p>
 
 	<div class="grid gap-4">
 		{#each data.resources as re}
-			<ResourceCard
-				title={re.title}
-				link={re.url}
-				description={re.description}
-			/>
+			<ResourceCard title={re.title} link={re.url} description={re.description} />
 		{/each}
 	</div>
 </Section>

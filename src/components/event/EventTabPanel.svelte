@@ -78,8 +78,8 @@
 		{#if upcomingEvents.length > 0}
 			<section>
 				<div class="mb-6 flex items-center gap-3">
-					<div class="bg-ecsess-500 h-1 w-12 rounded-full"></div>
-					<h2 class="text-ecsess-600 text-3xl font-bold">Upcoming Events</h2>
+					<div class="bg-ecsess-200 h-1 w-16 rounded-full"></div>
+					<h2 class="text-ecsess-200 text-3xl font-bold">Upcoming Events</h2>
 				</div>
 				<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 					{#each upcomingEvents as e (e._id ?? e.name)}
@@ -103,8 +103,8 @@
 		{#if finishedEvents.length > 0}
 			<section>
 				<div class="mb-6 flex items-center gap-3">
-					<div class="h-1 w-12 rounded-full bg-gray-400"></div>
-					<h2 class="text-3xl font-bold text-gray-700">Past Events</h2>
+					<div class="bg-ecsess-400 h-1 w-16 rounded-full"></div>
+					<h2 class="text-ecsess-400 text-3xl font-bold">Past Events</h2>
 				</div>
 				<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 					{#each finishedEvents as e (e._id ?? e.name)}
