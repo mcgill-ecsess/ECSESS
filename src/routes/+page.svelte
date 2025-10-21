@@ -10,10 +10,6 @@
 
 	/** loading things from the server side */
 	let { data } = $props();
-
-	// Temporary progress bar. Update the value below!
-	import { Progress } from '@skeletonlabs/skeleton-svelte';
-	let progress = 80;
 </script>
 
 <!-- SEO Meta header tags. Root page can use default values -->
@@ -33,15 +29,6 @@
 				</p>
 				<div class="p-4">
 					<RichText value={data.description} />
-				</div>
-
-				<div class="animate-pulse">
-					<p class="italic">
-						Development progress: {progress}%
-					</p>
-					<div id="progress" class="border-ecsess-300 my-2 border-2">
-						<Progress value={progress} max={100} meterBg="bg-ecsess-150" height="h-4"></Progress>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -90,4 +77,5 @@
 			</div>
 		</div>
 	</div>
+
 </Section>
