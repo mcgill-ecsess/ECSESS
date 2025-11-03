@@ -35,7 +35,8 @@
 				weekday: 'long',
 				year: 'numeric',
 				month: 'long',
-				day: 'numeric'
+				day: 'numeric',
+				timeZone: 'UTC'
 			});
 		} else {
 			// Format with time
