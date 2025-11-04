@@ -16,7 +16,7 @@
 
 			<button
 				type="button"
-				class="bg-ecsess-black-hover hover:bg-ecsess-800 grid size-10 place-items-center rounded-md transition-colors ease-in-out active:bg-ecsess-900"
+				class="bg-ecsess-black-hover hover:bg-ecsess-800 active:bg-ecsess-900 grid size-10 place-items-center rounded-md transition-colors ease-in-out"
 				onclick={() => {
 					menuHidden = !menuHidden;
 				}}
@@ -26,13 +26,16 @@
 		</div>
 
 		{#if !menuHidden}
-			<div class="flex flex-col place-items-center gap-1" transition:slide>
+			<div
+				class="bg-ecsess-900 border-ecsess-700 mx-2 mb-2 flex w-auto flex-col gap-1 rounded-lg border-2 px-2 py-2 shadow-lg"
+				transition:slide
+			>
 				<NavButton href="/">Home</NavButton>
 				<NavButton href="/council">Meet the council</NavButton>
 				<NavButton href="/events">Events</NavButton>
 				<NavButton href="/resources">Resources</NavButton>
 				{#if isElectionTime}
-				<NavButton href="/join">Join ECSESS</NavButton>
+					<NavButton href="/join">Join ECSESS</NavButton>
 				{/if}
 			</div>
 		{/if}
