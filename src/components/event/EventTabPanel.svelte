@@ -55,10 +55,10 @@
 	const isPastEvent = (dateString: string): boolean => {
 		const eventDate = parseEventDate(dateString);
 	    // Add 1 day to the event date
+		const now = new Date();
 	    const eventDatePlusOneDay = new Date(eventDate.getTime() + 24 * 60 * 60 * 1000);
 	
 	    return now > eventDatePlusOneDay;
-		// const now = new Date();
 		// return eventDate < now;
 	};
 
