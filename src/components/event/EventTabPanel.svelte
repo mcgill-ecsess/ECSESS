@@ -54,8 +54,12 @@
 
 	const isPastEvent = (dateString: string): boolean => {
 		const eventDate = parseEventDate(dateString);
-		const now = new Date();
-		return eventDate < now;
+	    // Add 1 day to the event date
+	    const eventDatePlusOneDay = new Date(eventDate.getTime() + 24 * 60 * 60 * 1000);
+	
+	    return now > eventDatePlusOneDay;
+		// const now = new Date();
+		// return eventDate < now;
 	};
 
 	const filtered = $derived((events ?? []).filter(matchCategory));
