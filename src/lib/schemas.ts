@@ -1,3 +1,5 @@
+import type { InputValue } from '@portabletext/svelte';
+
 export type EventPost = {
 	id: string;
 	name: string;
@@ -15,8 +17,6 @@ export type FAQ = {
 	question: string;
 	answer: string;
 };
-
-import type { InputValue } from '@portabletext/svelte';
 
 export type HomepageCMSResponse = {
 	description: InputValue;

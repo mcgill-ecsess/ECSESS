@@ -4,30 +4,27 @@
 @theme {
 	/* Light shades - for backgrounds and cards */
 	--color-ecsess-50: #e8ffd9;
-	--color-ecsess-100: #CCE7BA;
-	--color-ecsess-150: #b8dda8;
+	--color-ecsess-100: #cce7ba;
 	--color-ecsess-200: #a9d0a0;
-	
+
 	/* Mid-light shades - for borders and hover states */
 	--color-ecsess-300: #8fb98a;
-	--color-ecsess-350: #7aa876;
 	--color-ecsess-400: #6a9a6a;
-	
+
 	/* Mid shades - for accents and interactive elements */
 	--color-ecsess-500: #5a8b5a;
-	--color-ecsess-550: #4d7a4d;
 	--color-ecsess-600: #3f6a3f;
-	
+
 	/* Mid-dark shades - for text on light backgrounds */
 	--color-ecsess-700: #2d5a2d;
 	--color-ecsess-800: #0a3d2a;
-	
+
 	/* Dark shades - for text and backgrounds */
 	--color-ecsess-900: #062c20;
 	--color-ecsess-950: #031c15;
-	
+
 	/* Black variants for UI elements */
-	--color-ecsess-black: #1F1F1F;
+	--color-ecsess-black: #1f1f1f;
 	--color-ecsess-black-hover: #161917;
 }
 
@@ -57,7 +54,8 @@ h2 {
 		@apply my-2 leading-relaxed;
 	}
 
-	strong, b {
+	strong,
+	b {
 		@apply font-bold;
 	}
 
@@ -205,4 +203,3 @@ h2 {
 		@apply mt-3 text-sm leading-5;
 	}
 }
-
