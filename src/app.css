@@ -180,7 +180,7 @@ h2 {
 	}
 
 	tbody tr:nth-child(odd) {
-		@apply bg-ecsess-150/24;
+		@apply bg-ecsess-200/24;
 	}
 
 	td + td {
