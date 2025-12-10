@@ -1,9 +1,12 @@
 <script>
-    // NOTE: I think there could be a better way to do this
+    
 	import { PortableText } from '@portabletext/svelte';
-	let { value } = $props();
+	// incoming rich text value
+	export let value: any = null;
 </script>
 
+{#if value}
 <div class="typography">
 	<PortableText {value} />
 </div>
+{/if}

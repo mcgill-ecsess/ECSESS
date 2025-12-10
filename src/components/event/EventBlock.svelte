@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PortableText } from '@portabletext/svelte';
+	
 	import { CalendarDays, MapPin, Link as LinkIcon, FilePen, CalendarPlus } from '@lucide/svelte';
 	import RichText from 'components/RichText.svelte';
 
@@ -57,37 +57,37 @@
 	<div class="relative h-64 overflow-hidden">
 		{#if thumbnail}
 			<img
-				class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+				class="h-full w-full object-cover transition-transform duration-500 will-change-transform group-hover:scale-105"
 				src={thumbnail}
 				alt={eventTitle}
 			/>
 		{:else if eventCategory?.[0] === 'social'}
 			<img
-				class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+				class="h-full w-full object-cover transition-transform duration-500 will-change-transform group-hover:scale-105"
 				src="/Social.jpg"
 				alt="Social Event"
 			/>
 		{:else if eventCategory?.[0] === 'technical'}
 			<img
-				class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+				class="h-full w-full object-cover transition-transform duration-500 will-change-transform group-hover:scale-105"
 				src="/Technical.jpg"
 				alt="Technical Event"
 			/>
 		{:else if eventCategory?.[0] === 'professional'}
 			<img
-				class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+				class="h-full w-full object-cover transition-transform duration-500 will-change-transform group-hover:scale-105"
 				src="/Professional.jpg"
 				alt="Professional Event"
 			/>
 		{:else if eventCategory?.[0] === 'academic'}
 			<img
-				class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+				class="h-full w-full object-cover transition-transform duration-500 will-change-transform group-hover:scale-105"
 				src="/Academic.jpg"
 				alt="Academic Event"
 			/>
 		{:else}
 			<img
-				class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+				class="h-full w-full object-cover transition-transform duration-500 will-change-transform group-hover:scale-105"
 				src="/ECSESS.png"
 				alt="ECSESS Event"
 			/>
