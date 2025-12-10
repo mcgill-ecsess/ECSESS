@@ -77,7 +77,7 @@
 
 			<!-- Center: Connect With Us -->
 			<div class="border-ecsess-800 border-b-1 pb-8 text-center md:border-0">
-				<h3 class="text-ecsess-150 mb-3 text-lg font-semibold">Connect With Us</h3>
+				<h3 class="text-ecsess-200 mb-3 text-lg font-semibold">Connect With Us</h3>
 				<div class="flex flex-wrap items-center justify-center gap-3">
 					{#each socialLinks as link}
 						<a
@@ -185,7 +185,7 @@
 
 		<!-- Copyright -->
 		<div>
-			<p class="text-ecsess-150 text-center text-sm">
+			<p class="text-ecsess-200 text-center text-sm">
 				🄯 ECSESS {year} under GNU General Public License v3.0. <br />
 				Designed with love {'<3'}.
 			</p>

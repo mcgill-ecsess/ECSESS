@@ -36,7 +36,7 @@
 			<img
 				src={data.councilPhoto}
 				alt="ECSESS Council"
-				class="ring-ecsess-500 shadow-ecsess-350 hover:ring-ecsess-400 rounded-md shadow-md ring-4 transition-all"
+				class="ring-ecsess-500 shadow-ecsess-400 hover:ring-ecsess-400 rounded-md shadow-md ring-4 transition-all"
 			/>
 		</div>
 	</div>

@@ -44,7 +44,7 @@
 			controlClasses="
             flex cursor-pointer justify-between
             py-4 ease-in-out"
-			panelClasses=" border-t-ecsess-300 border-t-2 bg-transparent p-4 bg-ecsess-350/50"
+			panelClasses=" border-t-ecsess-300 border-t-2 bg-transparent p-4 bg-ecsess-400/50"
 		>
 			<!-- Control -->
 			{#snippet lead()}

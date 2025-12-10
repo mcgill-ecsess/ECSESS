@@ -11,7 +11,7 @@
   </div>
 	<div class="text-left">
 		<div class="text-xl md:text-2xl font-bold">{name}</div>
-		<div class="text-sm md:text-base text-ecsess-150 mb-2 italic">{position}</div>
+		<div class="text-sm md:text-base text-ecsess-200 mb-2 italic">{position}</div>
 		<Button onclick={onViewProfile}>View Profile</Button>
 	</div>
 </div>

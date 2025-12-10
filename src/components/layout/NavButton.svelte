@@ -1,21 +1,18 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	let { href, children } = $props();
 
 	// Check if this button's href matches the current page
-	const isActive = $derived($page.url.pathname === href);
+	const isActive = $derived(page.url.pathname === href);
 </script>
 
-<!-- border-ecsess-black hover:border-ecsess-150 active:border-ecsess-300 border-b-4 px-6 py-2
-font-semibold transition-all hover:text-ecsess-100 -->
-
-<a {href} class="w-full md:w-auto">
+<a {href} class="w-auto mx-1">
 	<button
-		class="hover:text-ecsess-100 w-full rounded-md px-6 py-2 font-semibold transition-all md:mx-0.5 md:w-auto md:rounded-none
-		{isActive
-			? 'border-ecsess-300 bg-ecsess-800 md:border-b-4 md:bg-transparent'
-			: 'border-ecsess-black hover:border-ecsess-150 active:border-ecsess-300 hover:bg-ecsess-800 active:bg-ecsess-700 md:border-b-4 md:hover:bg-transparent md:active:bg-transparent'}"
+		class="hover:text-ecsess-100 hover:border-ecsess-100 text-ecsess-200 text-shadow-xl active:border-ecsess-500
+            active:text-ecsess-500 mx-0.5 w-full rounded-none border-b-4 px-6 py-2
+             font-semibold transition-all hover:cursor-pointer active:scale-99
+            {isActive ? 'border-ecsess-300' : 'border-transparent'}"
 	>
 		{@render children()}
 	</button>

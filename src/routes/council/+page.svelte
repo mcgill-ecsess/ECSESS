@@ -52,7 +52,7 @@
 		<img
 			src={data.councilGoofyPic.url}
 			alt="ECSESS Council, but we are goofy"
-			class="ring-ecsess-350 shadow-ecsess-black hover:ring-ecsess-300 mb-8 rounded-md shadow-2xl ring-4 transition-all lg:w-[90%]"
+			class="ring-ecsess-400 shadow-ecsess-black hover:ring-ecsess-300 mb-8 rounded-md shadow-2xl ring-4 transition-all lg:w-[90%]"
 			transition:fly
 		/>
 	</div>

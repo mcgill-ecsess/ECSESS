@@ -8,6 +8,7 @@
 </script>
 
 <nav class="bg-ecsess-black text-ecsess-100 sticky w-full py-1">
+	<!-- Small screens -->
 	<div class="block md:hidden">
 		<div class="mx-4 flex items-center-safe justify-between">
 			<a href="/">
@@ -41,6 +42,7 @@
 		{/if}
 	</div>
 
+	<!-- Medium and larger screens -->
 	<div class="hidden md:block">
 		<div class="flex place-content-center items-end">
 			<a href="/">
