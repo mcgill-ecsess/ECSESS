@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { PortableText } from '@portabletext/svelte';
 	import { CalendarDays, MapPin, Link as LinkIcon, FilePen, CalendarPlus } from '@lucide/svelte';
+	import RichText from 'components/RichText.svelte';
 
 	let {
 		eventTitle,
@@ -139,9 +140,9 @@
 		<!-- Description -->
 		{#if eventDescription}
 			<div
-				class="text-ecsess-100 mb-6 line-clamp-3 flex-1 text-sm leading-relaxed"
+				class="text-ecsess-100 mb-6 line-clamp-5"
 			>
-				<PortableText value={eventDescription} />
+				<RichText value={eventDescription} />
 			</div>
 		{/if}
 

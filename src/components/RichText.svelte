@@ -4,6 +4,6 @@
 	let { value } = $props();
 </script>
 
-<div id="test" class="typography">
+<div class="typography">
 	<PortableText {value} />
 </div>
