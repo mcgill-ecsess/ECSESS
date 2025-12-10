@@ -1,7 +1,9 @@
 # Contribution Guide
 
-- The website development is under the portfolio of ECSESS VP Technical Development
-- For content request, please refer to VP Communications for the content management.
+The website development is under the portfolio of ECSESS VP Technical Development. For content request, please refer to VP Communications for the content management.
+This document outlines the developer guides to contribute to the ECSESS website project. Developers can choose to contribute either by (1) working as an internal team member of ECSESS Website Subcommittee (make a branch and open PR), or (2) contributing as an external open-source contributor (fork the repo and open a PR).
+
+---
 
 ## Prerequisite knowledge
 
