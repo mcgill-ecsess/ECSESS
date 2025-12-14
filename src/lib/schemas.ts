@@ -50,6 +50,7 @@ export type Resource = {
 	title: string;
 	url: string;
 	description: string;
+	category?: string;
 };
 
 export type Sponsors = {

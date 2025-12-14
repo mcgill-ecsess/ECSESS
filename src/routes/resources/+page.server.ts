@@ -6,6 +6,7 @@ const query = `*[_type == "resources"]{
   title,
   url,
   description,
+  category,
 }`;
 
 export const load = async ({ url }) => {
