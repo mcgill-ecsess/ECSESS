@@ -8,7 +8,7 @@
 
 	let { data } = $props();
 
-	let events: EventPost[] = data.events ?? [];
+	let events = $derived(data.events ?? []);//Use $derived() instead of direct assignment
 	let group = $state('allEvents');
 </script>
 

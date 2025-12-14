@@ -10,30 +10,35 @@
 	let { data } = $props();
 
 	// Get members by 3 main categories:
-	// - Preseident
+	// - President
 	// - VPs + Equity and Mental Health Officer
 	// - UReps
-	let president: CouncilMember = data.members.filter((member: CouncilMember) =>
-		member.position.includes('President')
-	)[0];
-
-	let vps: CouncilMember[] = data.members.filter(
-		(member: CouncilMember) => member.position.includes('VP') || member.position.includes('Equity')
+	let president = $derived(
+		data.members.filter((member: CouncilMember) =>
+			member.position.includes('President')
+		)[0]
 	);
 
-	let ureps: CouncilMember[] = data.members.filter((member: CouncilMember) =>
-		member.position.includes('Representative')
+	let vps = $derived(
+		data.members.filter((member: CouncilMember) => 
+			member.position.includes('VP') || member.position.includes('Equity')
+		)
 	);
 
-	let years = ['U4', 'U3', 'U2', 'U1', 'U0'];
-
-	ureps.sort((a, b) => {
-		const aYear = years.findIndex((year) => a.position.includes(year));
-		const bYear = years.findIndex((year) => b.position.includes(year));
-		return aYear - bYear;
+	let ureps = $derived.by(() => {
+		const years = ['U4', 'U3', 'U2', 'U1', 'U0'];
+		
+		return data.members
+			.filter((member: CouncilMember) => member.position.includes('Representative'))
+			.sort((a, b) => {
+				const aYear = years.findIndex((year) => a.position.includes(year));
+				const bYear = years.findIndex((year) => b.position.includes(year));
+				return aYear - bYear;
+			});
 	});
 
 	let selectedMember = $state<CouncilMember | null>(null);
+	
 	function handleViewProfile(member: CouncilMember) {
 		selectedMember = member;
 	}
