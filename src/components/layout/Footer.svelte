@@ -42,14 +42,12 @@
 		<div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
 			<!-- Left: ECSESS Lounge -->
 			<div class="border-ecsess-800 border-b-1 pb-4 text-center md:border-0 md:text-left">
-				<p class="text-ecsess-300 mb-3 text-lg">
-					Visit the ECSESS lounge!
-				</p>
+				<p class="text-ecsess-300 mb-3 text-lg">Visit the ECSESS lounge!</p>
 				<a
 					href="https://maps.app.goo.gl/m9ZqjTrPM7pcBzhbA"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="text-ecsess-300 hover:text-ecsess-100 border-b-1 border-b-transparent hover:border-b-ecsess-100 inline-flex items-center gap-2 justify-baseline transition-all pb-0.5"
+					class="text-ecsess-300 hover:text-ecsess-100 hover:border-b-ecsess-100 inline-flex items-center justify-baseline gap-2 border-b-1 border-b-transparent pb-0.5 transition-all"
 				>
 					<svg
 						class="h-4 w-4 flex-shrink-0"

@@ -14,9 +14,11 @@
 			class="border-ecsess-300 hover:bg-ecsess-500/30 rounded-md border-2 transition-colors duration-200"
 		>
 			<!-- Question -->
-			<Accordion.ItemTrigger class="flex w-full items-center gap-3 px-3 py-2 text-left text-lg font-bold">
+			<Accordion.ItemTrigger
+				class="flex w-full items-center gap-3 px-3 py-2 text-left text-lg font-bold"
+			>
 				{entry.question}
-				<Accordion.ItemIndicator class="ml-auto group">
+				<Accordion.ItemIndicator class="group ml-auto">
 					<svg
 						class="size-5 shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-90"
 						width="20"
@@ -33,20 +35,19 @@
 			</Accordion.ItemTrigger>
 
 			<!-- Panel -->
-			<Accordion.ItemContent
-				class="h-fit overflow-hidden border-t-ecsess-300 bg-ecsess-400/50"
-			>
-			{#snippet element(attributes)}
-				{#if !attributes.hidden}
-					<div {...attributes}
-						class="overflow-hidden px-4 py-3 text-base leading-relaxed
-							 border-t-ecsess-300 border-t-2 transition-all duration-200" 
-						transition:slide={{ duration: 200 }}
-					>
-						{entry.answer}
-					</div>
-				{/if}
-			{/snippet}
+			<Accordion.ItemContent class="border-t-ecsess-300 bg-ecsess-400/50 h-fit overflow-hidden">
+				{#snippet element(attributes)}
+					{#if !attributes.hidden}
+						<div
+							{...attributes}
+							class="border-t-ecsess-300 overflow-hidden border-t-2 px-4 py-3
+							 text-base leading-relaxed transition-all duration-200"
+							transition:slide={{ duration: 200 }}
+						>
+							{entry.answer}
+						</div>
+					{/if}
+				{/snippet}
 			</Accordion.ItemContent>
 		</Accordion.Item>
 	{/each}

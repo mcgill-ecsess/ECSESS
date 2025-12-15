@@ -95,7 +95,7 @@
 
 		<!-- Gradient overlay -->
 		<div
-			class="absolute inset-0 bg-gradient-to-b from-transparent via-ecsess-800/30 to-ecsess-950"
+			class="via-ecsess-800/30 to-ecsess-950 absolute inset-0 bg-gradient-to-b from-transparent"
 		></div>
 
 		<!-- Badges -->
@@ -139,9 +139,7 @@
 	<div class="flex flex-1 flex-col p-6">
 		<!-- Description -->
 		{#if eventDescription}
-			<div
-				class="text-ecsess-100 mb-6 line-clamp-5"
-			>
+			<div class="text-ecsess-100 mb-6 line-clamp-5">
 				<RichText value={eventDescription} />
 			</div>
 		{/if}

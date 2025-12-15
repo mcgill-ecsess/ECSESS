@@ -6,12 +6,12 @@
 
 <div class="text-ecsess-100 flex max-w-md items-center gap-6 p-3">
 	<!-- Profile picture -->
-  <div>
-    <CouncilAvatar {name} src={image}/>
-  </div>
+	<div>
+		<CouncilAvatar {name} src={image} />
+	</div>
 	<div class="text-left">
-		<div class="text-xl md:text-2xl font-bold">{name}</div>
-		<div class="text-sm md:text-base text-ecsess-200 mb-2 italic">{position}</div>
+		<div class="text-xl font-bold md:text-2xl">{name}</div>
+		<div class="text-ecsess-200 mb-2 text-sm italic md:text-base">{position}</div>
 		<Button onclick={onViewProfile}>View Profile</Button>
 	</div>
 </div>

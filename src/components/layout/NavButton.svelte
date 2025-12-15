@@ -7,7 +7,7 @@
 	const isActive = $derived(page.url.pathname === href);
 </script>
 
-<a {href} class="w-auto mx-1">
+<a {href} class="mx-1 w-auto">
 	<button
 		class="hover:text-ecsess-100 hover:border-ecsess-100 text-ecsess-200 text-shadow-xl active:border-ecsess-500
             active:text-ecsess-500 mx-0.5 w-full rounded-none border-b-4 px-6 py-2

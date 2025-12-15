@@ -1,6 +1,6 @@
 <script>
 	import { Tabs } from '@skeletonlabs/skeleton-svelte';
-    let { value, children } = $props();
+	let { value, children } = $props();
 </script>
 
 <Tabs.Control
