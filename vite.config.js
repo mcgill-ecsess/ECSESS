@@ -26,16 +26,10 @@ export default defineConfig({
 
 	// Server optimizations for dev
 	server: {
-		fs: {
-			// Allow serving files from project root
-			strict: false
-		},
 		warmup: {
 			// Pre-transform commonly used files
 			clientFiles: [
 				'./src/routes/+layout.svelte',
-				'./src/routes/+page.svelte',
-				'./src/components/layout/*.svelte'
 			]
 		}
 	},
