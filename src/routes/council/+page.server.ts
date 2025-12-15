@@ -9,7 +9,7 @@ const councilQuery = `*[_type == "members"]{
   email,
   position,
   positionDescription,
-  "image": image.asset->url+"?h=200&fm=webp",
+  "image": image.asset->url+"?h=300&fm=webp",
   yearProgram
 }`;
 

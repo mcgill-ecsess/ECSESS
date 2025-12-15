@@ -1,13 +1,13 @@
 <script>
 	let { onViewProfile, name, position, image } = $props();
 	import Button from 'components/Button.svelte';
-	import Avatar from 'components/council/Avatar.svelte';
+	import CouncilAvatar from 'components/council/CouncilAvatar.svelte';
 </script>
 
 <div class="text-ecsess-100 flex max-w-md items-center gap-6 p-3">
 	<!-- Profile picture -->
   <div>
-    <Avatar {name} size={"size-26 md:size-32"} src={image}/>
+    <CouncilAvatar {name} src={image}/>
   </div>
 	<div class="text-left">
 		<div class="text-xl md:text-2xl font-bold">{name}</div>
