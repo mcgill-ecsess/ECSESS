@@ -77,7 +77,7 @@
 	);
 </script>
 
-<Tabs.Panel {value}>
+<Tabs.Content {value}>
 	<div class="space-y-12 px-4 py-8 lg:px-8">
 		<!-- Upcoming Events -->
 		{#if upcomingEvents.length > 0}
@@ -139,4 +139,4 @@
 			</div>
 		{/if}
 	</div>
-</Tabs.Panel>
+</Tabs.Content>
