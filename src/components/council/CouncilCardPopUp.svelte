@@ -7,7 +7,7 @@
 
 <div
 	class="text-ecsess-800 from-ecsess-50 to-ecsess-300 m-4 flex
-			h-[275px] max-w-[564px] items-center gap-3 rounded-md
+			h-70 max-w-142 items-center gap-3 rounded-md
 			border-transparent bg-transparent bg-linear-to-br p-6"
 	transition:slide
 >

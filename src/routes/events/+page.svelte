@@ -4,7 +4,7 @@
 	import Section from 'components/layout/Section.svelte';
 	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
 	import EventTabsTrigger from 'components/event/EventTabsTrigger.svelte';
-	import EventTabsControl from 'components/event/EventTabsContent.svelte';
+	import EventTabsContent from 'components/event/EventTabsContent.svelte';
 
 	let { data } = $props();
 
@@ -30,10 +30,10 @@
 			<EventTabsTrigger value="technical">Technical</EventTabsTrigger>
 		</Tabs.List>
 
-		<EventTabsControl value="allEvents" category="allEvents" {events} />
-		<EventTabsControl value="academic" category="academic" {events} />
-		<EventTabsControl value="professional" category="professional" {events} />
-		<EventTabsControl value="social" category="social" {events} />
-		<EventTabsControl value="technical" category="technical" {events} />
+		<EventTabsContent value="allEvents" category="allEvents" {events} />
+		<EventTabsContent value="academic" category="academic" {events} />
+		<EventTabsContent value="professional" category="professional" {events} />
+		<EventTabsContent value="social" category="social" {events} />
+		<EventTabsContent value="technical" category="technical" {events} />
 	</Tabs>
 </Section>
