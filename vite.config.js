@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [sveltekit(), tailwindcss()],
-	
+
 	// Optimize dependency pre-bundling
 	optimizeDeps: {
 		include: [
@@ -21,22 +21,14 @@ export default defineConfig({
 	build: {
 		target: 'esnext',
 		minify: 'esbuild',
-		cssMinify: true,
+		cssMinify: true
 	},
 
 	// Server optimizations for dev
 	server: {
-		fs: {
-			// Allow serving files from project root
-			strict: false
-		},
 		warmup: {
 			// Pre-transform commonly used files
-			clientFiles: [
-				'./src/routes/+layout.svelte',
-				'./src/routes/+page.svelte',
-				'./src/components/layout/*.svelte'
-			]
+			clientFiles: ['./src/routes/+layout.svelte']
 		}
 	},
 

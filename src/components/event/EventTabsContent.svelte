@@ -54,11 +54,11 @@
 
 	const isPastEvent = (dateString: string): boolean => {
 		const eventDate = parseEventDate(dateString);
-	    // Add 1 day to the event date
+		// Add 1 day to the event date
 		const now = new Date();
-	    const eventDatePlusOneDay = new Date(eventDate.getTime() + 24 * 60 * 60 * 1000);
-	
-	    return now > eventDatePlusOneDay;
+		const eventDatePlusOneDay = new Date(eventDate.getTime() + 24 * 60 * 60 * 1000);
+
+		return now > eventDatePlusOneDay;
 		// return eventDate < now;
 	};
 
@@ -77,7 +77,7 @@
 	);
 </script>
 
-<Tabs.Panel {value}>
+<Tabs.Content {value}>
 	<div class="space-y-12 px-4 py-8 lg:px-8">
 		<!-- Upcoming Events -->
 		{#if upcomingEvents.length > 0}
@@ -139,4 +139,4 @@
 			</div>
 		{/if}
 	</div>
-</Tabs.Panel>
+</Tabs.Content>

@@ -11,7 +11,7 @@
 	const DEFAULT_START_TIME = 10 * 60; // 10 AM in minutes
 	const DEFAULT_END_TIME = 17 * 60; // 5 PM in minutes
 
-	type Segment = {
+	type SegmentedControl = {
 		startSlot: number;
 		endSlot: number;
 		ohs: OfficeHour[];
@@ -86,8 +86,8 @@
 		});
 
 	// Create continuous segments for a day
-	const getSegmentsForDay = (day: string): Segment[] => {
-		const segments: Segment[] = [];
+	const getSegmentsForDay = (day: string): SegmentedControl[] => {
+		const segments: SegmentedControl[] = [];
 
 		for (const currentSlot of timeSlots) {
 			const activeOHs = getActiveOHs(day, currentSlot);

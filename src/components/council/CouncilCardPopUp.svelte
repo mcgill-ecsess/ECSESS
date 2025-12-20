@@ -6,9 +6,9 @@
 </script>
 
 <div
-	class="text-ecsess-800 m-4 flex h-[275px] max-w-[564px]
-			items-center gap-3 rounded-md border-transparent bg-transparent
-			bg-gradient-to-br from-ecsess-50 to-ecsess-300 p-6"
+	class="text-ecsess-800 from-ecsess-50 to-ecsess-300 m-4 flex
+			h-70 max-w-142 items-center gap-3 rounded-md
+			border-transparent bg-transparent bg-linear-to-br p-6"
 	transition:slide
 >
 	<!-- AVATAR -->
@@ -24,7 +24,7 @@
 			<p class="text-2xl font-bold lg:text-3xl">{name}</p>
 			<p class="text-base italic">{position}</p>
 		</div>
-		<hr class="hr border-ecsess-600 border-1 border-dashed" />
+		<hr class="hr border-ecsess-600 border border-dashed" />
 		<div class="my-2 text-left">
 			<ul>
 				<li>

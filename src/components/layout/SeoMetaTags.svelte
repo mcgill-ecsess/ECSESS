@@ -5,7 +5,8 @@
 		canonical = 'https://ecsess.mcgilleus.ca'
 	} = $props();
 
-	let thumbnail = "https://cdn.sanity.io/images/vmtsvpe2/production/5d68504038cc692805dc5e51af83adedfefde442-5304x3443.jpg?h=628&fm=webp";
+	let thumbnail =
+		'https://cdn.sanity.io/images/vmtsvpe2/production/5d68504038cc692805dc5e51af83adedfefde442-5304x3443.jpg?h=628&fm=webp';
 </script>
 
 <svelte:head>

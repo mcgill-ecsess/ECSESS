@@ -8,17 +8,17 @@
 
 <Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-800" direction="to-b">
 	<p class="page-title">Can't redirect you to <code>"r/{data.shortname}"</code>!</p>
-	<hr class="border-2 w-1/2">
+	<hr class="w-1/2 border-2" />
 	<div>
 		Maybe you were trying to get to:
 		<ul>
 			{#each data.availableShortnames as redirect}
-			<li class="list-disc list-inside text-lg my-1">
-				{redirect.name} ~
-				<Link href={redirect.url}>
-					/r/{redirect.shortname}
-				</Link>
-			</li>
+				<li class="my-1 list-inside list-disc text-lg">
+					{redirect.name} ~
+					<Link href={redirect.url}>
+						/r/{redirect.shortname}
+					</Link>
+				</li>
 			{/each}
 		</ul>
 	</div>

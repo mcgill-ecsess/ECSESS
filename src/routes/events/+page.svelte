@@ -3,8 +3,8 @@
 	import { Tabs } from '@skeletonlabs/skeleton-svelte';
 	import Section from 'components/layout/Section.svelte';
 	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
-	import EventTabControl from 'components/event/EventTabControl.svelte';
-	import EventTabPanel from 'components/event/EventTabPanel.svelte';
+	import EventTabsTrigger from 'components/event/EventTabsTrigger.svelte';
+	import EventTabsContent from 'components/event/EventTabsContent.svelte';
 
 	let { data } = $props();
 
@@ -20,25 +20,20 @@
 
 <Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-600" direction="to-b">
 	<p class="page-title">Events</p>
-	<Tabs
-		value={group}
-		onValueChange={(e) => (group = e.value)}
-		listClasses="flex-wrap place-content-center"
-	>
-		{#snippet list()}
-			<EventTabControl value="allEvents">All Events</EventTabControl>
-			<EventTabControl value="academic">Academic</EventTabControl>
-			<EventTabControl value="professional">Professional</EventTabControl>
-			<EventTabControl value="social">Social</EventTabControl>
-			<EventTabControl value="technical">Technical</EventTabControl>
-		{/snippet}
 
-		{#snippet content()}
-			<EventTabPanel value="allEvents" category="allEvents" {events} />
-			<EventTabPanel value="academic" category="academic" {events} />
-			<EventTabPanel value="professional" category="professional" {events} />
-			<EventTabPanel value="social" category="social" {events} />
-			<EventTabPanel value="technical" category="technical" {events} />
-		{/snippet}
+	<Tabs value={group} onValueChange={(e) => (group = e.value)} composite={true}>
+		<Tabs.List>
+			<EventTabsTrigger value="allEvents">All Events</EventTabsTrigger>
+			<EventTabsTrigger value="academic">Academic</EventTabsTrigger>
+			<EventTabsTrigger value="professional">Professional</EventTabsTrigger>
+			<EventTabsTrigger value="social">Social</EventTabsTrigger>
+			<EventTabsTrigger value="technical">Technical</EventTabsTrigger>
+		</Tabs.List>
+
+		<EventTabsContent value="allEvents" category="allEvents" {events} />
+		<EventTabsContent value="academic" category="academic" {events} />
+		<EventTabsContent value="professional" category="professional" {events} />
+		<EventTabsContent value="social" category="social" {events} />
+		<EventTabsContent value="technical" category="technical" {events} />
 	</Tabs>
 </Section>

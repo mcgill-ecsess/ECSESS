@@ -7,7 +7,7 @@
             inline-block rounded-md border-none px-4
             py-2 text-white transition-all
             duration-200 ease-out
-            hover:shadow-xl hover:scale-105"
+            hover:scale-105 hover:shadow-xl"
 	{onclick}
 >
 	{@render children()}
