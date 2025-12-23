@@ -1,12 +1,8 @@
 <script lang="ts">
-	import { Tabs } from '@skeletonlabs/skeleton-svelte';
 	import EventBlock from 'components/event/EventBlock.svelte';
-	import type { EventPost } from '$lib/schemas';
+	import type { EventPost, Category } from '$lib/schemas';
 
-	type Category = 'allEvents' | 'academic' | 'professional' | 'social' | 'technical';
-
-	let { value, category, events } = $props<{
-		value: Category;
+	let { category, events } = $props<{
 		category: Category;
 		events: EventPost[];
 	}>();
@@ -66,18 +62,18 @@
 
 	const upcomingEvents = $derived(
 		filtered
-			.filter((e) => !isPastEvent(e.date))
-			.sort((a, b) => parseEventDate(a.date).getTime() - parseEventDate(b.date).getTime())
+			.filter((e: { date: string; }) => !isPastEvent(e.date))
+			.sort((a: { date: string; }, b: { date: string; }) => parseEventDate(a.date).getTime() - parseEventDate(b.date).getTime())
 	);
 
 	const finishedEvents = $derived(
 		filtered
-			.filter((e) => isPastEvent(e.date))
-			.sort((a, b) => parseEventDate(b.date).getTime() - parseEventDate(a.date).getTime())
+			.filter((e: { date: string; }) => isPastEvent(e.date))
+			.sort((a: { date: string; }, b: { date: string; }) => parseEventDate(b.date).getTime() - parseEventDate(a.date).getTime())
 	);
 </script>
 
-<Tabs.Content {value}>
+<div>
 	<div class="space-y-12 px-4 py-8 lg:px-8">
 		<!-- Upcoming Events -->
 		{#if upcomingEvents.length > 0}
@@ -139,4 +135,4 @@
 			</div>
 		{/if}
 	</div>
-</Tabs.Content>
+</div>

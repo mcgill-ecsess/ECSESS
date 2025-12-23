@@ -1,6 +1,5 @@
 <script lang="ts">
-	import type { EventPost } from '$lib/schemas';
-	import { Tabs } from '@skeletonlabs/skeleton-svelte';
+	import type { EventPost, Category } from '$lib/schemas';
 	import Section from 'components/layout/Section.svelte';
 	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
 	import EventTabsTrigger from 'components/event/EventTabsTrigger.svelte';
@@ -9,7 +8,18 @@
 	let { data } = $props();
 
 	let events: EventPost[] = data.events ?? [];
-	let group = $state('allEvents');
+	let group = $state<Category>('allEvents');
+	let categories: {value: Category; label: string}[] = [
+	{ value: 'allEvents', label: 'All Events' },
+	{ value: 'academic', label: 'Academic' },
+	{ value: 'professional', label: 'Professional' },
+	{ value: 'social', label: 'Social' },
+	{ value: 'technical', label: 'Technical' }
+];
+	// Handle tab change
+	function handleTabChange(selectedCategory: Category) {
+		group = selectedCategory;
+	}
 </script>
 
 <SeoMetaTags
@@ -21,19 +31,13 @@
 <Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-600" direction="to-b">
 	<p class="page-title">Events</p>
 
-	<Tabs value={group} onValueChange={(e) => (group = e.value)} composite={true}>
-		<Tabs.List>
-			<EventTabsTrigger value="allEvents">All Events</EventTabsTrigger>
-			<EventTabsTrigger value="academic">Academic</EventTabsTrigger>
-			<EventTabsTrigger value="professional">Professional</EventTabsTrigger>
-			<EventTabsTrigger value="social">Social</EventTabsTrigger>
-			<EventTabsTrigger value="technical">Technical</EventTabsTrigger>
-		</Tabs.List>
+	<div>
+		<ul class="flex justify-center flex-wrap gap-2">
+			{#each categories as category}
+				<EventTabsTrigger value={category.value} onclick={handleTabChange}>{category.label}</EventTabsTrigger>
+			{/each}
+		</ul>
 
-		<EventTabsContent value="allEvents" category="allEvents" {events} />
-		<EventTabsContent value="academic" category="academic" {events} />
-		<EventTabsContent value="professional" category="professional" {events} />
-		<EventTabsContent value="social" category="social" {events} />
-		<EventTabsContent value="technical" category="technical" {events} />
-	</Tabs>
+		<EventTabsContent category={group} {events} />
+	</div>
 </Section>

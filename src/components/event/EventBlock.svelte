@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PortableText } from '@portabletext/svelte';
+	//import { PortableText } from '@portabletext/svelte';
 	import { CalendarDays, MapPin, Link as LinkIcon, FilePen, CalendarPlus } from '@lucide/svelte';
 	import RichText from 'components/RichText.svelte';
 

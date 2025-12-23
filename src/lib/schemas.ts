@@ -13,6 +13,9 @@ export type EventPost = {
 	paylink: string; // event payment link (e.g., Zeffy)
 };
 
+export type Category = 'allEvents' | 'academic' | 'professional' | 'social' | 'technical';
+
+
 export type FAQ = {
 	question: string;
 	answer: string;
