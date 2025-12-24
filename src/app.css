@@ -204,3 +204,44 @@ h2 {
 		@apply mt-3 text-sm leading-5;
 	}
 }
+
+.flip-box {
+		height: 100%;
+		width: 100%;
+		perspective: 1000px; /* Remove this if you don't want the 3D effect */
+	}
+
+	.flip-box-inner {
+		display: grid;
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		transition: transform 0.8s;
+		transform-style: preserve-3d;
+	}
+
+	
+	.flip-box-front,.flip-box-back {
+		grid-area: 1/1;
+		width: 100%;
+		-webkit-backface-visibility: hidden; /* Safari */
+		backface-visibility: hidden;
+	}
+	.flip-box-front {
+		z-index: 2;
+		transform: rotateY(0deg);
+	}
+
+	.flip-box-front {
+		z-index: 2;
+		transform: rotateY(0deg);
+	}
+
+	.flip-box-back {
+		transform: rotateY(180deg); 
+	}
+
+	.show-back {
+		transform: rotateY(180deg);
+	}
+
