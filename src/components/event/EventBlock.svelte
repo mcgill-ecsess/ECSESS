@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CalendarDays, MapPin, Link as LinkIcon, FilePen, CalendarPlus } from '@lucide/svelte';
+	import { CalendarDays, MapPin, Link as LinkIcon, FilePen, CalendarPlus, ExternalLink as ExternalLinkIcon } from '@lucide/svelte';
 	import RichText from 'components/RichText.svelte';
 
 	let {
@@ -8,10 +8,11 @@
 		location,
 		eventDescription,
 		thumbnail,
-		registrationLink,
-		paymentLink,
+		registrationLink, //[LinkType]
+		paymentLink, //[LinkType]
+		generalLink, //[LinkType]
 		eventCategory,
-		isPastEvent = false
+		isPastEvent = false,
 	} = $props();
 
 	let showDescription = $state(false);
@@ -59,18 +60,24 @@
 
 <div
 	class="
-	flip-box 
-	group bg-ecsess-950 shadow-ecsess-950/50 relative flex flex-col overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl"
+	flip-box
+	group relative flex flex-col overflow-hidden rounded-2xl  transition-all duration-300 hover:-translate-y-3 "
 	>
 	<!--Flip Card container-->
-	<div class="flip-box-inner" class:show-back={showDescription}>
+	<div class="flip-box-inner rounded-2xl " class:show-back={showDescription}>
 		<!--Front Side-->
-		<div class="flip-box-front">
+		<div class="flip-box-front bg-ecsess-950 shadow-ecsess-950/50 rounded-2xl">
+			<!--Flip button-->
+			<div
+				class="
+				absolute inset-0 z-10 cursor-pointer rounded-2xl bg-transparent"
+				onclick={flipCard}
+			></div>
 			<!-- Image Container with Gradient Overlay -->
-			<div class="relative h-100 overflow-hidden ">
+			<div class="relative h-80 overflow-hidden rounded-2xl ">
 			{#if thumbnail}
 				<img
-					class="h-full w-full object-cover "
+					class="h-full w-full object-cover  "
 					src={thumbnail}
 					alt={eventTitle}
 				/>
@@ -108,8 +115,14 @@
 
 			<!-- Gradient overlay -->
 			<div
-				class="absolute inset-0 bg-gradient-to-b from-transparent via-ecsess-800/30 to-ecsess-950"
+				class="absolute inset-0 rounded-2xl  bg-gradient-to-b from-transparent via-ecsess-800/30 to-ecsess-950"
 			></div>
+			<!-- Event Title Overlay -->
+			<div class="absolute right-0 bottom-0 left-0 p-6">
+				<h3 class="text-2xl leading-tight font-bold text-white drop-shadow-2xl">
+					{eventTitle}
+				</h3>
+			</div>
 			</div>
 			<!-- Badges -->
 			<div class="absolute top-0 right-0 left-0 flex items-start justify-between gap-2 p-4">
@@ -140,12 +153,7 @@
 				{/if}
 			</div>
 
-			<!-- Event Title Overlay -->
-			<div class="right-0 bottom-0 left-0 p-6">
-				<h3 class="text-2xl leading-tight font-bold text-white drop-shadow-2xl">
-					{eventTitle}
-				</h3>
-			</div>
+
 			<!-- Info Grid -->
 			<div class="bg-ecsess-900/40 space-y-3 rounded-xl p-4 m-5">
 				<div class="flex items-center gap-3">
@@ -172,52 +180,15 @@
 					</div>
 				</div>
 			</div>
-			<div class="flex justify-center pb-6">
-				<button
-					class="cursor-pointer rounded-full bg-ecsess-600/80 px-4 py-2 text-sm font-bold text-white shadow-md transition-all hover:bg-ecsess-700 hover:shadow-lg active:scale-95"
-					onclick={flipCard}
-				>
-					View Details
-			</button>
-			</div>
-			</div>
-		<!-- Back Side -->
-		<div class=" flip-box-back">
-			<!--Event Title-->
-			<div class="right-0 bottom-0 left-0 p-6">
-				<h3 class="text-2xl leading-tight font-bold text-white drop-shadow-2xl">
-					{eventTitle}
-				</h3>
-			</div>
-			<div class="h-100 flex flex-1 flex-col p-6">
-			<!-- Description -->
-				<div class="text-ecsess-100 mb-6 flex-1 overflow-y-auto">
-						{#if eventDescription}
-							<RichText value={eventDescription} />
-						{:else}
-							<p>No description available for this event.</p>
-						{/if}
-
-				</div>
-			</div>
-			<div class="px-6 pb-6">
+			<div class="relative px-6 pb-6 z-100 ">
 				<!-- Action Buttons -->
 				{#if !isPastEvent}
 					<div class="space-y-2">
-						<!-- Add to Calendar Button -->
-						<button
-							onclick={addToCalendar}
-							class="bg-ecsess-400 hover:bg-ecsess-500 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
-						>
-							<CalendarPlus class="h-5 w-5" strokeWidth={2.5} />
-							Add to Calendar
-						</button>
-
-						<!-- Registration & Payment Row -->
-						<div class="grid grid-cols-2 gap-2">
+						<!-- Registration & Payment Row & Add to Calendar Button -->
+						<div class="grid sm:grid-cols-3 grid-cols-2 gap-2">
 							{#if registrationLink}
 								<a
-									href={registrationLink}
+									href={registrationLink[0].url}
 									target="_blank"
 									rel="noopener noreferrer"
 									class="bg-ecsess-500 hover:bg-ecsess-600 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
@@ -227,44 +198,93 @@
 								</a>
 							{:else}
 								<div
-									class="bg-ecsess-900 text-ecsess-200 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold"
+									class="bg-ecsess-500 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md"
 								>
 									<FilePen class="h-4 w-4" strokeWidth={2.5} />
 									Drop In
-								</div>
+								</div>	
 							{/if}
-
+							<button
+								onclick={addToCalendar}
+								class="hover:cursor-pointer bg-ecsess-700 hover:bg-ecsess-800 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
+							>
+								<CalendarPlus class="h-5 w-5" strokeWidth={2.5} />
+								Add to Calendar
+							</button>
 							{#if paymentLink}
 								<a
-									href={paymentLink}
+									href={paymentLink[0].url}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="bg-ecsess-600 hover:bg-ecsess-700 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
+									class="sm:col-span-1 col-span-2 bg-ecsess-800 hover:bg-ecsess-900 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
 								>
 									<LinkIcon class="h-4 w-4" strokeWidth={2.5} />
 									Pay
 								</a>
 							{:else}
 								<div
-									class="bg-ecsess-500 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md"
+									class="sm:col-span-1 col-span-2 bg-ecsess-800 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md"
 								>
 									Free!
 								</div>
 							{/if}
+						
 						</div>
 					</div>
 				{/if}
 			</div>
-			<div class="flex justify-center p-6">
-				<button
-					class="cursor-pointer rounded-full bg-ecsess-600/80 px-4 py-2 text-sm font-bold text-white shadow-md transition-all hover:bg-ecsess-700 hover:shadow-lg active:scale-95"
-					onclick={flipCard}
-				>
-					View Post
-			</button>
+			<div class="pb-4">
+				<p>Click to view more</p>
+			</div>
+			</div>
+		<!-- Back Side -->
+		<div class=" flip-box-back bg-ecsess-950 shadow-ecsess-950/50 rounded-2xl">
+			<!--Flip button-->
+			<div
+				class="
+				absolute inset-0 z-10 cursor-pointer rounded-2xl bg-transparent"
+				onclick={flipCard}
+			></div>
+			<!--Event Title-->
+			<div class="right-0 bottom-0 left-0 p-6">
+				<h3 class="text-2xl leading-tight font-bold text-white drop-shadow-2xl">
+					{eventTitle}
+				</h3>
+			</div>
+			<div class="relative h-80 flex flex-1 flex-col z-20 my-2"
+			onclick={flipCard}
+			>
+				<!-- Description -->
+				<div class="text-ecsess-100 p-6 flex-1 overflow-y-auto">
+					{#if eventDescription}
+						<RichText value={eventDescription} />
+					{:else}
+						<p>No description available for this event.</p>
+					{/if}
+				</div>
 			</div>
 
+			<!-- General Links -->
+			<div class="max-h-41 relative z-20 gap-4 pb-6 flex flex-wrap w-full items-center justify-center px-6 overflow-auto">
+				{#if generalLink}
+					{#each generalLink as link}
+						<a
+							href={link.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="bg-ecsess-600 hover:bg-ecsess-700 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
+						>
+							<ExternalLinkIcon class="h-4 w-4" strokeWidth={2.5} />
+							{link.title}
+						</a>
+					{/each}
+				{/if}
+			</div>
 		</div>
 		
 	</div>
 </div>
+
+<style>
+
+</style>

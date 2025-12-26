@@ -1,6 +1,6 @@
 <script lang="ts">
 	import EventBlock from 'components/event/EventBlock.svelte';
-	import type { EventPost, Category } from '$lib/schemas';
+	import type { EventPost, Category, EventLinkKind, LinkType } from '$lib/schemas';
 
 	let { category, events } = $props<{
 		category: Category;
@@ -71,6 +71,19 @@
 			.filter((e: { date: string; }) => isPastEvent(e.date))
 			.sort((a: { date: string; }, b: { date: string; }) => parseEventDate(b.date).getTime() - parseEventDate(a.date).getTime())
 	);
+
+	const getPaymentLink = (e: EventPost, type: EventLinkKind ):LinkType[] | null => {
+		let generalLinks: LinkType[] = [];
+		for (const link of e.links ?? []) {
+			if (type == "general" && link.kind === "general" && link.url !== '') {
+				generalLinks.push(link);
+			}
+			else if (link.kind === type && link.url !== '') {
+				return [link];
+			}
+		}		
+		return generalLinks.length > 0 ? generalLinks : null;
+	};
 </script>
 
 <div>
@@ -90,8 +103,9 @@
 							location={e.location}
 							eventDescription={e.description}
 							thumbnail={e.thumbnail}
-							registrationLink={e.reglink}
-							paymentLink={e.paylink}
+							registrationLink={getPaymentLink(e, 'registration')}
+							paymentLink={getPaymentLink(e, 'payment')}
+							generalLink={getPaymentLink(e, 'general')}
 							eventCategory={e.category}
 							isPastEvent={false}
 						/>
@@ -115,8 +129,9 @@
 							location={e.location}
 							eventDescription={e.description}
 							thumbnail={e.thumbnail}
-							registrationLink={e.reglink}
-							paymentLink={e.paylink}
+							registrationLink={getPaymentLink(e, 'registration')}
+							paymentLink={getPaymentLink(e, 'payment')}
+							generalLink={getPaymentLink(e, 'general')}
 							eventCategory={e.category}
 							isPastEvent={true}
 						/>

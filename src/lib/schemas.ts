@@ -10,14 +10,17 @@ export type EventPost = {
 	location: string;
 	thumbnail: string;
 	category: string;
-	links: [{
-		title: string,
-		kind: string, // payment, registration, general (enum `kind`)
-		url: string
-	}],
+	links: LinkType[];
 };
 
 export type Category = 'allEvents' | 'academic' | 'professional' | 'social' | 'technical';
+
+export type LinkType = {
+		title: string;
+		kind: EventLinkKind;
+		url: string;
+};
+export type EventLinkKind = 'payment' | 'registration' | 'general';
 
 export type FAQ = {
 	question: string;
