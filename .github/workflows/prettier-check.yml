@@ -1,0 +1,35 @@
+name: Prettier Check
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  prettier-check:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Check formatting with Prettier
+        run: bun run lint
+        continue-on-error: true
+        id: prettier-check
+
+      - name: Comment on PR if formatting fails
+        if: steps.prettier-check.outcome == 'failure'
+        run: |
+          echo "::error::Prettier formatting check failed!"
+          echo "::error::Please run 'bun run format' to fix formatting issues."
+          exit 1
