@@ -1,5 +1,6 @@
 import type { InputValue } from '@portabletext/svelte';
 
+
 export type EventPost = {
 	id: string;
 	name: string;
@@ -8,13 +9,15 @@ export type EventPost = {
 	time: string;
 	location: string;
 	thumbnail: string;
-	reglink: string;
 	category: string;
-	paylink: string; // event payment link (e.g., Zeffy)
+	links: [{
+		title: string,
+		kind: string, // payment, registration, general (enum `kind`)
+		url: string
+	}],
 };
 
 export type Category = 'allEvents' | 'academic' | 'professional' | 'social' | 'technical';
-
 
 export type FAQ = {
 	question: string;
