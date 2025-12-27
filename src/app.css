@@ -230,7 +230,8 @@ h2 {
     animation: rotate-and-back 0.3s ease-in-out;
 }
 
-.flip-box-front,.flip-box-back {
+.flip-box-front,
+.flip-box-back {
 	grid-area: 1/1;
 	width: 100%;
 	-webkit-backface-visibility: hidden; /* Safari */
@@ -252,32 +253,32 @@ h2 {
 
 /* Scrollbar Styles */
 *::-webkit-scrollbar {
-  height: 3px;
-  width: 2px;
+  height: 4px;
+  width: 4px;
 }
 *::-webkit-scrollbar-track {
   border-radius: 3px;
-  background-color: var(--color-ecsess-50);
+  background-color: var(--color-ecsess-700);
 }
 
 *::-webkit-scrollbar-track:hover {
-  background-color: var(--color-ecsess-200);
+  background-color: var(--color-ecsess-900);
 }
 
 *::-webkit-scrollbar-track:active {
-  background-color: var(--color-ecsess-200);
+  background-color: var(--color-ecsess-900);
 }
 
 *::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background-color: var(--color-ecsess-800);
+  background-color: var(--color-ecsess-100);
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-ecsess-500);
+  background-color: var(--color-ecsess-300);
 }
 
 *::-webkit-scrollbar-thumb:active {
-  background-color: var(--color-ecsess-500);
+  background-color: var(--color-ecsess-300);
 }
 

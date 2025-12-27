@@ -66,7 +66,8 @@
 	<!--Flip Card container-->
 	<div class="flip-box-inner rounded-2xl " class:show-back={showDescription}>
 		<!--Front Side-->
-		<div class="flip-box-front bg-ecsess-950 shadow-ecsess-950/50 rounded-2xl">
+		<!--Opacity thing is to fix the visual bug on ios-->
+		<div class="flip-box-front bg-ecsess-950 shadow-ecsess-950/50 rounded-2xl transition-opacity duration-500 {showDescription ? 'opacity-0 pointer-events-none' : 'opacity-100'}">
 			<!--Flip button-->
 			<div
 				class="
@@ -265,7 +266,8 @@
 			</div>
 
 			<!-- General Links -->
-			<div class="max-h-41 relative z-20 gap-4 pb-6 flex flex-wrap w-full items-center justify-center px-6 overflow-auto">
+			<!--add max-h-41 we decide to go back to scrollable-->
+			<div class="relative z-20 gap-4 pb-6 flex flex-wrap w-full items-center justify-center px-6 overflow-auto">
 				{#if generalLink}
 					{#each generalLink as link}
 						<a

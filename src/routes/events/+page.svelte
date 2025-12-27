@@ -34,7 +34,7 @@
 	<div>
 		<ul class="flex justify-center flex-wrap gap-2">
 			{#each categories as category}
-				<EventTabsTrigger value={category.value} onclick={handleTabChange}>{category.label}</EventTabsTrigger>
+				<EventTabsTrigger value={category.value} selected={group=== category.value} onclick={handleTabChange}>{category.label}</EventTabsTrigger>
 			{/each}
 		</ul>
 
