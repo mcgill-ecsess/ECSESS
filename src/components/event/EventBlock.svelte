@@ -64,7 +64,7 @@
 	group relative flex flex-col rounded-2xl  transition-all duration-300 hover:-translate-y-3"
 	>
 	<!--Flip Card container-->
-	<div class="flip-box-inner rounded-2xl  " class:show-back={showDescription}>
+	<div class="flip-box-inner rounded-2xl" class:show-back={showDescription}>
 		<!--Front Side-->
 		<!--Opacity thing is to fix the visual bug on ios-->
 		<div class="flip-box-front bg-ecsess-950 shadow-xl shadow-ecsess-950/60 rounded-2xl transition-opacity duration-500 {showDescription ? 'opacity-0 pointer-events-none' : 'opacity-100'}">
