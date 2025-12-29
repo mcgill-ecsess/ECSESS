@@ -181,7 +181,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="relative px-6 z-100 flex-1">
+			<div class="relative p-4 px-6 z-100 flex-1">
 				<!-- Action Buttons -->
 				{#if !isPastEvent}
 					<div class="space-y-2">
@@ -193,7 +193,7 @@
 								target="_blank"
 								rel="noopener noreferrer"
 								class="bg-ecsess-500 hover:bg-ecsess-600 flex flex-1 items-center justify-center gap-2 rounded-xl px-4 p3 text-sm font-bold text-white 
-								shadow-md shadow-ecsess-100  transition-all hover:shadow-lg hover:-translate-y-1 
+								shadow-md shadow-ecsess-300  transition-all hover:shadow-lg hover:-translate-y-1 
 								"
 							>
 								<FilePen class="h-4 w-4" strokeWidth={2.5} />
@@ -211,7 +211,7 @@
 							<button
 								onclick={addToCalendar}
 								class="hover:cursor-pointer bg-ecsess-700 hover:bg-ecsess-800 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white
-								shadow-md shadow-ecsess-200 transition-all hover:shadow-lg hover:-translate-y-1 "
+								shadow-md shadow-ecsess-400 transition-all hover:shadow-lg hover:-translate-y-1 "
 							>
 								<CalendarPlus class="h-5 w-5" strokeWidth={2.5} />
 								Add to Calendar
@@ -222,7 +222,7 @@
 									target="_blank"
 									rel="noopener noreferrer"
 									class="sm:col-span-1 col-span-2 bg-ecsess-800 hover:bg-ecsess-900 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white 
-									shadow-md shadow-ecsess-300 transition-all hover:shadow-lg hover:-translate-y-1 "
+									shadow-md shadow-ecsess-500 transition-all hover:shadow-lg hover:-translate-y-1 "
 								>
 									<LinkIcon class="h-4 w-4" strokeWidth={2.5} />
 									Pay
@@ -280,7 +280,7 @@
 							target="_blank"
 							rel="noopener noreferrer"
 							class="bg-ecsess-600 hover:bg-ecsess-700 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white 
-							shadow-md shadow-ecsess-200 transition-all hover:shadow-lg hover:-translate-y-1"
+							shadow-md shadow-ecsess-400 transition-all hover:shadow-lg hover:-translate-y-1"
 						>
 							<ExternalLinkIcon class="h-4 w-4" strokeWidth={2.5} />
 							{link.title}
