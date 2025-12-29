@@ -61,13 +61,13 @@
 <div
 	class="
 	flip-box
-	group relative flex flex-col rounded-2xl  transition-all duration-300 hover:-translate-y-3"
+	group relative flex flex-col rounded-2xl"
 	>
 	<!--Flip Card container-->
 	<div class="flip-box-inner rounded-2xl" class:show-back={showDescription}>
 		<!--Front Side-->
 		<!--Opacity thing is to fix the visual bug on ios-->
-		<div class="flip-box-front bg-ecsess-950 shadow-xl shadow-ecsess-950/60 rounded-2xl transition-opacity duration-500 {showDescription ? 'opacity-0 pointer-events-none' : 'opacity-100'}">
+		<div class="flex flex-col flip-box-front bg-ecsess-950 shadow-xl shadow-ecsess-950/60 rounded-2xl transition-opacity duration-500 {showDescription ? 'opacity-0 pointer-events-none' : 'opacity-100'}">
 			<!--Flip button-->
 			<div
 				class="
@@ -181,25 +181,28 @@
 					</div>
 				</div>
 			</div>
-			<div class="relative px-6 pb-6 z-100 ">
+			<div class="relative px-6 z-100 flex-1">
 				<!-- Action Buttons -->
 				{#if !isPastEvent}
 					<div class="space-y-2">
 						<!-- Registration & Payment Row & Add to Calendar Button -->
-						<div class="grid sm:grid-cols-3 grid-cols-2 gap-2">
+						<div class="grid sm:grid-cols-3 grid-cols-2 gap-3 md:gap-2">
 							{#if registrationLink}
-								<a
-									href={registrationLink[0].url}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="bg-ecsess-500 hover:bg-ecsess-600 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
-								>
-									<FilePen class="h-4 w-4" strokeWidth={2.5} />
-									Register
-								</a>
+							<a
+								href={registrationLink[0].url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="bg-ecsess-500 hover:bg-ecsess-600 flex flex-1 items-center justify-center gap-2 rounded-xl px-4 p3 text-sm font-bold text-white 
+								shadow-md shadow-ecsess-100  transition-all hover:shadow-lg hover:-translate-y-1 
+								"
+							>
+								<FilePen class="h-4 w-4" strokeWidth={2.5} />
+								Register
+							</a>	
+							
 							{:else}
 								<div
-									class="bg-ecsess-500 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md"
+									class="bg-ecsess-500 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white "
 								>
 									<FilePen class="h-4 w-4" strokeWidth={2.5} />
 									Drop In
@@ -207,7 +210,8 @@
 							{/if}
 							<button
 								onclick={addToCalendar}
-								class="hover:cursor-pointer bg-ecsess-700 hover:bg-ecsess-800 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
+								class="hover:cursor-pointer bg-ecsess-700 hover:bg-ecsess-800 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white
+								shadow-md shadow-ecsess-200 transition-all hover:shadow-lg hover:-translate-y-1 "
 							>
 								<CalendarPlus class="h-5 w-5" strokeWidth={2.5} />
 								Add to Calendar
@@ -217,14 +221,15 @@
 									href={paymentLink[0].url}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="sm:col-span-1 col-span-2 bg-ecsess-800 hover:bg-ecsess-900 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
+									class="sm:col-span-1 col-span-2 bg-ecsess-800 hover:bg-ecsess-900 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white 
+									shadow-md shadow-ecsess-300 transition-all hover:shadow-lg hover:-translate-y-1 "
 								>
 									<LinkIcon class="h-4 w-4" strokeWidth={2.5} />
 									Pay
 								</a>
 							{:else}
 								<div
-									class="sm:col-span-1 col-span-2 bg-ecsess-800 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md"
+									class="sm:col-span-1 col-span-2 bg-ecsess-800 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white "
 								>
 									Free!
 								</div>
@@ -234,12 +239,12 @@
 					</div>
 				{/if}
 			</div>
-			<div class="pb-4">
+			<div class="p-4 lg:hidden">
 				<p>Click to view more</p>
 			</div>
 			</div>
 		<!-- Back Side -->
-		<div class=" flip-box-back bg-ecsess-950 shadow-xl shadow-ecsess-950/60 rounded-2xl">
+		<div class=" flex flex-col flip-box-back bg-ecsess-950 shadow-xl shadow-ecsess-950/60 rounded-2xl">
 			<!--Flip button-->
 			<div
 				class="
@@ -252,11 +257,11 @@
 					{eventTitle}
 				</h3>
 			</div>
-			<div class="relative h-80 flex flex-1 flex-col z-20 my-2"
+			<div class="relative h-56 md:h-64 xl:h-84 flex flex-col z-20 my-2"
 			onclick={flipCard}
 			>
 				<!-- Description -->
-				<div class="text-ecsess-100 p-6 flex-1 overflow-y-auto">
+				<div class="text-ecsess-100 p-6 flex flex-1 justify-center overflow-y-auto border-y border-ecsess-800">
 					{#if eventDescription}
 						<RichText value={eventDescription} />
 					{:else}
@@ -267,14 +272,15 @@
 
 			<!-- General Links -->
 			<!--add max-h-41 we decide to go back to scrollable-->
-			<div class="relative z-20 gap-4 pb-6 flex flex-wrap w-full items-center justify-center px-6 overflow-auto">
+			<div class="relative z-20 gap-4 flex flex-1 flex-wrap w-full items-center justify-center p-6 overflow-auto ">
 				{#if generalLink}
 					{#each generalLink as link}
 						<a
 							href={link.url}
 							target="_blank"
 							rel="noopener noreferrer"
-							class="bg-ecsess-600 hover:bg-ecsess-700 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
+							class="bg-ecsess-600 hover:bg-ecsess-700 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold text-white 
+							shadow-md shadow-ecsess-200 transition-all hover:shadow-lg hover:-translate-y-1"
 						>
 							<ExternalLinkIcon class="h-4 w-4" strokeWidth={2.5} />
 							{link.title}
@@ -288,5 +294,52 @@
 </div>
 
 <style>
+	.flip-box {
+		height: 100%;
+		width: 100%;
+		perspective: 1000px; /* Remove this if you don't want the 3D effect */
+	}
 
+	.flip-box-inner {
+		display: grid;
+		width: 100%;
+		height: 100%;
+		text-align: center;
+		transition: transform 0.8s;
+		transform-style: preserve-3d;
+	}
+
+	@keyframes rotate-and-back {
+		0% { transform: rotateY(0); }
+		33% { transform: rotateY(5deg); }
+		66% { transform: rotateY(-5deg); }
+		100% { transform: rotateY(0); }
+	}
+
+	@media (min-width: 448px) { /* Apply hover effect only on screens wider than md*/
+		.flip-box:hover .flip-box-front {
+			animation: rotate-and-back 0.3s ease-in-out;
+		}
+	}
+
+	.flip-box-front,
+	.flip-box-back {
+		grid-area: 1/1;
+		width: 100%;
+		-webkit-backface-visibility: hidden; /* Safari */
+		backface-visibility: hidden;
+	}
+	.flip-box-front {
+		z-index: 2;
+		transform: rotateY(0deg);
+		transform-style: preserve-3d;
+	}
+
+	.flip-box-back {
+		transform: rotateY(180deg); 
+	}
+
+	.show-back {
+		transform: rotateY(180deg);
+	}
 </style>

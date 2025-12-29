@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { EventPost, Category } from '$lib/schemas';
+	import { type EventPost, EventCategory } from '$lib/schemas';
 	import Section from 'components/layout/Section.svelte';
 	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
 	import EventTabsTrigger from 'components/event/EventTabsTrigger.svelte';
@@ -8,16 +8,16 @@
 	let { data } = $props();
 
 	let events: EventPost[] = data.events ?? [];
-	let group = $state<Category>('allEvents');
-	let categories: {value: Category; label: string}[] = [
-	{ value: 'allEvents', label: 'All Events' },
-	{ value: 'academic', label: 'Academic' },
-	{ value: 'professional', label: 'Professional' },
-	{ value: 'social', label: 'Social' },
-	{ value: 'technical', label: 'Technical' }
+	let group = $state<EventCategory>(EventCategory.ALL_EVENTS);
+	let categories: {value: EventCategory; label: string}[] = [
+	{ value: EventCategory.ALL_EVENTS, label: 'All Events' },
+	{ value: EventCategory.ACADEMIC, label: 'Academic' },
+	{ value: EventCategory.PROFESSIONAL, label: 'Professional' },
+	{ value: EventCategory.SOCIAL, label: 'Social' },
+	{ value: EventCategory.TECHNICAL, label: 'Technical' }
 ];
 	// Handle tab change
-	function handleTabChange(selectedCategory: Category) {
+	function handleTabChange(selectedCategory: EventCategory) {
 		group = selectedCategory;
 	}
 </script>

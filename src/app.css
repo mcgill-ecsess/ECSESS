@@ -205,83 +205,31 @@ h2 {
 	}
 }
 
-.flip-box {
-	height: 100%;
-	width: 100%;
-	perspective: 1000px; /* Remove this if you don't want the 3D effect */;
-}
-
-.flip-box-inner {
-	display: grid;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	transition: transform 0.8s;
-	transform-style: preserve-3d;
-}
-
-@keyframes rotate-and-back {
-    0% { transform: rotateY(0); }
-    33% { transform: rotateY(5deg); }
-	66% { transform: rotateY(-5deg); }
-    100% { transform: rotateY(0); }
-}
-
-@media (min-width: 448px) { /* Apply hover effect only on screens wider than md*/
-	.flip-box:hover .flip-box-front {
-		animation: rotate-and-back 0.3s ease-in-out;
-	}
-}
-
-.flip-box-front,
-.flip-box-back {
-	grid-area: 1/1;
-	width: 100%;
-	-webkit-backface-visibility: hidden; /* Safari */
-	backface-visibility: hidden;
-}
-.flip-box-front {
-	z-index: 2;
-	transform: rotateY(0deg);
-	transform-style: preserve-3d;
-}
-
-.flip-box-back {
-	transform: rotateY(180deg); 
-}
-
-.show-back {
-	transform: rotateY(180deg);
-}
-
 /* Scrollbar Styles */
 *::-webkit-scrollbar {
-  height: 4px;
-  width: 4px;
+  @apply h-1 w-1;
 }
+
 *::-webkit-scrollbar-track {
-  border-radius: 3px;
-  background-color: var(--color-ecsess-700);
+  @apply rounded bg-ecsess-700;
 }
 
 *::-webkit-scrollbar-track:hover {
-  background-color: var(--color-ecsess-900);
+  @apply bg-ecsess-900;
 }
 
 *::-webkit-scrollbar-track:active {
-  background-color: var(--color-ecsess-900);
+  @apply bg-ecsess-900;
 }
 
 *::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background-color: var(--color-ecsess-100);
+  @apply rounded-md bg-ecsess-100;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-ecsess-300);
+  @apply bg-ecsess-300;
 }
 
 *::-webkit-scrollbar-thumb:active {
-  background-color: var(--color-ecsess-300);
+  @apply bg-ecsess-300;
 }
-

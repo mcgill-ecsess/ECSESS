@@ -9,18 +9,28 @@ export type EventPost = {
 	time: string;
 	location: string;
 	thumbnail: string;
-	category: string;
+	category: EventCategory;
 	links: LinkType[];
 };
 
-export type Category = 'allEvents' | 'academic' | 'professional' | 'social' | 'technical';
+export enum EventCategory {
+	ALL_EVENTS = 'allEvents',
+	ACADEMIC = 'academic',
+	PROFESSIONAL = 'professional',
+	SOCIAL = 'social',
+	TECHNICAL = 'technical'
+};
 
 export type LinkType = {
 		title: string;
 		kind: EventLinkKind;
 		url: string;
 };
-export type EventLinkKind = 'payment' | 'registration' | 'general';
+export enum EventLinkKind {
+	PAYMENT = 'payment',
+	REGISTRATION = 'registration',
+	GENERAL = 'general'
+};
 
 export type FAQ = {
 	question: string;

@@ -4,6 +4,6 @@
 	let { value } = $props();
 </script>
 
-<div class="typography">
+<div class="flex flex-col justify-center-safe">
 	<PortableText {value} />
 </div>
