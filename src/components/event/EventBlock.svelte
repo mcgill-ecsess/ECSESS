@@ -316,12 +316,12 @@
 
 	.flip-box-front,
 	.flip-box-back {
-		@apply col-1 row-1 h-full w-full  [-webkit-backface-visibility:hidden] backface-hidden;
+		@apply col-1 row-1 h-full w-full [-webkit-backface-visibility:hidden] backface-hidden;
 	}
 	.flip-box-front {
-		@apply rotate-y-0 z-2 transform-3d;
+		@apply z-2 rotate-y-0 transform-3d;
 	}
- 
+
 	.flip-box-back {
 		@apply rotate-y-180;
 	}
