@@ -1,6 +1,5 @@
 import type { InputValue } from '@portabletext/svelte';
 
-
 export type EventPost = {
 	id: string;
 	name: string;
@@ -19,18 +18,18 @@ export enum EventCategory {
 	PROFESSIONAL = 'professional',
 	SOCIAL = 'social',
 	TECHNICAL = 'technical'
-};
+}
 
 export type LinkType = {
-		title: string;
-		kind: EventLinkKind;
-		url: string;
+	title: string;
+	kind: EventLinkKind;
+	url: string;
 };
 export enum EventLinkKind {
 	PAYMENT = 'payment',
 	REGISTRATION = 'registration',
 	GENERAL = 'general'
-};
+}
 
 export type FAQ = {
 	question: string;

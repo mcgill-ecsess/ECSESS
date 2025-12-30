@@ -207,29 +207,29 @@ h2 {
 
 /* Scrollbar Styles */
 *::-webkit-scrollbar {
-  @apply h-1 w-1;
+	@apply h-1 w-1;
 }
 
 *::-webkit-scrollbar-track {
-  @apply rounded bg-ecsess-700;
+	@apply bg-ecsess-700 rounded;
 }
 
 *::-webkit-scrollbar-track:hover {
-  @apply bg-ecsess-900;
+	@apply bg-ecsess-900;
 }
 
 *::-webkit-scrollbar-track:active {
-  @apply bg-ecsess-900;
+	@apply bg-ecsess-900;
 }
 
 *::-webkit-scrollbar-thumb {
-  @apply rounded-md bg-ecsess-100;
+	@apply bg-ecsess-100 rounded-md;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  @apply bg-ecsess-300;
+	@apply bg-ecsess-300;
 }
 
 *::-webkit-scrollbar-thumb:active {
-  @apply bg-ecsess-300;
+	@apply bg-ecsess-300;
 }

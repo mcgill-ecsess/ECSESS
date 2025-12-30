@@ -9,13 +9,13 @@
 
 	let events: EventPost[] = data.events ?? [];
 	let group = $state<EventCategory>(EventCategory.ALL_EVENTS);
-	let categories: {value: EventCategory; label: string}[] = [
-	{ value: EventCategory.ALL_EVENTS, label: 'All Events' },
-	{ value: EventCategory.ACADEMIC, label: 'Academic' },
-	{ value: EventCategory.PROFESSIONAL, label: 'Professional' },
-	{ value: EventCategory.SOCIAL, label: 'Social' },
-	{ value: EventCategory.TECHNICAL, label: 'Technical' }
-];
+	let categories: { value: EventCategory; label: string }[] = [
+		{ value: EventCategory.ALL_EVENTS, label: 'All Events' },
+		{ value: EventCategory.ACADEMIC, label: 'Academic' },
+		{ value: EventCategory.PROFESSIONAL, label: 'Professional' },
+		{ value: EventCategory.SOCIAL, label: 'Social' },
+		{ value: EventCategory.TECHNICAL, label: 'Technical' }
+	];
 	// Handle tab change
 	function handleTabChange(selectedCategory: EventCategory) {
 		group = selectedCategory;
@@ -32,9 +32,13 @@
 	<p class="page-title">Events</p>
 
 	<div>
-		<ul class="flex justify-center flex-wrap gap-2">
+		<ul class="flex flex-wrap justify-center gap-2">
 			{#each categories as category}
-				<EventTabsTrigger value={category.value} selected={group=== category.value} onclick={handleTabChange}>{category.label}</EventTabsTrigger>
+				<EventTabsTrigger
+					value={category.value}
+					selected={group === category.value}
+					onclick={handleTabChange}>{category.label}</EventTabsTrigger
+				>
 			{/each}
 		</ul>
 

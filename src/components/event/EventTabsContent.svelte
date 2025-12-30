@@ -62,26 +62,31 @@
 
 	const upcomingEvents = $derived(
 		filtered
-			.filter((e: { date: string; }) => !isPastEvent(e.date))
-			.sort((a: { date: string; }, b: { date: string; }) => parseEventDate(a.date).getTime() - parseEventDate(b.date).getTime())
+			.filter((e: { date: string }) => !isPastEvent(e.date))
+			.sort(
+				(a: { date: string }, b: { date: string }) =>
+					parseEventDate(a.date).getTime() - parseEventDate(b.date).getTime()
+			)
 	);
 
 	const finishedEvents = $derived(
 		filtered
-			.filter((e: { date: string; }) => isPastEvent(e.date))
-			.sort((a: { date: string; }, b: { date: string; }) => parseEventDate(b.date).getTime() - parseEventDate(a.date).getTime())
+			.filter((e: { date: string }) => isPastEvent(e.date))
+			.sort(
+				(a: { date: string }, b: { date: string }) =>
+					parseEventDate(b.date).getTime() - parseEventDate(a.date).getTime()
+			)
 	);
 
-	const getPaymentLink = (e: EventPost, type: EventLinkKind ):LinkType[] | null => {
+	const getPaymentLink = (e: EventPost, type: EventLinkKind): LinkType[] | null => {
 		let generalLinks: LinkType[] = [];
 		for (const link of e.links ?? []) {
 			if (type == EventLinkKind.GENERAL && link.kind === EventLinkKind.GENERAL && link.url !== '') {
 				generalLinks.push(link);
-			}
-			else if (link.kind === type && link.url !== '') {
+			} else if (link.kind === type && link.url !== '') {
 				return [link];
 			}
-		}		
+		}
 		return generalLinks.length > 0 ? generalLinks : null;
 	};
 </script>
