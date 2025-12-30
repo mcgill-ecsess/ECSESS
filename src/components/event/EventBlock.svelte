@@ -305,12 +305,10 @@
 			transform: rotateY(0);
 		}
 	}
-
-	/*Only work with normal css for now */
 	@media (min-width: 448px) {
 		/* Apply hover effect only on screens wider than md*/
 		.flip-box:hover .flip-box-front {
-			animation: rotate-and-back 0.3s ease-in-out;
+			@apply animate-[rotate-and-back_0.3s_ease-in-out];
 		}
 	}
 
