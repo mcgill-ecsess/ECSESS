@@ -84,7 +84,7 @@
 				onclick={flipCard}
 			></div>
 			<!-- Image Container with Gradient Overlay -->
-			<div class="relative h-80 overflow-hidden rounded-2xl">
+			<div class="relative h-80 overflow-hidden rounded-t-2xl">
 				{#if thumbnail}
 					<img class="h-full w-full object-cover" src={thumbnail} alt={eventTitle} />
 				{:else if eventCategory?.[0] === 'social'}
@@ -105,7 +105,7 @@
 
 				<!-- Gradient overlay -->
 				<div
-					class="via-ecsess-800/30 to-ecsess-950 absolute inset-0 rounded-2xl bg-gradient-to-b from-transparent"
+					class="via-ecsess-800/30 to-ecsess-950 absolute inset-0 rounded-t-2xl bg-gradient-to-b from-transparent"
 				></div>
 				<!-- Event Title Overlay -->
 				<div class="absolute right-0 bottom-0 left-0 p-6">
@@ -284,9 +284,6 @@
 
 <style>
 	.flip-box {
-		/* height: 100%;
-		width: 100%;
-		perspective: 1000px; Remove this if you don't want the 3D effect */
 		@apply h-full w-full perspective-[1000px];
 	}
 
@@ -319,14 +316,14 @@
 
 	.flip-box-front,
 	.flip-box-back {
-		@apply grid-1/1 h-full w-full rounded-2xl [-webkit-backface-visibility:hidden] backface-hidden;
+		@apply col-1 row-1 h-full w-full  [-webkit-backface-visibility:hidden] backface-hidden;
 	}
 	.flip-box-front {
-		@apply transform-rotate-y-0 z-2 transform-3d;
+		@apply rotate-y-0 z-2 transform-3d;
 	}
-
+ 
 	.flip-box-back {
-		@apply transform-rotate-y-180;
+		@apply rotate-y-180;
 	}
 
 	.show-back {
