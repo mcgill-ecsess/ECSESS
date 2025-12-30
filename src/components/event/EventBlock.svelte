@@ -295,20 +295,16 @@
 
 <style>
 	.flip-box {
-		height: 100%;
+		/* height: 100%;
 		width: 100%;
-		perspective: 1000px; /* Remove this if you don't want the 3D effect */
+		perspective: 1000px; Remove this if you don't want the 3D effect */
+		@apply h-full w-full perspective-[1000px];
 	}
 
 	.flip-box-inner {
-		display: grid;
-		width: 100%;
-		height: 100%;
-		text-align: center;
-		transition: transform 0.8s;
-		transform-style: preserve-3d;
+		@apply grid w-full h-full text-center duration-800 transform-3d;
 	}
-
+	
 	@keyframes rotate-and-back {
 		0% { transform: rotateY(0); }
 		33% { transform: rotateY(5deg); }
@@ -316,6 +312,7 @@
 		100% { transform: rotateY(0); }
 	}
 
+	/*Only work with normal css for now */
 	@media (min-width: 448px) { /* Apply hover effect only on screens wider than md*/
 		.flip-box:hover .flip-box-front {
 			animation: rotate-and-back 0.3s ease-in-out;
@@ -324,22 +321,17 @@
 
 	.flip-box-front,
 	.flip-box-back {
-		grid-area: 1/1;
-		width: 100%;
-		-webkit-backface-visibility: hidden; /* Safari */
-		backface-visibility: hidden;
+		@apply grid-1/1 h-full w-full backface-hidden rounded-2xl [-webkit-backface-visibility:hidden];
 	}
 	.flip-box-front {
-		z-index: 2;
-		transform: rotateY(0deg);
-		transform-style: preserve-3d;
+		@apply z-2 transform-rotate-y-0 transform-3d;
 	}
 
 	.flip-box-back {
-		transform: rotateY(180deg); 
+		@apply transform-rotate-y-180;
 	}
 
 	.show-back {
-		transform: rotateY(180deg);
+		@apply rotate-y-180;
 	}
 </style>
