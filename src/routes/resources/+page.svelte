@@ -12,12 +12,12 @@
 
 	// extract Categories dynamically
 	let categories = $derived.by(() => {
-		const cats = new Set(['All']);
+		const cats = new Set();
 		data.resources.forEach((r) => {
 			if (r.category) cats.add(r.category);
 		});
 		const arr = Array.from(cats).sort();
-		return arr.length > 1 ? arr : [];
+		return arr.length > 0 ? ['All', ...arr] : [];
 	});
 
 	// enhanced Search Logic (Title + Desc + Category + TAGS)
