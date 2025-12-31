@@ -9,7 +9,8 @@
 	} = $props();
 </script>
 
-<Link href={link} class="group block h-full no-underline">
+<!-- added target="_blank" and rel="noopener noreferrer" to open in new tab -->
+<Link href={link} target="_blank" rel="noopener noreferrer" class="group block h-full no-underline">
 	<div class="bg-ecsess-200 border-ecsess-300 group-hover:border-ecsess-400 relative flex h-full flex-col justify-between rounded-xl border p-6 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-ecsess-900/20">
 		<div class="flex flex-col items-start text-left">
 			<div class="flex w-full justify-between items-start gap-4">

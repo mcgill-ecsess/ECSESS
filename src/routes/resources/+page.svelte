@@ -50,24 +50,24 @@
 />
 
 <Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-900" direction="to-b">
-	<div class="mx-auto mb-10 max-w-3xl space-y-4 text-center">
+	<div class="mx-auto mb-8 max-w-3xl space-y-3 text-center">
 		<h1 class="page-title text-ecsess-100">Student Resources</h1>
 		<p class="text-ecsess-200 text-lg leading-relaxed md:text-xl">
 			Everything you need to navigate your engineering journey at McGill.
 		</p>
 	</div>
 
-	<div class="relative z-10 mx-auto mb-16 flex w-full max-w-2xl flex-col gap-6">
+	<div class="relative z-10 mx-auto mb-8 flex w-full max-w-2xl flex-col gap-4">
 		<div class="group relative w-full">
 			<input
 				type="text"
 				bind:value={searchQuery}
 				placeholder="Search for handbooks, forms, or guides..."
-				class="bg-ecsess-900/50 border-ecsess-700 text-ecsess-50 placeholder-ecsess-400 focus:border-ecsess-400 focus:ring-ecsess-400/20 peer block w-full rounded-2xl border-2 py-4 pr-4 pl-12 text-lg shadow-lg backdrop-blur-sm transition-all focus:ring-4 focus:outline-none"
+				class="bg-ecsess-900/50 border-ecsess-700 text-ecsess-50 placeholder-ecsess-400 focus:border-ecsess-400 focus:ring-ecsess-400/20 peer block w-full rounded-xl border-2 py-2.5 pr-4 pl-11 text-base shadow-lg backdrop-blur-sm transition-all focus:ring-4 focus:outline-none"
 			/>
-			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
 				<Search
-					class="text-ecsess-400 peer-focus:text-ecsess-200 h-6 w-6 transition-colors"
+					class="text-ecsess-400 peer-focus:text-ecsess-200 h-5 w-5 transition-colors"
 				/>
 			</div>
 		</div>
@@ -77,7 +77,7 @@
 				{#each categories as cat}
 					<button
 						onclick={() => (selectedCategory = cat)}
-						class="rounded-full border-2 px-4 py-1.5 text-sm font-bold transition-all duration-200
+						class="rounded-full border-2 px-3.5 py-1 text-sm font-bold transition-all duration-200 whitespace-nowrap
 						{selectedCategory === cat
 							? 'bg-ecsess-400 border-ecsess-400 text-white shadow-md'
 							: 'border-ecsess-800 text-ecsess-300 hover:border-ecsess-600 hover:text-ecsess-100 bg-transparent'}"
@@ -124,14 +124,13 @@
 		</div>
 	{/if}
 
-	<div class="border-ecsess-800 mx-auto mt-20 w-full max-w-4xl border-t pt-8 text-center">
-		<p class="text-ecsess-400 text-sm">
+	<div class="mx-auto mt-20 w-full max-w-4xl text-center">
+		<p class="text-ecsess-400 text-sm pb-8">
 			Can't find what you're looking for?
-			<a
-				href="mailto:ecsess.vpcomm@mcgilleus.ca"
-				class="text-ecsess-200 hover:text-white underline transition-colors"
-				>Contact VP Communications</a
-			>
+			<a href="mailto:ecsess.vpcomm@mcgilleus.ca" 
+			class="text-ecsess-200 hover:text-white underline transition-colors">Contact VP Communications</a>
 		</p>
+		<div class="border-ecsess-800 border-t pt-8">
+		</div>
 	</div>
 </Section>

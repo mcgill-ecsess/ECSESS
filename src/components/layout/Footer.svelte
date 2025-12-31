@@ -42,14 +42,12 @@
 		<div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
 			<!-- Left: ECSESS Lounge -->
 			<div class="border-ecsess-800 border-b-1 pb-4 text-center md:border-0 md:text-left">
-				<p class="text-ecsess-300 mb-3 text-lg">
-					Visit the ECSESS lounge!
-				</p>
+				<p class="text-ecsess-300 mb-3 text-lg">Visit the ECSESS lounge!</p>
 				<a
 					href="https://maps.app.goo.gl/m9ZqjTrPM7pcBzhbA"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="text-ecsess-300 hover:text-ecsess-100 border-b-1 border-b-transparent hover:border-b-ecsess-100 inline-flex items-center gap-2 justify-baseline transition-all pb-0.5"
+					class="text-ecsess-300 hover:text-ecsess-100 hover:border-b-ecsess-100 inline-flex items-center justify-baseline gap-2 border-b-1 border-b-transparent pb-0.5 transition-all"
 				>
 					<svg
 						class="h-4 w-4 flex-shrink-0"
@@ -184,10 +182,21 @@
 		<div class="border-ecsess-800 my-6 border-t"></div>
 
 		<!-- Copyright -->
-		<div>
-			<p class="text-ecsess-200 text-center text-sm">
-				🄯 ECSESS {year} under GNU General Public License v3.0. <br />
-				Designed with love {'<3'}.
+		<div class="text-center">
+			<p class="text-ecsess-200 text-sm leading-relaxed">
+				<svg
+					class="-mt-0.5 mr-0.5 inline-block h-3.5 w-3.5"
+					viewBox="0 0 24 24"
+					fill="currentColor"
+					aria-label="Copyleft"
+				>
+					<path
+						d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-4.5v-7c-2.21 0-4 1.79-4 4s1.79 4 4 4z"
+					/>
+				</svg>
+				ECSESS {year} under GNU General Public License v3.0.
+				<br />
+				Designed with love &lt;3.
 			</p>
 		</div>
 	</div>
