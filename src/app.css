@@ -204,3 +204,32 @@ h2 {
 		@apply mt-3 text-sm leading-5;
 	}
 }
+
+/* Scrollbar Styles */
+*::-webkit-scrollbar {
+	@apply h-1 w-1;
+}
+
+*::-webkit-scrollbar-track {
+	@apply bg-ecsess-700 rounded;
+}
+
+*::-webkit-scrollbar-track:hover {
+	@apply bg-ecsess-900;
+}
+
+*::-webkit-scrollbar-track:active {
+	@apply bg-ecsess-900;
+}
+
+*::-webkit-scrollbar-thumb {
+	@apply bg-ecsess-100 rounded-md;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	@apply bg-ecsess-300;
+}
+
+*::-webkit-scrollbar-thumb:active {
+	@apply bg-ecsess-300;
+}

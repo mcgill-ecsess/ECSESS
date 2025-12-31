@@ -7,8 +7,11 @@ const eventQuery = `*[_type == "events"]{
   date,
   location,
   description,
-  reglink,
-  paylink,
+  "links": links[]{
+    "kind": kind,
+    "title": title,
+    "url": url
+    },
   "thumbnail": thumbnail.asset->url+"?h=800&fm=webp",
   "lastUpdated": _updatedAt,
 }`;
