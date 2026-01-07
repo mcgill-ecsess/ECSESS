@@ -1,7 +1,24 @@
-<script>
-	let { href = 'https://www.example.com', children } = $props();
+<script lang="ts">
+	let {
+		href = undefined,
+		external = false,
+		button = false,
+		children,
+		class: className = ''
+	} = $props();
 </script>
 
-<a {href} target="_blank" rel="noopener noreferrer" class="underline">
-	{@render children()}
-</a>
+{#if href}
+	<a
+		href={href}
+		class="{button ? '' : 'underline'} {className}"
+		target={external ? '_blank' : undefined}
+		rel={external ? 'noopener noreferrer' : undefined}
+	>
+		{@render children?.()}
+	</a>
+{:else}
+	<span class={className}>
+		{@render children?.()}
+	</span>
+{/if}
