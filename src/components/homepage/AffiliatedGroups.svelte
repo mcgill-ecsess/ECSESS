@@ -50,7 +50,7 @@
 				'IEEEXtreme Competition',
 				'Networking Events'
 			]
-		},
+		}
 	];
 </script>
 
@@ -89,7 +89,7 @@
 									strokeWidth={2.5}
 									aria-hidden="true"
 									focusable="false"
-								/>	
+								/>
 							</div>
 							<h3 id={`group-${i}-title`} class="text-ecsess-50 text-2xl font-bold">
 								{group.name}
@@ -102,7 +102,7 @@
 								target="_blank"
 								rel="noopener noreferrer external"
 								aria-label={`Visit ${group.name} website`}
-								class="bg-ecsess-800 hover:bg-ecsess-500 flex h-10 w-10 items-center justify-center rounded-lg text-ecsess-100 hover:text-ecsess-50 shadow-md transition-all hover:shadow-lg active:scale-95"
+								class="bg-ecsess-800 hover:bg-ecsess-500 text-ecsess-100 hover:text-ecsess-50 flex h-10 w-10 items-center justify-center rounded-lg shadow-md transition-all hover:shadow-lg active:scale-95"
 							>
 								<Globe class="h-5 w-5" strokeWidth={2.5} aria-hidden="true" focusable="false" />
 							</a>
@@ -112,9 +112,14 @@
 									target="_blank"
 									rel="noopener noreferrer external"
 									aria-label={`Follow ${group.name} on Instagram`}
-									class="bg-ecsess-800 hover:bg-ecsess-500 flex h-10 w-10 items-center justify-center rounded-lg text-ecsess-100 hover:text-ecsess-50 shadow-md transition-all hover:shadow-lg active:scale-95"
+									class="bg-ecsess-800 hover:bg-ecsess-500 text-ecsess-100 hover:text-ecsess-50 flex h-10 w-10 items-center justify-center rounded-lg shadow-md transition-all hover:shadow-lg active:scale-95"
 								>
-									<Instagram class="h-5 w-5" strokeWidth={2.5} aria-hidden="true" focusable="false" />
+									<Instagram
+										class="h-5 w-5"
+										strokeWidth={2.5}
+										aria-hidden="true"
+										focusable="false"
+									/>
 								</a>
 							{/if}
 						</div>
@@ -144,7 +149,8 @@
 	<!-- Bottom CTA -->
 	<div class="mt-12 text-center">
 		<p class="text-ecsess-300 text-sm">
-			Want to get involved? Visit their websites and social media pages to learn about upcoming events and how to join!
+			Want to get involved? Visit their websites and social media pages to learn about upcoming
+			events and how to join!
 		</p>
 	</div>
 </div>
