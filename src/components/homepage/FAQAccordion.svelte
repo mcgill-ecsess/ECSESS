@@ -25,14 +25,14 @@
 
 <div class="space-y-3">
 	{#each entries as entry, index}
-		<div
-			class="border-ecsess-300 rounded-md border-2 transition-colors duration-200"
-		>
+		<div class="border-ecsess-300 rounded-md border-2 transition-colors duration-200">
 			<!-- Question -->
 			<button
 				type="button"
 				onclick={() => toggleItem(index)}
-				class="flex w-full bg-ecsess-600/20 items-center gap-3 px-3 py-2 text-left text-lg font-bold hover:bg-ecsess-500/40 transition-colors duration-200 {isOpen(index)
+				class="bg-ecsess-600/20 hover:bg-ecsess-500/40 flex w-full items-center gap-3 px-3 py-2 text-left text-lg font-bold transition-colors duration-200 {isOpen(
+					index
+				)
 					? 'rounded-t-md'
 					: 'rounded-md'}"
 			>
@@ -59,7 +59,7 @@
 			<!-- Panel -->
 			{#if isOpen(index)}
 				<div
-					class="border-t-ecsess-300 bg-transparent h-fit overflow-hidden border-t-2 px-4 py-3
+					class="border-t-ecsess-300 h-fit overflow-hidden border-t-2 bg-transparent px-4 py-3
 					 text-base leading-relaxed transition-all duration-200"
 					transition:slide={{ duration: 200 }}
 				>

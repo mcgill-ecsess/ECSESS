@@ -16,7 +16,7 @@
 	}
 </script>
 
-<div class="size-26 md:size-32 relative rounded-full overflow-hidden">
+<div class="relative size-26 overflow-hidden rounded-full md:size-32">
 	{#if src && !imageError}
 		<img
 			{src}
