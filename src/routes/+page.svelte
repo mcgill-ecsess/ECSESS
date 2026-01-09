@@ -5,7 +5,7 @@
 	import OhSchedule from 'components/officehour/OHSchedule.svelte';
 	import Link from 'components/Link.svelte';
 	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
-	import AffiliatedClubs from 'components/homepage/AffiliatedClubs.svelte';
+	import AffiliatedGroups from 'components/homepage/AffiliatedGroups.svelte';
 	import { fade } from 'svelte/transition';
 
 	/** loading things from the server side */
@@ -52,7 +52,7 @@
 
 <!-- Affiliated Clubs -->
 <Section from="from-ecsess-800" to="to-ecsess-950">
-	<AffiliatedClubs />
+	<AffiliatedGroups />
 </Section>
 <!-- FAQs and Sponsors -->
 <Section from="from-ecsess-950" to="to-ecsess-black">
