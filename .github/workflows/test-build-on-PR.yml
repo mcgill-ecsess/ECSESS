@@ -28,12 +28,5 @@ jobs:
 
       - name: Build the website
         run: bun run build
-        continue-on-error: true
-        id: test-build
-
-      - name: Comment on PR if build fails
-        if: steps.test-build.outcome == 'failure'
-        run: |
-          echo "::error::Build failed!"
-          echo "::error::Please check the build logs for details."
-          exit 1
+        env:
+          SANITY_ID: ${{ secrets.SANITY_ID }}
