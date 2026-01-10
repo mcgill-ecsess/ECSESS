@@ -33,6 +33,7 @@
 			>
 				<NavButton href="/">Home</NavButton>
 				<NavButton href="/council">Meet the council</NavButton>
+				<NavButton href="/team">Team</NavButton>
 				<NavButton href="/events">Events</NavButton>
 				<NavButton href="/resources">Resources</NavButton>
 				{#if isElectionTime}
@@ -50,6 +51,7 @@
 			</a>
 			<NavButton href="/">Home</NavButton>
 			<NavButton href="/council">Meet the council</NavButton>
+			<NavButton href="/team">Team</NavButton>
 			<NavButton href="/events">Events</NavButton>
 			<NavButton href="/resources">Resources</NavButton>
 			{#if isElectionTime}
