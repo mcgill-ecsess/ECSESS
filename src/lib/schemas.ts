@@ -85,7 +85,7 @@ export type Redirect = {
 export type DevTeam = {
 	name: string;
 	role: string;
-	yeaProgram: string;
+	yearProgram: string;
 	email: string;
 	funFact: string;
 	github: string;

@@ -14,7 +14,6 @@ const query = `*[_type == "devTeam"]{
 
 export const load = async ({ url }) => {
     let devTeam: DevTeam[] = await getFromCMS(query);
-
     return {
         devTeam: devTeam,
         canonical: url.href
