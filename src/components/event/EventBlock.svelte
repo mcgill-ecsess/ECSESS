@@ -81,12 +81,12 @@
 <div class="group relative flex h-full w-full flex-col rounded-2xl perspective-[1000px]">
 	<div
 		class="grid h-full w-full rounded-2xl text-center transition-transform duration-500 transform-3d {showDescription
-			? 'transform-[rotateY(180deg)] hover:animate-wiggle-back'
-			: 'hover:animate-wiggle'}"
+			? 'transform-[rotateY(180deg)]'
+			: 'transform-[rotateY(0)] hover:animate-wiggle'}"
 	>
 		<!-- Front Side -->
 		<div
-			class="bg-ecsess-950 col-start-1 row-start-1 flex h-full w-full transform-[rotateY(0)] cursor-pointer flex-col rounded-2xl transition-opacity duration-500 backface-hidden transform-3d {showDescription
+			class="bg-ecsess-950 col-start-1 row-start-1 flex h-full w-full transform-[rotateY(0)] cursor-pointer flex-col rounded-2xl transition-opacity duration-500 backface-hidden {showDescription
 				? 'pointer-events-none opacity-0'
 				: 'opacity-100'}"
 			data-flip-side="front"
