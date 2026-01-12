@@ -83,6 +83,10 @@
 		for (const link of e.links ?? []) {
 			if (type == EventLinkKind.GENERAL && link.kind === EventLinkKind.GENERAL && link.url !== '') {
 				generalLinks.push(link);
+				// Limit general links to 4
+				if (generalLinks.length >= 4) {
+					break;
+				}
 			} else if (link.kind === type && link.url !== '') {
 				return [link];
 			}

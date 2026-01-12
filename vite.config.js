@@ -10,7 +10,6 @@ export default defineConfig({
 		include: [
 			'@portabletext/svelte',
 			'@lucide/svelte',
-			'@skeletonlabs/skeleton-svelte',
 			'@sanity/client'
 		],
 		// Force pre-bundle these dependencies
