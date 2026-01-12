@@ -28,7 +28,7 @@
 	--color-ecsess-black: #1f1f1f;
 	--color-ecsess-black-hover: #161917;
 
-	--animate-wiggle: wiggle 1s ease-in-out;
+	--animate-wiggle: wiggle 0.5s ease-in-out;
 	@keyframes wiggle {
 		0% {
 			transform: rotateY(0);
@@ -41,6 +41,22 @@
 		}
 		100% {
 			transform: rotateY(0);
+		}
+	}
+
+  --animate-wiggle-back: wiggle-back 0.5s ease-in-out;
+	@keyframes wiggle-back {
+		0% {
+			transform: rotateY(180deg);
+		}
+		33% {
+			transform: rotateY(185deg);
+		}
+		66% {
+			transform: rotateY(175deg);
+		}
+		100% {
+			transform: rotateY(180deg);
 		}
 	}
 }

@@ -81,8 +81,8 @@
 <div class="group relative flex h-full w-full flex-col rounded-2xl perspective-[1000px]">
 	<div
 		class="grid h-full w-full rounded-2xl text-center transition-transform duration-500 transform-3d {showDescription
-			? 'transform-[rotateY(180deg)]'
-			: ''}"
+			? 'transform-[rotateY(180deg)] hover:animate-wiggle-back'
+			: 'hover:animate-wiggle'}"
 	>
 		<!-- Front Side -->
 		<div
@@ -130,50 +130,4 @@
 	</div>
 </div>
 
-<style>
-	@media (min-width: 448px) {
-		.group:hover [data-flip-side='front']:not(.flipped) {
-			animation: wiggle 0.3s ease-in-out;
-			pointer-events: auto !important;
-		}
-		.group:hover [data-flip-side='back'].flipped {
-			animation: wiggleBack 0.3s ease-in-out;
-			pointer-events: auto !important;
-		}
-	}
 
-	[data-flip-side='front'],
-	[data-flip-side='back'] {
-		will-change: transform;
-	}
-
-	@keyframes wiggle {
-		0% {
-			transform: rotateY(0);
-		}
-		33% {
-			transform: rotateY(5deg);
-		}
-		66% {
-			transform: rotateY(-5deg);
-		}
-		100% {
-			transform: rotateY(0);
-		}
-	}
-
-	@keyframes wiggleBack {
-		0% {
-			transform: rotateY(180deg);
-		}
-		33% {
-			transform: rotateY(185deg);
-		}
-		66% {
-			transform: rotateY(175deg);
-		}
-		100% {
-			transform: rotateY(180deg);
-		}
-	}
-</style>
