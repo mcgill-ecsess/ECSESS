@@ -7,22 +7,24 @@
 	}>();
 </script>
 
-<div class="relative z-30 m-5 space-y-3 rounded-xl border border-ecsess-800/30 bg-ecsess-900/60 p-4 backdrop-blur-sm pointer-events-none">
+<div
+	class="border-ecsess-800/30 bg-ecsess-900/60 pointer-events-none relative z-30 m-5 space-y-3 rounded-xl border p-4 backdrop-blur-sm"
+>
 	<div class="flex items-center gap-3">
-		<div class="flex h-10 w-10 items-center justify-center rounded-full bg-ecsess-400">
+		<div class="bg-ecsess-400 flex h-10 w-10 items-center justify-center rounded-full">
 			<CalendarDays class="h-5 w-5 text-white" strokeWidth={2.5} />
 		</div>
 		<div class="flex-1">
-			<p class="text-sm font-semibold text-ecsess-50">{date}</p>
+			<p class="text-ecsess-50 text-sm font-semibold">{date}</p>
 		</div>
 	</div>
 
 	<div class="flex items-center gap-3">
-		<div class="flex h-10 w-10 items-center justify-center rounded-full bg-ecsess-400">
+		<div class="bg-ecsess-400 flex h-10 w-10 items-center justify-center rounded-full">
 			<MapPin class="h-5 w-5 text-white" strokeWidth={2.5} />
 		</div>
 		<div class="flex-1">
-			<p class="text-sm font-semibold text-ecsess-50">{location ?? 'TBA'}</p>
+			<p class="text-ecsess-50 text-sm font-semibold">{location ?? 'TBA'}</p>
 		</div>
 	</div>
 </div>

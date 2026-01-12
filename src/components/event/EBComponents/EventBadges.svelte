@@ -5,13 +5,19 @@
 	}>();
 </script>
 
-<div class="absolute top-0 left-0 right-0 z-30 flex items-start justify-between gap-2 p-4 pointer-events-none">
+<div
+	class="pointer-events-none absolute top-0 right-0 left-0 z-30 flex items-start justify-between gap-2 p-4"
+>
 	{#if isPastEvent}
-		<span class="rounded-full bg-ecsess-800/90 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-gray-300 backdrop-blur-sm">
+		<span
+			class="bg-ecsess-800/90 rounded-full px-4 py-1.5 text-xs font-bold tracking-wider text-gray-300 uppercase backdrop-blur-sm"
+		>
 			Past Event
 		</span>
 	{:else}
-		<span class="rounded-full bg-ecsess-400 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-sm">
+		<span
+			class="bg-ecsess-400 rounded-full px-4 py-1.5 text-xs font-bold tracking-wider text-white uppercase backdrop-blur-sm"
+		>
 			Upcoming
 		</span>
 	{/if}
@@ -19,7 +25,9 @@
 	{#if eventCategory && eventCategory.length > 0}
 		<div class="flex flex-wrap justify-end gap-2">
 			{#each eventCategory as category}
-				<span class="rounded-full bg-ecsess-500/90 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-sm">
+				<span
+					class="bg-ecsess-500/90 rounded-full px-3 py-1.5 text-xs font-bold tracking-wider text-white uppercase backdrop-blur-sm"
+				>
 					{category}
 				</span>
 			{/each}

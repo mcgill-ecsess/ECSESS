@@ -29,7 +29,7 @@
 	--color-ecsess-black-hover: #161917;
 
 	--animate-wiggle: wiggle 1s ease-in-out;
-	@keyframes wiggle {	
+	@keyframes wiggle {
 		0% {
 			transform: rotateY(0);
 		}

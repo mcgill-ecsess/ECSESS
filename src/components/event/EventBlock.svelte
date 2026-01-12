@@ -80,13 +80,13 @@
 
 <div class="group relative flex h-full w-full flex-col rounded-2xl perspective-[1000px]">
 	<div
-		class="grid h-full w-full text-center transition-transform duration-500 rounded-2xl transform-3d {showDescription
+		class="grid h-full w-full rounded-2xl text-center transition-transform duration-500 transform-3d {showDescription
 			? 'transform-[rotateY(180deg)]'
 			: ''}"
 	>
 		<!-- Front Side -->
 		<div
-			class="col-start-1 row-start-1 flex h-full w-full flex-col rounded-2xl bg-ecsess-950 transition-opacity duration-500 backface-hidden transform-3d transform-[rotateY(0)] cursor-pointer {showDescription
+			class="bg-ecsess-950 col-start-1 row-start-1 flex h-full w-full transform-[rotateY(0)] cursor-pointer flex-col rounded-2xl transition-opacity duration-500 backface-hidden transform-3d {showDescription
 				? 'pointer-events-none opacity-0'
 				: 'opacity-100'}"
 			data-flip-side="front"
@@ -96,26 +96,25 @@
 			onkeydown={handleKeyDown}
 			aria-label="Flip event card to view description"
 		>
-
 			<EventImageHeader {eventTitle} {thumbnail} {eventCategory} />
 			<EventBadges {isPastEvent} {eventCategory} />
 
 			<EventInfoGrid {date} {location} />
 
 			{#if !isPastEvent}
-				<div class="relative z-30 flex-1 px-6 pb-4 pt-0 pointer-events-auto">
+				<div class="pointer-events-auto relative z-30 flex-1 px-6 pt-0 pb-4">
 					<EventActionButtons {registrationLink} {paymentLink} {addToCalendar} />
 				</div>
 			{/if}
 
 			<div class="p-4 lg:hidden">
-				<p class="text-sm text-ecsess-400">Click to view more</p>
+				<p class="text-ecsess-400 text-sm">Click to view more</p>
 			</div>
 		</div>
 
 		<!-- Back Side -->
 		<div
-			class="col-start-1 row-start-1 flex h-full w-full flex-col rounded-2xl bg-ecsess-950 transition-opacity duration-500 backface-hidden transform-3d transform-[rotateY(180deg)] cursor-pointer {showDescription
+			class="bg-ecsess-950 col-start-1 row-start-1 flex h-full w-full transform-[rotateY(180deg)] cursor-pointer flex-col rounded-2xl transition-opacity duration-500 backface-hidden transform-3d {showDescription
 				? 'opacity-100'
 				: 'pointer-events-none opacity-0'}"
 			data-flip-side="back"

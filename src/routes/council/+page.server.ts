@@ -19,7 +19,11 @@ const councilQuery = `{
 }`;
 
 export const load = async ({ url }) => {
-	const { members, councilGoofyPic }: { members: CouncilMember[], councilGoofyPic: { url: string } } = await getFromCMS(councilQuery);
+	const {
+		members,
+		councilGoofyPic
+	}: { members: CouncilMember[]; councilGoofyPic: { url: string } } =
+		await getFromCMS(councilQuery);
 
 	return {
 		members: members,

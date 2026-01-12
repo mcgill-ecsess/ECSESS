@@ -26,10 +26,12 @@
 	const imageAlt = $derived(thumbnail ? eventTitle : `${eventCategory?.[0] || 'Default'} Event`);
 </script>
 
-<div class="relative z-30 h-80 overflow-hidden rounded-t-2xl pointer-events-none">
-	<img class="h-full w-full object-cover pointer-events-none" src={imageSrc} alt={imageAlt} />
-	<div class="absolute inset-0 bg-gradient-to-b from-transparent via-ecsess-800/20 to-ecsess-950 rounded-t-2xl pointer-events-none"></div>
-	<div class="absolute bottom-0 left-0 right-0 p-6 pointer-events-none">
-		<h3 class="text-2xl font-bold leading-tight text-white">{eventTitle}</h3>
+<div class="pointer-events-none relative z-30 h-80 overflow-hidden rounded-t-2xl">
+	<img class="pointer-events-none h-full w-full object-cover" src={imageSrc} alt={imageAlt} />
+	<div
+		class="via-ecsess-800/20 to-ecsess-950 pointer-events-none absolute inset-0 rounded-t-2xl bg-gradient-to-b from-transparent"
+	></div>
+	<div class="pointer-events-none absolute right-0 bottom-0 left-0 p-6">
+		<h3 class="text-2xl leading-tight font-bold text-white">{eventTitle}</h3>
 	</div>
 </div>
