@@ -43,7 +43,7 @@
 	title="Meet the ECSESS student council members!"
 	description="Greetings from ECSESS student council!"
 	canonical={data.canonical}
-/>	
+/>
 
 <Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-800" direction="to-b">
 	<div class="flex flex-col place-items-center">

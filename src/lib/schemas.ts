@@ -87,7 +87,10 @@ export type DevTeam = {
 	role: string;
 	yearProgram: string;
 	email: string;
+	active: boolean;
+	start: Date;
+	end: Date;
 	funFact: string;
 	github: string;
 	image: string; //URL
-}
+};
