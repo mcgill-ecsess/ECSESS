@@ -36,17 +36,20 @@
 
 		<!-- Preview Section -->
 		{#if inputText}
-			<div class="flex flex-col items-center gap-6 rounded-lg bg-ecsess-900/50 p-8 backdrop-blur-sm">
+			<div class="flex flex-col items-center gap-4">
 				<h2 class="text-xl font-bold text-ecsess-100">Preview</h2>
-				<div class="rounded-lg bg-white p-4 shadow-lg">
-					<QRCode bind:this={qrCodeRef} data={inputText} size={300} />
+				<div class="flex justify-center rounded-lg bg-white p-2 shadow-lg md:p-4">
+					<div class="w-full max-w-[300px] max-h-[300px] mx-auto">
+						<QRCode bind:this={qrCodeRef} data={inputText} size={300} downloadSize={1000}/>
+					</div>
 				</div>
 				<Button onclick={handleExport}>
 					<span>Download QR Code as PNG</span>
 				</Button>
+				<span>1000x1000px</span>
 			</div>
 		{:else}
-			<div class="flex items-center justify-center rounded-lg bg-ecsess-900/30 p-12 backdrop-blur-sm">
+			<div class="flex items-center justify-center">
 				<p class="text-center text-ecsess-200">Enter text or URL above to generate a QR code</p>
 			</div>
 		{/if}
