@@ -82,7 +82,7 @@
 	<div
 		class="grid h-full w-full rounded-2xl text-center transition-transform duration-500 transform-3d {showDescription
 			? 'transform-[rotateY(180deg)]'
-			: 'transform-[rotateY(0)] hover:animate-wiggle'}"
+			: 'hover:animate-wiggle transform-[rotateY(0)]'}"
 	>
 		<!-- Front Side -->
 		<div
@@ -129,5 +129,3 @@
 		</div>
 	</div>
 </div>
-
-

@@ -27,8 +27,19 @@
 	/* Black variants for UI elements */
 	--color-ecsess-black: #1f1f1f;
 	--color-ecsess-black-hover: #161917;
-
-	--animate-wiggle: wiggle 0.5s ease-in-out;
+  
+  --animate-wiggle: wiggle 0.3s ease-in-out infinite;
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotateY(-3deg);
+    }
+    50% {
+      transform: rotateY(3deg);
+    }
+  }
+	
+  /* --animate-wiggle: wiggle 0.5s ease-in-out;
 	@keyframes wiggle {
 		0% {
 			transform: rotateY(0);
@@ -44,7 +55,7 @@
 		}
 	}
 
-  --animate-wiggle-back: wiggle-back 0.5s ease-in-out;
+	--animate-wiggle-back: wiggle-back 0.5s ease-in-out;
 	@keyframes wiggle-back {
 		0% {
 			transform: rotateY(180deg);
@@ -58,7 +69,7 @@
 		100% {
 			transform: rotateY(180deg);
 		}
-	}
+	}*/
 }
 
 * {
