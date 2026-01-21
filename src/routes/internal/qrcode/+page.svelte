@@ -22,7 +22,7 @@
 	<div class="mx-auto flex w-full max-w-4xl flex-col gap-6">
 		<!-- Input Section -->
 		<div class="flex flex-col gap-4">
-			<label for="qr-input" class="text-lg font-semibold text-ecsess-100">
+			<label for="qr-input" class="text-ecsess-100 text-lg font-semibold">
 				Enter text or URL:
 			</label>
 			<input
@@ -30,17 +30,17 @@
 				type="text"
 				bind:value={inputText}
 				placeholder="Enter text or URL to encode..."
-				class="w-full rounded-md border-2 border-ecsess-400 bg-white px-4 py-3 text-ecsess-900 placeholder:text-ecsess-400 focus:border-ecsess-500 focus:outline-none focus:ring-2 focus:ring-ecsess-500/20"
+				class="border-ecsess-400 text-ecsess-900 placeholder:text-ecsess-400 focus:border-ecsess-500 focus:ring-ecsess-500/20 w-full rounded-md border-2 bg-white px-4 py-3 focus:ring-2 focus:outline-none"
 			/>
 		</div>
 
 		<!-- Preview Section -->
 		{#if inputText}
 			<div class="flex flex-col items-center gap-4">
-				<h2 class="text-xl font-bold text-ecsess-100">Preview</h2>
+				<h2 class="text-ecsess-100 text-xl font-bold">Preview</h2>
 				<div class="flex justify-center rounded-lg bg-white p-2 shadow-lg md:p-4">
-					<div class="w-full max-w-[300px] max-h-[300px] mx-auto">
-						<QRCode bind:this={qrCodeRef} data={inputText} size={300} downloadSize={1000}/>
+					<div class="mx-auto max-h-[300px] w-full max-w-[300px]">
+						<QRCode bind:this={qrCodeRef} data={inputText} size={300} downloadSize={1000} />
 					</div>
 				</div>
 				<Button onclick={handleExport}>
@@ -50,7 +50,7 @@
 			</div>
 		{:else}
 			<div class="flex items-center justify-center">
-				<p class="text-center text-ecsess-200">Enter text or URL above to generate a QR code</p>
+				<p class="text-ecsess-200 text-center">Enter text or URL above to generate a QR code</p>
 			</div>
 		{/if}
 	</div>

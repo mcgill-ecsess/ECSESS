@@ -11,10 +11,10 @@
 		if (!qrCodeContainer) return;
 
 		const trimmedData = data.trim();
-		
+
 		// Skip if data hasn't actually changed
 		if (trimmedData === lastData) return;
-		
+
 		lastData = trimmedData;
 
 		// Clean up previous instance
@@ -61,7 +61,7 @@
 					}
 				},
 				backgroundOptions: {
-					color: '#ffffff', // ecsess-white
+					color: '#ffffff' // ecsess-white
 				},
 				cornersSquareOptions: {
 					color: '#3f6a3f', // ecsess-600
@@ -104,10 +104,10 @@
 
 	export function download(format = 'png') {
 		if (!lastData || !lastData.trim() || !qrCodeInstance) return;
-		
+
 		// Create a high-resolution version with extra margin for download
 		const marginSize = Math.floor(downloadSize * 0.04); // 4% margin
-		
+
 		const downloadInstance = new QRCodeStyling({
 			width: downloadSize,
 			height: downloadSize,
@@ -143,7 +143,7 @@
 				}
 			},
 			backgroundOptions: {
-				color: '#ffffff', // ecsess-white
+				color: '#ffffff' // ecsess-white
 			},
 			cornersSquareOptions: {
 				color: '#3f6a3f', // ecsess-600
@@ -155,24 +155,27 @@
 			},
 			image: '/favicon.png'
 		});
-		
+
 		// Create a temporary container for the high-res QR code
 		const tempContainer = document.createElement('div');
-		tempContainer.style.width = `${downloadSize + marginSize }px`;
+		tempContainer.style.width = `${downloadSize + marginSize}px`;
 		tempContainer.style.height = `${downloadSize + marginSize}px`;
 		tempContainer.style.position = 'absolute';
 		tempContainer.style.left = '-9999px';
 		document.body.appendChild(tempContainer);
-		
+
 		downloadInstance.append(tempContainer);
-		
+
 		// Wait for the QR code to render, then download
 		setTimeout(() => {
-			downloadInstance.download({ name: 'qrcode', extension: /** @type {'png' | 'svg' | 'jpeg' | 'webp'} */ (format) });
+			downloadInstance.download({
+				name: 'qrcode',
+				extension: /** @type {'png' | 'svg' | 'jpeg' | 'webp'} */ (format)
+			});
 			// Clean up temporary container
 			document.body.removeChild(tempContainer);
 		}, 100);
 	}
 </script>
 
-<div bind:this={qrCodeContainer} class="flex items-center justify-center max-w-sm max-h-sm"></div>
+<div bind:this={qrCodeContainer} class="max-h-sm flex max-w-sm items-center justify-center"></div>
