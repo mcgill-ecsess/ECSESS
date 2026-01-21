@@ -1,0 +1,54 @@
+<script>
+	import QRCode from 'components/QRCode.svelte';
+	import Button from 'components/Button.svelte';
+	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
+	import Section from 'components/layout/Section.svelte';
+
+	let inputText = $state('');
+	let qrCodeRef = $state(/** @type {any} */ (null));
+
+	function handleExport() {
+		if (qrCodeRef) {
+			qrCodeRef.download('png');
+		}
+	}
+</script>
+
+<SeoMetaTags title="QR Code Generator - ECSESS" />
+
+<Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-800" direction="to-b">
+	<p class="page-title">ECSESS QR Code Generator</p>
+
+	<div class="mx-auto flex w-full max-w-4xl flex-col gap-6">
+		<!-- Input Section -->
+		<div class="flex flex-col gap-4">
+			<label for="qr-input" class="text-lg font-semibold text-ecsess-100">
+				Enter text or URL:
+			</label>
+			<input
+				id="qr-input"
+				type="text"
+				bind:value={inputText}
+				placeholder="Enter text or URL to encode..."
+				class="w-full rounded-md border-2 border-ecsess-400 bg-white px-4 py-3 text-ecsess-900 placeholder:text-ecsess-400 focus:border-ecsess-500 focus:outline-none focus:ring-2 focus:ring-ecsess-500/20"
+			/>
+		</div>
+
+		<!-- Preview Section -->
+		{#if inputText}
+			<div class="flex flex-col items-center gap-6 rounded-lg bg-ecsess-900/50 p-8 backdrop-blur-sm">
+				<h2 class="text-xl font-bold text-ecsess-100">Preview</h2>
+				<div class="rounded-lg bg-white p-4 shadow-lg">
+					<QRCode bind:this={qrCodeRef} data={inputText} size={300} />
+				</div>
+				<Button onclick={handleExport}>
+					<span>Download QR Code as PNG</span>
+				</Button>
+			</div>
+		{:else}
+			<div class="flex items-center justify-center rounded-lg bg-ecsess-900/30 p-12 backdrop-blur-sm">
+				<p class="text-center text-ecsess-200">Enter text or URL above to generate a QR code</p>
+			</div>
+		{/if}
+	</div>
+</Section>
