@@ -27,6 +27,17 @@
 	/* Black variants for UI elements */
 	--color-ecsess-black: #1f1f1f;
 	--color-ecsess-black-hover: #161917;
+
+	--animate-wiggle: wiggle 0.3s ease-in-out infinite;
+	@keyframes wiggle {
+		0%,
+		100% {
+			transform: rotateY(-3deg);
+		}
+		50% {
+			transform: rotateY(3deg);
+		}
+	}
 }
 
 * {
@@ -113,7 +124,7 @@ h2 {
 
 	ol,
 	ul {
-		@apply my-2 list-outside list-disc ps-[1.625rem];
+		@apply my-2 list-outside list-disc ps-6.5;
 	}
 
 	li {
@@ -145,7 +156,7 @@ h2 {
 	}
 
 	dd {
-		@apply mt-2 ps-[1.625rem];
+		@apply mt-2 ps-6.5;
 	}
 
 	hr {

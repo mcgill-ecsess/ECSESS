@@ -1,14 +1,13 @@
 <script lang="ts">
-	let { children, onclick = null } = $props();
+	let { children, onclick = null, disabled = false, class: className = '' } = $props();
 </script>
 
 <button
-	class="bg-ecsess-600 hover:bg-ecsess-500 active:bg-ecsess-700
-            inline-block cursor-pointer rounded-md border-none
-            px-4 py-2 text-white
-            transition-all duration-200 ease-out
-            hover:scale-105 hover:shadow-xl"
+	{disabled}
 	{onclick}
+	class="bg-ecsess-600 text-ecsess-50
+		hover:bg-ecsess-700 w-fit rounded-md
+		px-6 py-3 text-sm font-semibold transition-colors hover:cursor-pointer {className}"
 >
 	{@render children()}
 </button>

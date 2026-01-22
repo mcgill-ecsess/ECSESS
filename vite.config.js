@@ -7,12 +7,7 @@ export default defineConfig({
 
 	// Optimize dependency pre-bundling
 	optimizeDeps: {
-		include: [
-			'@portabletext/svelte',
-			'@lucide/svelte',
-			'@skeletonlabs/skeleton-svelte',
-			'@sanity/client'
-		],
+		include: ['@portabletext/svelte', '@lucide/svelte', '@sanity/client'],
 		// Force pre-bundle these dependencies
 		force: false
 	},

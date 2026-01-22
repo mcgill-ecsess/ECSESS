@@ -7,7 +7,7 @@
 
 	let { data } = $props();
 
-	let events: EventPost[] = data.events ?? [];
+	let events = $derived(data.events ?? []);
 	let group = $state<EventCategory>(EventCategory.ALL_EVENTS);
 	let categories: { value: EventCategory; label: string }[] = [
 		{ value: EventCategory.ALL_EVENTS, label: 'All Events' },
