@@ -40,7 +40,7 @@
 		<div
 			class="order-2 mb-2 flex items-center justify-center p-4 lg:col-start-1 lg:row-start-2 lg:mb-6 lg:place-self-center"
 		>
-			<div class="max-w-[36rem] text-center lg:text-center">
+			<div class="max-w-xl text-center lg:text-center">
 				<RichText value={data.description} />
 			</div>
 		</div>
@@ -56,28 +56,9 @@
 			</div>
 		</div>
 
-		<!-- Quick Links (Desktop) -->
-		<div class="hidden p-4 lg:col-start-1 lg:row-start-3 lg:flex lg:place-self-center">
-			<div>
-				<p
-					class="text-ecsess-50 decoration-ecsess-200 mt-2 mb-4 text-base font-bold tracking-wide underline decoration-2 underline-offset-8"
-				>
-					Commonly searched for
-				</p>
-				<QuickLinks />
-			</div>
-		</div>
-
-		<!-- Quick Links (mobile) -->
-		<div class="order-4 p-3 lg:hidden">
-			<div>
-				<p
-					class="text-ecsess-50 decoration-ecsess-200 mt-4 mb-4 text-center text-base font-bold tracking-wide underline decoration-2 underline-offset-8"
-				>
-					Commonly searched for
-				</p>
-				<QuickLinks />
-			</div>
+		<!-- Quick Links -->
+		<div class="order-4 p-3 lg:col-start-1 lg:row-start-3 lg:flex lg:place-self-center lg:p-4">
+			<QuickLinks />
 		</div>
 	</div>
 </Section>
