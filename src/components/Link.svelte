@@ -1,7 +1,11 @@
-<script>
-	let { href = 'https://www.example.com', children } = $props();
+<script lang="ts">
+	let { href, external = false, children } = $props();
 </script>
 
-<a {href} target="_blank" rel="noopener noreferrer" class="underline">
+<a
+	{href}
+	target={external ? '_blank' : undefined}
+	rel={external ? 'noopener noreferrer' : undefined}
+>
 	{@render children()}
 </a>
