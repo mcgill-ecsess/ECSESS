@@ -18,10 +18,14 @@
 
 <!-- ECSESS Introduction -->
 <Section from="from-ecsess-black" to="to-ecsess-900">
-	<div class="place-self-center grid min-h-screen grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8 lg:items-stretch">
-		<!-- Description + Title -->
-		<div class="order-1 place-self-center lg:order-1 lg:col-span-1 lg:m-8 lg:self-stretch">
-			<div class="flex flex-col text-center lg:pt-2">
+	<div
+		class="grid grid-cols-1 gap-2 place-self-center sm:gap-4 md:gap-6 lg:h-[70vh] lg:grid-cols-3 lg:grid-rows-3 lg:items-center lg:gap-6"
+	>
+		<!-- Title -->
+		<div
+			class="order-1 mb-2 flex items-center justify-center lg:col-start-1 lg:row-start-1 lg:mb-6 lg:place-self-center"
+		>
+			<div class="flex flex-col text-center">
 				<p>
 					{#each 'We are ECSESS!' as char, i}
 						<span class="page-title" in:fade|global={{ delay: 200 + i * 100, duration: 800 }}
@@ -29,47 +33,46 @@
 						>
 					{/each}
 				</p>
+			</div>
+		</div>
 
-				<div class="p-4">
-					<RichText value={data.description} />
-				</div>
-
-				<!-- Quick Links (Desktop) -->
-				<div class="hidden lg:block p-4">
-					<div class="mt-6">
-						<p
-							class="mt-8 mb-4 text-center text-base font-bold tracking-wide
-								text-ecsess-50
-								underline decoration-ecsess-200 decoration-2 underline-offset-8
-								drop-shadow-[0_6px_24px_rgba(0,0,0,0.75)]"
-						>
-							Commonly searched for
-						</p>
-						<QuickLinks />
-					</div>
-				</div>
+		<!-- Description -->
+		<div
+			class="order-2 mb-2 flex items-center justify-center p-4 lg:col-start-1 lg:row-start-2 lg:mb-6 lg:place-self-center"
+		>
+			<div class="max-w-[36rem] text-center lg:text-center">
+				<RichText value={data.description} />
 			</div>
 		</div>
 
 		<!-- Image -->
-		<div class="order-2 m-2 lg:order-2 lg:col-span-2 lg:mx-12 lg:my-0">
-			<div class="lg:top-16 lg:h-[calc(100vh-7rem)] lg:flex lg:items-center lg:justify-center">
+		<div class="order-3 m-0 sm:m-2 lg:col-span-2 lg:col-start-2 lg:row-span-3 lg:row-start-1">
+			<div class="flex h-auto w-full items-center justify-center sm:h-full">
 				<img
 					src={data.councilPhoto}
 					alt="ECSESS Council"
-					class="ring-ecsess-500 shadow-ecsess-400 hover:ring-ecsess-400 rounded-md shadow-md ring-4 transition-all"
+					class="ring-ecsess-500 max-h-[35vh] max-w-full rounded-md object-contain shadow-md ring-4 transition-all sm:max-h-[45vh] md:max-h-[60vh] lg:max-h-full"
 				/>
 			</div>
 		</div>
 
-		<!-- Quick Links (mobile) -->
-		<div class="order-3 p-4 lg:hidden">
-			<div class="mt-6">
+		<!-- Quick Links (Desktop) -->
+		<div class="hidden p-4 lg:col-start-1 lg:row-start-3 lg:flex lg:place-self-center">
+			<div>
 				<p
-					class="mt-8 mb-4 text-center text-base font-bold tracking-wide
-						text-ecsess-50
-						underline decoration-ecsess-200 decoration-2 underline-offset-8
-						drop-shadow-[0_6px_24px_rgba(0,0,0,0.75)]"
+					class="text-ecsess-50 decoration-ecsess-200 mt-2 mb-4 text-base font-bold tracking-wide underline decoration-2 underline-offset-8"
+				>
+					Commonly searched for
+				</p>
+				<QuickLinks />
+			</div>
+		</div>
+
+		<!-- Quick Links (mobile) -->
+		<div class="order-4 p-3 lg:hidden">
+			<div>
+				<p
+					class="text-ecsess-50 decoration-ecsess-200 mt-4 mb-4 text-center text-base font-bold tracking-wide underline decoration-2 underline-offset-8"
 				>
 					Commonly searched for
 				</p>

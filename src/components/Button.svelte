@@ -17,13 +17,12 @@
 </script>
 
 <button
-	disabled={disabled}
-	onclick={onclick}
-	class="rounded-md border border-ecsess-200 bg-ecsess-500
+	{disabled}
+	{onclick}
+	class="border-ecsess-200 bg-ecsess-500 rounded-md border
 		{sizeClasses[size]}
-		text-sm font-semibold text-ecsess-50 transition-colors
-		hover:bg-ecsess-600/50 hover:border-ecsess-300
-		disabled:pointer-events-none disabled:opacity-50 {className}"
+		text-ecsess-50 hover:bg-ecsess-600/50 hover:border-ecsess-300 text-sm
+		font-semibold transition-colors {className}"
 >
-	{@render children?.()}
+	{@render children()}
 </button>
