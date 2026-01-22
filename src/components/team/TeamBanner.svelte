@@ -17,7 +17,7 @@
 
 <div
 	class="fadeup border-ecsess-500/20 shadow-ecsess-950/50 from-ecsess-900/90 via-ecsess-900/70 to-ecsess-900/50 hover:shadow-ecsess-500/10 relative flex w-full flex-col
-	items-center rounded-3xl border bg-linear-to-br p-8 shadow-2xl backdrop-blur-md transition-transform duration-500 hover:-translate-y-1 xl:flex-row"
+	items-center rounded-3xl border bg-linear-to-br p-5 py-15 shadow-2xl backdrop-blur-md transition-transform duration-500 hover:-translate-y-1 xl:flex-row"
 >
 	<!--Icon Box-->
 	<div class="absolute top-0 right-0 left-0 flex items-start gap-2 p-4">

@@ -33,7 +33,7 @@
 
 <style>
 	.text-ring-wrapper {
-		--text-radius: 76px;
+		--text-radius: 82px;
 	}
 
 	@media (min-width: 768px) {
