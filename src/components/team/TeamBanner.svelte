@@ -2,8 +2,7 @@
 	import { Github, Mail, FileCode } from '@lucide/svelte';
 	import Avatar from 'components/team/Avatar.svelte';
 
-	let { idx, src, name, year, role, funFact, github, email } = $props<{
-		idx: number;
+	let { src, name, year, role, funFact, github, email } = $props<{
 		src: string;
 		name: string;
 		year: string;
@@ -22,8 +21,8 @@
 		class="bg-ecsess-950/50 border-ecsess-500/10 text-ecsess-400 flex w-full flex-col gap-2 border-b px-6 py-3 lg:gap-1"
 	>
 		<!-- Row 1: Author & Email -->
-		<div class="grid grid-cols-2">
-			<div class="flex items-center gap-2">
+		<div class="grid grid-cols-1 sm:grid-cols-2">
+			<div class="flex items-center justify-center gap-2 sm:justify-start">
 				<span>Author:</span>
 				<span class="text-ecsess-100 font-bold">{name}</span>
 			</div>
@@ -35,7 +34,7 @@
 		<!-- Row 2: Date & Role -->
 		<div class="grid grid-cols-2">
 			<div class="flex items-center gap-2">
-				<span>Date:</span>
+				<span>Year:</span>
 				<span class="text-zinc-500">{year}</span>
 			</div>
 
@@ -46,11 +45,9 @@
 	</div>
 
 	<!-- Main Body -->
-	<div class="relative flex flex-col gap-6 p-8 md:flex-row">
-		<!-- Large Avatar (Floating Left) -->
-
+	<div class="relative flex flex-col p-4 md:flex-row">
 		<!-- Visible centered on mobile -->
-		<div class="mb-6 flex justify-center md:hidden">
+		<div class="flex justify-center md:hidden">
 			<Avatar {src} {name} role="" />
 		</div>
 
@@ -88,7 +85,7 @@
 			</div>
 
 			<!-- Action Buttons -->
-			<div class="flex gap-3">
+			<div class="flex items-center justify-center gap-3">
 				{#if github}
 					<a
 						href={github}

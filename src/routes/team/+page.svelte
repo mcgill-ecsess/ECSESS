@@ -87,7 +87,6 @@
 									<!-- CARD SIDE -->
 									<div class="w-full pb-12 md:w-[45%] md:pb-0">
 										<TeamBanner
-											{idx}
 											name={member.name}
 											role={member.role}
 											year={member.yearProgram}
@@ -102,8 +101,8 @@
 									<div class="relative hidden w-[10%] justify-center md:flex">
 										<!-- The Node (Circle) -->
 										<div
-											class="bg-ecsess-950 border-ecsess-500 absolute top-1/2 z-20 size-4 -translate-y-1/2 rounded-full border-2 transition-transform duration-300 group-hover:scale-125"
-											style="left: 50%; transform: translate(-50%, -50%)"
+											class="bg-ecsess-950 border-ecsess-500 group-hover:bg-ecsess-100 absolute top-1/2 z-20 size-4 -translate-y-1/2 rounded-full border-2 transition-transform duration-300 group-hover:scale-150"
+											style=""
 										></div>
 									</div>
 

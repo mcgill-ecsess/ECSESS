@@ -12,7 +12,7 @@
 	let array = $derived(role ? [...Array(3)].map((_) => [...role].concat('*')).flat() : []);
 </script>
 
-<div class="text-ring-wrapper relative size-48 shrink-0">
+<div class="relative size-40 shrink-0 [--text-radius:108px] md:size-48">
 	<img
 		class="border-ecsess-200 size-full rounded-full border-4 object-cover p-2"
 		{src}
@@ -30,15 +30,3 @@
 		{/each}
 	{/if}
 </div>
-
-<style>
-	.text-ring-wrapper {
-		--text-radius: 82px;
-	}
-
-	@media (min-width: 768px) {
-		.text-ring-wrapper {
-			--text-radius: 108px;
-		}
-	}
-</style>
