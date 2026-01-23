@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { Github, Mail } from '@lucide/svelte';
-	import Button from 'components/Button.svelte';
+	import { Github, Mail, FileCode } from '@lucide/svelte';
 	import Avatar from 'components/team/Avatar.svelte';
 
 	let { idx, src, name, year, role, funFact, github, email } = $props<{
@@ -16,82 +15,99 @@
 </script>
 
 <div
-	class="fadeup border-ecsess-500/20 shadow-ecsess-950/50 from-ecsess-900/90 via-ecsess-900/70 to-ecsess-900/50 hover:shadow-ecsess-500/10 relative flex w-full flex-col
-	items-center rounded-3xl border bg-linear-to-br p-5 py-15 shadow-2xl backdrop-blur-md transition-transform duration-500 hover:-translate-y-1 xl:flex-row"
+	class="fadeup border-ecsess-500/30 bg-ecsess-950/90 hover:border-ecsess-500/60 relative flex w-full flex-col overflow-hidden rounded-xl border p-0 font-mono text-xs shadow-2xl backdrop-blur-md transition-all duration-300 hover:-translate-y-1"
 >
-	<!--Icon Box-->
-	<div class="absolute top-0 right-0 left-0 flex items-start gap-2 p-4">
-		{#if role}
-			<span
-				class="bg-ecsess-500/10 border-ecsess-500/30 text-ecsess-100 rounded-full border px-4 py-1.5 text-[0.65rem] font-bold tracking-widest uppercase shadow-inner shadow-white/5 backdrop-blur-md"
-			>
-				{role}
-			</span>
-		{/if}
-
-		{#if year}
-			<span
-				class="bg-ecsess-500/10 border-ecsess-500/30 text-ecsess-100 rounded-full border px-4 py-1.5 text-[0.65rem] font-bold tracking-widest uppercase shadow-inner shadow-white/5 backdrop-blur-md"
-			>
-				{year}
-			</span>
-		{/if}
-	</div>
-	<!-- Avatar box -->
-	<Avatar {src} {name} {role} />
-	<!--Content box-->
+	<!-- Top Meta Bar -->
 	<div
-		class="flex flex-1 flex-col items-center justify-center text-center xl:items-start xl:text-left"
+		class="bg-ecsess-950/50 border-ecsess-500/10 text-ecsess-400 flex w-full flex-col gap-2 border-b px-6 py-3 lg:gap-1"
 	>
-		<!--Header-->
-		<h1
-			class="flex items-center justify-center text-3xl font-black tracking-tight text-white drop-shadow-lg xl:justify-start"
-		>
-			{name}
-		</h1>
+		<!-- Row 1: Author & Email -->
+		<div class="grid grid-cols-2">
+			<div class="flex items-center gap-2">
+				<span>Author:</span>
+				<span class="text-ecsess-100 font-bold">{name}</span>
+			</div>
+			<div class="text-right">
+				<span class="hidden break-words text-zinc-600 sm:inline">&lt;{email}&gt;</span>
+			</div>
+		</div>
 
-		<!--Content-->
-		<div class="flex w-full flex-col border-t-2 py-2">
-			<div
-				class="flex w-full flex-col items-center justify-center gap-1 xl:items-start xl:justify-start"
-			>
-				<p class="text-ecsess-400 text-[0.65rem] font-bold tracking-widest uppercase">Email</p>
-				<a
-					class="text-ecsess-100 hover:border-ecsess-400 border-b border-transparent break-all transition-colors hover:text-white"
-					href="mailto:{email}">{email}</a
-				>
+		<!-- Row 2: Date & Role -->
+		<div class="grid grid-cols-2">
+			<div class="flex items-center gap-2">
+				<span>Date:</span>
+				<span class="text-zinc-500">{year}</span>
 			</div>
 
-			<!--Fun Fact-->
-			<div class="flex w-full flex-col items-center justify-center py-4 xl:items-start">
-				<h2 class="text-ecsess-400 m-0 mb-2 p-0 text-[0.65rem] font-bold tracking-widest uppercase">
-					Fun Fact
-				</h2>
-				<div class="text-ecsess-100 text-center leading-relaxed font-light xl:text-left">
-					{funFact}
+			<div class="text-ecsess-300 ml-auto text-right leading-tight font-bold">
+				{role}
+			</div>
+		</div>
+	</div>
+
+	<!-- Main Body -->
+	<div class="relative flex flex-col gap-6 p-8 md:flex-row">
+		<!-- Large Avatar (Floating Left) -->
+
+		<!-- Visible centered on mobile -->
+		<div class="mb-6 flex justify-center md:hidden">
+			<Avatar {src} {name} role="" />
+		</div>
+
+		<div class="min-w-0 flex-1">
+			<!-- Commit Message (Fun Fact) -->
+			<h2 class="text-ecsess-100 mb-2 text-xl font-bold tracking-tight break-words">
+				{funFact || `feat: added ${name} to the team`}
+			</h2>
+
+			<!-- Diff Box -->
+			<div class="bg-ecsess-950/50 border-ecsess-500/20 mb-6 overflow-x-auto rounded-lg border p-4">
+				<div class="flex flex-col gap-1 font-mono text-xs opacity-80">
+					<div class="flex gap-3">
+						<span class="text-zinc-700 select-none">1</span>
+						<div class="flex gap-2 break-all text-green-400/90">
+							<span class="text-green-600 select-none">+</span>
+							<span>name: "{name}";</span>
+						</div>
+					</div>
+					<div class="flex gap-3">
+						<span class="text-zinc-700 select-none">2</span>
+						<div class="flex gap-2 break-all text-green-400/90">
+							<span class="text-green-600 select-none">+</span>
+							<span>role: "{role}";</span>
+						</div>
+					</div>
+					<div class="flex gap-3">
+						<span class="text-zinc-700 select-none">3</span>
+						<div class="flex gap-2 break-all text-green-400/90">
+							<span class="text-green-600 select-none">+</span>
+							<span>contact: "{email}";</span>
+						</div>
+					</div>
 				</div>
 			</div>
 
-			<!--GitHub/Maybe other link in the future-->
-			<div
-				class="border-ecsess-500/20 flex flex-col items-center justify-center border-t py-4 xl:items-start"
-			>
-				<h2 class="text-ecsess-400 m-0 p-0 text-[0.65rem] font-bold tracking-widest uppercase">
-					Contact
-				</h2>
-				<div class="mt-2 flex flex-wrap justify-center gap-2">
-					{#if github}
-						<Button onclick={() => window.open(github, '_blank')}>
-							<Github class="size-4" />
-						</Button>
-					{/if}
-
-					{#if email}
-						<Button onclick={() => window.open(`mailto:${email}`, '_blank')}>
-							<Mail class="size-4" />
-						</Button>
-					{/if}
-				</div>
+			<!-- Action Buttons -->
+			<div class="flex gap-3">
+				{#if github}
+					<a
+						href={github}
+						target="_blank"
+						class="hover:bg-ecsess-500/10 hover:border-ecsess-500/50 hover:text-ecsess-200 border-ecsess-500/20 flex items-center gap-2 rounded border px-4 py-2 text-xs font-semibold text-zinc-400 transition-colors"
+					>
+						<Github class="size-3" />
+						View Profile
+					</a>
+				{/if}
+				{#if email}
+					<a
+						href="mailto:{email}"
+						class="hover:bg-ecsess-500/10 hover:border-ecsess-500/50 hover:text-ecsess-200 border-ecsess-500/20 flex items-center gap-2 rounded border px-4 py-2 text-xs font-semibold text-zinc-400 transition-colors"
+					>
+						<Mail class="size-3" />
+						Email
+					</a>
+				{/if}
 			</div>
 		</div>
 	</div>

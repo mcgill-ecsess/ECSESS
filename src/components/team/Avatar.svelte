@@ -12,7 +12,7 @@
 	let array = $derived(role ? [...Array(3)].map((_) => [...role].concat('*')).flat() : []);
 </script>
 
-<div class="text-ring-wrapper relative size-48 shrink-0 p-6 md:size-68 md:p-10">
+<div class="text-ring-wrapper relative size-48 shrink-0">
 	<img
 		class="border-ecsess-200 size-full rounded-full border-4 object-cover p-2"
 		{src}
@@ -21,7 +21,7 @@
 	{#if role}
 		{#each array as char, index}
 			<p
-				class="char absolute inset-24 z-10 size-3 text-xs md:inset-34"
+				class="char absolute inset-24 z-10 size-3 text-xs"
 				style="transform: translate(-50%, -50%) rotate({(360 / array.length) *
 					index}deg) translateY(calc(-1 * var(--text-radius)));"
 			>

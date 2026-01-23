@@ -4,31 +4,39 @@
 	import TeamBanner from 'components/team/TeamBanner.svelte';
 	import Avatar from 'components/team/Avatar.svelte';
 	import type { DevTeam } from '$lib/schemas.js';
-	import PastCont from 'components/team/PastCont.svelte';
 
 	let { data } = $props();
 
-	let devTeam: DevTeam[] = data.devTeam ?? [];
+	let devTeam = $derived(data.devTeam ?? []);
 
-	const sortData = (data: DevTeam[]): { current: DevTeam[]; past: DevTeam[] } => {
-		let current: DevTeam[] = [];
-		let past: DevTeam[] = [];
-		data.forEach((member) => {
-			if (member.active) {
-				current.push(member);
+	// Sort by Active (Current) first, then by start date (newest/latest first)
+	let sortedTeam = $derived(
+		[...devTeam].sort((a, b) => {
+			if (a.active && !b.active) return -1;
+			if (!a.active && b.active) return 1;
+
+			const dateA = new Date(a.start).getTime();
+			const dateB = new Date(b.start).getTime();
+			return dateB - dateA;
+		})
+	);
+
+	function getGroup(member: DevTeam) {
+		return member.active ? 'Current' : new Date(member.start).getFullYear().toString();
+	}
+
+	let groupedTeam = $derived(
+		sortedTeam.reduce<{ group: string; members: DevTeam[] }[]>((acc, member) => {
+			const group = getGroup(member);
+			const last = acc[acc.length - 1];
+			if (last && last.group === group) {
+				last.members.push(member);
 			} else {
-				past.push(member);
+				acc.push({ group, members: [member] });
 			}
-		});
-		return {
-			current: current,
-			past: past
-		};
-	};
-
-	let sortedData = sortData(devTeam);
-	let current = sortedData.current;
-	let past = sortedData.past;
+			return acc;
+		}, [])
+	);
 </script>
 
 <SeoMetaTags />
@@ -50,57 +58,69 @@
 
 		<!-- Git Flow Timeline -->
 		<div class="relative w-full max-w-7xl px-4 py-20">
-			<!-- The Git Line (Background) -->
-			<div
-				class="from-ecsess-500/0 via-ecsess-400/20 to-ecsess-500/0 absolute top-0 bottom-0 left-1/2 z-0 hidden w-[1px] -translate-x-1/2 bg-gradient-to-b shadow-[0_0_10px_rgba(90,139,90,0.2)] md:block"
-			></div>
+			<div class="flex w-full flex-col gap-12">
+				{#each groupedTeam as { group, members }}
+					<!-- GROUP SECTION -->
+					<div class="flex flex-col">
+						<!-- MARKER -->
+						<div class="relative z-10 flex w-full justify-center pb-12">
+							<div
+								class="bg-ecsess-950 border-ecsess-500 text-ecsess-200 relative z-20 rounded-full border-2 px-6 py-2 text-xl font-bold shadow-[0_0_20px_rgba(90,139,90,0.4)]"
+							>
+								{group}
+							</div>
+						</div>
 
-			<div class="relative z-10 grid w-full grid-cols-1 gap-x-12 gap-y-16 md:grid-cols-2">
-				{#each current as member, idx}
-					{#if idx % 2 !== 0}
-						<!-- Spacer (Left side for Odd items) -->
-						<div class="hidden md:block"></div>
-					{/if}
+						<!-- GROUP ITEMS WITH LINE -->
+						<div class="relative flex flex-col gap-0 md:gap-12">
+							<!-- The Git Line (Segments) -->
+							<div
+								class="from-ecsess-500/0 via-ecsess-500/40 to-ecsess-500/0 absolute top-0 bottom-0 left-1/2 z-0 block w-[2px] -translate-x-1/2 bg-gradient-to-b"
+							></div>
 
-					<div
-						class="group relative flex w-full justify-center {idx % 2 === 0
-							? 'md:justify-end'
-							: 'md:justify-start'}"
-					>
-						<!-- Timeline Node -->
-						<div
-							class="border-ecsess-400 bg-ecsess-950 group-hover:bg-ecsess-500 absolute top-1/2 z-20 hidden size-4 -translate-y-1/2 rounded-full border-2 shadow-[0_0_10px_rgba(90,139,90,0.5)] transition-all duration-300
-                            group-hover:scale-150 group-hover:shadow-[0_0_20px_rgba(90,139,90,0.8)] md:block
-                            {idx % 2 === 0
-								? '-right-6 translate-x-1/2'
-								: '-left-6 -translate-x-1/2'}"
-						></div>
-						<TeamBanner
-							{idx}
-							name={member.name}
-							role={member.role}
-							year={member.yearProgram}
-							src={member.image}
-							funFact={member.funFact}
-							github={member.github}
-							email={member.email}
-						/>
+							{#each members as member, idx}
+								<div
+									class="group relative flex w-full items-stretch {idx % 2 === 0
+										? 'md:flex-row'
+										: 'md:flex-row-reverse'}"
+								>
+									<!-- CARD SIDE -->
+									<div class="w-full pb-12 md:w-[45%] md:pb-0">
+										<TeamBanner
+											{idx}
+											name={member.name}
+											role={member.role}
+											year={member.yearProgram}
+											src={member.image}
+											funFact={member.funFact}
+											github={member.github}
+											email={member.email}
+										/>
+									</div>
+
+									<!-- CONNECTOR AREA -->
+									<div class="relative hidden w-[10%] justify-center md:flex">
+										<!-- The Node (Circle) -->
+										<div
+											class="bg-ecsess-950 border-ecsess-500 absolute top-1/2 z-20 size-4 -translate-y-1/2 rounded-full border-2 transition-transform duration-300 group-hover:scale-125"
+											style="left: 50%; transform: translate(-50%, -50%)"
+										></div>
+									</div>
+
+									<!-- EMPTY SIDE -->
+									<div
+										class="hidden w-[45%] flex-col md:flex {idx % 2 == 0
+											? 'items-start'
+											: 'items-end'} justify-center"
+									>
+										<Avatar src={member.image} name={member.name} role={member.role} />
+									</div>
+								</div>
+							{/each}
+						</div>
 					</div>
-
-					{#if idx % 2 === 0}
-						<!-- Spacer (Right side for Even items) -->
-						<div class="hidden md:block"></div>
-					{/if}
 				{/each}
 			</div>
-		</div>
-
-		<!-- Legacy Branches -->
-		<h1 class="border-b-ecsess-300 mt-20 w-full border-b-2 lg:w-1/2">Legacy Branches</h1>
-		<div class="grid w-full grid-cols-1 gap-6 py-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-			{#each past as contr}
-				<PastCont name={contr.name} role={contr.role} start={contr.start} end={contr.end} />
-			{/each}
 		</div>
 	</div>
 </Section>
