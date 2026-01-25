@@ -77,7 +77,6 @@
 	</div>
 </Section>
 
-
 <!-- Sponsors -->
 <Section from="from-ecsess-900" to="to-ecsess-700" via="via-ecsess-800" direction="to-b">
 	<Sponsors sponsors={data.sponsors} />
