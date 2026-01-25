@@ -37,9 +37,9 @@
 <div class="fadeup group relative flex flex-col">
 	<!-- Commit Card -->
 	<div
-		class="relative w-full overflow-hidden rounded-xl transition-all duration-200 hover:-translate-y-1 {active
-			? 'bg-ecsess-900'
-			: 'bg-ecsess-950'}"
+		class="relative w-full overflow-hidden rounded-xl transition-all ease-linear duration-100 hover:scale-101 hover:shadow-ecsess-black/50 hover:shadow-md {active
+			? 'bg-ecsess-800 shadow-ecsess-black shadow-sm'
+			: 'bg-ecsess-900 shadow-ecsess-black'}"
 	>
 		<!-- Header -->
 		<div class="px-6 pt-5 pb-3">
@@ -60,8 +60,8 @@
 			<div class="flex items-center justify-center gap-2">
 				<span
 					class="rounded-full px-4 py-1.5 text-base font-medium {active
-						? 'bg-ecsess-800 text-ecsess-300'
-						: 'bg-ecsess-900 text-ecsess-400'}"
+						? 'bg-ecsess-900 text-ecsess-300'
+						: 'bg-ecsess-800 text-ecsess-400'}"
 				>
 					{year}
 				</span>
@@ -69,8 +69,8 @@
 
 			<!-- Fun Fact / Commit Message -->
 			<div class="min-h-[60px]">
-				<p class="text-ecsess-300 text-base leading-relaxed">
-					{funFact || `Added ${name} to the team`}
+				<p class="text-ecsess-300 text-sm leading-relaxed italic">
+					{funFact || ``}
 				</p>
 			</div>
 
@@ -81,8 +81,8 @@
 						href={github}
 						target="_blank"
 						class="items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-base font-medium transition-colors {active
-							? 'bg-ecsess-800 text-ecsess-300 hover:bg-ecsess-700'
-							: 'bg-ecsess-900 text-ecsess-400 hover:bg-ecsess-800'} {active && email
+							? 'bg-ecsess-900 text-ecsess-300 hover:bg-ecsess-950'
+							: 'bg-ecsess-800 text-ecsess-400 hover:bg-ecsess-700'} {active && email
 							? 'flex flex-1'
 							: 'flex w-full'}"
 					>
@@ -94,8 +94,8 @@
 					<a
 						href="mailto:{email}"
 						class="flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-base font-medium transition-colors {active
-							? 'bg-ecsess-800 text-ecsess-300 hover:bg-ecsess-700'
-							: 'bg-ecsess-900 text-ecsess-400 hover:bg-ecsess-800'}"
+							? 'bg-ecsess-900 text-ecsess-300 hover:bg-ecsess-950'
+							: 'bg-ecsess-800 text-ecsess-400 hover:bg-ecsess-700'}"
 					>
 						<Mail class="size-4.5" />
 						Email

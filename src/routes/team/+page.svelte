@@ -1,7 +1,7 @@
 <script lang="ts">
 	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
 	import Section from 'components/layout/Section.svelte';
-	import GitTimeline from 'components/team/GitTimeline.svelte';
+	import ContribTimeline from 'components/team/ContribTimeline.svelte';
 	import Link from 'components/Link.svelte';
 	import type { DevTeam } from '$lib/schemas.js';
 
@@ -22,7 +22,7 @@
 	);
 
 	function getGroup(member: DevTeam) {
-		return member.active ? 'Current' : new Date(member.start).getFullYear().toString();
+		return member.active ? 'Active team' : new Date(member.start).getFullYear().toString();
 	}
 
 	let groupedTeam = $derived(
@@ -61,32 +61,17 @@
 		<!-- Git Tree History -->
 		<div class="relative w-full max-w-6xl px-4">
 			<div class="relative mx-auto max-w-fit">
-				<!-- Main vertical timeline connector -->
-				<div class="bg-ecsess-600 absolute top-0 bottom-0 left-[6px] w-px"></div>
+				<!-- Main vertical timeline connector (centered in 12px node column, aligns with GitNode circles) -->
 
 				<!-- Cohort Branches -->
 				<div class="space-y-16">
 					{#each groupedTeam as { group, members, active }}
 						<div class="relative">
-							<GitTimeline year={group} {members} {active} />
+							<ContribTimeline year={group} {members} {active} />
 						</div>
 					{/each}
 				</div>
 			</div>
 		</div>
-
-		<!-- Legend -->
-		<div
-			class="bg-ecsess-900 mt-20 flex flex-wrap items-center justify-center gap-8 rounded-lg px-10 py-5 text-lg"
-		>
-			<div class="flex items-center gap-3">
-				<div class="bg-ecsess-300 size-3 rounded-full"></div>
-				<span class="text-ecsess-200">Active</span>
-			</div>
-			<div class="flex items-center gap-3">
-				<div class="bg-ecsess-500 size-3 rounded-full"></div>
-				<span class="text-ecsess-300">Past</span>
-			</div>
-		</div>
-	</div>
+  </div>
 </Section>

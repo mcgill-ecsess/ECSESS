@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { DevTeam } from '$lib/schemas';
-	import GitBranch from './GitBranch.svelte';
-	import GitCommitCard from './GitCommitCard.svelte';
+	import YearLine from './YearLine.svelte';
+	import DevCard from './DevCard.svelte';
 
 	let {
 		year,
@@ -16,14 +16,14 @@
 
 <div class="relative w-full">
 	<!-- Branch Line with Year -->
-	<div class="mb-8">
-		<GitBranch {year} {active} />
+	<div class="mb-6">
+		<YearLine {year} {active} />
 	</div>
 
 	<!-- Members Grid -->
 	<div class="ml-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
 		{#each members as member}
-			<GitCommitCard
+			<DevCard
 				name={member.name}
 				role={member.role}
 				year={member.yearProgram}
