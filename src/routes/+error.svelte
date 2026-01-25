@@ -18,8 +18,8 @@
 	</Link>
 
 	<p class="text-ecsess-200 text-lg leading-relaxed md:text-xl">
-		The page you are looking for is not implemented because we are too lazy to do it. But if you
-		really want to see it, you can reboot to the homepage and try again.
+		The page you are looking for is not implemented because we are too lazy to do it. <br />
+		But if you really want to see it, you can reboot to the homepage and try again.
 		<br />
 		<br />
 		Or even better, you can join us and help us implement it.

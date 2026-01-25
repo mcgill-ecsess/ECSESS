@@ -70,7 +70,7 @@
 		{#each groups as group, i (group.name)}
 			{@const Icon = group.icon}
 			<article
-				class="bg-ecsess-950 border border-ecsess-800 flex flex-col overflow-hidden rounded-lg text-left"
+				class="bg-ecsess-950 border-ecsess-800 flex flex-col overflow-hidden rounded-lg border text-left"
 				aria-labelledby={`group-${i}-title`}
 			>
 				<div class="flex flex-1 flex-col p-7 md:p-8">
@@ -100,28 +100,24 @@
 					<ul class="mb-5 list-none space-y-2 ps-0 text-base md:text-lg" role="list">
 						{#each group.features as feature (feature)}
 							<li class="flex items-center gap-2">
-								<span class="bg-ecsess-500 h-1.5 w-1.5 shrink-0 rounded-full" aria-hidden="true"></span>
+								<span class="bg-ecsess-500 h-1.5 w-1.5 shrink-0 rounded-full" aria-hidden="true"
+								></span>
 								<span class="text-ecsess-100 font-medium">{feature}</span>
 							</li>
 						{/each}
 					</ul>
 
 					<!-- Links -->
-					<div class="mt-auto flex flex-wrap items-center gap-3 border-t border-ecsess-800 pt-5">
+					<div class="border-ecsess-800 mt-auto flex flex-wrap items-center gap-3 border-t pt-5">
 						{#if group.instagram}
 							<a
 								href={group.instagram}
 								target="_blank"
 								rel="noopener noreferrer external"
 								aria-label={`Follow ${group.name} on Instagram`}
-								class="text-ecsess-300 hover:text-ecsess-100 inline-flex items-center gap-2 rounded-md border border-ecsess-700 bg-ecsess-900/50 px-4 py-2 text-base hover:bg-ecsess-800/80"
+								class="text-ecsess-300 hover:text-ecsess-100 border-ecsess-700 bg-ecsess-900/50 hover:bg-ecsess-800/80 inline-flex items-center gap-2 rounded-md border px-4 py-2 text-base"
 							>
-								<Instagram
-									class="size-5"
-									strokeWidth={2.5}
-									aria-hidden="true"
-									focusable="false"
-								/>
+								<Instagram class="size-5" strokeWidth={2.5} aria-hidden="true" focusable="false" />
 								<span>Instagram</span>
 							</a>
 						{/if}
@@ -131,7 +127,7 @@
 								target="_blank"
 								rel="noopener noreferrer external"
 								aria-label={`Visit ${group.name} website`}
-								class="text-ecsess-300 hover:text-ecsess-100 inline-flex items-center gap-2 rounded-md border border-ecsess-700 bg-ecsess-900/50 px-4 py-2 text-base hover:bg-ecsess-800/80"
+								class="text-ecsess-300 hover:text-ecsess-100 border-ecsess-700 bg-ecsess-900/50 hover:bg-ecsess-800/80 inline-flex items-center gap-2 rounded-md border px-4 py-2 text-base"
 							>
 								<Globe class="size-5" strokeWidth={2.5} aria-hidden="true" focusable="false" />
 								<span>Website</span>
