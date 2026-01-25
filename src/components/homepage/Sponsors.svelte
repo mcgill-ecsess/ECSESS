@@ -28,7 +28,7 @@
 			{#each sponsors as sponsor}
 				<Link href={sponsor.url} external>
 					<div
-						class="bg-ecsess-950 border-ecsess-800 hover:border-ecsess-600 group flex h-32 w-sm items-center justify-center rounded-lg border p-4 transition-all hover:shadow-lg"
+						class="bg-ecsess-950 border-ecsess-800 hover:border-ecsess-700 group flex h-32 w-sm items-center justify-center rounded-lg border p-4 transition-all hover:shadow-lg"
 					>
 						<img
 							src={sponsor.logo}
