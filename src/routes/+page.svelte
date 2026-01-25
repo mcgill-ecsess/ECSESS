@@ -1,13 +1,11 @@
 <script>
-	import FaqAccordion from 'components/homepage/FAQAccordion.svelte';
 	import Section from 'components/layout/Section.svelte';
-	import RichText from 'components/RichText.svelte';
 	import OhSchedule from 'components/officehour/OHSchedule.svelte';
-	import Link from 'components/Link.svelte';
 	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
 	import AffiliatedGroups from 'components/homepage/AffiliatedGroups.svelte';
-	import { fade } from 'svelte/transition';
+	import Sponsors from 'components/homepage/Sponsors.svelte';
 	import QuickLinks from 'components/QuickLinks.svelte';
+	import { fade } from 'svelte/transition';
 
 	/** loading things from the server side */
 	let { data } = $props();
@@ -79,32 +77,13 @@
 	</div>
 </Section>
 
-<!-- Affiliated Clubs -->
-<Section from="from-ecsess-900" to="to-ecsess-black">
-	<AffiliatedGroups />
+
+<!-- Sponsors -->
+<Section from="from-ecsess-900" to="to-ecsess-700" via="via-ecsess-800" direction="to-b">
+	<Sponsors sponsors={data.sponsors} />
 </Section>
 
-<!-- FAQs and Sponsors -->
-<!-- <Section from="from-ecsess-950" to="to-ecsess-black">
-	<div class="grid w-full max-w-[80vw] grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-24">
-		<div>
-			<h1>FAQs</h1>
-			<hr class="hr w-full border-dashed py-4" />
-			<FaqAccordion entries={data.faqs} />
-		</div>
-		<div id="sponsors" class="mb-24">
-			<h1>Sponsors</h1>
-			<hr class="hr w-full border-dashed py-4" />
-
-			<div class="flex gap-12">
-				{#each data.sponsors as sponsor}
-					<div class="max-h-20">
-						<Link href={sponsor.url}>
-							<img src={sponsor.logo} alt="{sponsor.name} Logo" class="max-h-24" />
-						</Link>
-					</div>
-				{/each}
-			</div>
-		</div>
-	</div>
-</Section> -->
+<!-- Affiliated Clubs -->
+<Section from="from-ecsess-700" to="to-ecsess-black">
+	<AffiliatedGroups />
+</Section>
