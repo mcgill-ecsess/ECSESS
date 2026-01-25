@@ -15,7 +15,7 @@
 <SeoMetaTags canonical={data.canonical} />
 
 <!-- ECSESS Introduction -->
-<Section from="from-ecsess-black" to="to-ecsess-800">
+<Section from="from-ecsess-black" to="to-ecsess-900" via="via-ecsess-950">
 	<div
 		class="mx-auto grid w-full max-w-[84dvw] grid-cols-1 place-items-center gap-16 py-6 lg:min-h-[75vh] lg:grid-cols-[1fr_2fr]"
 	>
@@ -66,7 +66,7 @@
 </Section>
 
 <!-- Office Hours Calendar -->
-<Section from="from-ecsess-800" to="to-ecsess-900">
+<Section from="from-ecsess-900" to="to-ecsess-700" via="via-ecsess-650">
 	<div class="w-full">
 		<h2 class="text-2xl font-bold" id="office-hours">Lounge Office Hours</h2>
 		<p class="text-ecsess-200 mb-8">
@@ -78,11 +78,11 @@
 </Section>
 
 <!-- Sponsors -->
-<Section from="from-ecsess-900" to="to-ecsess-700" via="via-ecsess-800" direction="to-b">
+<Section from="from-ecsess-700" to="to-ecsess-800" via="via-ecsess-750">
 	<Sponsors sponsors={data.sponsors} />
 </Section>
 
 <!-- Affiliated Clubs -->
-<Section from="from-ecsess-700" to="to-ecsess-black">
+<Section from="from-ecsess-800" to="to-ecsess-black" via="via-ecsess-850">
 	<AffiliatedGroups />
 </Section>
