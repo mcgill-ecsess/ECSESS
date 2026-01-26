@@ -96,9 +96,9 @@
 							{#if link.icon === 'instagram'}
 								<InstagramIcon class="text-white" />
 							{:else if link.icon === 'facebook'}
-								<FacebookIcon class="text-white" />
+								<FacebookIcon class="text-white" fill="white" color="transparent" />
 							{:else if link.icon === 'linkedin'}
-								<LinkedinIcon class="text-white" />
+								<LinkedinIcon class="text-white" fill="white" color="transparent" />
 							{:else if link.icon === 'linktree'}
 								<svg
 									class="h-5 w-5 text-white"
