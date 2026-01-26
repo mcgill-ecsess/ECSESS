@@ -90,4 +90,4 @@ export type DevTeam = {
 	funFact: string;
 	github: string;
 	image: string; //URL
-}
+};

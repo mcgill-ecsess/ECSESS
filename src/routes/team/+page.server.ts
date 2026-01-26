@@ -1,6 +1,6 @@
 //Wait for CMS to setup
-import type { DevTeam } from "$lib/schemas";
-import { getFromCMS } from "$lib/utils";
+import type { DevTeam } from '$lib/schemas';
+import { getFromCMS } from '$lib/utils';
 
 const query = `*[_type == "devTeam"]{
   name,
@@ -13,10 +13,10 @@ const query = `*[_type == "devTeam"]{
 }`;
 
 export const load = async ({ url }) => {
-    let devTeam: DevTeam[] = await getFromCMS(query);
+	let devTeam: DevTeam[] = await getFromCMS(query);
 
-    return {
-        devTeam: devTeam,
-        canonical: url.href
-    };
+	return {
+		devTeam: devTeam,
+		canonical: url.href
+	};
 };

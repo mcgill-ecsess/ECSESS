@@ -39,7 +39,7 @@
 			name: 'GitHub',
 			url: 'https://github.com/mcgill-ecsess/ECSESS',
 			icon: 'github',
-			ariaLabel: 'Visit our open source website',
+			ariaLabel: 'Visit our open source website'
 		}
 	];
 </script>
@@ -94,11 +94,11 @@
 							class="bg-ecsess-800 hover:bg-ecsess-600 flex h-10 w-10 items-center justify-center rounded-full transition-all hover:scale-110"
 						>
 							{#if link.icon === 'instagram'}
-								<InstagramIcon class="text-white"/>
+								<InstagramIcon class="text-white" />
 							{:else if link.icon === 'facebook'}
-								<FacebookIcon class="text-white"/>
+								<FacebookIcon class="text-white" />
 							{:else if link.icon === 'linkedin'}
-								<LinkedinIcon class="text-white"/>
+								<LinkedinIcon class="text-white" />
 							{:else if link.icon === 'linktree'}
 								<svg
 									class="h-5 w-5 text-white"
@@ -111,9 +111,9 @@
 									/>
 								</svg>
 							{:else if link.icon === 'email'}
-								<Mail class="text-white"/>
+								<Mail class="text-white" />
 							{:else if link.icon == 'github'}
-								<Github class="text-white"/>
+								<Github class="text-white" />
 							{/if}
 						</a>
 					{/each}
