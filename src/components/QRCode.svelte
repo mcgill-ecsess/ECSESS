@@ -154,7 +154,7 @@
 				color: '#3f6a3f', // ecsess-600
 				type: 'dot'
 			},
-			image: '/favicon.png'
+			image: ECSESSLogo
 		});
 
 		// Create a temporary container for the high-res QR code
