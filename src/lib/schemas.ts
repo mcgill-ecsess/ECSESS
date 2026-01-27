@@ -36,15 +36,6 @@ export type FAQ = {
 	answer: string;
 };
 
-export type HomepageCMSResponse = {
-	description: InputValue;
-	councilPhoto: string;
-	faqs: {
-		question: string;
-		answer: string;
-	}[];
-};
-
 export type OfficeHour = {
 	day: string;
 	startTime: string;

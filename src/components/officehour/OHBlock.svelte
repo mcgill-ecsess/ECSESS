@@ -9,7 +9,7 @@
 </script>
 
 <div
-	class="bg-ecsess-100 text-ecsess-900 hover:bg-ecsess-200 grid h-full place-content-center rounded-md border-transparent text-center shadow-md transition-all hover:shadow-lg"
+	class="bg-ecsess-100 text-ecsess-900 hover:bg-ecsess-200 grid h-full place-content-center rounded-md text-center shadow-md transition-all hover:shadow-lg"
 >
 	<p class="text-base leading-tight font-semibold">
 		{officeHour.member.name.split(' ')[0]}

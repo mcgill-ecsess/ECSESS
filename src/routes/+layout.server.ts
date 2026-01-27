@@ -5,5 +5,10 @@ const thumbnailQuery = `*[_type == "homepage"]{
 }[0]`;
 
 export const load = async () => {
-	return { thumbnail: (await getFromCMS(thumbnailQuery)).thumbnail };
+	try {
+		return { thumbnail: (await getFromCMS(thumbnailQuery)).thumbnail };
+	} catch (err) {
+		console.error('Failed to fetch homepage thumbnail from CMS:', err);
+		return { thumbnail: null };
+	}
 };

@@ -1,5 +1,5 @@
 import { getFromCMS } from '$lib/utils.js';
-import type { HomepageCMSResponse, OfficeHour, Sponsors } from '$lib/schemas';
+import type { OfficeHour, Sponsors } from '$lib/schemas';
 
 const homepageQuery = `{
   "homepage": *[_type == "homepage"]{
@@ -28,14 +28,12 @@ export const load = async ({ url }) => {
 	 * Note that `description` is a rich/portable text type
 	 */
 	let homePageResp = await getFromCMS(homepageQuery);
-	let homepageResp: HomepageCMSResponse = homePageResp.homepage;
+	let councilPhotoUrl: string = homePageResp.homepage.councilPhoto;
 	let officeHourResp: OfficeHour[] = homePageResp.officeHours;
 	let sponsorsResp: Sponsors[] = homePageResp.sponsors;
 
 	return {
-		description: homepageResp.description,
-		councilPhoto: homepageResp.councilPhoto,
-		faqs: homepageResp.faqs,
+		councilPhoto: councilPhotoUrl,
 		allOHs: officeHourResp,
 		sponsors: sponsorsResp,
 		canonical: url.href
