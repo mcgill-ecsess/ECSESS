@@ -114,10 +114,14 @@
 </script>
 
 <div class="overflow-x-auto">
-	<div class="mx-auto max-w-7xl min-w-[800px]">
+	<div class="border-ecsess-500 bg-ecsess-900 mx-auto max-w-7xl min-w-[800px] border-t pt-2">
 		<!-- Header row -->
 		<div class="mb-2 grid gap-0" style:grid-template-columns="80px repeat(5, 1fr)">
-			<div class="text-ecsess-50 px-2 text-center text-base font-semibold">Time</div>
+			<div
+				class="text-ecsess-50 bg-ecsess-900 sticky left-0 z-20 px-2 text-center text-base font-semibold"
+			>
+				Time
+			</div>
 			{#each DAYS as day}
 				<div class="text-ecsess-50 px-2 text-center text-base font-semibold md:text-lg">
 					{day}
@@ -135,7 +139,7 @@
 
 				<!-- Time column (only for first day) -->
 				{#if dayIndex === 0}
-					<div class="border-ecsess-500 relative border-b-2">
+					<div class="border-ecsess-500 bg-ecsess-900 sticky left-0 z-20 border-b-2">
 						{#each timeSlots as timeSlot}
 							{@const isHourMark = timeSlot % 60 === 0}
 							<div

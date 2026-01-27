@@ -1,41 +1,39 @@
 import { getFromCMS } from '$lib/utils.js';
-import type { HomepageCMSResponse, OfficeHour, Sponsors } from '$lib/schemas';
+import type { OfficeHour, Sponsors } from '$lib/schemas';
 
-const homepageQuery = `*[_type == "homepage"]{
-	"description": description[],
-	"councilPhoto": councilPhoto.asset->url+"?h=1200&fm=webp",
-	"faqs": faqs[]{ question, answer },
-}[0]`;
-
-const ohQuery = `*[_type=="officeHours"]{
-  day,
-  startTime,
-  endTime,
-  "member": {
-    "name": member->name,
-    "position": member->position
-  }
-}`;
-
-const sponsorQuery = `*[_type=="sponsors"]{
+const homepageQuery = `{
+  "homepage": *[_type == "homepage"]{
+    "councilPhoto": councilPhoto.asset->url+"?h=1200&fm=webp",
+    "faqs": faqs[]{ question, answer },
+  }[0],
+  "officeHours": *[_type=="officeHours"]{
+    day,
+    startTime,
+    endTime,
+    "member": {
+      "name": member->name,
+      "position": member->position
+    }
+  },
+  "sponsors": *[_type=="sponsors"]{
     name,
     url,
     "logo": logo.asset->url+"?h=100&fm=webp"
+  }
 }`;
 
 export const load = async ({ url }) => {
 	/**
-	 * @description Response data type based on the `homepageQuery` above.
+	 * @description Response data type based on the combined query above.
 	 * Note that `description` is a rich/portable text type
 	 */
-	let homepageResp: HomepageCMSResponse = await getFromCMS(homepageQuery);
-	let officeHourResp: OfficeHour[] = await getFromCMS(ohQuery);
-	let sponsorsResp: Sponsors[] = await getFromCMS(sponsorQuery);
+	let homePageResp = await getFromCMS(homepageQuery);
+	let councilPhotoUrl: string = homePageResp.homepage.councilPhoto;
+	let officeHourResp: OfficeHour[] = homePageResp.officeHours;
+	let sponsorsResp: Sponsors[] = homePageResp.sponsors;
 
 	return {
-		description: homepageResp.description,
-		councilPhoto: homepageResp.councilPhoto,
-		faqs: homepageResp.faqs,
+		councilPhoto: councilPhotoUrl,
 		allOHs: officeHourResp,
 		sponsors: sponsorsResp,
 		canonical: url.href

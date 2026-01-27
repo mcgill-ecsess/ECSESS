@@ -6,21 +6,29 @@
 	/* Light shades - for backgrounds and cards */
 	--color-ecsess-50: #e8ffd9;
 	--color-ecsess-100: #cce7ba;
+	--color-ecsess-150: #bae9a5;
 	--color-ecsess-200: #a9d0a0;
 
 	/* Mid-light shades - for borders and hover states */
+	--color-ecsess-250: #9cc295;
 	--color-ecsess-300: #8fb98a;
+	--color-ecsess-350: #7daa7a;
 	--color-ecsess-400: #6a9a6a;
 
 	/* Mid shades - for accents and interactive elements */
+	--color-ecsess-450: #62925a;
 	--color-ecsess-500: #5a8b5a;
+	--color-ecsess-550: #4c7a4f;
 	--color-ecsess-600: #3f6a3f;
+	--color-ecsess-650: #306032;
 
 	/* Mid-dark shades - for text on light backgrounds */
-	--color-ecsess-700: #2d5a2d;
+	--color-ecsess-700: #2f4d29;
+	--color-ecsess-750: #1c4a1e;
 	--color-ecsess-800: #0a3d2a;
 
 	/* Dark shades - for text and backgrounds */
+	--color-ecsess-850: #083525;
 	--color-ecsess-900: #062c20;
 	--color-ecsess-950: #031c15;
 
@@ -28,14 +36,14 @@
 	--color-ecsess-black: #1f1f1f;
 	--color-ecsess-black-hover: #161917;
 
-	--animate-wiggle: wiggle 0.3s ease-in-out infinite;
+	--animate-wiggle: wiggle 0.5s ease-in-out 1;
 	@keyframes wiggle {
 		0%,
 		100% {
-			transform: rotateY(-3deg);
+			transform: rotateY(-2.4deg);
 		}
 		50% {
-			transform: rotateY(3deg);
+			transform: rotateY(2.4deg);
 		}
 	}
 }
