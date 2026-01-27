@@ -1,5 +1,6 @@
 <script>
 	import QRCodeStyling from 'qr-code-styling';
+	import ECSESSLogo from '../assets/ECSESS.png';
 
 	let { data = '', downloadSize = 1000, size = 300 } = $props();
 	let qrCodeContainer = $state(/** @type {HTMLDivElement | null} */ (null));
@@ -71,7 +72,7 @@
 					color: '#3f6a3f', // ecsess-600
 					type: 'dot'
 				},
-				image: '/favicon.png'
+				image: ECSESSLogo
 			});
 
 			qrCodeInstance = instance;

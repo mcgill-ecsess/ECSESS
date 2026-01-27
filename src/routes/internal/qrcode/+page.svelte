@@ -39,7 +39,7 @@
 			<div class="flex flex-col items-center gap-4">
 				<h2 class="text-ecsess-100 text-xl font-bold">Preview</h2>
 				<div class="flex justify-center rounded-lg bg-white p-2 shadow-lg md:p-4">
-					<div class="mx-auto max-h-[300px] w-full max-w-[300px]">
+					<div class="mx-auto max-h-75 w-full max-w-75">
 						<QRCode bind:this={qrCodeRef} data={inputText} size={300} downloadSize={1000} />
 					</div>
 				</div>
