@@ -8,5 +8,4 @@ The official open-source website for the Engineering and Computer Science Studen
 - SvelteKit v2 with Svelte v5
 - TailwindCSS v4
 - Sanity CMS for content management
-- SkelentonUI (https://www.skeleton.dev) for UI components
 - Lucide (https://lucide.dev/icons/) for icons
