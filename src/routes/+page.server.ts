@@ -18,8 +18,9 @@ const homepageQuery = `{
   "sponsors": *[_type=="sponsors"]{
     name,
     url,
+    tier,
     "logo": logo.asset->url+"?h=100&fm=webp"
-  }
+  },
 }`;
 
 export const load = async ({ url }) => {
