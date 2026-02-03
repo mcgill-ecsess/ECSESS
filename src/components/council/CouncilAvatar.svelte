@@ -16,7 +16,7 @@
 	}
 </script>
 
-<div class="relative size-26 overflow-hidden rounded-full md:size-32">
+<div class="relative size-24 overflow-hidden rounded-full shadow-md ring-2 ring-ecsess-500/20 transition group-hover:ring-ecsess-400/40 sm:size-28 md:size-32 lg:size-36">
 	{#if src && !imageError}
 		<img
 			{src}

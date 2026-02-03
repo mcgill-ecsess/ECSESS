@@ -11,20 +11,23 @@
 		to = '',
 		via = '',
 		direction = 'to-b', // to bottom
-		black = false
+		black = false,
+		contentStart = false
 	} = $props();
 
 	const base =
-		'mx-auto flex min-h-[90vh] flex-col items-center justify-center gap-4 p-4 text-center text-ecsess-100';
+		'mx-auto flex min-h-[90vh] flex-col items-center gap-4 p-4 text-center text-ecsess-100';
+	const justifyClass = contentStart ? 'justify-start' : 'justify-center';
 
 	// Compute classes: prefer gradient when from/to provided; otherwise fallback to previous behavior
 	let tailwindClasses = $state(base);
 
 	$effect(() => {
+		const withJustify = `${base} ${justifyClass}`;
 		if (from && to) {
-			tailwindClasses = `${base} bg-gradient-${direction} ${from} ${to} ${via}`;
+			tailwindClasses = `${withJustify} bg-gradient-${direction} ${from} ${to} ${via}`;
 		} else {
-			tailwindClasses = base + (black ? ' bg-ecsess-black' : ' bg-ecsess-800');
+			tailwindClasses = withJustify + (black ? ' bg-ecsess-black' : ' bg-ecsess-800');
 		}
 	});
 </script>
