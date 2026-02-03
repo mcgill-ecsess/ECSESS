@@ -90,7 +90,7 @@
 		<!-- Hero -->
 		<h1 class="page-title text-ecsess-50">Meet the ECSESS Council</h1>
 
-		<figure class="mb-20 overflow-hidden rounded-2xl shadow-2xl ring-2 ring-ecsess-400/50">
+		<figure class="ring-ecsess-400/50 mb-20 overflow-hidden rounded-2xl shadow-2xl ring-2">
 			<img
 				src={data.councilGoofyPic.url}
 				alt="ECSESS Council having fun"
@@ -102,11 +102,11 @@
 		{#if president}
 			<section class="mb-12 w-full">
 				<div class="flex w-full items-center gap-4">
-					<div class="h-0.5 flex-1 bg-ecsess-300" aria-hidden="true"></div>
-					<h2 class="shrink-0 text-xl font-semibold uppercase tracking-wider text-ecsess-100">
+					<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
+					<h2 class="text-ecsess-100 shrink-0 text-xl font-semibold tracking-wider uppercase">
 						President
 					</h2>
-					<div class="h-0.5 flex-1 bg-ecsess-300" aria-hidden="true"></div>
+					<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
 				</div>
 				<div class="mt-4 flex justify-center">
 					<CardCouncil
@@ -123,11 +123,11 @@
 		<!-- Vice Presidents -->
 		<section class="mb-20 w-full">
 			<div class="flex w-full items-center gap-4">
-				<div class="h-0.5 flex-1 bg-ecsess-300" aria-hidden="true"></div>
-				<h2 class="shrink-0 text-2xl font-semibold uppercase tracking-wider text-ecsess-100">
+				<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
+				<h2 class="text-ecsess-100 shrink-0 text-2xl font-semibold tracking-wider uppercase">
 					Vice Presidents
 				</h2>
-				<div class="h-0.5 flex-1 bg-ecsess-300" aria-hidden="true"></div>
+				<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
 			</div>
 			<div class="mt-8 flex flex-wrap justify-center gap-4">
 				{#each vps as vp}
@@ -148,11 +148,11 @@
 		<!-- Year Representatives -->
 		<section class="mb-20 w-full">
 			<div class="flex w-full items-center gap-4">
-				<div class="h-0.5 flex-1 bg-ecsess-300" aria-hidden="true"></div>
-				<h2 class="shrink-0 text-2xl font-semibold uppercase tracking-wider text-ecsess-100">
+				<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
+				<h2 class="text-ecsess-100 shrink-0 text-2xl font-semibold tracking-wider uppercase">
 					Year Representatives
 				</h2>
-				<div class="h-0.5 flex-1 bg-ecsess-300" aria-hidden="true"></div>
+				<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
 			</div>
 			<div class="mt-8 flex flex-wrap justify-center gap-4">
 				{#each ureps as urep}
@@ -173,11 +173,11 @@
 
 		<!-- Join CTA at bottom -->
 		<section class="mt-4 mb-12 text-center">
-			<p class="text-lg text-ecsess-200 sm:text-xl">
+			<p class="text-ecsess-200 text-lg sm:text-xl">
 				Like what you see?
 				<Link
 					href="/join"
-					class="font-semibold text-ecsess-50 underline decoration-ecsess-300 underline-offset-4 transition hover:text-ecsess-100 hover:decoration-ecsess-200"
+					class="text-ecsess-50 decoration-ecsess-300 hover:text-ecsess-100 hover:decoration-ecsess-200 font-semibold underline underline-offset-4 transition"
 				>
 					Join ECSESS and be part of the fun →
 				</Link>
