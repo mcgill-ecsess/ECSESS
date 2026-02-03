@@ -19,7 +19,8 @@ const homepageQuery = `{
     name,
     url,
     "logo": logo.asset->url+"?h=100&fm=webp"
-  }
+  },
+  "_lastUpdated": *[_type=="officeHours"] | order(_updatedAt desc)[0]._updatedAt
 }`;
 
 export const load = async ({ url }) => {
@@ -36,6 +37,7 @@ export const load = async ({ url }) => {
 		councilPhoto: councilPhotoUrl,
 		allOHs: officeHourResp,
 		sponsors: sponsorsResp,
-		canonical: url.href
+		canonical: url.href,
+		ohLastUpdated: homePageResp._lastUpdated ?? null
 	};
 };
