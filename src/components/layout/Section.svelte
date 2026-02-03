@@ -17,12 +17,11 @@
 
 	const base =
 		'mx-auto flex min-h-[90vh] flex-col items-center gap-4 p-4 text-center text-ecsess-100';
-	const justifyClass = contentStart ? 'justify-start' : 'justify-center';
 
-	// Compute classes: prefer gradient when from/to provided; otherwise fallback to previous behavior
 	let tailwindClasses = $state(base);
 
 	$effect(() => {
+		const justifyClass = contentStart ? 'justify-start' : 'justify-center';
 		const withJustify = `${base} ${justifyClass}`;
 		if (from && to) {
 			tailwindClasses = `${withJustify} bg-gradient-${direction} ${from} ${to} ${via}`;

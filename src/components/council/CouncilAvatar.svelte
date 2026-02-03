@@ -16,17 +16,16 @@
 	}
 </script>
 
-<div class="relative size-24 overflow-hidden rounded-full shadow-md ring-2 ring-ecsess-500/20 transition group-hover:ring-ecsess-400/40 sm:size-28 md:size-32 lg:size-36">
+<div
+	class="bg-ecsess-600/50 relative aspect-square size-20 overflow-hidden rounded-full sm:size-24"
+>
 	{#if src && !imageError}
-		<img
-			{src}
-			alt={name}
-			class="h-full w-full rounded-full object-cover"
-			onerror={handleImageError}
-		/>
-	{:else if !src || imageError}
-		<div class="bg-ecsess-400 flex h-full w-full items-center justify-center rounded-full">
-			<span class="text-ecsess-black text-xl font-bold"> {getInitials(name)} </span>
+		<img {src} alt={name} class="h-full w-full object-cover" onerror={handleImageError} />
+	{:else}
+		<div
+			class="bg-ecsess-500 text-ecsess-950 flex h-full w-full items-center justify-center text-lg font-bold"
+		>
+			{getInitials(name)}
 		</div>
 	{/if}
 </div>
