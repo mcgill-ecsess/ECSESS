@@ -2,8 +2,8 @@
 	import CouncilCardPopUp from 'components/council/CouncilCardPopUp.svelte';
 	import Section from 'components/layout/Section.svelte';
 	import CardCouncil from 'components/council/CouncilCard.svelte';
+	import Link from 'components/Link.svelte';
 	import type { CouncilMember } from '$lib/schemas';
-	import { fly } from 'svelte/transition';
 	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
 	import { onMount } from 'svelte';
 	import { tick } from 'svelte';
@@ -12,7 +12,6 @@
 
 	const years = ['U4', 'U3', 'U2', 'U1', 'U0'];
 
-	// Get members by 3 main categories (reactive from data)
 	let president = $derived(
 		data.members.filter((member: CouncilMember) => member.position.includes('President'))[0]
 	);
@@ -48,6 +47,11 @@
 		if (e.key === 'Escape') closeModal();
 	}
 
+	function getYearFromPosition(position: string): string | undefined {
+		const match = position.match(/\b(U[0-4])\b/);
+		return match?.[1];
+	}
+
 	onMount(() => {
 		function onKeyDown(e: KeyboardEvent) {
 			if (e.key === 'Escape') closeModal();
@@ -75,82 +79,126 @@
 	canonical={data.canonical}
 />
 
-<Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-800" direction="to-b" contentStart>
-	<div class="flex w-full max-w-4xl flex-col items-center gap-6 py-6 text-left lg:max-w-6xl">
-		<p class="page-title text-balance">Meet the council!</p>
-		<img
-			src={data.councilGoofyPic.url}
-			alt="ECSESS Council, but we are goofy"
-			class="mb-8 rounded-xl shadow-2xl ring-2 ring-ecsess-400/50 shadow-black/40 transition-all hover:ring-ecsess-300/60 hover:shadow-ecsess-900/30 lg:w-[90%]"
-			transition:fly
-		/>
-	</div>
+<Section
+	from="from-ecsess-black"
+	to="to-ecsess-black"
+	via="via-ecsess-800"
+	direction="to-b"
+	contentStart
+>
+	<div class="w-full max-w-[90rem] px-4">
+		<!-- Hero -->
+		<h1 class="page-title text-ecsess-50">Meet the ECSESS Council</h1>
 
-	<h1 class="border-b-ecsess-300/80 w-full max-w-6xl border-b-2 pb-3 text-center font-semibold tracking-tight">
-		Our Student Council
-	</h1>
-
-	{#if president}
-		<div class="w-full max-w-2xl lg:max-w-3xl">
-			<CardCouncil
-				name={president.name}
-				position={president.position}
-				image={president.image}
-				onViewProfile={() => handleViewProfile(president)}
+		<figure class="mb-20 overflow-hidden rounded-2xl shadow-2xl ring-2 ring-ecsess-400/50">
+			<img
+				src={data.councilGoofyPic.url}
+				alt="ECSESS Council having fun"
+				class="w-full object-cover"
 			/>
-		</div>
-	{/if}
+		</figure>
 
-	<div class="grid w-full max-w-6xl place-items-center gap-6">
-		<h2
-			class="border-b-ecsess-300/70 w-full border-b-2 border-dashed pb-2 text-center text-lg font-semibold tracking-tight"
-		>
-			Vice Presidents
-		</h2>
-		<div
-			class="grid w-full grid-cols-1 gap-5 py-4 sm:gap-6 md:grid-cols-2 md:gap-6 lg:gap-8 xl:gap-10"
-		>
-			{#each vps as vp}
-				<CardCouncil
-					name={vp.name}
-					position={vp.position}
-					image={vp.image}
-					onViewProfile={() => handleViewProfile(vp)}
-				/>
-			{/each}
-		</div>
-		<h2
-			class="border-b-ecsess-300/70 w-full border-b-2 border-dashed pb-2 text-center text-lg font-semibold tracking-tight"
-		>
-			Year Representatives
-		</h2>
-		<div
-			class="grid w-full grid-cols-1 gap-5 py-4 sm:gap-6 md:grid-cols-2 md:gap-6 lg:gap-8 xl:gap-10"
-		>
-			{#each ureps as urep}
-				<CardCouncil
-					name={urep.name}
-					position={urep.position}
-					image={urep.image}
-					onViewProfile={() => handleViewProfile(urep)}
-				/>
-			{/each}
-		</div>
+		<!-- President -->
+		{#if president}
+			<section class="mb-12 w-full">
+				<div class="flex w-full items-center gap-4">
+					<div class="h-0.5 flex-1 bg-ecsess-300" aria-hidden="true"></div>
+					<h2 class="shrink-0 text-xl font-semibold uppercase tracking-wider text-ecsess-100">
+						President
+					</h2>
+					<div class="h-0.5 flex-1 bg-ecsess-300" aria-hidden="true"></div>
+				</div>
+				<div class="mt-4 flex justify-center">
+					<CardCouncil
+						name={president.name}
+						position={president.position}
+						image={president.image}
+						onViewProfile={() => handleViewProfile(president)}
+						featured
+					/>
+				</div>
+			</section>
+		{/if}
+
+		<!-- Vice Presidents -->
+		<section class="mb-20 w-full">
+			<div class="flex w-full items-center gap-4">
+				<div class="h-0.5 flex-1 bg-ecsess-300" aria-hidden="true"></div>
+				<h2 class="shrink-0 text-2xl font-semibold uppercase tracking-wider text-ecsess-100">
+					Vice Presidents
+				</h2>
+				<div class="h-0.5 flex-1 bg-ecsess-300" aria-hidden="true"></div>
+			</div>
+			<div class="mt-8 flex flex-wrap justify-center gap-4">
+				{#each vps as vp}
+					<div
+						class="flex min-w-full justify-center sm:min-w-[calc(50%-0.5rem)] lg:min-w-[calc(33.333%-0.67rem)] xl:min-w-[calc(25%-0.75rem)]"
+					>
+						<CardCouncil
+							name={vp.name}
+							position={vp.position}
+							image={vp.image}
+							onViewProfile={() => handleViewProfile(vp)}
+						/>
+					</div>
+				{/each}
+			</div>
+		</section>
+
+		<!-- Year Representatives -->
+		<section class="mb-20 w-full">
+			<div class="flex w-full items-center gap-4">
+				<div class="h-0.5 flex-1 bg-ecsess-300" aria-hidden="true"></div>
+				<h2 class="shrink-0 text-2xl font-semibold uppercase tracking-wider text-ecsess-100">
+					Year Representatives
+				</h2>
+				<div class="h-0.5 flex-1 bg-ecsess-300" aria-hidden="true"></div>
+			</div>
+			<div class="mt-8 flex flex-wrap justify-center gap-4">
+				{#each ureps as urep}
+					<div
+						class="flex min-w-full justify-center sm:min-w-[calc(50%-0.5rem)] lg:min-w-[calc(33.333%-0.67rem)] xl:min-w-[calc(25%-0.75rem)]"
+					>
+						<CardCouncil
+							name={urep.name}
+							position={urep.position}
+							image={urep.image}
+							onViewProfile={() => handleViewProfile(urep)}
+							tag={getYearFromPosition(urep.position)}
+						/>
+					</div>
+				{/each}
+			</div>
+		</section>
+
+		<!-- Join CTA at bottom -->
+		<section class="mt-4 mb-12 text-center">
+			<p class="text-lg text-ecsess-200 sm:text-xl">
+				Like what you see?
+				<Link
+					href="/join"
+					class="font-semibold text-ecsess-50 underline decoration-ecsess-300 underline-offset-4 transition hover:text-ecsess-100 hover:decoration-ecsess-200"
+				>
+					Join ECSESS and be part of the fun →
+				</Link>
+			</p>
+		</section>
 	</div>
 
 	{#if selectedMember}
-		<!-- Modal: backdrop with blur, click-outside and Escape to close -->
 		<div
 			bind:this={modalRef}
 			tabindex="-1"
-			class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm outline-none overflow-y-auto"
+			class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/70 p-4 backdrop-blur-sm outline-none"
 			role="dialog"
 			aria-modal="true"
 			aria-labelledby="popup-title"
 			onclick={(e) => e.target === e.currentTarget && closeModal()}
 			onkeydown={onBackdropKeydown}
 		>
-			<div class="relative flex max-h-[90vh] w-full max-w-4xl flex-col items-center justify-center overflow-hidden">
+			<div
+				class="relative my-auto flex w-full max-w-2xl flex-col items-center px-2 md:max-w-3xl md:px-4"
+			>
 				<CouncilCardPopUp
 					id="popup-title"
 					name={selectedMember.name}
