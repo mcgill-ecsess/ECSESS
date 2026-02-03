@@ -11,15 +11,15 @@
 
 <article
 	class="group bg-ecsess-800 ring-ecsess-500/50 ring-offset-ecsess-900 hover:ring-ecsess-300 hover:shadow-ecsess-400/50 focus-within:ring-ecsess-300 focus-within:ring-offset-ecsess-900 grid h-full min-w-0 grid-rows-[auto_1fr] overflow-hidden rounded-xl shadow-md ring-2 ring-offset-2 transition-all duration-500 ease-out focus-within:ring-2 focus-within:ring-offset-2 hover:shadow-xl {featured
-		? 'w-full max-w-[14rem] sm:max-w-[16rem]'
-		: 'w-full max-w-[14rem] sm:max-w-[16rem]'}"
+		? 'w-full max-w-56 sm:max-w-64'
+		: 'w-full max-w-56 sm:max-w-64'}"
 >
 	<div
 		class="bg-ecsess-700 relative flex aspect-square min-h-0 w-full items-center justify-center overflow-hidden"
 	>
 		{#if tag}
 			<span
-				class="bg-ecsess-600 text-ecsess-50 ring-ecsess-400/60 absolute top-2 right-2 z-[1] rounded-md px-2 py-1 text-xs font-semibold tracking-wide uppercase shadow-md ring-1"
+				class="bg-ecsess-600 text-ecsess-50 ring-ecsess-400/60 absolute top-2 right-2 z-1 rounded-md px-2 py-1 text-xs font-semibold tracking-wide uppercase shadow-md ring-1"
 			>
 				{tag}
 			</span>

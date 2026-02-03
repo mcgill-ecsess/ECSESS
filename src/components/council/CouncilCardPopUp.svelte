@@ -36,10 +36,10 @@
 
 	<!-- Photo block: top on small, left on md+ -->
 	<div
-		class="border-ecsess-700/60 bg-ecsess-850 md:border-ecsess-700/60 flex shrink-0 flex-col items-center justify-center border-b p-4 md:min-w-[11rem] md:border-r md:border-b-0 md:p-6"
+		class="border-ecsess-700/60 bg-ecsess-850 md:border-ecsess-700/60 flex shrink-0 flex-col items-center justify-center border-b p-4 md:min-w-44 md:border-r md:border-b-0 md:p-6"
 	>
 		<div
-			class="bg-ecsess-750 ring-ecsess-650/60 flex aspect-[4/5] w-24 items-center justify-center overflow-hidden rounded-lg shadow-inner ring-1 md:w-40 md:rounded-xl"
+			class="bg-ecsess-750 ring-ecsess-650/60 flex aspect-4/5 w-24 items-center justify-center overflow-hidden rounded-lg shadow-inner ring-1 md:w-40 md:rounded-xl"
 		>
 			{#if image && !imageError}
 				<img

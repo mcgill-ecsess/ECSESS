@@ -1,7 +1,7 @@
 <script lang="ts">
 	import CouncilCardPopUp from 'components/council/CouncilCardPopUp.svelte';
 	import Section from 'components/layout/Section.svelte';
-	import CardCouncil from 'components/council/CouncilCard.svelte';
+	import CouncilCard from 'components/council/CouncilCard.svelte';
 	import Link from 'components/Link.svelte';
 	import type { CouncilMember } from '$lib/schemas';
 	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
@@ -86,7 +86,7 @@
 	direction="to-b"
 	contentStart
 >
-	<div class="w-full max-w-[90rem] px-4">
+	<div class="w-full max-w-360 px-4">
 		<!-- Hero -->
 		<h1 class="page-title text-ecsess-50">Meet the ECSESS Council</h1>
 
@@ -109,7 +109,7 @@
 					<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
 				</div>
 				<div class="mt-4 flex justify-center">
-					<CardCouncil
+					<CouncilCard
 						name={president.name}
 						position={president.position}
 						image={president.image}
@@ -134,7 +134,7 @@
 					<div
 						class="flex min-w-full justify-center sm:min-w-[calc(50%-0.5rem)] lg:min-w-[calc(33.333%-0.67rem)] xl:min-w-[calc(25%-0.75rem)]"
 					>
-						<CardCouncil
+						<CouncilCard
 							name={vp.name}
 							position={vp.position}
 							image={vp.image}
@@ -159,7 +159,7 @@
 					<div
 						class="flex min-w-full justify-center sm:min-w-[calc(50%-0.5rem)] lg:min-w-[calc(33.333%-0.67rem)] xl:min-w-[calc(25%-0.75rem)]"
 					>
-						<CardCouncil
+						<CouncilCard
 							name={urep.name}
 							position={urep.position}
 							image={urep.image}
