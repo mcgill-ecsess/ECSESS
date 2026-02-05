@@ -21,55 +21,60 @@
 			gridClass: string;
 			borderWidth: string;
 			shadow: string;
+			glowColor: string;
 		}
 	> = {
 		platinum: {
 			label: 'Platinum',
-			color: 'text-ecsess-50',
-			bgColor: 'bg-ecsess-900',
-			borderColor: 'border-ecsess-200/60',
+			color: 'text-cyan-200',
+			bgColor: 'bg-gradient-to-br from-slate-900 via-cyan-950/40 to-slate-900',
+			borderColor: 'border-cyan-400/70',
 			cardH: 'h-50 md:h-70',
 			logoH: 'max-h-32 md:max-h-40',
 			containerClass: 'w-full md:max-w-lg',
 			gridClass: 'flex justify-center',
 			borderWidth: 'border-[3px]',
-			shadow: 'shadow-xl shadow-ecsess-500/20'
+			shadow: 'shadow-xl shadow-cyan-500/30',
+			glowColor: 'hover:shadow-cyan-400/40'
 		},
 		gold: {
 			label: 'Gold',
-			color: 'text-ecsess-150',
-			bgColor: 'bg-ecsess-800/40',
-			borderColor: 'border-ecsess-300/40',
+			color: 'text-amber-300',
+			bgColor: 'bg-gradient-to-br from-ecsess-900 via-amber-950/30 to-ecsess-900',
+			borderColor: 'border-amber-500/60',
 			cardH: 'h-32 md:h-36',
 			logoH: 'max-h-20 md:max-h-24',
 			containerClass: 'w-full sm:w-[calc(50%-12px)]',
 			gridClass: 'flex flex-wrap justify-center gap-6',
 			borderWidth: 'border-2',
-			shadow: 'shadow-lg'
+			shadow: 'shadow-lg shadow-amber-500/20',
+			glowColor: 'hover:shadow-amber-400/30'
 		},
 		silver: {
 			label: 'Silver',
-			color: 'text-ecsess-250',
-			bgColor: 'bg-ecsess-850/40',
-			borderColor: 'border-ecsess-400/30',
+			color: 'text-slate-300',
+			bgColor: 'bg-gradient-to-br from-ecsess-900 via-slate-800/40 to-ecsess-900',
+			borderColor: 'border-slate-400/50',
 			cardH: 'h-24 md:h-28',
 			logoH: 'max-h-14 md:max-h-16',
 			containerClass: 'w-[calc(50%-8px)] sm:w-[calc(33.333%-12px)]',
 			gridClass: 'flex flex-wrap justify-center gap-4',
 			borderWidth: 'border',
-			shadow: 'shadow-md'
+			shadow: 'shadow-md shadow-slate-500/20',
+			glowColor: 'hover:shadow-slate-400/30'
 		},
 		custom: {
 			label: 'Custom',
-			color: 'text-ecsess-350',
-			bgColor: 'bg-ecsess-900/40',
-			borderColor: 'border-ecsess-500/30',
+			color: 'text-ecsess-300',
+			bgColor: 'bg-gradient-to-br from-ecsess-950 via-ecsess-900/60 to-ecsess-950',
+			borderColor: 'border-ecsess-500/50',
 			cardH: 'h-20 md:h-24',
 			logoH: 'max-h-10 md:max-h-12',
 			containerClass: 'w-[calc(50%-8px)] sm:w-[calc(25%-12px)]',
 			gridClass: 'flex flex-wrap justify-center gap-3',
 			borderWidth: 'border',
-			shadow: 'shadow-sm'
+			shadow: 'shadow-md shadow-ecsess-500/20',
+			glowColor: 'hover:shadow-ecsess-400/30'
 		}
 	};
 
@@ -186,7 +191,7 @@
 
 <SeoMetaTags
 	title="ECSESS Sponsorship - Partner with McGill Engineering & CS Students"
-	description="Explore sponsorship opportunities with ECSESS. Connect with McGill's Engineering and Computer Science students through events, branding, and recruitment."
+	description="Explore sponsorship opportunities with ECSESS. Connect with McGill's Electrical, Computer and Software Engineering students through events, branding, and recruitment."
 	canonical={data.canonical}
 />
 
@@ -196,8 +201,8 @@
 		<div class="mb-16 text-center">
 			<p class="page-title">Become a Sponsor</p>
 			<p class="text-ecsess-200 mx-auto max-w-3xl text-lg leading-relaxed">
-				Partner with ECSESS to connect with McGill's talented Engineering and Computer Science
-				students. We offer flexible sponsorship packages designed to meet your organization's
+				Partner with ECSESS to connect with McGill's talented Electrical, Computer and Software
+				Engineering. We offer flexible sponsorship packages designed to meet your organization's
 				recruitment, branding, and engagement goals.
 			</p>
 		</div>
@@ -248,7 +253,7 @@
 			<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
 				{#each sponsorBenefits as card}
 					<div
-						class="border-ecsess-600/30 bg-ecsess-800/50 rounded-2xl border p-6 backdrop-blur-sm"
+						class="border-ecsess-600/30 bg-ecsess-800/50 rounded-2xl border p-6 text-start backdrop-blur-sm"
 					>
 						<h3 class="text-ecsess-100 mb-4 text-lg font-bold tracking-wider uppercase">
 							{card.title}
@@ -306,7 +311,7 @@
 										class="group flex {config.containerClass} justify-center rounded-xl focus-visible:outline-none"
 									>
 										<div
-											class="flex {config.cardH} w-full items-center justify-center overflow-hidden rounded-xl {config.borderWidth} {config.borderColor} {config.bgColor} p-4 {config.shadow} transition-all duration-200 group-hover:scale-105 group-hover:shadow-xl"
+											class="flex {config.cardH} w-full items-center justify-center overflow-hidden rounded-xl {config.borderWidth} {config.borderColor} {config.bgColor} p-4 {config.shadow} {config.glowColor} transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl"
 										>
 											<img
 												src={sponsor.logo}
@@ -340,10 +345,10 @@
 			{#each tiers as tier}
 				{@const config = tierConfig[tier]}
 				<div
-					class="rounded-xl border {config.borderColor} {config.bgColor} p-6 text-center backdrop-blur-sm"
+					class="rounded-xl {config.borderWidth} {config.borderColor} {config.bgColor} {config.shadow} p-6 text-center backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] {config.glowColor}"
 				>
 					<h3 class="text-2xl font-bold {config.color}">{config.label}</h3>
-					<p class="text-ecsess-300 mt-2 text-sm">Tier</p>
+					<p class="mt-2 text-sm text-white/60">Tier</p>
 				</div>
 			{/each}
 		</div>
