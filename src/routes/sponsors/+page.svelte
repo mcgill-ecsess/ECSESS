@@ -250,14 +250,13 @@
 					<div
 						class="border-ecsess-600/30 bg-ecsess-800/50 rounded-2xl border p-6 backdrop-blur-sm"
 					>
-						<h3 class="text-ecsess-100 mb-4 text-lg font-bold uppercase tracking-wider">
+						<h3 class="text-ecsess-100 mb-4 text-lg font-bold tracking-wider uppercase">
 							{card.title}
 						</h3>
 						<ul class="space-y-3">
 							{#each card.points as point}
 								<li class="flex items-start gap-3">
-									<span
-										class="bg-ecsess-500 mt-1.5 inline-block h-2 w-2 shrink-0 rounded-full"
+									<span class="bg-ecsess-500 mt-1.5 inline-block h-2 w-2 shrink-0 rounded-full"
 									></span>
 									<span class="text-ecsess-300 text-sm leading-relaxed">{point}</span>
 								</li>
@@ -269,9 +268,8 @@
 
 			<!-- Closing -->
 			<div class="mt-12 text-center">
-				<p class="text-ecsess-200 mx-auto max-w-2xl text-lg italic leading-relaxed">
-					Whether you're looking to host one event or support our entire year, ECSESS makes it
-					easy.
+				<p class="text-ecsess-200 mx-auto max-w-2xl text-lg leading-relaxed italic">
+					Whether you're looking to host one event or support our entire year, ECSESS makes it easy.
 				</p>
 				<p class="text-ecsess-400 mx-auto mt-3 max-w-xl text-sm">
 					All logistics are handled by our council. Just show up — we'll bring the students.
@@ -313,7 +311,7 @@
 											<img
 												src={sponsor.logo}
 												alt={sponsor.name}
-												class="{config.logoH} w-full object-contain opacity-90 transition-opacity duration-150 group-hover:opacity-100 "
+												class="{config.logoH} w-full object-contain opacity-90 transition-opacity duration-150 group-hover:opacity-100"
 											/>
 										</div>
 									</Link>
@@ -351,13 +349,11 @@
 		</div>
 
 		<!-- Benefits Table - Refactored with collapsible categories and new colors -->
-		<div
-			class="overflow-hidden rounded-2xl border-2 border-ecsess-500/40 bg-ecsess-950 shadow-2xl"
-		>
+		<div class="border-ecsess-500/40 bg-ecsess-950 overflow-hidden rounded-2xl border-2 shadow-2xl">
 			<div class="overflow-x-auto">
 				<table class="w-full border-collapse text-left">
 					<thead>
-						<tr class="border-b border-ecsess-600/50 bg-ecsess-800">
+						<tr class="border-ecsess-600/50 bg-ecsess-800 border-b">
 							<th class="text-ecsess-200 p-5 text-sm font-semibold tracking-wider uppercase">
 								Benefit
 							</th>
@@ -375,7 +371,7 @@
 						{#each categories as category}
 							<!-- Collapsible Category Header -->
 							<tr
-								class="cursor-pointer bg-ecsess-800/80 transition-colors hover:bg-ecsess-700/60"
+								class="bg-ecsess-800/80 hover:bg-ecsess-700/60 cursor-pointer transition-colors"
 								onclick={() => toggleCategory(category)}
 								onkeydown={(e) => e.key === 'Enter' && toggleCategory(category)}
 								tabindex="0"
@@ -386,7 +382,7 @@
 									<div class="flex items-center gap-3">
 										<!-- Chevron icon -->
 										<svg
-											class="h-5 w-5 text-ecsess-400 transition-transform duration-200 {expandedCategories.has(
+											class="text-ecsess-400 h-5 w-5 transition-transform duration-200 {expandedCategories.has(
 												category
 											)
 												? 'rotate-90'
@@ -403,8 +399,7 @@
 												d="M9 5l7 7-7 7"
 											/>
 										</svg>
-										<span
-											class="text-ecsess-100 text-sm font-bold tracking-widest uppercase"
+										<span class="text-ecsess-100 text-sm font-bold tracking-widest uppercase"
 											>{category}</span
 										>
 									</div>
@@ -415,7 +410,7 @@
 								{#each getBenefitsByCategory(category) as benefit, i}
 									<tr
 										transition:slide={{ duration: 200 }}
-										class="border-b border-ecsess-700/30 transition-colors hover:bg-ecsess-800/40
+										class="border-ecsess-700/30 hover:bg-ecsess-800/40 border-b transition-colors
 										{i % 2 === 0 ? 'bg-ecsess-900/70' : 'bg-ecsess-900/50'}"
 									>
 										<td class="p-5">
