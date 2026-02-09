@@ -100,12 +100,10 @@
 
 		<!-- President -->
 		{#if president}
-			<section class="mb-12 w-full">
+			<section class="mb-16 w-full">
 				<div class="flex w-full items-center gap-4">
 					<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
-					<h2 class="text-ecsess-100 shrink-0 text-xl font-semibold tracking-wider uppercase">
-						President
-					</h2>
+					<h2 class="text-ecsess-100 text-xl font-semibold tracking-wider uppercase">President</h2>
 					<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
 				</div>
 				<div class="mt-4 flex justify-center">
@@ -121,10 +119,10 @@
 		{/if}
 
 		<!-- Vice Presidents -->
-		<section class="mb-20 w-full">
+		<section class="mb-16 w-full">
 			<div class="flex w-full items-center gap-4">
 				<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
-				<h2 class="text-ecsess-100 shrink-0 text-2xl font-semibold tracking-wider uppercase">
+				<h2 class="text-ecsess-100 text-2xl font-semibold tracking-wider uppercase">
 					Vice Presidents
 				</h2>
 				<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
@@ -142,10 +140,10 @@
 		</section>
 
 		<!-- Year Representatives -->
-		<section class="mb-20 w-full">
+		<section class="mb-16 w-full">
 			<div class="flex w-full items-center gap-4">
 				<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
-				<h2 class="text-ecsess-100 shrink-0 text-2xl font-semibold tracking-wider uppercase">
+				<h2 class="text-ecsess-100 text-2xl font-semibold tracking-wider uppercase">
 					Year Representatives
 				</h2>
 				<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>

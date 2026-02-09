@@ -16,9 +16,7 @@
 	}
 </script>
 
-<div
-	class="bg-ecsess-600 relative aspect-square size-24 overflow-hidden rounded-full sm:size-24"
->
+<div class="bg-ecsess-600 relative aspect-square size-24 overflow-hidden rounded-full sm:size-24">
 	{#if src && !imageError}
 		<img
 			{src}
