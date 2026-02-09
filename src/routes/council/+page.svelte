@@ -166,12 +166,12 @@
 		<!-- Join CTA at bottom -->
 		<section class="mt-4 mb-12 text-center">
 			<p class="text-ecsess-200 text-lg sm:text-xl">
-				Like what you see?
+				Curious to be involved with the Council?
 				<Link
 					href="/join"
 					class="text-ecsess-50 decoration-ecsess-300 hover:text-ecsess-100 hover:decoration-ecsess-200 font-semibold underline underline-offset-4 transition"
 				>
-					Join ECSESS and be part of the fun →
+					Join ECSESS!
 				</Link>
 			</p>
 		</section>
