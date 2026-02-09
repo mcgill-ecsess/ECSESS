@@ -14,7 +14,10 @@
 	function getInitials(name: string | null | undefined): string {
 		if (name == null || typeof name !== 'string') return '';
 		const words = name.trim().split(/\s+/).filter(Boolean);
-		return words.slice(0, 3).map((w) => w.charAt(0).toUpperCase()).join('');
+		return words
+			.slice(0, 3)
+			.map((w) => w.charAt(0).toUpperCase())
+			.join('');
 	}
 	import { scale } from 'svelte/transition';
 
