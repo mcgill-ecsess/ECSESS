@@ -33,7 +33,7 @@
 		{#if image && !imageError}
 			<img
 				src={image}
-				alt={name}
+				alt={`Profile picture of ${name} for the position of ${position}`}
 				class="h-full w-full object-cover object-center"
 				onerror={handleImageError}
 			/>

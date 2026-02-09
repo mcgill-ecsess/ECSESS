@@ -181,7 +181,7 @@
 		<div
 			bind:this={modalRef}
 			tabindex="-1"
-			class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/70 p-4 backdrop-blur-sm outline-none"
+			class="focus-visible:ring-ecsess-400 fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/70 p-4 backdrop-blur-sm outline-none focus-visible:ring-2 focus-visible:ring-inset"
 			role="dialog"
 			aria-modal="true"
 			aria-labelledby="popup-title"

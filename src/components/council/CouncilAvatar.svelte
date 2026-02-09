@@ -20,7 +20,12 @@
 	class="bg-ecsess-600/50 relative aspect-square size-20 overflow-hidden rounded-full sm:size-24"
 >
 	{#if src && !imageError}
-		<img {src} alt={name} class="h-full w-full object-cover" onerror={handleImageError} />
+		<img
+			{src}
+			alt={`Profile picture of ${name}`}
+			class="h-full w-full object-cover"
+			onerror={handleImageError}
+		/>
 	{:else}
 		<div
 			class="bg-ecsess-500 text-ecsess-950 flex h-full w-full items-center justify-center text-lg font-bold"
