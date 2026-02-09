@@ -72,12 +72,13 @@
 		<p class="text-ecsess-200">
 			Come visit us in our student lounge at ENGTR 1060 to grab a coffee (free), play Mario Kart, or
 			just chat about anything!
+			{#if data.ohLastUpdated}
+				<br />
+				<span class="text-ecsess-200/70 mb-4 inline-block italic">
+					Last updated: {data.ohLastUpdated}
+				</span>
+			{/if}
 		</p>
-		{#if data.ohLastUpdated}
-			<span class="text-ecsess-200/70 mb-4 inline-block italic">
-				Last updated: {new Date(data.ohLastUpdated).toISOString().slice(0, 10).replaceAll('-', '/')}
-			</span>
-		{/if}
 		<OhSchedule allOhs={data.allOHs} />
 	</div>
 </Section>

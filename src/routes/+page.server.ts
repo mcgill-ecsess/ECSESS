@@ -15,14 +15,18 @@ const homepageQuery = `{
       "position": member->position
     }
   },
-  "_ohLastUpdated": *[_type=="officeHours"] | order(_updatedAt desc)[0]._updatedAt,
+  "ohLastUpdated": *[_type=="officeHours"] | order(_updatedAt desc)[0]._updatedAt,
   "sponsors": *[_type=="sponsors"]{
     name,
     url,
     "logo": logo.asset->url+"?h=100&fm=webp"
   },
-  "_sponsorsLastUpdated": *[_type=="sponsors"] | order(_updatedAt desc)[0]._updatedAt
+  "sponsorsLastUpdated": *[_type=="sponsors"] | order(_updatedAt desc)[0]._updatedAt
 }`;
+
+function formattingDate(date: Date) {
+	return date.toISOString().slice(0, 10).replaceAll('-', '/');
+}
 
 export const load = async ({ url }) => {
 	/**
@@ -39,7 +43,7 @@ export const load = async ({ url }) => {
 		allOHs: officeHourResp,
 		sponsors: sponsorsResp,
 		canonical: url.href,
-		ohLastUpdated: homePageResp._ohLastUpdated ?? null,
-		sponsorsLastUpdated: homePageResp._sponsorsLastUpdated ?? null
+		ohLastUpdated: formattingDate(new Date(homePageResp.ohLastUpdated)),
+		sponsorsLastUpdated: formattingDate(new Date(homePageResp.sponsorsLastUpdated))
 	};
 };
