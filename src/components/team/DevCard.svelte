@@ -37,7 +37,7 @@
 <div class="fadeup group relative flex flex-col">
 	<!-- Commit Card -->
 	<div
-		class="relative w-full overflow-hidden rounded-xl transition-all ease-linear duration-100 hover:scale-101 hover:shadow-ecsess-black/50 hover:shadow-md {active
+		class="hover:shadow-ecsess-black/50 relative w-full overflow-hidden rounded-xl transition-all duration-100 ease-linear hover:scale-101 hover:shadow-md {active
 			? 'bg-ecsess-800 shadow-ecsess-black shadow-sm'
 			: 'bg-ecsess-900 shadow-ecsess-black'}"
 	>

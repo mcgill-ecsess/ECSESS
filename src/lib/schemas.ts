@@ -88,8 +88,7 @@ export type DevTeam = {
 	yearProgram: string;
 	email: string;
 	active: boolean;
-	start: Date;
-	end: Date;
+	term: string;
 	funFact: string;
 	github: string;
 	image: string; //URL

@@ -1,13 +1,13 @@
 <script lang="ts">
 	import CommitDot from './CommitDot.svelte';
 
-	let { year, active = false } = $props<{
-		year: string;
+	let { term, active = false } = $props<{
+		term: string;
 		active?: boolean;
 	}>();
 </script>
 
-<div class="relative flex items-center gap-4 mb-6">
+<div class="relative mb-6 flex items-center gap-4">
 	<!-- Git Node column (w-3 = 12px, aligns with vertical timeline; circle centered) -->
 	<div class="flex w-3 shrink-0 justify-center">
 		<CommitDot {active} />
@@ -19,7 +19,7 @@
 			? 'text-ecsess-300'
 			: 'text-ecsess-400'}"
 	>
-		<span>{year}</span>
+		<span>{term}</span>
 	</div>
 
 	<!-- Branch Line -->

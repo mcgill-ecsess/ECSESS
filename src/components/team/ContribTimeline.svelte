@@ -4,11 +4,11 @@
 	import DevCard from './DevCard.svelte';
 
 	let {
-		year,
+		term,
 		members,
 		active = false
 	} = $props<{
-		year: string;
+		term: string;
 		members: DevTeam[];
 		active?: boolean;
 	}>();
@@ -17,7 +17,7 @@
 <div class="relative w-full">
 	<!-- Branch Line with Year -->
 	<div class="mb-6">
-		<YearLine {year} {active} />
+		<YearLine {term} {active} />
 	</div>
 
 	<!-- Members Grid -->

@@ -9,20 +9,23 @@
 
 	let devTeam = $derived(data.devTeam ?? []);
 
-	// Sort by Active (Current) first, then by start date (newest/latest first)
+	// Extract the starting year from a term string "xxxx-xxxx"
+	function termYear(term: string): number {
+		return parseInt(term.split('-')[0], 10);
+	}
+
+	// Sort by Active (Current) first, then by term year (newest/latest first)
 	let sortedTeam = $derived(
 		[...devTeam].sort((a, b) => {
 			if (a.active && !b.active) return -1;
 			if (!a.active && b.active) return 1;
 
-			const dateA = new Date(a.start).getTime();
-			const dateB = new Date(b.start).getTime();
-			return dateB - dateA;
+			return termYear(b.term) - termYear(a.term);
 		})
 	);
 
 	function getGroup(member: DevTeam) {
-		return member.active ? 'Active team' : new Date(member.start).getFullYear().toString();
+		return member.active ? 'Active team' : member.term;
 	}
 
 	let groupedTeam = $derived(
@@ -67,11 +70,11 @@
 				<div class="space-y-16">
 					{#each groupedTeam as { group, members, active }}
 						<div class="relative">
-							<ContribTimeline year={group} {members} {active} />
+							<ContribTimeline term={group} {members} {active} />
 						</div>
 					{/each}
 				</div>
 			</div>
 		</div>
-  </div>
+	</div>
 </Section>
