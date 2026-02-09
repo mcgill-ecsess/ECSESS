@@ -15,12 +15,13 @@ const homepageQuery = `{
       "position": member->position
     }
   },
+  "_ohLastUpdated": *[_type=="officeHours"] | order(_updatedAt desc)[0]._updatedAt,
   "sponsors": *[_type=="sponsors"]{
     name,
     url,
     "logo": logo.asset->url+"?h=100&fm=webp"
   },
-  "_lastUpdated": *[_type=="officeHours"] | order(_updatedAt desc)[0]._updatedAt
+  "_sponsorsLastUpdated": *[_type=="sponsors"] | order(_updatedAt desc)[0]._updatedAt
 }`;
 
 export const load = async ({ url }) => {
@@ -38,6 +39,7 @@ export const load = async ({ url }) => {
 		allOHs: officeHourResp,
 		sponsors: sponsorsResp,
 		canonical: url.href,
-		ohLastUpdated: homePageResp._lastUpdated ?? null
+		ohLastUpdated: homePageResp._ohLastUpdated ?? null,
+		sponsorsLastUpdated: homePageResp._sponsorsLastUpdated ?? null
 	};
 };

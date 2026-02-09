@@ -3,7 +3,10 @@
 	import Link from 'components/Link.svelte';
 	import Button from 'components/Button.svelte';
 
-	let { sponsors } = $props<{ sponsors: Sponsors[] }>();
+	let { sponsors, lastUpdated } = $props<{
+		sponsors: Sponsors[];
+		lastUpdated?: string | null;
+	}>();
 </script>
 
 <div class="container mx-auto px-4">
@@ -17,7 +20,7 @@
 			and our community.
 		</p>
 		<div
-			class="via-ecsess-150/40 mx-auto mt-6 h-px w-32 bg-linear-to-r from-transparent to-transparent"
+			class="via-ecsess-150/40 mx-auto mt-2 h-px w-32 bg-linear-to-r from-transparent to-transparent"
 			aria-hidden="true"
 		></div>
 		<div class="mt-6">
