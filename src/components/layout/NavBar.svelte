@@ -33,9 +33,9 @@
 			>
 				<NavButton href="/">Home</NavButton>
 				<NavButton href="/council">Meet the council</NavButton>
-				<NavButton href="/team">Team</NavButton>
 				<NavButton href="/events">Events</NavButton>
 				<NavButton href="/resources">Resources</NavButton>
+				<NavButton href="/devteam">Dev Team</NavButton>
 				{#if isElectionTime}
 					<NavButton href="/join">Join ECSESS</NavButton>
 				{/if}
@@ -51,9 +51,9 @@
 			</a>
 			<NavButton href="/">Home</NavButton>
 			<NavButton href="/council">Meet the council</NavButton>
-			<NavButton href="/team">Team</NavButton>
 			<NavButton href="/events">Events</NavButton>
 			<NavButton href="/resources">Resources</NavButton>
+			<NavButton href="/devteam">Dev Team</NavButton>
 			{#if isElectionTime}
 				<NavButton href="/join">Join ECSESS</NavButton>
 			{/if}
