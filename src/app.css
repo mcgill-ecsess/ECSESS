@@ -46,6 +46,17 @@
 			transform: rotateY(2.4deg);
 		}
 	}
+
+	--animate-pulse-ring: pulse-ring 1.5s ease-in-out infinite;
+	@keyframes pulse-ring {
+		0%,
+		100% {
+			opacity: 0.5;
+		}
+		50% {
+			opacity: 1;
+		}
+	}
 }
 
 * {
