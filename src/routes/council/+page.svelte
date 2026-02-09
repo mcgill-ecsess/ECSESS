@@ -129,18 +129,14 @@
 				</h2>
 				<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
 			</div>
-			<div class="mt-8 flex flex-wrap justify-center gap-4">
+			<div class="mt-8 flex flex-wrap justify-center gap-6">
 				{#each vps as vp}
-					<div
-						class="flex min-w-full justify-center sm:min-w-[calc(50%-0.5rem)] lg:min-w-[calc(33.333%-0.67rem)] xl:min-w-[calc(25%-0.75rem)]"
-					>
-						<CouncilCard
-							name={vp.name}
-							position={vp.position}
-							image={vp.image}
-							onViewProfile={() => handleViewProfile(vp)}
-						/>
-					</div>
+					<CouncilCard
+						name={vp.name}
+						position={vp.position}
+						image={vp.image}
+						onViewProfile={() => handleViewProfile(vp)}
+					/>
 				{/each}
 			</div>
 		</section>
@@ -154,19 +150,15 @@
 				</h2>
 				<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
 			</div>
-			<div class="mt-8 flex flex-wrap justify-center gap-4">
+			<div class="mt-8 flex flex-wrap justify-center gap-6">
 				{#each ureps as urep}
-					<div
-						class="flex min-w-full justify-center sm:min-w-[calc(50%-0.5rem)] lg:min-w-[calc(33.333%-0.67rem)] xl:min-w-[calc(25%-0.75rem)]"
-					>
-						<CouncilCard
-							name={urep.name}
-							position={urep.position}
-							image={urep.image}
-							onViewProfile={() => handleViewProfile(urep)}
-							tag={getYearFromPosition(urep.position)}
-						/>
-					</div>
+					<CouncilCard
+						name={urep.name}
+						position={urep.position}
+						image={urep.image}
+						onViewProfile={() => handleViewProfile(urep)}
+						tag={getYearFromPosition(urep.position)}
+					/>
 				{/each}
 			</div>
 		</section>
