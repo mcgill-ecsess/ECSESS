@@ -37,7 +37,9 @@
 			</span>
 		{/if}
 	</div>
-	<div class="flex flex-col items-center justify-center gap-2 p-3 text-center sm:p-4">
+	<div
+		class="flex flex-col items-center justify-center gap-2 px-2 py-3 text-center sm:px-3 sm:py-4"
+	>
 		<h3 class="text-ecsess-50 line-clamp-2 w-full text-base leading-tight font-bold sm:text-lg">
 			{name}
 		</h3>
