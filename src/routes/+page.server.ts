@@ -15,13 +15,19 @@ const homepageQuery = `{
       "position": member->position
     }
   },
+  "ohLastUpdated": *[_type=="officeHours"] | order(_updatedAt desc)[0]._updatedAt,
   "sponsors": *[_type=="sponsors"]{
     name,
     url,
     tier,
     "logo": logo.asset->url+"?h=100&fm=webp"
   },
+  "sponsorsLastUpdated": *[_type=="sponsors"] | order(_updatedAt desc)[0]._updatedAt
 }`;
+
+function formattingDate(date: Date) {
+	return date.toISOString().slice(0, 10).replaceAll('-', '/');
+}
 
 export const load = async ({ url }) => {
 	/**
@@ -37,6 +43,8 @@ export const load = async ({ url }) => {
 		councilPhoto: councilPhotoUrl,
 		allOHs: officeHourResp,
 		sponsors: sponsorsResp,
-		canonical: url.href
+		canonical: url.href,
+		ohLastUpdated: formattingDate(new Date(homePageResp.ohLastUpdated)),
+		sponsorsLastUpdated: formattingDate(new Date(homePageResp.sponsorsLastUpdated))
 	};
 };

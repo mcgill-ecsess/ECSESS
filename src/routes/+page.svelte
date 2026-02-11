@@ -69,9 +69,15 @@
 <Section from="from-ecsess-900" to="to-ecsess-700" via="via-ecsess-650">
 	<div class="w-full">
 		<h2 class="text-2xl font-bold" id="office-hours">Lounge Office Hours</h2>
-		<p class="text-ecsess-200 mb-8">
+		<p class="text-ecsess-200">
 			Come visit us in our student lounge at ENGTR 1060 to grab a coffee (free), play Mario Kart, or
 			just chat about anything!
+			{#if data.ohLastUpdated}
+				<br />
+				<span class="text-ecsess-200/70 mb-4 inline-block italic">
+					Last updated: {data.ohLastUpdated}
+				</span>
+			{/if}
 		</p>
 		<OhSchedule allOhs={data.allOHs} />
 	</div>
@@ -79,7 +85,7 @@
 
 <!-- Sponsors -->
 <Section from="from-ecsess-700" to="to-ecsess-800" via="via-ecsess-750">
-	<Sponsors sponsors={data.sponsors} />
+	<Sponsors sponsors={data.sponsors} lastUpdated={data.sponsorsLastUpdated} />
 </Section>
 
 <!-- Affiliated Clubs -->

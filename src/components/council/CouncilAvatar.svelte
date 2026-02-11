@@ -16,17 +16,19 @@
 	}
 </script>
 
-<div class="relative size-26 overflow-hidden rounded-full md:size-32">
+<div class="bg-ecsess-600 relative aspect-square size-24 overflow-hidden rounded-full sm:size-24">
 	{#if src && !imageError}
 		<img
 			{src}
-			alt={name}
-			class="h-full w-full rounded-full object-cover"
+			alt={`Profile picture of ${name}`}
+			class="h-full w-full object-cover"
 			onerror={handleImageError}
 		/>
-	{:else if !src || imageError}
-		<div class="bg-ecsess-400 flex h-full w-full items-center justify-center rounded-full">
-			<span class="text-ecsess-black text-xl font-bold"> {getInitials(name)} </span>
+	{:else}
+		<div
+			class="bg-ecsess-500 text-ecsess-950 flex h-full w-full items-center justify-center text-lg font-bold"
+		>
+			{getInitials(name)}
 		</div>
 	{/if}
 </div>

@@ -10,7 +10,7 @@ const councilQuery = `{
     email,
     position,
     positionDescription,
-    "image": image.asset->url+"?h=300&fm=webp",
+    "image": image.asset->url+"?h=360&fm=webp",
     yearProgram
   },
   "councilGoofyPic": *[_type == "homepage"]{
@@ -18,7 +18,7 @@ const councilQuery = `{
   }[0]
 }`;
 
-export const load = async ({ url }) => {
+export const load = async ({ url }: { url: URL }) => {
 	const {
 		members,
 		councilGoofyPic

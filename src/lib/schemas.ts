@@ -83,3 +83,15 @@ export type Redirect = {
 	shortname: string;
 	url: string;
 };
+
+export type DevTeam = {
+	name: string;
+	role: string;
+	yearProgram: string;
+	email: string;
+	active: boolean;
+	term: string;
+	funFact: string;
+	github: string;
+	image: string; //URL
+};
