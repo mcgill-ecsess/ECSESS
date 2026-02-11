@@ -103,7 +103,10 @@
 				{/if}
 				{#if linkedin}
 					<div class="flex items-center justify-center gap-2">
-						<Linkedin class="stroke-ecsess-400 size-4 stroke-2" aria-hidden="true" />
+						<Linkedin
+							class="stroke-ecsess-300 size-4 fill-transparent stroke-2"
+							aria-hidden="true"
+						/>
 						<Link
 							href={linkedin}
 							external
