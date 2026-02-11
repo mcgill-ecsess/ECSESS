@@ -51,9 +51,9 @@
 			</a>
 			<NavButton href="/">Home</NavButton>
 			<NavButton href="/council">Meet the council</NavButton>
+			<NavButton href="/sponsors">Sponsors</NavButton>
 			<NavButton href="/events">Events</NavButton>
 			<NavButton href="/resources">Resources</NavButton>
-			<NavButton href="/sponsors">Sponsors</NavButton>
 			{#if isElectionTime}
 				<NavButton href="/join">Join ECSESS</NavButton>
 			{/if}
