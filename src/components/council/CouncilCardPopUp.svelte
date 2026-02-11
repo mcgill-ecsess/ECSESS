@@ -38,7 +38,7 @@
 	<button
 		type="button"
 		onclick={onClose}
-		class="bg-ecsess-650 text-ecsess-50 hover:bg-ecsess-550 focus:ring-ecsess-500 focus:ring-offset-ecsess-900 absolute top-3 right-3 z-10 flex size-8 items-center justify-center rounded-full transition focus:ring-2 focus:ring-offset-2 focus:outline-none md:size-9"
+		class="bg-ecsess-650 text-ecsess-50 hover:bg-ecsess-550 focus:ring-ecsess-500 focus:ring-offset-ecsess-900 absolute top-3 right-3 z-10 flex size-8 items-center justify-center rounded-full transition hover:cursor-pointer focus:ring-2 focus:ring-offset-2 focus:outline-none"
 		aria-label="Close"
 	>
 		<X class="size-4 md:size-5" />
