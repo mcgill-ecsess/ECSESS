@@ -71,7 +71,7 @@ h1 {
 }
 
 h2 {
-	@apply py-3 text-xl font-bold md:text-2xl;
+	@apply py-1.5 text-xl font-bold md:text-2xl;
 }
 
 .page-title {

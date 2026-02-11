@@ -197,6 +197,7 @@
 					positionDescription={selectedMember.positionDescription}
 					yearProgram={selectedMember.yearProgram}
 					image={selectedMember.image}
+					linkedin={selectedMember.linkedin}
 					onClose={closeModal}
 				/>
 			</div>

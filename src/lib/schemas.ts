@@ -53,6 +53,7 @@ export type CouncilMember = {
 	positionDescription: string;
 	image: string; // URL
 	yearProgram: string;
+	linkedin?: string; // URL to profile, optional
 };
 
 export type Resource = {
