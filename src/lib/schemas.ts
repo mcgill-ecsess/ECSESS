@@ -64,7 +64,18 @@ export type Resource = {
 export type Sponsors = {
 	name: string;
 	url: string;
+	tier: string;
 	logo: string;
+};
+
+export type Benefits = {
+	benefit: string;
+	category: string;
+	description: string;
+	platinum: string;
+	gold: string;
+	silver: string;
+	custom: string;
 };
 
 export type Redirect = {
