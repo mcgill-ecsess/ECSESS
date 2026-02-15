@@ -11,7 +11,8 @@ const councilQuery = `{
     position,
     positionDescription,
     "image": image.asset->url+"?h=360&fm=webp",
-    yearProgram
+    yearProgram,
+    linkedin
   },
   "councilGoofyPic": *[_type == "homepage"]{
     "url": councilGoofyPic.asset->url+"?h=1200&fm=webp" 
