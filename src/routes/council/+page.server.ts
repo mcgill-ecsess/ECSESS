@@ -10,7 +10,7 @@ const councilQuery = `{
     email,
     position,
     positionDescription,
-    "image": image.asset->url+"?h=360&fm=webp",
+    "image": image.asset->url+"?h=750&fm=webp",
     yearProgram,
     linkedin
   },
