@@ -19,6 +19,7 @@ const homepageQuery = `{
   "sponsors": *[_type=="sponsors"]{
     name,
     url,
+    tier,
     "logo": logo.asset->url+"?h=100&fm=webp"
   },
   "sponsorsLastUpdated": *[_type=="sponsors"] | order(_updatedAt desc)[0]._updatedAt
