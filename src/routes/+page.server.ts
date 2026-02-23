@@ -32,11 +32,11 @@ function formattingDate(date: Date) {
 		return `Winter ${year}`;
 	}
 
-	if (month >= 9 && month <= 12) {
+	if (month >= 8 && month <= 12) {
 		return `Fall ${year}`;
 	}
 
-	return `Fall ${year}`;
+	return "Closed for the summer";
 }
 
 export const load = async ({ url }) => {
