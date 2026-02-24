@@ -36,7 +36,7 @@ function formattingDate(date: Date) {
 		return `Fall ${year}`;
 	}
 
-	return "Closed for the summer";
+	return 'Closed for the summer';
 }
 
 export const load = async ({ url }) => {
