@@ -37,7 +37,7 @@
 		},
 		{
 			name: 'GitHub',
-			url: 'https://github.com/mcgill-ecsess/ECSESS',
+			url: 'https://github.com/mcgill-ecsess/',
 			icon: 'github',
 			ariaLabel: 'Visit our open source website'
 		}
@@ -144,7 +144,7 @@
 		<!-- Copyright -->
 		<div>
 			<p class="text-ecsess-200 text-center text-sm">
-				🄯 ECSESS {year} under GNU General Public License v3.0. <br />
+				&copy; ECSESS {year} under GNU General Public License v3.0. <br />
 				Designed with love {'<3'}.
 			</p>
 		</div>
