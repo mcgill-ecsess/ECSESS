@@ -75,7 +75,7 @@
 			{#if data.ohLastUpdated}
 				<br />
 				<span class="text-ecsess-200/70 mb-4 inline-block italic">
-					Last updated: {data.ohLastUpdated}
+					Semester: {data.ohLastUpdated}
 				</span>
 			{/if}
 		</p>

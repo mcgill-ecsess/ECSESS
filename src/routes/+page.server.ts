@@ -25,7 +25,18 @@ const homepageQuery = `{
 }`;
 
 function formattingDate(date: Date) {
-	return date.toISOString().slice(0, 10).replaceAll('-', '/');
+	const month = date.getMonth() + 1;
+	const year = date.getFullYear();
+
+	if (month >= 1 && month <= 4) {
+		return `Winter ${year}`;
+	}
+
+	if (month >= 8 && month <= 12) {
+		return `Fall ${year}`;
+	}
+
+	return 'Closed for the summer';
 }
 
 export const load = async ({ url }) => {
