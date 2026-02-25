@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { LinkType } from '$lib/schemas';
 	import type { InputValue } from '@portabletext/svelte';
+	import { X } from '@lucide/svelte';
+	import { tick } from 'svelte';
 	import EventImageHeader from './EBComponents/EventImageHeader.svelte';
 	import EventBadges from './EBComponents/EventBadges.svelte';
 	import EventInfoGrid from './EBComponents/EventInfoGrid.svelte';
@@ -31,7 +33,8 @@
 		isPastEvent?: boolean;
 	}>();
 
-	let showDescription = $state(false);
+	let showPopup = $state(false);
+	let modalRef = $state<HTMLDivElement | null>(null);
 
 	const addToCalendar = () => {
 		const eventDate = new Date(date);
@@ -66,66 +69,133 @@
 		URL.revokeObjectURL(url);
 	};
 
-	const flipCard = () => {
-		showDescription = !showDescription;
+	const openPopup = () => {
+		showPopup = true;
+	};
+
+	const closePopup = () => {
+		showPopup = false;
 	};
 
 	const handleKeyDown = (e: KeyboardEvent) => {
 		if (e.key === 'Enter' || e.key === ' ') {
 			e.preventDefault();
-			flipCard();
+			openPopup();
 		}
 	};
+
+	const onBackdropKeydown = (e: KeyboardEvent) => {
+		if (e.key === 'Escape') closePopup();
+	};
+
+	$effect(() => {
+		if (showPopup) {
+			document.body.style.overflow = 'hidden';
+			tick().then(() => modalRef?.focus());
+		} else {
+			document.body.style.overflow = '';
+		}
+		return () => {
+			document.body.style.overflow = '';
+		};
+	});
 </script>
 
-<div class="group relative flex h-full w-full flex-col rounded-2xl perspective-[1000px]">
+<div class="group relative flex h-full w-full flex-col">
 	<div
-		class="grid h-full w-full rounded-2xl text-center transition-transform duration-500 transform-3d {showDescription
-			? 'transform-[rotateY(180deg)]'
-			: 'hover:animate-wiggle transform-[rotateY(0)]'}"
+		class="border-ecsess-650/70 bg-ecsess-900 hover:border-ecsess-350 focus-within:ring-ecsess-300 focus-within:ring-offset-ecsess-900 hover:shadow-ecsess-300/25 hover:ring-ecsess-300/80 hover:ring-offset-ecsess-900 relative mx-auto flex h-full w-full max-w-80 cursor-pointer flex-col overflow-hidden rounded-2xl border text-left shadow-xl transition-all duration-300 ease-out focus-within:ring-2 focus-within:ring-offset-2 hover:-translate-y-1 hover:shadow-2xl hover:ring-2 hover:ring-offset-2"
+		role="button"
+		tabindex="0"
+		onclick={openPopup}
+		onkeydown={handleKeyDown}
+		aria-label="Open event details"
 	>
-		<!-- Front Side -->
-		<div
-			class="bg-ecsess-950 col-start-1 row-start-1 flex h-full w-full transform-[rotateY(0)] cursor-pointer flex-col rounded-2xl transition-opacity duration-500 backface-hidden {showDescription
-				? 'pointer-events-none opacity-0'
-				: 'opacity-100'}"
-			data-flip-side="front"
-			role="button"
-			tabindex="0"
-			onclick={flipCard}
-			onkeydown={handleKeyDown}
-			aria-label="Flip event card to view description"
-		>
+		<div class="relative">
 			<EventImageHeader {eventTitle} {thumbnail} {eventCategory} />
-			<EventBadges {isPastEvent} {eventCategory} />
-
-			<EventInfoGrid {date} {location} />
-
-			{#if !isPastEvent}
-				<div class="pointer-events-auto relative z-30 flex-1 px-6 pt-0 pb-4">
-					<EventActionButtons {registrationLink} {paymentLink} {addToCalendar} />
+			{#if eventCategory && eventCategory.length > 0}
+				<div class="pointer-events-none absolute top-2.5 right-2.5 z-10 flex flex-wrap gap-1.5">
+					{#each eventCategory as category}
+						<span
+							class="bg-ecsess-500/90 rounded-full px-2.5 py-1 text-xs font-bold tracking-wider text-white uppercase backdrop-blur-sm"
+						>
+							{category}
+						</span>
+					{/each}
 				</div>
 			{/if}
-
-			<div class="p-4 lg:hidden">
-				<p class="text-ecsess-400 text-sm">Click to view more</p>
-			</div>
 		</div>
 
-		<!-- Back Side -->
-		<div
-			class="bg-ecsess-950 col-start-1 row-start-1 flex h-full w-full transform-[rotateY(180deg)] cursor-pointer flex-col rounded-2xl transition-opacity duration-500 backface-hidden transform-3d {showDescription
-				? 'opacity-100'
-				: 'pointer-events-none opacity-0'}"
-			data-flip-side="back"
-			class:flipped={showDescription}
-			role="button"
-			tabindex="0"
-			onclick={flipCard}
-			onkeydown={handleKeyDown}
-			aria-label="Flip event card back to front"
-		>
-			<EventDescription {eventTitle} {eventDescription} {generalLink} />
+		<div class="flex flex-1 flex-col p-3 md:p-4">
+			<EventInfoGrid {date} {location} compact />
 		</div>
 	</div>
+
+	<div
+		class="ring-ecsess-400/80 ring-offset-ecsess-900 animate-pulse-ring pointer-events-none absolute inset-0 mx-auto w-full max-w-80 rounded-2xl ring-2 ring-offset-2 sm:hidden"
+		aria-hidden="true"
+	></div>
+
+	{#if showPopup}
+		<div
+			bind:this={modalRef}
+			tabindex="-1"
+			class="focus-visible:ring-ecsess-400 fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/70 p-4 backdrop-blur-sm outline-none focus-visible:ring-2 focus-visible:ring-inset"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="event-popup-title"
+			onclick={(e) => e.target === e.currentTarget && closePopup()}
+			onkeydown={onBackdropKeydown}
+		>
+			<div
+				class="relative my-auto flex w-full max-w-2xl flex-col items-center px-2 md:max-w-6xl md:px-4"
+			>
+				<div
+					class="border-ecsess-650/70 bg-ecsess-900 text-ecsess-100 relative flex w-full max-w-5xl flex-col overflow-hidden rounded-2xl border shadow-2xl md:max-h-[90vh] md:flex-row"
+					role="article"
+				>
+					<!-- Close button with its own breathing room -->
+					<div class="flex h-12 shrink-0 items-start justify-end px-3 pt-3 md:hidden">
+						<button
+							type="button"
+							onclick={closePopup}
+							class="bg-ecsess-650 text-ecsess-50 hover:bg-ecsess-550 focus:ring-ecsess-500 focus:ring-offset-ecsess-900 flex size-8 items-center justify-center rounded-full transition hover:cursor-pointer focus:ring-2 focus:ring-offset-2 focus:outline-none"
+							aria-label="Close"
+						>
+							<X class="size-4" />
+						</button>
+					</div>
+
+					<!-- Desktop-only absolute close button -->
+					<button
+						type="button"
+						onclick={closePopup}
+						class="bg-ecsess-650 text-ecsess-50 hover:bg-ecsess-550 focus:ring-ecsess-500 focus:ring-offset-ecsess-900 absolute top-3 right-3 z-10 hidden size-8 items-center justify-center rounded-full transition hover:cursor-pointer focus:ring-2 focus:ring-offset-2 focus:outline-none md:flex"
+						aria-label="Close"
+					>
+						<X class="size-5" />
+					</button>
+
+					<div
+						class="border-ecsess-700/60 bg-ecsess-850 flex shrink-0 flex-col border-b md:w-[56%] md:border-r md:border-b-0"
+					>
+						<EventImageHeader {eventTitle} {thumbnail} {eventCategory} />
+					</div>
+
+					<div class="flex min-w-0 flex-1 flex-col overflow-y-auto p-4 md:w-[44%] md:p-6">
+						<h2 id="event-popup-title" class="sr-only">{eventTitle}</h2>
+						<EventBadges {isPastEvent} {eventCategory} inline />
+						<EventDescription {eventDescription} {generalLink} />
+						<div class="border-ecsess-700/60 mt-4 border-t pt-4">
+							<EventInfoGrid {date} {location} />
+						</div>
+						{#if !isPastEvent}
+							<div class="mt-4">
+								<EventActionButtons {registrationLink} {paymentLink} {addToCalendar} />
+							</div>
+						{/if}
+					</div>
+				</div>
+			</div>
+		</div>
+	{/if}
 </div>

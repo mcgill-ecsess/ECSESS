@@ -104,7 +104,7 @@
 					<div class="bg-ecsess-200 h-1 w-16 rounded-full"></div>
 					<h2 class="text-ecsess-200 text-3xl font-bold">Upcoming Events</h2>
 				</div>
-				<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				<div class="grid auto-rows-fr justify-items-center gap-6 sm:grid-cols-2 lg:grid-cols-3">
 					{#each upcomingEvents as e (e._id ?? e.name)}
 						<EventBlock
 							eventTitle={e.name}
@@ -130,7 +130,7 @@
 					<div class="bg-ecsess-400 h-1 w-16 rounded-full"></div>
 					<h2 class="text-ecsess-400 text-3xl font-bold">Past Events</h2>
 				</div>
-				<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				<div class="grid auto-rows-fr justify-items-center gap-6 sm:grid-cols-2 lg:grid-cols-3">
 					{#each finishedEvents as e (e._id ?? e.name)}
 						<EventBlock
 							eventTitle={e.name}
