@@ -39,7 +39,9 @@
 		{
 			label: 'Submit candidate blurb',
 			range: 'March 20',
-			instruction: ['Submit a blurb (max 200 words) about yourself to ecsess.dro@mcgilleus.ca by 12pm on March 20th.']
+			instruction: [
+				'Submit a blurb (max 200 words) about yourself to ecsess.dro@mcgilleus.ca by 12pm on March 20th.'
+			]
 		},
 		{
 			label: 'Candidate debates',
