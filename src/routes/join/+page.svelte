@@ -37,14 +37,14 @@
 			]
 		},
 		{
-			label: 'Candidate debates',
-			range: 'March 19',
-			instruction: ['The candidate for elected positions debates are held. The location is TBA.']
-		},
-		{
 			label: 'Submit candidate blurb',
 			range: 'March 20',
-			instruction: ['Submit a blurb about yourself to ecsess.dro@mcgilleus.ca.']
+			instruction: ['Submit a blurb (max 200 words) about yourself to ecsess.dro@mcgilleus.ca by 12pm on March 20th.']
+		},
+		{
+			label: 'Candidate debates',
+			range: 'March 23',
+			instruction: ['The candidate for elected positions debates are held. The location is TBA.']
 		},
 		{
 			label: 'Voting period',
@@ -66,7 +66,7 @@
 		'VP External',
 		'VP Communications',
 		'VP Academic',
-		'Year Representatives (U1-U4)'
+		'Year Representatives (U2-U4)'
 	];
 
 	const selectedPositions = [
