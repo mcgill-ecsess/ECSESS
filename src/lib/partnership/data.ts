@@ -56,75 +56,120 @@ export const focusOptions: { id: EngagementFocus; label: string; description: st
 // Placeholder activation modules. Replace with the official ECSESS activation catalog.
 export const modules: Module[] = [
 	{
+		id: 'flagship_industry_tour',
+		category: 'networking',
+		name: 'Industry Tour',
+		price: 200,
+		description: 'Flagship ECSESS industry tour activation.',
+		deliverables: [],
+		tierEligible: true
+	},
+	{
+		id: 'flagship_company_crawl',
+		category: 'networking',
+		name: 'Company Crawl',
+		price: 200,
+		description: 'Flagship ECSESS company crawl activation.',
+		deliverables: [],
+		tierEligible: true
+	},
+	{
+		id: 'flagship_speed_networking',
+		category: 'networking',
+		name: 'Speed Networking',
+		price: 200,
+		description: 'Flagship ECSESS speed networking activation.',
+		deliverables: [],
+		tierEligible: true
+	},
+	{
+		id: 'flagship_wine_cheese',
+		category: 'networking',
+		name: 'Wine and Cheese',
+		price: 200,
+		description: 'Flagship ECSESS wine and cheese activation.',
+		deliverables: [],
+		tierEligible: true
+	},
+	{
+		id: 'networking_workshop',
+		category: 'networking',
+		name: 'Workshop',
+		price: 600,
+		description: 'Sponsor-led workshop session.',
+		deliverables: [],
+		tierEligible: true
+	},
+	{
+		id: 'networking_panel',
+		category: 'networking',
+		name: 'Panel',
+		price: 800,
+		description: 'Sponsor participation in an ECSESS panel.',
+		deliverables: [],
+		tierEligible: true
+	},
+	{
+		id: 'networking_private_event',
+		category: 'networking',
+		name: 'Private Networking Event',
+		price: 800,
+		description: 'Private networking event with ECSESS members.',
+		deliverables: [],
+		tierEligible: true
+	},
+	{
 		id: 'networking_info_session',
 		category: 'networking',
-		name: 'Industry Info Session Presence',
-		price: 1200,
-		description: 'Reserved seating and visibility at a student-facing info session.',
-		deliverables: ['On-site booth', 'Logo on slide deck', 'Resume access'],
+		name: 'Info Session',
+		price: 700,
+		description: 'Host a sponsor info session.',
+		deliverables: [],
 		tierEligible: true
 	},
 	{
-		id: 'networking_mixer',
-		category: 'networking',
-		name: 'Networking Night Sponsor',
-		price: 900,
-		description: 'Brand presence at an ECSESS networking night.',
-		deliverables: ['Event recognition', 'Recruitment booth', 'Post-event attendee list'],
-		tierEligible: true
-	},
-	{
-		id: 'networking_resume_access',
-		category: 'networking',
-		name: 'Resume Book Access',
-		price: 500,
-		description: 'Access to curated ECSESS resume book for recruitment follow-up.',
-		deliverables: ['Resume book access', 'Targeted roles summary'],
-		tierEligible: true
-	},
-	{
-		id: 'networking_lounge_branding',
-		category: 'networking',
-		name: 'Lounge Branding Placement',
-		price: 750,
-		description: 'Brand visibility inside the ECSESS lounge.',
-		deliverables: ['Logo placement', 'Monthly spotlight'],
-		tierEligible: true
-	},
-	{
-		id: 'factory_workshop',
+		id: 'factory_equipment_placement',
 		category: 'factory',
-		name: 'Hardware Workshop Support',
-		price: 800,
-		description: 'Support a hands-on workshop in The Factory lab.',
-		deliverables: ['Workshop branding', 'Mentor access', 'Follow-up spotlight'],
+		name: 'Equipment Placement / Tool Sponsorship',
+		price: 2000,
+		description: 'Your company powers the lab — signage, onboarding doc, and demo day mention.',
+		deliverables: [],
+		tierEligible: true
+	},
+	{
+		id: 'factory_hackathon_sponsorship',
+		category: 'factory',
+		name: 'Hardware Hackathon Sponsorship',
+		price: 5000,
+		description: 'Prize + branding + challenge prompt + judge seat.',
+		deliverables: [],
+		tierEligible: true
+	},
+	{
+		id: 'factory_workshop_certification',
+		category: 'factory',
+		name: 'Workshop / Certification',
+		price: 1500,
+		description: 'Vendor workshop (ex: FPGA, embedded, robotics).',
+		deliverables: [],
+		tierEligible: true
+	},
+	{
+		id: 'factory_recruiting_tiein',
+		category: 'factory',
+		name: 'Recruiting Tie-in',
+		price: 1200,
+		description: 'Curated “hardware talent” resume drop.',
+		deliverables: [],
 		tierEligible: true
 	},
 	{
 		id: 'factory_lab_branding',
 		category: 'factory',
-		name: 'Lab Branding Placement',
-		price: 600,
-		description: 'Long-term visibility inside The Factory lab space.',
-		deliverables: ['Logo placement', 'Quarterly feature', 'Recruitment touchpoint'],
-		tierEligible: true
-	},
-	{
-		id: 'factory_equipment_sponsor',
-		category: 'factory',
-		name: 'Equipment Sponsor',
-		price: 900,
-		description: 'Sponsor a hardware equipment upgrade in The Factory.',
-		deliverables: ['Equipment plaque', 'Workshop mention'],
-		tierEligible: true
-	},
-	{
-		id: 'factory_demo_day',
-		category: 'factory',
-		name: 'Factory Demo Day Partner',
-		price: 1100,
-		description: 'Presence at the Factory demo day showcase.',
-		deliverables: ['Demo day booth', 'Mentor access'],
+		name: 'Lab Branding',
+		price: 1000,
+		description: 'Wall plaque / “powered by” station / equipment tags.',
+		deliverables: [],
 		tierEligible: true
 	},
 	{
@@ -210,8 +255,8 @@ export const codejamTiers: CodeJamTier[] = [
 
 export const factoryTierThresholds: FactoryTierThresholds = {
 	silver: 500,
-	gold: 1000,
-	platinum: 2000
+	gold: 2000,
+	platinum: 5000
 };
 
 export const tierThresholds: TierThresholds = {
