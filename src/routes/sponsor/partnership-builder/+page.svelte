@@ -114,12 +114,26 @@ import { slide, fade, fly } from 'svelte/transition';
 	);
 	const factoryNextTier = $derived.by(() => nextFactoryTierInfo(factoryTotal));
 
-	function progressPercent(total: number, next: { threshold: number } | null): number {
+	function progressPercent(
+		total: number,
+		next: { id?: TierId; threshold: number } | null,
+		thresholds: TierThresholds
+	): number {
 		if (!next) return 100;
 		if (next.threshold <= 0) return 0;
-		const pct = Math.min(100, Math.max(0, (total / next.threshold) * 100));
+		const prev =
+			next.id === 'gold'
+				? thresholds.silver
+				: next.id === 'platinum'
+					? thresholds.gold
+					: next.id === 'strategic'
+						? thresholds.platinum
+						: 0;
+		const span = Math.max(1, next.threshold - prev);
+		const pct = Math.min(100, Math.max(0, ((total - prev) / span) * 100));
 		return pct;
 	}
+
 
 	const displayTier = $derived.by(() => {
 		if (calculatedTier === 'platinum' && !data.availability.platinumAvailable) {
@@ -248,9 +262,10 @@ import { slide, fade, fly } from 'svelte/transition';
 	}));
 
 	const leftMenuSections = $derived.by(() => [
-		{ id: 'ecsess', label: 'ECSESS Modules' },
-		{ id: 'codejam', label: 'CodeJam Sponsorship Tiers' },
-		{ id: 'factory', label: 'Factory Modules' }
+		{ id: 'contact', label: 'Contact Details' },
+		{ id: 'ecsess', label: 'Mainline Modules' },
+		{ id: 'codejam', label: 'CodeJam Sponsorship' },
+		{ id: 'factory', label: 'The Factory Modules' }
 	]);
 
 	const networkingModules = $derived.by(() => modulesByCategory('networking'));
@@ -269,8 +284,17 @@ import { slide, fade, fly } from 'svelte/transition';
 			.filter((tier): tier is typeof codejamTiers[number] => Boolean(tier))
 	);
 	let codejamIndex = $state(0);
+	let prevCodejamIndex = 0;
 	const currentCodejamTier = $derived.by(() => codejamTierSequence[codejamIndex] ?? codejamTiers[0]);
 	const codejamMaxIndex = $derived.by(() => Math.max(0, codejamTierSequence.length - 1));
+	const hasMainline = $derived.by(() => ecsessTotal > 0);
+	const hasCodejam = $derived.by(() => Boolean(selectedCodejamTier));
+	const hasFactory = $derived.by(() => factoryTotal > 0);
+	const showSidebarMetrics = $derived.by(() => step === 2);
+	const selectedCodejamIndex = $derived.by(() => {
+		if (!state.codejamTierId) return -1;
+		return codejamTierSequence.findIndex((tier) => tier.id === state.codejamTierId);
+	});
 
 	const codejamSections = [
 		{
@@ -366,10 +390,6 @@ import { slide, fade, fly } from 'svelte/transition';
 		return 'bg-ecsess-950/60 border-ecsess-700';
 	}
 
-	function tagToneClass(categoryId: string): string {
-		return 'theme-tag';
-	}
-
 	function nextFactoryTierInfo(total: number) {
 		const ordered = [
 			{ id: 'silver', label: 'Silver', threshold: factoryTierThresholds.silver },
@@ -410,21 +430,6 @@ import { slide, fade, fly } from 'svelte/transition';
 		media: '/Professional.jpg'
 	};
 
-	function moduleTags(category: string): string[] {
-		switch (category) {
-			case 'networking':
-				return ['Networking', 'Recruiting'];
-			case 'codejam':
-				return ['CodeJam', 'Hackathon'];
-			case 'factory':
-				return ['Hardware', 'Lab'];
-			case 'media':
-				return ['Exposure', 'Brand'];
-			default:
-			return ['Module'];
-		}
-	}
-
 	function toggleCodejamTier(tierId: string) {
 		if (state.codejamTierId === tierId) {
 			state.codejamTierId = '';
@@ -433,8 +438,54 @@ import { slide, fade, fly } from 'svelte/transition';
 		state.codejamTierId = tierId;
 		const idx = codejamTierSequence.findIndex((tier) => tier.id === tierId);
 		if (idx !== -1) {
+			prevCodejamIndex = codejamIndex;
 			codejamIndex = idx;
 		}
+	}
+
+	function setCodejamIndex(next: number) {
+		if (next === codejamIndex) return;
+		prevCodejamIndex = codejamIndex;
+		codejamIndex = next;
+	}
+
+	function codejamRowLevel(row: { min?: number; scale?: readonly string[] }, idx: number) {
+		if (row.scale) {
+			const max = row.scale.length - 1;
+			return Math.min(idx, max);
+		}
+		if (typeof row.min === 'number') {
+			return idx >= row.min ? 1 : 0;
+		}
+		return 0;
+	}
+
+	function codejamRowChanged(row: { min?: number; scale?: readonly string[] }) {
+		if (prevCodejamIndex === codejamIndex) return false;
+		return codejamRowLevel(row, prevCodejamIndex) !== codejamRowLevel(row, codejamIndex);
+	}
+
+	function codejamChange(row: { min?: number; scale?: readonly string[] }) {
+		if (selectedCodejamIndex < 0) return '';
+		const prevIdx = selectedCodejamIndex;
+		const currIdx = codejamIndex;
+		if (prevIdx === currIdx) return '';
+		if (row.scale) {
+			const max = row.scale.length - 1;
+			const prevLevel = Math.min(prevIdx, max);
+			const currLevel = Math.min(currIdx, max);
+			const delta = currLevel - prevLevel;
+			if (delta === 0) return '';
+			const steps = Math.min(4, Math.abs(delta));
+			return (delta > 0 ? '↑' : '↓').repeat(steps);
+		}
+		if (typeof row.min === 'number') {
+			const prevOn = prevIdx >= row.min ? 1 : 0;
+			const currOn = currIdx >= row.min ? 1 : 0;
+			if (currOn > prevOn) return '+';
+			if (currOn < prevOn) return '−';
+		}
+		return '';
 	}
 
 	async function handleGenerateSummary() {
@@ -493,34 +544,37 @@ import { slide, fade, fly } from 'svelte/transition';
 		class:theme-codejam={themeMode === 'codejam'}
 		class:theme-factory={themeMode === 'factory'}
 	>
-		<h1 class="page-title text-white">Partnership Builder</h1>
-
-		<div class="mt-6 no-print">
-			<div class="h-1 w-full rounded-full bg-white/20">
-				<div
-					class="h-1 rounded-full bg-white/90 transition-all"
-					style:width={`${progress * 100}%`}
-				></div>
-			</div>
-			<div class="mt-2 flex flex-col items-center gap-1 text-center text-xs font-semibold uppercase tracking-widest text-white/70">
-				<span>Step {step} of {steps.length}</span>
-				<span>{steps[step - 1]?.label}</span>
-			</div>
-		</div>
+		<h1 class="page-title text-white">ECSESS Partnership Builder</h1>
 
 		<div class="mt-8 grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)_280px]">
 			<div class="relative">
 				{#if step > 1}
-					<div class="sticky top-16 self-start space-y-4" in:fly={{ x: -40, opacity: 0, duration: 700 }}>
+					<div
+						class="sticky top-8 self-start space-y-4"
+						in:fly={{ x: -40, opacity: 0, duration: 700 }}
+						out:fly={{ x: -40, opacity: 0, duration: 350 }}
+					>
 						<div class="rounded-2xl border p-4 theme-panel {sectionPanels.wrapper}">
-							<p class="text-xs uppercase tracking-widest text-white/70">Module Categories</p>
+							<p class="text-xs uppercase tracking-widest text-white/70">Sections</p>
 								<div class="mt-3 space-y-2 text-sm">
 									{#if step === 2}
 										{#each leftMenuSections as category}
 											<button
 												type="button"
-												onclick={() => goToSection(category.id as 'ecsess' | 'codejam' | 'factory')}
-												class="w-full rounded-md border px-3 py-2 text-left text-white/80 transition theme-outline"
+												onclick={() => {
+													if (category.id === 'contact') {
+														setStep(1);
+													} else {
+														goToSection(category.id as 'ecsess' | 'codejam' | 'factory');
+													}
+												}}
+												class={`w-full rounded-md border px-3 py-2 text-left text-white/80 transition ${
+													step === 1 && category.id === 'contact'
+														? 'theme-button text-white border-transparent'
+														: step === 2 && category.id === activeSection
+															? 'theme-button text-white border-transparent'
+															: 'theme-outline border-white/15'
+												}`}
 											>
 												{category.label}
 											</button>
@@ -532,72 +586,62 @@ import { slide, fade, fly } from 'svelte/transition';
 									{/if}
 								</div>
 							</div>
-						<div class="rounded-2xl border p-4 theme-panel {sectionPanels.wrapper}">
-							<p class="text-xs uppercase tracking-widest text-white/70">Annual Engagement Summary</p>
-							<div class="mt-3 space-y-4 text-sm text-white/90">
-								<div>
-									<p class="text-[11px] uppercase tracking-widest text-white/70">ECSESS Modules</p>
-									<div class="mt-2 max-h-24 overflow-y-scroll snap-y snap-mandatory section-scrollbar-neutral always-scrollbar-y">
-										{#if ecsessSelected.length === 0}
-											<div class="flex h-8 items-center text-white/70">No selections yet.</div>
-										{:else}
-											{#each ecsessSelected as module}
-												<div class="flex snap-start items-start justify-between gap-2 border-b border-transparent last:border-b-0 hover:bg-white/10 hover:border-white/20/60 py-1 rounded-md pr-2 text-left">
-													<span class="leading-5 text-left">✓ {module.name}</span>
-													<button
-														type="button"
-														class="shrink-0 items-center rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-white hover:bg-red-600/80"
-														onclick={() => requestRemoveModule(module.id, module.name)}
-													>
-														✕
-													</button>
-												</div>
-											{/each}
-										{/if}
-									</div>
-								</div>
-								<div class="border-t border-white/15 pt-3">
-									<p class="text-[11px] uppercase tracking-widest text-white/70">CodeJam Tiers</p>
-									<div class="mt-2 max-h-24 overflow-y-scroll snap-y snap-mandatory section-scrollbar-neutral always-scrollbar-y">
-										{#if selectedCodejamTier}
-											<div class="flex snap-start items-start justify-between gap-2 border-b border-transparent last:border-b-0 hover:bg-white/10 hover:border-white/20/60 py-1 rounded-md pr-2 text-left">
-												<span class="leading-5 text-left">✓ {selectedCodejamTier.name}</span>
-												<button
-													type="button"
-													class="shrink-0 items-center rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-white hover:bg-red-600/80"
-													onclick={requestRemoveCodejam}
-												>
-													✕
-												</button>
+						{#if step === 2 && activeSection !== 'codejam' && ((activeSection === 'ecsess' && ecsessSelected.length > 0) || (activeSection === 'factory' && factorySelected.length > 0))}
+							<div
+								class="rounded-2xl border p-4 theme-panel {sectionPanels.wrapper}"
+								in:fly={{ x: -40, opacity: 0, duration: 500 }}
+								out:fly={{ x: -40, opacity: 0, duration: 350 }}
+							>
+								<p class="text-xs uppercase tracking-widest text-white/70">Annual Engagement Summary</p>
+								<div class="mt-3 space-y-4 text-sm text-white/90">
+									{#if activeSection === 'ecsess'}
+										<div>
+											<p class="text-[11px] uppercase tracking-widest text-white/70">Mainline Modules</p>
+											<div class="mt-2 max-h-24 overflow-y-scroll snap-y snap-mandatory section-scrollbar-neutral always-scrollbar-y">
+												{#if ecsessSelected.length === 0}
+													<div class="flex h-8 items-center text-white/70">No selections yet.</div>
+												{:else}
+													{#each ecsessSelected as module}
+														<div class="flex snap-start items-start justify-between gap-2 border-b border-transparent last:border-b-0 hover:bg-white/10 hover:border-white/20/60 py-1 rounded-md pr-2 text-left">
+															<span class="leading-5 text-left">✓ {module.name}</span>
+															<button
+																type="button"
+																class="shrink-0 items-center rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-white hover:bg-red-600/80"
+																onclick={() => requestRemoveModule(module.id, module.name)}
+															>
+																✕
+															</button>
+														</div>
+													{/each}
+												{/if}
 											</div>
-										{:else}
-											<div class="flex h-8 items-center text-white/70">No selections yet.</div>
-										{/if}
-									</div>
-								</div>
-								<div class="border-t border-white/15 pt-3">
-									<p class="text-[11px] uppercase tracking-widest text-white/70">Factory Modules</p>
-									<div class="mt-2 max-h-24 overflow-y-scroll snap-y snap-mandatory section-scrollbar-neutral always-scrollbar-y">
-										{#if factorySelected.length === 0}
-											<div class="flex h-8 items-center text-white/70">No selections yet.</div>
-										{:else}
-											{#each factorySelected as module}
-												<div class="flex snap-start items-start justify-between gap-2 border-b border-transparent last:border-b-0 hover:bg-white/10 hover:border-white/20/60 py-1 rounded-md pr-2 text-left">
-													<span class="leading-5 text-left">✓ {module.name}</span>
-													<button
-														type="button"
-														class="shrink-0 items-center rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-white hover:bg-red-600/80"
-														onclick={() => requestRemoveModule(module.id, module.name)}
-													>
-														✕
-													</button>
-												</div>
-											{/each}
-										{/if}
-									</div>
+										</div>
+									{:else if activeSection === 'factory'}
+										<div>
+											<p class="text-[11px] uppercase tracking-widest text-white/70">The Factory Modules</p>
+											<div class="mt-2 max-h-24 overflow-y-scroll snap-y snap-mandatory section-scrollbar-neutral always-scrollbar-y">
+												{#if factorySelected.length === 0}
+													<div class="flex h-8 items-center text-white/70">No selections yet.</div>
+												{:else}
+													{#each factorySelected as module}
+														<div class="flex snap-start items-start justify-between gap-2 border-b border-transparent last:border-b-0 hover:bg-white/10 hover:border-white/20/60 py-1 rounded-md pr-2 text-left">
+															<span class="leading-5 text-left">✓ {module.name}</span>
+															<button
+																type="button"
+																class="shrink-0 items-center rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-semibold text-white hover:bg-red-600/80"
+																onclick={() => requestRemoveModule(module.id, module.name)}
+															>
+																✕
+															</button>
+														</div>
+													{/each}
+												{/if}
+											</div>
+										</div>
+									{/if}
 								</div>
 							</div>
-						</div>
+						{/if}
 					</div>
 
 				{/if}
@@ -607,49 +651,61 @@ import { slide, fade, fly } from 'svelte/transition';
 				{#if step === 1}
 					<section
 						id="section-sponsor-info"
-						class="rounded-2xl border border-ecsess-700/70 bg-ecsess-900/70 p-6 shadow-sm no-print"
+						class="space-y-6 rounded-2xl border p-6 shadow-sm no-print theme-panel {sectionPanels.center}"
 					>
 						<h2 class="text-white">Step 1 — Sponsor Identification</h2>
-						<p class="text-white/80 mb-6 text-sm md:text-base">
-							
-						</p>
-						<div class="grid gap-4 md:grid-cols-2">
-							<label class="flex flex-col gap-2 text-sm text-white/80">
-								Company Name
-								<input
-									class="rounded-md border border-ecsess-700 bg-ecsess-950 px-3 py-2 text-white"
-									bind:value={state.sponsorInfo.companyName}
-									placeholder="Company"
-								/>
-							</label>
-							<label class="flex flex-col gap-2 text-sm text-white/80">
-								Primary Contact Name
-								<input
-									class="rounded-md border border-ecsess-700 bg-ecsess-950 px-3 py-2 text-white"
-									bind:value={state.sponsorInfo.primaryContactName}
-									placeholder="Full name"
-								/>
-							</label>
-							<label class="flex flex-col gap-2 text-sm text-white/80">
-								Primary Contact Email
-								<input
-									class="rounded-md border border-ecsess-700 bg-ecsess-950 px-3 py-2 text-white"
-									bind:value={state.sponsorInfo.primaryContactEmail}
-									placeholder="name@company.com"
-									aria-invalid={!emailValid && state.sponsorInfo.primaryContactEmail.trim().length > 0}
-								/>
-								{#if state.sponsorInfo.primaryContactEmail.trim().length > 0 && !emailValid}
-									<span class="text-white/70 text-xs">Enter a valid email format.</span>
-								{/if}
-							</label>
-							<label class="flex flex-col gap-2 text-sm text-white/80">
-								Sector
-								<input
-									class="rounded-md border border-ecsess-700 bg-ecsess-950 px-3 py-2 text-white"
-									bind:value={state.sponsorInfo.sector}
-									placeholder="Industry focus"
-								/>
-							</label>
+						<div in:fly={{ x: -24, opacity: 0, duration: 420 }}>
+							<p class="text-white/80 mb-6 text-sm md:text-base">
+								
+							</p>
+							<div class="grid gap-4 md:grid-cols-2">
+								<label class="flex flex-col gap-2 text-sm text-white/80">
+									Company Name
+									<input
+										class="rounded-md border border-ecsess-700 bg-ecsess-950 px-3 py-2 text-white"
+										bind:value={state.sponsorInfo.companyName}
+										placeholder="Company"
+									/>
+								</label>
+								<label class="flex flex-col gap-2 text-sm text-white/80">
+									Primary Contact Name
+									<input
+										class="rounded-md border border-ecsess-700 bg-ecsess-950 px-3 py-2 text-white"
+										bind:value={state.sponsorInfo.primaryContactName}
+										placeholder="Full name"
+									/>
+								</label>
+								<label class="flex flex-col gap-2 text-sm text-white/80">
+									Primary Contact Email
+									<input
+										class="rounded-md border border-ecsess-700 bg-ecsess-950 px-3 py-2 text-white"
+										bind:value={state.sponsorInfo.primaryContactEmail}
+										placeholder="name@company.com"
+										aria-invalid={!emailValid && state.sponsorInfo.primaryContactEmail.trim().length > 0}
+									/>
+									{#if state.sponsorInfo.primaryContactEmail.trim().length > 0 && !emailValid}
+										<span class="text-white/70 text-xs">Enter a valid email format.</span>
+									{/if}
+								</label>
+								<label class="flex flex-col gap-2 text-sm text-white/80">
+									Sector
+									<input
+										class="rounded-md border border-ecsess-700 bg-ecsess-950 px-3 py-2 text-white"
+										bind:value={state.sponsorInfo.sector}
+										placeholder="Industry focus"
+									/>
+								</label>
+							</div>
+						</div>
+						<div class="flex items-center justify-center no-print">
+							<button
+								type="button"
+								onclick={() => { setStep(2); goToSection('ecsess'); }}
+								disabled={step === steps.length || !canProceed}
+								class="rounded-md px-4 py-2 text-sm font-semibold text-white theme-button disabled:opacity-50 disabled:cursor-not-allowed"
+							>
+								Move to Mainline Modules
+							</button>
 						</div>
 					</section>
 				{/if}
@@ -659,51 +715,24 @@ import { slide, fade, fly } from 'svelte/transition';
 						id="section-modules"
 						class="space-y-6 rounded-2xl border p-6 shadow-sm no-print theme-panel {sectionPanels.center}"
 					>
-						<h2 class="text-white">Step 2 — Module Selection</h2>
-						<p class="text-white/80 text-sm md:text-base">
-							Select modules to build an annual engagement plan. Pricing updates in real time.
-						</p>
-						<div class="mt-2 flex items-center justify-between gap-4">
-							{#if activeSection !== 'ecsess'}
-								<button
-									type="button"
-									onclick={() => goToSection(activeSection === 'factory' ? 'codejam' : 'ecsess')}
-									class="rounded-full border px-4 py-2 text-xs font-semibold text-white theme-button"
-								>
-									Head back to {activeSection === 'factory' ? 'CodeJam modules' : 'ECSESS modules'}
-								</button>
-							{:else}
-								<button
-									type="button"
-									onclick={() => setStep(1)}
-									class="rounded-full border px-4 py-2 text-xs font-semibold text-white theme-button"
-								>
-									Head back to Contact Details
-								</button>
-							{/if}
-							{#if activeSection !== 'factory'}
-								<button
-									type="button"
-									onclick={() => goToSection(activeSection === 'ecsess' ? 'codejam' : 'factory')}
-									class="rounded-full border px-4 py-2 text-xs font-semibold text-white theme-button"
-								>
-									Move to {activeSection === 'ecsess' ? 'CodeJam modules' : 'Factory modules'}
-								</button>
-							{:else}
-								<span></span>
-							{/if}
-						</div>
-
+						<h2 class="text-white">
+							{activeSection === 'ecsess'
+								? 'Mainline Modules'
+								: activeSection === 'codejam'
+									? 'CodeJam Sponsorship'
+									: 'The Factory Modules'}
+						</h2>
+						{#if activeSection !== 'codejam'}
+							<p class="text-white/80 text-sm md:text-base">
+								Select modules to build an annual engagement plan. Pricing updates in real time.
+							</p>
+						{/if}
 						{#key activeSection}
 						{#if activeSection === 'ecsess'}
 						<div
 							id="section-ecsess"
 							class="panel-enter rounded-xl border p-4 overflow-visible {sectionToneClass('networking')}"
 						>
-							<div class="mb-4">
-								<h3 class="text-white text-lg font-semibold">ECSESS Modules</h3>
-								<p class="text-white/70 text-xs uppercase tracking-widest">Networking Modules</p>
-							</div>
 							<div class="mb-8">
 								<p class="text-white/70 text-xs uppercase tracking-widest">Flagship Events</p>
 								<div class="mt-4 grid gap-6 md:grid-cols-2">
@@ -745,13 +774,6 @@ import { slide, fade, fly } from 'svelte/transition';
 																</span>
 															</div>
 														{/if}
-														<div class="absolute left-3 bottom-3 flex flex-wrap gap-2 text-[10px]">
-															{#each moduleTags(module.category) as tag}
-																<span class="rounded-full px-2 py-0.5 text-white {tagToneClass(module.category)}">
-																	{tag}
-																</span>
-															{/each}
-														</div>
 														{#if idx === 0}
 															<span class="hint-bob absolute right-3 top-3 rounded-full bg-black/35 px-2 py-1 text-[10px] font-semibold text-white ring-1 ring-white/45">
 																Click on the card to learn more!
@@ -799,6 +821,7 @@ import { slide, fade, fly } from 'svelte/transition';
 									{/each}
 								</div>
 							</div>
+							<p class="text-white/70 text-xs uppercase tracking-widest">Networking Modules</p>
 							{#if networkingModulesList.length === 0}
 								<p class="text-white/70 text-sm">No modules configured for networking yet.</p>
 							{:else}
@@ -841,13 +864,6 @@ import { slide, fade, fly } from 'svelte/transition';
 																</span>
 															</div>
 														{/if}
-														<div class="absolute left-3 bottom-3 flex flex-wrap gap-2 text-[10px]">
-															{#each moduleTags(module.category) as tag}
-																<span class="rounded-full px-2 py-0.5 text-white {tagToneClass(module.category)}">
-																	{tag}
-																</span>
-															{/each}
-														</div>
 														{#if idx === 0}
 															<span class="hint-bob absolute right-3 top-3 rounded-full bg-black/35 px-2 py-1 text-[10px] font-semibold text-white ring-1 ring-white/45">
 																Click on the card to learn more!
@@ -945,13 +961,6 @@ import { slide, fade, fly } from 'svelte/transition';
 																</span>
 															</div>
 														{/if}
-														<div class="absolute left-3 bottom-3 flex flex-wrap gap-2 text-[10px]">
-															{#each moduleTags(module.category) as tag}
-																<span class="rounded-full px-2 py-0.5 text-white {tagToneClass(module.category)}">
-																	{tag}
-																</span>
-															{/each}
-														</div>
 														{#if idx === 0}
 															<span class="hint-bob absolute right-3 top-3 rounded-full bg-black/35 px-2 py-1 text-[10px] font-semibold text-white ring-1 ring-white/45">
 																Click on the card to learn more!
@@ -1009,16 +1018,13 @@ import { slide, fade, fly } from 'svelte/transition';
 						{:else if activeSection === 'codejam'}
 						<div
 							id="section-codejam"
-							class="panel-enter rounded-xl border p-4 overflow-visible {sectionToneClass('codejam')}"
+							class="panel-enter rounded-xl border overflow-visible {sectionToneClass('codejam')}"
 						>
-							<div class="mb-4">
-								<h3 class="text-white text-lg font-semibold">CodeJam Sponsorship Tiers</h3>
-							</div>
-							<div class="codejam-table-wrapper px-6 py-6">
-								<div class="flex items-center justify-between text-xs text-white/80">
+							<div class="codejam-table-wrapper px-6">
+								<div class="flex items-center justify-center gap-6 text-xs text-white/80">
 									<button
 										type="button"
-										onclick={() => (codejamIndex = Math.max(0, codejamIndex - 1))}
+										onclick={() => setCodejamIndex(Math.max(0, codejamIndex - 1))}
 										disabled={codejamIndex === 0}
 										class="flex items-center gap-2 rounded-full border border-white/20 px-3 py-1 text-white/80 transition hover:border-white/50 hover:text-white disabled:opacity-40"
 									>
@@ -1027,7 +1033,7 @@ import { slide, fade, fly } from 'svelte/transition';
 									</button>
 									<button
 										type="button"
-										onclick={() => (codejamIndex = Math.min(codejamMaxIndex, codejamIndex + 1))}
+										onclick={() => setCodejamIndex(Math.min(codejamMaxIndex, codejamIndex + 1))}
 										disabled={codejamIndex === codejamMaxIndex}
 										class="flex items-center gap-2 rounded-full border border-white/20 px-3 py-1 text-white/80 transition hover:border-white/50 hover:text-white disabled:opacity-40"
 									>
@@ -1039,11 +1045,23 @@ import { slide, fade, fly } from 'svelte/transition';
 								{#if currentCodejamTier}
 									{@const tier = currentCodejamTier}
 									{@const isSelected = state.codejamTierId === tier.id}
-									<div class="mt-6">
+									<div class="mt-4">
 											<div class="space-y-6 text-left">
-												<div class="text-left">
-													<p class="text-white text-2xl font-semibold">{tier.name}</p>
-													<p class="text-white/80 text-base">{formatCurrency(tier.price)}</p>
+												<div class="flex flex-wrap items-center justify-between gap-4">
+													<div>
+														<p class="text-white text-2xl font-semibold">{tier.name}</p>
+														<p class="text-white/80 text-base">{formatCurrency(tier.price)}</p>
+													</div>
+													<button
+														type="button"
+														onclick={() => toggleCodejamTier(tier.id)}
+														disabled={
+															tier.id === 'name_partner' && !data.availability.codejamNamePartnerAvailable
+														}
+														class="rounded-md border px-4 py-2 text-xs font-semibold text-white transition disabled:border-white/15 disabled:text-white/70 {actionToneClass('codejam')}"
+													>
+														{isSelected ? 'Unselect sponsorship tier' : 'Select sponsorship tier'}
+													</button>
 												</div>
 
 											<div class="space-y-6">
@@ -1053,34 +1071,74 @@ import { slide, fade, fly } from 'svelte/transition';
 														<div class="mt-2 border-t border-white/20"></div>
 														<div class="divide-y divide-white/10">
 															{#each section.rows as row}
+																{@const change = codejamChange(row)}
+																{@const shouldAnimate = codejamRowChanged(row)}
 																<div class="codejam-row text-[15px] text-white/90 md:text-base">
 																	<span class="codejam-label">{row.label}</span>
+																	{#if selectedCodejamIndex >= 0}
+																		{#if change}
+																			{#if shouldAnimate}
+																				{#key `${row.label}-change-${codejamIndex}`}
+																					<span
+																						class="codejam-change {change.includes('↑') ? 'codejam-change-up' : change.includes('↓') ? 'codejam-change-down' : 'codejam-change-fade'}"
+																						out:fade={{ duration: 0 }}
+																					>
+																						{change}
+																					</span>
+																				{/key}
+																			{:else}
+																				<span class="codejam-change">{change}</span>
+																			{/if}
+																		{:else}
+																			<span class="codejam-change codejam-change--empty"></span>
+																		{/if}
+																	{:else}
+																		<span class="codejam-change codejam-change--empty"></span>
+																	{/if}
 																	{#if row.scale}
-																		{#key `${row.label}-${codejamIndex}`}
+																		{#if shouldAnimate}
+																			{#key `${row.label}-scale-${codejamIndex}`}
+																				<span class="codejam-indicator">
+																					<span class="codejam-indicator__slot">
+																						<span
+																							in:fly={{ x: 18, duration: 200, delay: 260 }}
+																							out:fade={{ duration: 0 }}
+																							class="text-base font-semibold text-white"
+																						>
+																							{row.scale[Math.min(codejamIndex, row.scale.length - 1)]}
+																						</span>
+																					</span>
+																				</span>
+																			{/key}
+																		{:else}
 																			<span class="codejam-indicator">
 																				<span class="codejam-indicator__slot">
-																					<span
-																						in:fly={{ x: 18, duration: 200, delay: 260 }}
-																						out:fly={{ x: -18, duration: 160 }}
-																						class="text-base font-semibold text-white"
-																					>
+																					<span class="text-base font-semibold text-white">
 																						{row.scale[Math.min(codejamIndex, row.scale.length - 1)]}
 																					</span>
 																				</span>
 																			</span>
-																		{/key}
+																		{/if}
 																	{:else}
-																		{#key `${row.label}-${codejamIndex}`}
+																		{#if shouldAnimate}
+																			{#key `${row.label}-dot-${codejamIndex}`}
+																				<span class="codejam-indicator">
+																					<span class="codejam-indicator__slot">
+																						<span
+																							in:fly={{ x: 18, duration: 200, delay: 260 }}
+																							out:fade={{ duration: 0 }}
+																							class="codejam-dot {codejamIndex >= row.min ? 'codejam-dot--on' : 'codejam-dot--off'}"
+																						></span>
+																					</span>
+																				</span>
+																			{/key}
+																		{:else}
 																			<span class="codejam-indicator">
 																				<span class="codejam-indicator__slot">
-																					<span
-																						in:fly={{ x: 18, duration: 200, delay: 260 }}
-																						out:fly={{ x: -18, duration: 160 }}
-																						class="codejam-dot {codejamIndex >= row.min ? 'codejam-dot--on' : 'codejam-dot--off'}"
-																					></span>
+																					<span class="codejam-dot {codejamIndex >= row.min ? 'codejam-dot--on' : 'codejam-dot--off'}"></span>
 																				</span>
 																			</span>
-																		{/key}
+																		{/if}
 																	{/if}
 																</div>
 															{/each}
@@ -1088,19 +1146,6 @@ import { slide, fade, fly } from 'svelte/transition';
 													</div>
 												{/each}
 												</div>
-
-												<div class="flex justify-center">
-												<button
-													type="button"
-													onclick={() => toggleCodejamTier(tier.id)}
-													disabled={
-														tier.id === 'name_partner' && !data.availability.codejamNamePartnerAvailable
-													}
-													class="rounded-md border px-4 py-2 text-xs font-semibold text-white transition disabled:border-white/15 disabled:text-white/70 {actionToneClass('codejam')}"
-												>
-													{isSelected ? 'Unselect sponsorship tier' : 'Select sponsorship tier'}
-												</button>
-											</div>
 										</div>
 									</div>
 								{/if}
@@ -1111,9 +1156,6 @@ import { slide, fade, fly } from 'svelte/transition';
 							id="section-factory"
 							class="panel-enter rounded-xl border p-4 overflow-visible {sectionToneClass('factory')}"
 						>
-							<div class="mb-4">
-								<h3 class="text-white text-lg font-semibold">Factory Modules</h3>
-							</div>
 							{#if factoryModules.length === 0}
 								<p class="text-white/70 text-sm">No modules configured for this category yet.</p>
 							{:else}
@@ -1156,13 +1198,6 @@ import { slide, fade, fly } from 'svelte/transition';
 																</span>
 															</div>
 														{/if}
-														<div class="absolute left-3 bottom-3 flex flex-wrap gap-2 text-[10px]">
-															{#each moduleTags(module.category) as tag}
-																<span class="rounded-full px-2 py-0.5 text-white {tagToneClass(module.category)}">
-																	{tag}
-																</span>
-															{/each}
-														</div>
 														{#if idx === 0}
 															<span class="hint-bob absolute right-3 top-3 rounded-full bg-black/35 px-2 py-1 text-[10px] font-semibold text-white ring-1 ring-white/45">
 																Click on the card to learn more!
@@ -1301,10 +1336,10 @@ import { slide, fade, fly } from 'svelte/transition';
 									CodeJam Tier: {state.codejamTier ?? 'None selected'}
 								</p>
 									<p class="text-sm text-ecsess-700">
-										Factory Tier: {factoryTierLabel(state.factoryTier)}
+										The Factory Tier: {factoryTierLabel(state.factoryTier)}
 									</p>
 								<p class="text-sm text-ecsess-700">
-									Factory Engagement Value: {formatCurrency(state.factoryTotal)}
+									The Factory Engagement Value: {formatCurrency(state.factoryTotal)}
 								</p>
 								{#if platinumReserved}
 									<p class="text-xs text-white0">
@@ -1353,117 +1388,139 @@ import { slide, fade, fly } from 'svelte/transition';
 					</section>
 				{/if}
 
-				{#if step === 1}
-					<div class="flex items-center justify-end no-print">
-						<button
-							type="button"
-							onclick={() => setStep(step + 1)}
-							disabled={step === steps.length || !canProceed}
-							class="rounded-md px-4 py-2 text-sm font-semibold text-white theme-button disabled:opacity-50 disabled:cursor-not-allowed"
-						>
-							Move to module selection
-						</button>
-					</div>
-				{/if}
 			</div>
 
 			<div class="relative flex flex-col">
-				{#if step > 1}
-					<div class="sticky top-8 self-start" in:fly={{ x: 40, opacity: 0, duration: 700 }}>
+				{#if step === 2}
+					<div
+						class="sticky top-8 self-start"
+						in:fly={{ x: 40, opacity: 0, duration: 700 }}
+						out:fly={{ x: 40, opacity: 0, duration: 350 }}
+					>
 						<div class="max-h-[calc(100vh-2rem)] overflow-y-auto rounded-2xl border p-6 shadow-sm theme-panel {sectionPanels.wrapper} section-scrollbar-factory">
-							<p class="text-xs uppercase tracking-widest text-white/70 text-center">
-								ECSESS Networking Events Engagement Value
-							</p>
-							<p class="text-2xl font-semibold text-white text-center">
-								{formatCurrency(ecsessEngagementValue)}
-							</p>
-							<div class="mt-4 border-t border-white/15 pt-4">
-								<p class="text-xs uppercase tracking-widest text-white/70">
-									Current Tier — ECSESS Networking Events
+							<div class="sidebar-metrics-stack gap-2">
+								<p class="text-base uppercase tracking-widest text-white/80 text-center">
+									Total Engagement Value
 								</p>
-								<p class="text-lg font-semibold text-white">{tierLabel(displayTier)}</p>
-								{#if platinumReserved}
-									<p class="text-xs text-white/70 mt-2">
-										Platinum designation is currently reserved.
-									</p>
-								{/if}
-								{#if nextTier}
-									{#if nextTier.id === 'platinum' && !data.availability.platinumAvailable}
-										<p class="text-sm text-white/80 mt-2">
-											Platinum Partner status is currently reserved.
-										</p>
-									{:else}
-										<p class="text-sm text-white/80 mt-2">
-											{formatCurrency(nextTier.amount)} to {nextTier.label} Partner status.
-										</p>
-									{/if}
-								{:else}
-									<p class="text-sm text-white/80 mt-2">Strategic Partner tier achieved.</p>
-								{/if}
-								<div class="mt-3 h-2 w-full overflow-hidden rounded-full bg-white/20">
-									<div
-										class="progress-bar-xs h-full rounded-full bg-white/80 transition-all"
-										style:width={`${progressPercent(state.ecsessTotal, nextTier)}%`}
-									></div>
-								</div>
-							</div>
+								<p class="text-4xl font-semibold text-white text-center">
+									{formatCurrency(state.totalValue)}
+								</p>
 
-							<div class="mt-4 border-t border-white/15 pt-4 text-sm text-white/80">
-								{#if state.codejamTotal > 0 || selectedCodejamTier}
-									<div class="space-y-2" in:slide={{ duration: 220 }}>
+								<div class={`sidebar-section ${showSidebarMetrics && activeSection === 'ecsess' && hasMainline ? 'sidebar-section--open' : ''}`}>
+								<div class="border-t border-white/15 pt-4 pb-4">
+										<p class="text-xs uppercase tracking-widest text-white/70">
+											ECSESS Mainline Engagement Value
+										</p>
+										<p class="text-lg font-semibold text-white">
+											{formatCurrency(state.ecsessTotal)}
+										</p>
+										{#if state.ecsessTotal >= tierThresholds.silver}
+											<p class="text-xs uppercase tracking-widest text-white/70 mt-3">
+												ECSESS Mainline Tier
+											</p>
+											<p class="text-xl font-semibold text-white">{tierLabel(displayTier)}</p>
+										{/if}
+										{#if nextTier}
+											{#if nextTier.id === 'platinum' && !data.availability.platinumAvailable}
+												<p class="text-sm text-white/80 mt-2">
+													Platinum Partner status is currently reserved.
+												</p>
+											{:else}
+												<p class="text-sm text-white/80 mt-2">
+													{formatCurrency(nextTier.amount)} to {nextTier.label} Partner status.
+												</p>
+											{/if}
+										{:else}
+											<p class="text-sm text-white/80 mt-2">Strategic Partner tier achieved.</p>
+										{/if}
+										<div class="mt-3 h-3 w-full overflow-hidden rounded-full bg-white/20 relative">
+											<div
+												class="progress-bar-xs h-full rounded-full bg-white/80 transition-all duration-700"
+												style:width={`${progressPercent(state.ecsessTotal, nextTier, tierThresholds)}%`}
+											></div>
+										</div>
+									</div>
+								</div>
+
+								<div class={`sidebar-section ${showSidebarMetrics && activeSection === 'codejam' && hasCodejam ? 'sidebar-section--open' : ''}`}>
+						<div class="border-t border-white/15 pt-4 pb-4 text-sm text-white/80">
 										<p class="text-xs uppercase tracking-widest text-white/70 text-center">
 											CodeJam Tier
 										</p>
-										<p class="text-2xl font-semibold text-white text-center">
-											{selectedCodejamTier?.name ?? 'None selected'}
+										<p class="text-lg font-semibold text-white text-center">
+											{selectedCodejamTier?.name}
 										</p>
 										<p class="mt-1 text-center text-sm text-white/80">
 											CodeJam Engagement Value: {formatCurrency(state.codejamTotal)}
 										</p>
-										<div class="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/20">
+										<div class="mt-2 h-3 w-full overflow-hidden rounded-full bg-white/20">
 											<div
-												class="h-full rounded-full bg-white/80 transition-all"
+												class="h-full rounded-full bg-white/80 transition-all duration-700"
 												style:width={`${codejamMaxValue ? Math.min(100, (state.codejamTotal / codejamMaxValue) * 100) : 0}%`}
 											></div>
 										</div>
 									</div>
-								{/if}
+								</div>
 
-								{#if state.factoryTotal > 0}
-									<div class="mt-4 border-t border-white/15 pt-4 space-y-2" in:slide={{ duration: 220 }}>
+								<div class={`sidebar-section ${showSidebarMetrics && activeSection === 'factory' && hasFactory ? 'sidebar-section--open' : ''}`}>
+						<div class="border-t border-white/15 pt-4 pb-4 space-y-2 text-sm text-white/80">
 										<p class="text-xs uppercase tracking-widest text-white/70 text-center">
-											Factory Tier
+											The Factory Tier
 										</p>
-										<p class="text-2xl font-semibold text-white text-center">
+										<p class="text-lg font-semibold text-white text-center">
 											{factoryTierLabel(state.factoryTier)}
 										</p>
 										<p class="mt-1 text-center text-sm text-white/80">
-											Factory Engagement Value: {formatCurrency(state.factoryTotal)}
+											The Factory Engagement Value: {formatCurrency(state.factoryTotal)}
 										</p>
 										{#if factoryNextTier}
-											<p>{formatCurrency(factoryNextTier.amount)} to Factory {factoryTierLabel(factoryNextTier.id)}</p>
+											<p>{formatCurrency(factoryNextTier.amount)} to The Factory {factoryTierLabel(factoryNextTier.id)}</p>
 										{:else if state.factoryTier === 'platinum'}
 											<p>Foundry Partner tier achieved.</p>
 										{/if}
-										<div class="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/20">
+										<div class="mt-2 h-3 w-full overflow-hidden rounded-full bg-white/20 relative">
 											<div
-												class="progress-bar-factory h-full rounded-full bg-white/80 transition-all"
-												style:width={`${progressPercent(state.factoryTotal, factoryNextTier)}%`}
+												class="progress-bar-factory h-full rounded-full bg-white/80 transition-all duration-700"
+												style:width={`${progressPercent(state.factoryTotal, factoryNextTier, {
+													silver: factoryTierThresholds.silver,
+													gold: factoryTierThresholds.gold,
+													platinum: factoryTierThresholds.platinum,
+													strategic: Number.POSITIVE_INFINITY
+												})}%`}
 											></div>
 										</div>
 									</div>
-								{/if}
+								</div>
 							</div>
-							<div class="no-print mt-6 space-y-3">
-								<button
-									type="button"
-									onclick={() => setStep(step + 1)}
-									disabled={step === steps.length || !canProceed}
-									class="w-full rounded-md px-4 py-2 text-sm font-semibold text-white theme-button disabled:opacity-50 disabled:cursor-not-allowed"
-								>
-									Move to proposal summary →
-								</button>
-							</div>
+							{#if step === 2}
+								<div class="no-print space-y-3 mt-4">
+									{#if activeSection === 'ecsess'}
+										<button
+											type="button"
+											onclick={() => goToSection('codejam')}
+											class="w-full rounded-md px-4 py-2 text-sm font-semibold text-white theme-button"
+										>
+											Move to CodeJam Sponsorship
+										</button>
+									{:else if activeSection === 'codejam'}
+										<button
+											type="button"
+											onclick={() => goToSection('factory')}
+											class="w-full rounded-md px-4 py-2 text-sm font-semibold text-white theme-button"
+										>
+											Move to The Factory Modules
+										</button>
+									{:else}
+										<button
+											type="button"
+											onclick={() => setStep(3)}
+											class="w-full rounded-md px-4 py-2 text-sm font-semibold text-white theme-button"
+										>
+											Move to Proposal Summary
+										</button>
+									{/if}
+								</div>
+							{/if}
 						</div>
 					</div>
 				{/if}
@@ -1532,6 +1589,7 @@ import { slide, fade, fly } from 'svelte/transition';
 	.progress-bar-factory {
 		animation: progressPulse 2.4s ease-in-out infinite;
 	}
+
 
 	.theme-ecsess {
 		--theme-bg-from: #1a5f2a;
@@ -1693,6 +1751,7 @@ import { slide, fade, fly } from 'svelte/transition';
 		padding: 0 12px;
 		padding-right: 140px;
 		overflow: hidden;
+		gap: 12px;
 	}
 
 	.codejam-label {
@@ -1701,6 +1760,84 @@ import { slide, fade, fly } from 'svelte/transition';
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+	}
+
+	.codejam-change {
+		width: 22px;
+		text-align: center;
+		font-size: 16px;
+		line-height: 1;
+		color: #ffffff;
+		flex: 0 0 22px;
+	}
+
+	.codejam-change--empty {
+		opacity: 0;
+	}
+
+	.codejam-change-up {
+		animation: codejamArrowUp 240ms ease-out;
+	}
+
+	.codejam-change-down {
+		animation: codejamArrowDown 240ms ease-out;
+	}
+
+	.codejam-change-fade {
+		animation: codejamFade 220ms ease-out;
+	}
+
+	.sidebar-metrics-stack {
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+		transition: margin 0.25s ease, padding 0.25s ease;
+	}
+
+	.sidebar-section {
+		max-height: 0;
+		opacity: 0;
+		transform: translateY(-12px);
+		overflow: hidden;
+		transition: max-height 0.26s ease, opacity 0.2s ease, transform 0.26s ease;
+	}
+
+	.sidebar-section--open {
+		max-height: 600px;
+		opacity: 1;
+		transform: translateY(0);
+		margin-top: 1rem;
+	}
+
+	@keyframes codejamArrowUp {
+		from {
+			transform: translateY(10px);
+			opacity: 0;
+		}
+		to {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+
+	@keyframes codejamArrowDown {
+		from {
+			transform: translateY(-10px);
+			opacity: 0;
+		}
+		to {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+
+	@keyframes codejamFade {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
 	}
 
 	.codejam-dot {
