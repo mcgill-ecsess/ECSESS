@@ -1238,6 +1238,28 @@ import { slide, fade, fly } from 'svelte/transition';
 									? 'CodeJam Sponsorship'
 									: 'The Factory Modules'}
 						</h2>
+						{#if activeSection === 'ecsess'}
+							<div class="codejam-package-stack">
+								<img
+									src="/ecsess_package/page1.png"
+									alt="ECSESS Sponsorship Package page 1"
+									class="codejam-package-img"
+									loading="lazy"
+								/>
+								<img
+									src="/ecsess_package/page2.png"
+									alt="ECSESS Sponsorship Package page 2"
+									class="codejam-package-img"
+									loading="lazy"
+								/>
+								<img
+									src="/ecsess_package/page3.png"
+									alt="ECSESS Sponsorship Package page 3"
+									class="codejam-package-img"
+									loading="lazy"
+								/>
+							</div>
+						{/if}
 						{#if activeSection !== 'codejam'}
 							<p class="text-white/80 text-sm md:text-base">
 								Select modules to build an annual engagement plan. Pricing updates in real time.
@@ -1610,6 +1632,26 @@ import { slide, fade, fly } from 'svelte/transition';
 									{@const isSelected = state.codejamTierId === tier.id}
 									<div class="mt-4">
 											<div class="space-y-4 text-left">
+												<div class="codejam-package-stack">
+													<img
+														src="/codejam_package/page1.png"
+														alt="CodeJam Sponsorship Package page 1"
+														class="codejam-package-img"
+														loading="lazy"
+													/>
+													<img
+														src="/codejam_package/page2.png"
+														alt="CodeJam Sponsorship Package page 2"
+														class="codejam-package-img"
+														loading="lazy"
+													/>
+													<img
+														src="/codejam_package/page3.png"
+														alt="CodeJam Sponsorship Package page 3"
+														class="codejam-package-img"
+														loading="lazy"
+													/>
+												</div>
 												<div class="codejam-tier-header">
 													<p class="text-white text-2xl font-semibold">{tier.name}</p>
 													<p class="text-white/80 text-base">{formatCurrency(tier.price)}</p>
@@ -1734,6 +1776,20 @@ import { slide, fade, fly } from 'svelte/transition';
 									</div>
 								</div>
 							{/if}
+							<div class="codejam-package-stack codejam-package-stack--after">
+								<img
+									src="/codejam_package/page4.png"
+									alt="CodeJam Sponsorship Package page 4"
+									class="codejam-package-img"
+									loading="lazy"
+								/>
+								<img
+									src="/codejam_package/page5.png"
+									alt="CodeJam Sponsorship Package page 5"
+									class="codejam-package-img"
+									loading="lazy"
+								/>
+							</div>
 						</div>
 						{:else}
 						<div
@@ -3261,6 +3317,25 @@ import { slide, fade, fly } from 'svelte/transition';
 		padding: 6px 0 8px;
 		background: color-mix(in srgb, rgba(12, 22, 66, 0.92) 88%, transparent);
 		backdrop-filter: blur(6px);
+	}
+
+	.codejam-package-stack {
+		display: flex;
+		flex-direction: column;
+		gap: 18px;
+		margin-bottom: 18px;
+	}
+
+	.codejam-package-stack--after {
+		margin-top: 22px;
+	}
+
+	.codejam-package-img {
+		width: 100%;
+		border-radius: 18px;
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+		display: block;
 	}
 
 	.sidebar-metrics-stack {
