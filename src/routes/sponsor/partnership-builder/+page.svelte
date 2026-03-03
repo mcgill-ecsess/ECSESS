@@ -1675,9 +1675,28 @@ import { slide, fade, fly } from 'svelte/transition';
 								status.
 							</p>
 							<div class="space-y-5 text-base text-white/90">
+								<div class="text-center">
+									<p class="text-xs uppercase tracking-widest text-white/70">Total Engagement</p>
+									<p class="mt-2 text-2xl font-semibold text-white">
+										{formatCurrency(state.totalValue)}
+									</p>
+								</div>
+
 								{#if ecsessSelected.length > 0}
 									<div>
 										<p class="text-xs uppercase tracking-widest text-white/70">Mainline Modules</p>
+										{#if displayTier !== 'none'}
+											<p class="mt-2 text-center text-2xl font-semibold text-white">
+												{tierLabel(displayTier)} Partner
+											</p>
+											<p class="mt-1 text-center text-base text-white/85">
+												{formatCurrency(state.ecsessTotal)}
+											</p>
+										{:else}
+											<p class="mt-1 text-center text-lg font-semibold text-white">
+												{formatCurrency(state.ecsessTotal)}
+											</p>
+										{/if}
 										<div class="mt-3 space-y-2">
 											{#each ecsessSelected as module}
 												<div class="flex items-start justify-between gap-2 rounded-md border border-transparent px-2 py-2 hover:bg-white/10 hover:border-white/20/60">
@@ -1699,6 +1718,12 @@ import { slide, fade, fly } from 'svelte/transition';
 									<div class="border-t border-white/15"></div>
 									<div>
 										<p class="text-xs uppercase tracking-widest text-white/70">CodeJam Sponsorship</p>
+										<p class="mt-2 text-center text-2xl font-semibold text-white">
+											{selectedCodejamTier.name} Sponsor
+										</p>
+										<p class="mt-1 text-center text-base text-white/85">
+											{formatCurrency(state.codejamTotal)}
+										</p>
 										<div class="mt-3 space-y-2">
 											<div class="flex items-start justify-between gap-2 rounded-md border border-transparent px-2 py-2 hover:bg-white/10 hover:border-white/20/60">
 												<span class="leading-6 text-left">✓ {selectedCodejamTier.name}</span>
@@ -1718,6 +1743,18 @@ import { slide, fade, fly } from 'svelte/transition';
 									<div class="border-t border-white/15"></div>
 									<div>
 										<p class="text-xs uppercase tracking-widest text-white/70">The Factory Modules</p>
+										{#if state.factoryTier !== 'none'}
+											<p class="mt-2 text-center text-2xl font-semibold text-white">
+												{factoryTierLabel(state.factoryTier)}
+											</p>
+											<p class="mt-1 text-center text-base text-white/85">
+												{formatCurrency(state.factoryTotal)}
+											</p>
+										{:else}
+											<p class="mt-1 text-center text-lg font-semibold text-white">
+												{formatCurrency(state.factoryTotal)}
+											</p>
+										{/if}
 										<div class="mt-3 space-y-2">
 											{#each factorySelected as module}
 												<div class="flex items-start justify-between gap-2 rounded-md border border-transparent px-2 py-2 hover:bg-white/10 hover:border-white/20/60">
@@ -1808,7 +1845,7 @@ import { slide, fade, fly } from 'svelte/transition';
 										The Factory Tier: {factoryTierLabel(state.factoryTier)}
 									</p>
 								<p class="text-sm text-ecsess-700">
-									The Factory Engagement Value: {formatCurrency(state.factoryTotal)}
+									The Factory Engagement: {formatCurrency(state.factoryTotal)}
 								</p>
 								{#if platinumReserved}
 									<p class="text-xs text-white0">
@@ -1869,7 +1906,7 @@ import { slide, fade, fly } from 'svelte/transition';
 						<div class="max-h-[calc(100vh-2rem)] overflow-y-auto rounded-2xl border p-6 shadow-sm theme-panel {sectionPanels.wrapper} section-scrollbar-factory">
 							<div class="sidebar-metrics-stack gap-2">
 								<p class="text-base uppercase tracking-widest text-white/80 text-center">
-									Total Engagement Value
+									Total Engagement
 								</p>
 								<p class="text-4xl font-semibold text-white text-center">
 									{formatCurrency(state.totalValue)}
@@ -1878,7 +1915,7 @@ import { slide, fade, fly } from 'svelte/transition';
 								<div class={`sidebar-section ${showSidebarMetrics && activeSection === 'ecsess' && hasMainline ? 'sidebar-section--open' : ''}`}>
 								<div class="border-t border-white/15 pt-4 pb-4">
 										<p class="text-xs uppercase tracking-widest text-white/70">
-											ECSESS Mainline Engagement Value
+											ECSESS Mainline Engagement
 										</p>
 										<p class="text-lg font-semibold text-white">
 											{formatCurrency(state.ecsessTotal)}
@@ -1920,7 +1957,7 @@ import { slide, fade, fly } from 'svelte/transition';
 											{selectedCodejamTier?.name}
 										</p>
 										<p class="mt-1 text-center text-sm text-white/80">
-											CodeJam Engagement Value: {formatCurrency(state.codejamTotal)}
+											CodeJam Engagement: {formatCurrency(state.codejamTotal)}
 										</p>
 										<div class="mt-2 h-3 w-full overflow-hidden rounded-full bg-white/20">
 											<div
@@ -1940,7 +1977,7 @@ import { slide, fade, fly } from 'svelte/transition';
 											{factoryTierLabel(state.factoryTier)}
 										</p>
 										<p class="mt-1 text-center text-sm text-white/80">
-											The Factory Engagement Value: {formatCurrency(state.factoryTotal)}
+											The Factory Engagement: {formatCurrency(state.factoryTotal)}
 										</p>
 										{#if factoryNextTier}
 											<p>{formatCurrency(factoryNextTier.amount)} to The Factory {factoryTierLabel(factoryNextTier.id)}</p>
