@@ -5,7 +5,7 @@
 	import { slide } from 'svelte/transition';
 	let menuHidden = $state(true);
 
-	const announcementIntro = 'ECSESS Election: Nomination period is happening! See more info: ';
+	const announcementIntro = 'ECSESS Election: Campaigning period is happening! See more info: ';
 	const announcementLinkUrl = 'https://ecsess.mcgilleus.ca/join';
 	const announcementLinkText = 'ecsess.mcgilleus.ca/join';
 </script>
