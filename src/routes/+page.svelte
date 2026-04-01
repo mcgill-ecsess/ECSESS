@@ -22,7 +22,7 @@
 		<!-- Left: Description and Quick Links -->
 		<div class="ml-4 flex flex-col items-center gap-2 text-center lg:items-start lg:text-left">
 			<h1 class="mb-2">
-				{#each 'We are ECSESS!'.split('') as char, i}
+				{#each 'We are probably ECSESS!'.split('') as char, i}
 					<span class="page-title" in:fade|global={{ delay: 150 + i * 60, duration: 800 }}>
 						{char}
 					</span>
@@ -51,11 +51,6 @@
 			<div
 				class="ring-ecsess-400/20 ring-offset-ecsess-900/50 relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-2xl shadow-2xl ring-1 ring-offset-2"
 			>
-				<div
-					class="from-ecsess-500/10 absolute inset-0 rounded-2xl bg-linear-to-br to-transparent"
-					aria-hidden="true"
-				></div>
-				
 				<!-- <img
 					src={data.councilPhoto}
 					alt="ECSESS Council"
@@ -64,7 +59,7 @@
 				
 				<iframe
 					class="block h-full w-full"
-					src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=1&playsinline=1&rel=0"
+					src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=0&playsinline=1&rel=0"
 					title="Rick Astley - Never Gonna Give You Up"
 					allow="autoplay; encrypted-media; picture-in-picture"
 					allowfullscreen
