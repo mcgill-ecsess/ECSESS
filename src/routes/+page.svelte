@@ -49,26 +49,18 @@
 		<!-- Right: Featured Video for April Fool's Day -->
 		<div class="relative flex w-full items-center justify-center lg:max-w-none">
 			<div
-				class="ring-ecsess-400/20 ring-offset-ecsess-900/50 relative flex aspect-video w-full items-center justify-center overflow-hidden rounded-2xl shadow-2xl ring-1 ring-offset-2"
+				class="ring-ecsess-400/20 ring-offset-ecsess-900/50 relative flex w-full items-center justify-center overflow-hidden rounded-2xl shadow-2xl ring-1 ring-offset-2"
 			>
 				<div
 					class="from-ecsess-500/10 absolute inset-0 rounded-2xl bg-linear-to-br to-transparent"
 					aria-hidden="true"
 				></div>
-				
-				<!-- <img
+
+				<img
 					src={data.councilPhoto}
 					alt="ECSESS Council"
 					class="relative h-full w-full object-contain object-center"
-				/> -->
-				
-				<iframe
-					class="block h-full w-full"
-					src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=1&playsinline=1&rel=0"
-					title="Rick Astley - Never Gonna Give You Up"
-					allow="autoplay; encrypted-media; picture-in-picture"
-					allowfullscreen
-				></iframe>
+				/>
 			</div>
 		</div>
 	</div>
