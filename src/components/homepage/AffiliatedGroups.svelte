@@ -1,15 +1,10 @@
 <script lang="ts">
-	import { Globe, Instagram, Wrench, Users, CodeXml, Cpu } from '@lucide/svelte';
-
-	// All icons from @lucide/svelte share the same component type; reuse one for typing
-	type IconComponent = typeof Wrench;
-
 	type Group = {
 		name: string;
 		description: string;
 		website: string;
 		instagram?: string;
-		icon: IconComponent;
+		icon: string;
 		features: string[];
 	};
 
@@ -20,7 +15,7 @@
 				"McGill Engineering's largest annual hackathon, a 36-hour programming competition where students create innovative projects!",
 			website: 'https://codejam.mcgilleus.ca/',
 			instagram: 'https://www.instagram.com/mcgillcodejam/',
-			icon: CodeXml,
+			icon: '💻',
 			features: ['Biggest Hackathon in Engineering', 'Great prizes', 'Networking opportunities']
 		},
 		{
@@ -29,7 +24,7 @@
 				'A student-run lab space for developing personal projects, gaining experience with cutting-edge hardware, and fostering innovation.',
 			website: 'https://factory.mcgilleus.ca/',
 			instagram: 'https://www.instagram.com/thefactory_mcgill/',
-			icon: Wrench,
+			icon: '🔧',
 			features: ['Student-run Lab Space', '3D Printing', 'Hardware Workshops']
 		},
 		{
@@ -38,7 +33,7 @@
 				'First Year Council of the McGill Electrical, Computer, Software Engineering Student Society.',
 			website: '',
 			instagram: 'https://www.instagram.com/ecsessbits/',
-			icon: Users,
+			icon: '🎓',
 			features: ['First Year Council', 'Fun Events', 'Study Sessions']
 		},
 		{
@@ -47,78 +42,63 @@
 				'One of the largest IEEE student branches in Eastern Canada, offering professional development, networking, and industry connections.',
 			website: 'https://ieee.mcgilleus.ca/',
 			instagram: 'https://www.instagram.com/ieeemcgill/',
-			icon: Cpu,
+			icon: '⚡',
 			features: ['Technical Talks', 'Arduino Workshops', 'Networking Events']
 		}
 	];
 </script>
 
-<div class="container mx-auto px-4">
-	<!-- Section Header -->
-	<div class="my-12 text-center">
-		<h2 id="affiliated-clubs-title" class="text-ecsess-100 mb-2 text-4xl font-bold md:text-5xl">
-			Subcommittees & Affiliated Groups
+<div>
+	<!-- Section header -->
+	<div style="margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #808080;">
+		<h2 id="affiliated-clubs-title" style="font-size: 15px; font-weight: bold; color: #000080; margin: 0 0 4px 0;">
+			Subcommittees &amp; Affiliated Groups
 		</h2>
-		<p class="text-ecsess-200 mx-auto max-w-2xl text-base">
-			Explore opportunities to enhance your skills, build innovative projects, and connect with the
-			engineering community through our subcommittees and affiliated groups.
+		<p style="font-size: 11px; color: #444; margin: 0;">
+			Explore opportunities to enhance your skills and connect with the engineering community.
 		</p>
 	</div>
 
-	<!-- Clubs Grid: 2x2 on large screens -->
-	<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+	<!-- Win2k icon-view style grid (like My Computer / Windows Explorer) -->
+	<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
 		{#each groups as group, i (group.name)}
-			{@const Icon = group.icon}
-			<article
-				class="bg-ecsess-950 border-ecsess-800 flex flex-col overflow-hidden rounded-lg border text-left"
-				aria-labelledby={`group-${i}-title`}
-			>
-				<div class="flex flex-1 flex-col p-7 md:p-8">
-					<!-- Header: icon + name -->
-					<header class="mb-5 flex items-center justify-start gap-4">
-						<div
-							class="bg-ecsess-800 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl"
-						>
-							<Icon
-								class="text-ecsess-300 size-7"
-								strokeWidth={2.5}
-								aria-hidden="true"
-								focusable="false"
-							/>
-						</div>
-						<h3 id={`group-${i}-title`} class="text-ecsess-50 text-2xl font-bold">
-							{group.name}
-						</h3>
-					</header>
+			<!-- Each group is a Win2k window with its own title bar -->
+			<div class="win-window" style="margin: 0;" aria-labelledby={`group-${i}-title`}>
+				<!-- Mini title bar -->
+				<div
+					class="win-titlebar"
+					style="font-size: 11px; padding: 2px 5px;"
+				>
+					<span style="font-size: 13px;">{group.icon}</span>
+					<span id={`group-${i}-title`} class="flex-1">{group.name}</span>
+					<button class="win-titlebar-btn" style="font-size:8px;">✕</button>
+				</div>
 
-					<!-- Description -->
-					<p class="text-ecsess-200 mb-5 text-base leading-relaxed md:text-lg">
-						{group.description}
-					</p>
+				<!-- Content -->
+				<div style="padding: 10px; background: #ffffff; font-size: 12px;">
+					<p style="color: #333; line-height: 1.5; margin-bottom: 8px;">{group.description}</p>
 
-					<!-- Features -->
-					<ul class="mb-5 list-none space-y-2 ps-0 text-base md:text-lg" role="list">
-						{#each group.features as feature (feature)}
-							<li class="flex items-center gap-2">
-								<span class="bg-ecsess-500 h-1.5 w-1.5 shrink-0 rounded-full" aria-hidden="true"
-								></span>
-								<span class="text-ecsess-100 font-medium">{feature}</span>
+					<!-- Feature list as Win2k checkboxes -->
+					<ul style="list-style: none; padding: 0; margin: 0 0 8px 0;">
+						{#each group.features as feature}
+							<li style="display: flex; align-items: center; gap: 4px; margin-bottom: 2px; font-size: 11px;">
+								<span style="color: #0a246a; font-size: 12px;">✔</span>
+								<span>{feature}</span>
 							</li>
 						{/each}
 					</ul>
 
-					<!-- Links -->
-					<div class="border-ecsess-800 mt-auto flex flex-wrap items-center gap-3 border-t pt-5">
+					<!-- Link buttons -->
+					<div style="display: flex; gap: 4px; flex-wrap: wrap; padding-top: 6px; border-top: 1px solid #d4d0c8;">
 						{#if group.instagram}
 							<a
 								href={group.instagram}
 								target="_blank"
 								rel="noopener noreferrer external"
-								aria-label={`Follow ${group.name} on Instagram`}
-								class="text-ecsess-300 hover:text-ecsess-100 border-ecsess-700 bg-ecsess-900/50 hover:bg-ecsess-800/80 inline-flex items-center gap-2 rounded-md border px-4 py-2 text-base"
+								class="win-btn"
+								style="font-size: 10px; min-width: auto; padding: 2px 6px; text-decoration: none; color: #000;"
 							>
-								<Instagram class="size-5" strokeWidth={2.5} aria-hidden="true" focusable="false" />
-								<span>Instagram</span>
+								📸 Instagram
 							</a>
 						{/if}
 						{#if group.website}
@@ -126,16 +106,15 @@
 								href={group.website}
 								target="_blank"
 								rel="noopener noreferrer external"
-								aria-label={`Visit ${group.name} website`}
-								class="text-ecsess-300 hover:text-ecsess-100 border-ecsess-700 bg-ecsess-900/50 hover:bg-ecsess-800/80 inline-flex items-center gap-2 rounded-md border px-4 py-2 text-base"
+								class="win-btn"
+								style="font-size: 10px; min-width: auto; padding: 2px 6px; text-decoration: none; color: #000;"
 							>
-								<Globe class="size-5" strokeWidth={2.5} aria-hidden="true" focusable="false" />
-								<span>Website</span>
+								🌐 Website
 							</a>
 						{/if}
 					</div>
 				</div>
-			</article>
+			</div>
 		{/each}
 	</div>
 </div>

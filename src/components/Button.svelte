@@ -5,9 +5,7 @@
 <button
 	{disabled}
 	{onclick}
-	class="bg-ecsess-600 text-ecsess-50
-		hover:bg-ecsess-700 w-fit rounded-md
-		px-6 py-3 text-sm font-semibold transition-colors hover:cursor-pointer {className}"
+	class="win-btn {className}"
 >
 	{@render children()}
 </button>

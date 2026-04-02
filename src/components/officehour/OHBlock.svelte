@@ -9,14 +9,17 @@
 </script>
 
 <div
-	class="bg-ecsess-100 text-ecsess-900 hover:bg-ecsess-200 grid h-full place-content-center rounded-md text-center shadow-md transition-all hover:shadow-lg"
+	class="win-raised h-full grid place-content-center text-center"
+	style="background: #ece9d8; cursor: default;"
+	onmouseenter={(e) => { (e.currentTarget as HTMLElement).style.background = '#d4d0c8'; }}
+	onmouseleave={(e) => { (e.currentTarget as HTMLElement).style.background = '#ece9d8'; }}
 >
-	<p class="text-base leading-tight font-semibold">
+	<p style="font-size: 11px; font-weight: bold; color: #000080; line-height: 1.2;">
 		{officeHour.member.name.split(' ')[0]}
 	</p>
 
 	{#if !isShortBlock}
-		<p class="text-ecsess-700 mt-0.5 text-[11px] leading-tight opacity-90">
+		<p style="font-size: 9px; color: #444; margin-top: 1px; line-height: 1.2;">
 			{shortenPosition(officeHour.member.position)}
 		</p>
 	{/if}
