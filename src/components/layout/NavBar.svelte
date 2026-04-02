@@ -1,74 +1,113 @@
 <script>
-	import NavButton from './NavButton.svelte';
 	import ECSESS from 'assets/ECSESS.png';
-	import { Menu } from '@lucide/svelte';
 	import { slide } from 'svelte/transition';
 	let menuHidden = $state(true);
 
 	const announcementIntro = 'ECSESS Election results are out! Check them out here: ';
 	const announcementLinkUrl = 'https://ssmu.simplyvoting.com/voting/guest/elections/286648/results';
 	const announcementLinkText = 'ssmu.simplyvoting.com';
+
+	const navItems = [
+		{ href: '/', label: 'Home' },
+		{ href: '/council', label: 'Meet the council' },
+		{ href: '/events', label: 'Events' },
+		{ href: '/resources', label: 'Resources' },
+		{ href: '/devteam', label: 'Dev Team' },
+		{ href: '/join', label: 'Join ECSESS' },
+	];
 </script>
 
+<!-- Windows 2000 Taskbar / Window chrome nav -->
 <div class="sticky top-0 z-40 w-full">
-	<nav class="bg-ecsess-black text-ecsess-100 w-full py-1">
-		<!-- Small screens -->
-		<div class="block md:hidden">
-			<div class="mx-4 flex items-center-safe justify-between">
-				<a href="/">
-					<img src={ECSESS} alt="ECSESS Logo" class="w-20 p-2" />
+	<!-- Taskbar (Start bar style) -->
+	<div
+		class="w-full flex items-stretch"
+		style="background: linear-gradient(to bottom, #1c5fbd 0%, #0a246a 40%, #0a246a 60%, #1f5bbc 100%); min-height: 30px;"
+	>
+		<!-- Start button -->
+		<a
+			href="/"
+			class="flex items-center gap-1 px-3 py-1 shrink-0"
+			style="background: linear-gradient(to bottom, #5f9ed6, #2a6cb5); border-top: 1px solid #9ac3e8; border-right: 1px solid #08245a; font-weight: bold; font-size: 13px; color: #ffffff; text-shadow: 1px 1px 1px #000; min-width: 100px;"
+		>
+			<img src={ECSESS} alt="ECSESS Logo" style="height: 20px;" />
+			<span style="font-size: 13px; font-weight: bold; color: #fff;">ECSESS</span>
+		</a>
+
+		<!-- Separator -->
+		<div style="width: 1px; background: #08245a; margin: 2px 0;"></div>
+		<div style="width: 1px; background: #3976c5; margin: 2px 0;"></div>
+
+		<!-- Nav buttons (desktop) -->
+		<div class="hidden md:flex items-center">
+			{#each navItems as item}
+				<a
+					href={item.href}
+					class="px-4 py-1 text-white text-sm hover:underline"
+					style="font-size: 12px; color: #ffffff; text-shadow: 1px 1px 1px rgba(0,0,0,0.5); white-space: nowrap;"
+				>
+					{item.label}
 				</a>
-
-				<button
-					type="button"
-					class="bg-ecsess-black-hover hover:bg-ecsess-800 active:bg-ecsess-900 grid size-10 place-items-center rounded-md transition-colors ease-in-out"
-					onclick={() => {
-						menuHidden = !menuHidden;
-					}}
-				>
-					<Menu class="size-6 transition-transform duration-300 ease-in-out" />
-				</button>
-			</div>
-
-			{#if !menuHidden}
-				<div
-					class="bg-ecsess-900 border-ecsess-700 mx-2 mb-2 flex w-auto flex-col gap-1 rounded-lg border-2 px-2 py-2 shadow-lg"
-					transition:slide
-				>
-					<NavButton href="/">Home</NavButton>
-					<NavButton href="/council">Meet the council</NavButton>
-					<NavButton href="/events">Events</NavButton>
-					<NavButton href="/resources">Resources</NavButton>
-					<NavButton href="/devteam">Dev Team</NavButton>
-					<NavButton href="/join">Join ECSESS</NavButton>
-				</div>
-			{/if}
+			{/each}
 		</div>
 
-		<!-- Medium and larger screens -->
-		<div class="hidden md:block">
-			<div class="flex place-content-center items-end">
-				<a href="/">
-					<img src={ECSESS} alt="ECSESS Logo" class="h-12 p-2" />
-				</a>
-				<NavButton href="/">Home</NavButton>
-				<NavButton href="/council">Meet the council</NavButton>
-				<NavButton href="/events">Events</NavButton>
-				<NavButton href="/resources">Resources</NavButton>
-				<NavButton href="/devteam">Dev Team</NavButton>
-				<NavButton href="/join">Join ECSESS</NavButton>
-			</div>
-		</div>
-	</nav>
-	<!-- Small announcement underneath navbar -->
-	<div class="border-ecsess-black bg-ecsess-800 border-b px-4 py-2 shadow-sm" role="alert">
-		<p class="text-ecsess-100 text-center text-sm font-medium md:text-base">
-			{announcementIntro}<a
-				href={announcementLinkUrl}
-				class="text-ecsess-50 decoration-ecsess-400 hover:decoration-ecsess-300 underline underline-offset-2"
+		<!-- Mobile hamburger -->
+		<div class="flex md:hidden items-center ml-2">
+			<button
+				type="button"
+				onclick={() => { menuHidden = !menuHidden; }}
+				class="win-btn text-xs px-2 py-0.5"
+				style="min-width: auto; font-size: 11px;"
+				aria-label="Toggle navigation"
 			>
-				{announcementLinkText}
-			</a>
-		</p>
+				☰ Menu
+			</button>
+		</div>
+
+		<!-- Spacer -->
+		<div class="flex-1"></div>
+
+		<!-- System tray clock area -->
+		<div
+			class="hidden md:flex items-center px-3"
+			style="background: linear-gradient(to bottom, #1454b3, #0a246a); border-left: 1px solid #08245a; font-size: 11px; color: #ffffff;"
+		>
+			{new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+		</div>
+	</div>
+
+	<!-- Mobile dropdown -->
+	{#if !menuHidden}
+		<div
+			class="win-window md:hidden"
+			style="margin: 2px 4px;"
+			transition:slide
+		>
+			<div class="win-titlebar text-xs justify-between">
+				<span>Navigation</span>
+				<button onclick={() => { menuHidden = true; }} class="win-titlebar-btn">✕</button>
+			</div>
+			<div class="p-1 flex flex-col gap-0.5">
+				{#each navItems as item}
+					<a href={item.href} class="win-menu-item block" onclick={() => { menuHidden = true; }}>
+						{item.label}
+					</a>
+				{/each}
+			</div>
+		</div>
+	{/if}
+
+	<!-- Announcement bar (IE-style info bar) -->
+	<div
+		class="w-full flex items-center gap-2 px-3 py-1"
+		style="background: #fffacd; border-top: 1px solid #d4d0c8; border-bottom: 2px solid #808080; font-size: 11px; color: #000;"
+		role="alert"
+	>
+		<!-- IE info icon -->
+		<span style="color:#0a246a; font-size:13px;" aria-hidden="true">ℹ</span>
+		<span>{announcementIntro}</span>
+		<a href={announcementLinkUrl} class="win-link" target="_blank" rel="noopener noreferrer">
+			{announcementLinkText}
+		</a>
 	</div>
 </div>

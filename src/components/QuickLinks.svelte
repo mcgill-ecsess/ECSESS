@@ -1,35 +1,31 @@
 <script lang="ts">
 	import Link from 'components/Link.svelte';
-	import Button from 'components/Button.svelte';
 </script>
 
-<div>
-	<p
-		class="text-ecsess-50 decoration-ecsess-200 mt-2 mb-6 text-base font-bold tracking-wide underline decoration-2 underline-offset-8"
-	>
-		Popular resources
-	</p>
+<fieldset class="win-groupbox">
+	<legend style="font-weight: bold; font-size: 11px; padding: 0 4px; color: #0a246a;">📌 Popular Resources</legend>
 
-	<div class="mt-3 grid grid-cols-1 items-stretch gap-3 sm:grid-cols-2 lg:mt-0">
+	<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px;">
 		<Link href="/events">
-			<Button class="flex h-full w-full items-center justify-center">ECSESS Events</Button>
+			<button class="win-btn w-full" style="font-size:11px; width: 100%;">
+				📅 ECSESS Events
+			</button>
 		</Link>
 
 		<Link href="/r/trot5th" external>
-			<Button class="flex h-full w-full items-center justify-center">
-				Trottier 5th Room Booking
-			</Button>
+			<button class="win-btn w-full" style="font-size:11px; width: 100%;">
+				🏫 Trottier 5th Booking
+			</button>
 		</Link>
 
 		<Link href="/r/ctrlz" external>
-			<Button class="flex h-full w-full items-center justify-center">Ctrl+Z feedback form</Button>
+			<button class="win-btn w-full" style="font-size:11px; width: 100%;">
+				📝 Ctrl+Z Feedback
+			</button>
 		</Link>
 
-		<!-- Sponsorship disabled -->
-		<Link href="/sponsorship">
-			<Button disabled class="flex h-full w-full items-center justify-center">
-				Sponsor ECSESS
-			</Button>
-		</Link>
+		<button class="win-btn w-full" disabled style="font-size:11px; width: 100%; cursor: not-allowed;">
+			💼 Sponsor ECSESS
+		</button>
 	</div>
-</div>
+</fieldset>

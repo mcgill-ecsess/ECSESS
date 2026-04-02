@@ -1,36 +1,22 @@
 <script>
 	/**
-	 * Props:
-	 * - from/to: pass full Tailwind gradient color classes (e.g., 'from-ecsess-950', 'to-ecsess-800')
-	 * - direction: Tailwind gradient direction suffix (e.g., 'to-b', 'to-r'), defaults to vertical
-	 * - black: legacy toggle for solid background (kept for backward compatibility)
+	 * Win2k style: renders as a classic Windows 2000 window/dialog panel.
 	 */
 	let {
 		children = () => 'Section placeholder',
 		from = '',
 		to = '',
 		via = '',
-		direction = 'to-b', // to bottom
+		direction = 'to-b',
 		black = false,
 		contentStart = false
 	} = $props();
-
-	const base =
-		'mx-auto flex min-h-[90vh] flex-col items-center gap-4 p-4 text-center text-ecsess-100';
-
-	let tailwindClasses = $state(base);
-
-	$effect(() => {
-		const justifyClass = contentStart ? 'justify-start' : 'justify-center';
-		const withJustify = `${base} ${justifyClass}`;
-		if (from && to) {
-			tailwindClasses = `${withJustify} bg-gradient-${direction} ${from} ${to} ${via}`;
-		} else {
-			tailwindClasses = withJustify + (black ? ' bg-ecsess-black' : ' bg-ecsess-800');
-		}
-	});
 </script>
 
-<div class={tailwindClasses}>
+<!-- Each section is a Win2k-style "window" floating on the teal desktop -->
+<div
+	class="win-window mx-auto my-4"
+	style="max-width: 1200px; width: calc(100% - 24px);"
+>
 	{@render children()}
 </div>
