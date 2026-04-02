@@ -4,57 +4,34 @@
 /* @import '@skeletonlabs/skeleton-svelte';  */
 
 @theme {
-	/*
-	Old green ECSESS palette (kept for quick revert):
+	/* Light shades - for backgrounds and cards */
 	--color-ecsess-50: #e8ffd9;
 	--color-ecsess-100: #cce7ba;
 	--color-ecsess-150: #bae9a5;
 	--color-ecsess-200: #a9d0a0;
+
+	/* Mid-light shades - for borders and hover states */
 	--color-ecsess-250: #9cc295;
 	--color-ecsess-300: #8fb98a;
 	--color-ecsess-350: #7daa7a;
 	--color-ecsess-400: #6a9a6a;
+
+	/* Mid shades - for accents and interactive elements */
 	--color-ecsess-450: #62925a;
 	--color-ecsess-500: #5a8b5a;
 	--color-ecsess-550: #4c7a4f;
 	--color-ecsess-600: #3f6a3f;
 	--color-ecsess-650: #306032;
+
+	/* Mid-dark shades - for text on light backgrounds */
 	--color-ecsess-700: #2f4d29;
 	--color-ecsess-750: #1c4a1e;
 	--color-ecsess-800: #0a3d2a;
+
+	/* Dark shades - for text and backgrounds */
 	--color-ecsess-850: #083525;
 	--color-ecsess-900: #062c20;
 	--color-ecsess-950: #031c15;
-	*/
-
-	/* Light bright blues - for backgrounds and cards */
-	--color-ecsess-50: #eff6ff;
-	--color-ecsess-100: #dbeafe;
-	--color-ecsess-150: #bfdbfe;
-	--color-ecsess-200: #93c5fd;
-
-	/* Mid-light bright blues - for borders and hover states */
-	--color-ecsess-250: #7ab8ff;
-	--color-ecsess-300: #60a5fa;
-	--color-ecsess-350: #4f9bff;
-	--color-ecsess-400: #3b82f6;
-
-	/* Mid bright blues - for accents and interactive elements */
-	--color-ecsess-450: #2f74ef;
-	--color-ecsess-500: #2563eb;
-	--color-ecsess-550: #2259d1;
-	--color-ecsess-600: #1d4ed8;
-	--color-ecsess-650: #1b46c2;
-
-	/* Mid-dark bright blues - for text on light backgrounds */
-	--color-ecsess-700: #1e40af;
-	--color-ecsess-750: #1b3a99;
-	--color-ecsess-800: #1e3a8a;
-
-	/* Dark bright blues - for text and backgrounds */
-	--color-ecsess-850: #1b3277;
-	--color-ecsess-900: #1e2f66;
-	--color-ecsess-950: #172554;
 
 	/* Black variants for UI elements */
 	--color-ecsess-black: #1f1f1f;
