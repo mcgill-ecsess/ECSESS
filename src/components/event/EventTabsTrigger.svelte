@@ -2,14 +2,14 @@
 	let { value, selected, onclick, children } = $props();
 </script>
 
-<div>
+<li>
 	<button
 		{value}
 		onclick={() => onclick(value)}
-		class="hover:border-b-ecsess-200 {selected
-			? 'border-b-ecsess-200'
-			: 'border-b-transparent'} border-b-4 px-2 pb-2 text-lg transition-all ease-in-out"
+		class="rounded-full px-4 py-1.5 text-sm font-semibold tracking-wide transition-colors {selected
+			? 'bg-ecsess-500 text-ecsess-50'
+			: 'border border-ecsess-700/60 text-ecsess-400 hover:border-ecsess-500 hover:text-ecsess-200'}"
 	>
 		{@render children()}
 	</button>
-</div>
+</li>

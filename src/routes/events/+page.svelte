@@ -10,13 +10,13 @@
 	let events = $derived(data.events ?? []);
 	let group = $state<EventCategory>(EventCategory.ALL_EVENTS);
 	let categories: { value: EventCategory; label: string }[] = [
-		{ value: EventCategory.ALL_EVENTS, label: 'All Events' },
+		{ value: EventCategory.ALL_EVENTS, label: 'All' },
 		{ value: EventCategory.ACADEMIC, label: 'Academic' },
 		{ value: EventCategory.PROFESSIONAL, label: 'Professional' },
 		{ value: EventCategory.SOCIAL, label: 'Social' },
 		{ value: EventCategory.TECHNICAL, label: 'Technical' }
 	];
-	// Handle tab change
+
 	function handleTabChange(selectedCategory: EventCategory) {
 		group = selectedCategory;
 	}
@@ -28,20 +28,26 @@
 	canonical={data.canonical}
 />
 
-<Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-600" direction="to-b">
-	<p class="page-title">Events</p>
+<Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-600" direction="to-b" contentStart={true}>
+	<!-- Page header -->
+	<div class="w-full max-w-3xl pt-6 text-left">
+		<p class="text-xs font-bold uppercase tracking-[0.2em] text-ecsess-500 mb-2">ECSESS</p>
+		<h1 class="text-4xl font-bold text-ecsess-50 md:text-5xl lg:text-6xl text-balance py-0 mb-6">Events</h1>
 
-	<div>
-		<ul class="flex flex-wrap justify-center gap-2">
+		<!-- Filter pills -->
+		<ul class="flex flex-wrap gap-2" role="tablist" aria-label="Filter events by category">
 			{#each categories as category}
 				<EventTabsTrigger
 					value={category.value}
 					selected={group === category.value}
-					onclick={handleTabChange}>{category.label}</EventTabsTrigger
+					onclick={handleTabChange}
 				>
+					{category.label}
+				</EventTabsTrigger>
 			{/each}
 		</ul>
-
-		<EventTabsContent category={group} {events} />
 	</div>
+
+	<!-- Feed -->
+	<EventTabsContent category={group} {events} />
 </Section>
