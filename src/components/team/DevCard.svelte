@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Github, Mail } from '@lucide/svelte';
+	import { Github, Mail, Sparkles } from '@lucide/svelte';
 
 	let {
 		name,
@@ -35,73 +35,93 @@
 </script>
 
 <div class="fadeup group relative flex flex-col">
-	<!-- Commit Card -->
 	<div
-		class="hover:shadow-ecsess-black/50 relative w-full overflow-hidden rounded-xl transition-all duration-100 ease-linear hover:scale-101 hover:shadow-md {active
-			? 'bg-ecsess-800 shadow-ecsess-black shadow-sm'
-			: 'bg-ecsess-900 shadow-ecsess-black'}"
+		class="relative flex flex-col overflow-hidden rounded-2xl border transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-xl {active
+			? 'bg-ecsess-800/80 border-ecsess-600/50 hover:border-ecsess-400/60 hover:shadow-ecsess-500/10 shadow-ecsess-black/50 shadow-sm'
+			: 'bg-ecsess-900/80 border-ecsess-700/40 hover:border-ecsess-600/50 hover:shadow-ecsess-black/40'}"
 	>
-		<!-- Header -->
-		<div class="px-6 pt-5 pb-3">
-			<div class="flex flex-col items-center gap-2.5 text-center">
-				<img src={githubAvatar} alt={name} class="size-20 shrink-0 rounded-full object-cover" />
-				<div class="w-full">
-					<h3 class="text-ecsess-100 text-lg font-semibold">
-						{name}
-					</h3>
-					<p class="text-ecsess-400 text-base">{role}</p>
-				</div>
+		<!-- Top accent bar (active only) -->
+		{#if active}
+			<div class="from-ecsess-500 to-ecsess-700 h-0.5 w-full bg-gradient-to-r"></div>
+		{/if}
+
+		<!-- Avatar + Name Header -->
+		<div class="flex items-center gap-4 px-5 pt-5 pb-3">
+			<div class="relative shrink-0">
+				<img
+					src={githubAvatar}
+					alt={name}
+					class="size-14 rounded-xl object-cover ring-2 {active
+						? 'ring-ecsess-500/60'
+						: 'ring-ecsess-700/60'}"
+				/>
+				{#if active}
+					<span
+						class="bg-ecsess-400 ring-ecsess-800 absolute -right-1 -bottom-1 size-3 rounded-full ring-2"
+					></span>
+				{/if}
+			</div>
+			<div class="min-w-0 flex-1">
+				<h3
+					class="truncate text-base font-semibold leading-tight {active
+						? 'text-ecsess-50'
+						: 'text-ecsess-200'}"
+				>
+					{name}
+				</h3>
+				<p class="text-ecsess-400 mt-0.5 truncate text-sm">{role}</p>
 			</div>
 		</div>
 
-		<!-- Body -->
-		<div class="space-y-3 px-6 pb-5">
-			<!-- Year Badge -->
-			<div class="flex items-center justify-center gap-2">
-				<span
-					class="rounded-full px-4 py-1.5 text-base font-medium {active
-						? 'bg-ecsess-900 text-ecsess-300'
-						: 'bg-ecsess-800 text-ecsess-400'}"
+		<!-- Year badge + fun fact -->
+		<div class="space-y-3 px-5 pb-4">
+			<span
+				class="inline-flex items-center rounded-md px-2.5 py-1 font-mono text-xs font-medium tracking-wider {active
+					? 'bg-ecsess-700/60 text-ecsess-300'
+					: 'bg-ecsess-800/60 text-ecsess-500'}"
+			>
+				{year}
+			</span>
+
+			{#if funFact}
+				<div class="flex gap-2">
+					<Sparkles class="text-ecsess-500 mt-0.5 size-3.5 shrink-0" />
+					<p class="text-ecsess-400 text-xs leading-relaxed italic">
+						{funFact}
+					</p>
+				</div>
+			{/if}
+		</div>
+
+		<!-- Divider -->
+		<div class="bg-ecsess-700/30 mx-5 h-px"></div>
+
+		<!-- Actions -->
+		<div class="flex gap-2 px-5 py-3">
+			{#if github}
+				<a
+					href={github}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-all {active
+						? 'bg-ecsess-700/50 text-ecsess-300 hover:bg-ecsess-700 hover:text-ecsess-100'
+						: 'bg-ecsess-800/50 text-ecsess-500 hover:bg-ecsess-800 hover:text-ecsess-300'}"
 				>
-					{year}
-				</span>
-			</div>
-
-			<!-- Fun Fact / Commit Message -->
-			<div class="min-h-[60px]">
-				<p class="text-ecsess-300 text-sm leading-relaxed italic">
-					{funFact || ``}
-				</p>
-			</div>
-
-			<!-- Actions -->
-			<div class="flex gap-3 pt-1">
-				{#if github}
-					<a
-						href={github}
-						target="_blank"
-						class="items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-base font-medium transition-colors {active
-							? 'bg-ecsess-900 text-ecsess-300 hover:bg-ecsess-950'
-							: 'bg-ecsess-800 text-ecsess-400 hover:bg-ecsess-700'} {active && email
-							? 'flex flex-1'
-							: 'flex w-full'}"
-					>
-						<Github class="size-4.5" />
-						GitHub
-					</a>
-				{/if}
-				{#if email && active}
-					<a
-						href="mailto:{email}"
-						class="flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-base font-medium transition-colors {active
-							? 'bg-ecsess-900 text-ecsess-300 hover:bg-ecsess-950'
-							: 'bg-ecsess-800 text-ecsess-400 hover:bg-ecsess-700'}"
-					>
-						<Mail class="size-4.5" />
-						Email
-					</a>
-				{/if}
-			</div>
+					<Github class="size-3.5" />
+					GitHub
+				</a>
+			{/if}
+			{#if email && active}
+				<a
+					href="mailto:{email}"
+					class="flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-all {active
+						? 'bg-ecsess-700/50 text-ecsess-300 hover:bg-ecsess-700 hover:text-ecsess-100'
+						: 'bg-ecsess-800/50 text-ecsess-500 hover:bg-ecsess-800 hover:text-ecsess-300'}"
+				>
+					<Mail class="size-3.5" />
+					Email
+				</a>
+			{/if}
 		</div>
 	</div>
 </div>
@@ -110,13 +130,13 @@
 	.fadeup {
 		animation: fadeUp both;
 		animation-timeline: view();
-		animation-range: entry 20% cover 35%;
+		animation-range: entry 10% cover 30%;
 	}
 
 	@keyframes fadeUp {
 		from {
 			opacity: 0;
-			transform: translateY(20px);
+			transform: translateY(24px);
 		}
 		to {
 			opacity: 1;

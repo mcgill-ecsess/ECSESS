@@ -7,21 +7,30 @@
 	}>();
 </script>
 
-<div class="relative mb-6 flex items-center gap-4">
-	<!-- Git Node column (w-3 = 12px, aligns with vertical timeline; circle centered) -->
-	<div class="flex w-3 shrink-0 justify-center">
+<div class="relative flex items-center gap-4">
+	<!-- Timeline node -->
+	<div class="z-10 flex w-5 shrink-0 justify-center">
 		<CommitDot {active} />
 	</div>
 
-	<!-- Year Label -->
-	<div
-		class="flex shrink-0 items-center justify-center font-mono text-xl font-bold tracking-wide uppercase transition-colors md:justify-start {active
-			? 'text-ecsess-300'
-			: 'text-ecsess-400'}"
-	>
-		<span>{term}</span>
-	</div>
-
-	<!-- Branch Line -->
-	<div class="h-px min-w-[100px] flex-1 {active ? 'bg-ecsess-500' : 'bg-ecsess-600'}"></div>
+	{#if active}
+		<!-- Active badge with glow -->
+		<div class="flex items-center gap-3">
+			<span
+				class="bg-ecsess-800 border-ecsess-500/60 text-ecsess-100 shadow-ecsess-500/20 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 font-mono text-base font-bold tracking-widest uppercase shadow-md"
+			>
+				<span class="bg-ecsess-400 size-2 animate-pulse rounded-full"></span>
+				{term}
+			</span>
+			<span class="text-ecsess-400 font-mono text-xs tracking-wider uppercase">Current cohort</span>
+		</div>
+	{:else}
+		<!-- Past year label -->
+		<div class="flex items-center gap-3">
+			<span
+				class="text-ecsess-500 font-mono text-lg font-bold tracking-widest uppercase"
+			>{term}</span>
+			<div class="h-px w-12 bg-ecsess-700"></div>
+		</div>
+	{/if}
 </div>

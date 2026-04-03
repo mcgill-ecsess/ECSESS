@@ -4,16 +4,19 @@
 	}>();
 </script>
 
-<div class="relative">
-	<div
-		class="bg-ecsess-500 relative inline-flex size-2.5 items-center justify-center rounded-full transition-all duration-200 {active
-			? 'bg-ecsess-200'
-			: 'bg-ecsess-500'}"
-	>
-		{#if active}
-			<div
-				class="bg-ecsess-100 relative inline-flex size-2.5 animate-ping items-center justify-center rounded-full"
-			></div>
-		{/if}
-	</div>
+<div class="relative flex items-center justify-center">
+	{#if active}
+		<!-- Active: glowing green pulsing dot with ring -->
+		<span class="relative flex size-5 items-center justify-center">
+			<span
+				class="bg-ecsess-400 absolute inline-flex size-5 animate-ping rounded-full opacity-60"
+			></span>
+			<span
+				class="bg-ecsess-200 ring-ecsess-400 relative inline-flex size-3.5 rounded-full ring-2"
+			></span>
+		</span>
+	{:else}
+		<!-- Past: subtle dot -->
+		<span class="bg-ecsess-600 ring-ecsess-700 inline-flex size-3 rounded-full ring-2"></span>
+	{/if}
 </div>
