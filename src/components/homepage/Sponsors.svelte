@@ -12,21 +12,17 @@
 <div class="container mx-auto px-4">
 	<!-- Section Header -->
 	<div class="my-12 text-center">
-		<h2 id="sponsors-title" class="text-ecsess-100 mb-2 text-4xl font-bold md:text-5xl">
-			Our Sponsors
-		</h2>
-		<p class="text-ecsess-200/90 mx-auto max-w-2xl text-base leading-relaxed md:text-lg">
+		<h2 id="sponsors-title" class="text-base-content mb-2 text-5xl font-bold">Our Sponsors</h2>
+		<p class="text-base-content mx-auto max-w-2xl text-lg leading-relaxed">
 			We're grateful to our sponsors for their continued support of ECSESS, our events, activities,
 			and our community.
 		</p>
 		<div
-			class="via-ecsess-150/40 mx-auto mt-2 h-px w-32 bg-linear-to-r from-transparent to-transparent"
+			class="via-muted mx-auto mt-2 h-px w-32 bg-linear-to-r from-transparent to-transparent"
 			aria-hidden="true"
 		></div>
 		<div class="mt-6">
-			<Link href="/sponsor">
-				<Button>Become a Sponsor</Button>
-			</Link>
+			<Button href="/sponsor" variant="primary" size="md">Become a Sponsor</Button>
 		</div>
 	</div>
 
@@ -38,15 +34,15 @@
 					<Link
 						href={sponsor.url}
 						external
-						class="group flex w-full max-w-[342px] justify-center rounded-xl focus-visible:outline-none"
+						class="group focus-visible:ring-muted focus-visible:ring-offset-base flex w-full max-w-[342px] justify-center rounded-(--radius-panel) focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
 					>
 						<div
-							class="border-ecsess-150/15 bg-ecsess-950 group-hover:border-ecsess-150/30 group-hover:bg-ecsess-900 flex h-28 w-full items-center justify-center overflow-hidden rounded-xl border p-6 shadow-md transition-colors duration-150"
+							class="border-primary-soft bg-primary-background group-hover:border-primary group-hover:bg-base flex h-28 w-full items-center justify-center overflow-hidden rounded-xl border p-6 shadow-md transition-colors duration-150"
 						>
 							<img
 								src={sponsor.logo}
 								alt={sponsor.name}
-								class="max-h-16 w-full object-contain opacity-90 transition-opacity duration-150 group-hover:opacity-100"
+								class="max-h-16 w-full object-contain transition-opacity duration-150"
 							/>
 						</div>
 					</Link>
@@ -54,7 +50,7 @@
 			</div>
 		</div>
 	{:else}
-		<div class="text-ecsess-300 py-12 text-center">
+		<div class="text-base-content py-12 text-center">
 			<p>You can be our next sponsor!</p>
 		</div>
 	{/if}

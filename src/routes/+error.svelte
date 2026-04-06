@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import Section from 'components/layout/Section.svelte';
-	import Link from 'components/Link.svelte';
 	import Button from 'components/Button.svelte';
 </script>
 
@@ -9,15 +8,16 @@
 	<title>{page.status} - Error | ECSESS</title>
 </svelte:head>
 
-<Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-800" direction="to-b">
-	<h1 class="text-ecsess-100 text-8xl font-black tracking-tighter md:text-9xl">
-		Segmentation Fault
-	</h1>
-	<Link href="/">
-		<Button class="text-ecsess-50 mb-2 cursor-pointer text-lg">Reboot to Homepage</Button>
-	</Link>
+<Section
+	from="from-primary-background"
+	to="to-primary-background"
+	via="via-primary-soft"
+	direction="to-b"
+>
+	<h1 class="text-base-content text-8xl font-black tracking-tighter">Segmentation Fault</h1>
+	<Button href="/" variant="primary" size="lg" class="mb-2">Reboot to Homepage</Button>
 
-	<p class="text-ecsess-200 text-lg leading-relaxed md:text-xl">
+	<p class="text-base-content text-xl leading-relaxed">
 		The page you are looking for is not implemented because we are too lazy to do it. <br />
 		But if you really want to see it, you can reboot to the homepage and try again.
 		<br />
@@ -26,11 +26,11 @@
 	</p>
 
 	<p
-		class="text-ecsess-200 border-ecsess-300 border-t border-b border-dashed py-2 text-lg leading-relaxed md:text-xl"
+		class="text-base-content border-muted border-t border-b border-dashed py-2 text-xl leading-relaxed"
 	>
 		Logging error
 	</p>
-	<p class="text-ecsess-200 text-base leading-relaxed">
+	<p class="text-base-content text-lg leading-relaxed">
 		Status: {page.status ?? 'Unknown'} <br />
 		Error: {page.error?.message ?? 'Segmentation Fault'}<br />
 	</p>

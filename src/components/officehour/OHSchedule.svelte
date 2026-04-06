@@ -114,16 +114,14 @@
 </script>
 
 <div class="overflow-x-auto">
-	<div class="border-ecsess-500 bg-ecsess-900 mx-auto max-w-7xl min-w-[800px] border-t pt-2">
+	<div class="border-primary bg-base mx-auto max-w-7xl min-w-[800px] border-t pt-2">
 		<!-- Header row -->
 		<div class="mb-2 grid gap-0" style:grid-template-columns="80px repeat(5, 1fr)">
-			<div
-				class="text-ecsess-50 bg-ecsess-900 sticky left-0 z-20 px-2 text-center text-base font-semibold"
-			>
+			<div class="text-primary-content bg-base sticky left-0 z-20 px-2 text-center font-semibold">
 				Time
 			</div>
 			{#each DAYS as day}
-				<div class="text-ecsess-50 px-2 text-center text-base font-semibold md:text-lg">
+				<div class="text-primary-content px-2 text-center text-lg font-semibold">
 					{day}
 				</div>
 			{/each}
@@ -131,7 +129,7 @@
 
 		<!-- Calendar grid -->
 		<div
-			class="border-ecsess-500 grid gap-0 border-t-2"
+			class="border-primary grid gap-0 border-t-2"
 			style:grid-template-columns="80px repeat(5, 1fr)"
 		>
 			{#each DAYS as day, dayIndex}
@@ -139,13 +137,13 @@
 
 				<!-- Time column (only for first day) -->
 				{#if dayIndex === 0}
-					<div class="border-ecsess-500 bg-ecsess-900 sticky left-0 z-20 border-b-2">
+					<div class="border-primary bg-base sticky left-0 z-20 border-b-2">
 						{#each timeSlots as timeSlot}
 							{@const isHourMark = timeSlot % 60 === 0}
 							<div
-								class="text-ecsess-50 border-ecsess-400 flex items-start justify-end border-t pt-1 pr-2 text-sm"
+								class="text-primary-content border-muted flex items-start justify-end border-t pt-1 pr-2 text-sm"
 								class:border-t-4={isHourMark}
-								class:border-ecsess-500={isHourMark}
+								class:border-primary={isHourMark}
 								class:font-semibold={isHourMark}
 								style:height="{SLOT_HEIGHT}px"
 							>
@@ -157,16 +155,16 @@
 
 				<!-- Day column with segments -->
 				<div
-					class="border-ecsess-500 border-b-ecsess-500 relative border-b-2 border-l"
+					class="border-primary border-b-primary relative border-b-2 border-l"
 					style:min-height="{timeSlots.length * SLOT_HEIGHT}px"
 				>
 					<!-- Background grid lines -->
 					{#each timeSlots as timeSlot, idx}
 						{@const isHourMark = timeSlot % 60 === 0}
 						<div
-							class="border-ecsess-400 absolute inset-x-0 border-t"
+							class="border-muted absolute inset-x-0 border-t"
 							class:border-t-4={isHourMark}
-							class:border-ecsess-500={isHourMark}
+							class:border-primary={isHourMark}
 							style:top="{idx * SLOT_HEIGHT}px"
 							style:height="{SLOT_HEIGHT}px"
 						></div>

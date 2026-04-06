@@ -44,18 +44,18 @@
 	];
 </script>
 
-<footer class="bg-ecsess-black text-ecsess-100 mx-auto min-w-fit px-4 py-8">
+<footer class="bg-primary-background text-base-content mx-auto min-w-fit px-4 py-8">
 	<div class="mx-auto max-w-7xl">
 		<!-- Business Card Layout -->
 		<div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
 			<!-- Left: ECSESS Lounge -->
-			<div class="border-ecsess-800 border-b-1 pb-4 text-center md:border-0 md:text-left">
-				<p class="text-ecsess-300 mb-3 text-lg">Visit the ECSESS lounge!</p>
+			<div class="border-primary-soft border-b-1 pb-4 text-center md:border-0 md:text-left">
+				<p class="text-base-content mb-3 text-lg">Visit the ECSESS lounge!</p>
 				<a
 					href="https://maps.app.goo.gl/m9ZqjTrPM7pcBzhbA"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="text-ecsess-300 hover:text-ecsess-100 hover:border-b-ecsess-100 inline-flex items-center justify-baseline gap-2 border-b-1 border-b-transparent pb-0.5 transition-all"
+					class="text-primary-content hover:text-base-content hover:border-b-base-content focus-visible:ring-muted focus-visible:ring-offset-primary-background inline-flex items-center justify-baseline gap-2 border-b-1 border-b-transparent pb-0.5 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
 				>
 					<svg
 						class="h-4 w-4 flex-shrink-0"
@@ -77,13 +77,13 @@
 							d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
 						/>
 					</svg>
-					<span class="text-base">ENGTR 1060</span>
+					<span class="text-lg">ENGTR 1060</span>
 				</a>
 			</div>
 
 			<!-- Center: Connect With Us -->
-			<div class="border-ecsess-800 border-b-1 pb-8 text-center md:border-0">
-				<h3 class="text-ecsess-200 mb-3 text-lg font-semibold">Connect With Us</h3>
+			<div class="border-primary-soft border-b-1 pb-8 text-center md:border-0">
+				<h3 class="text-base-content mb-3 text-lg font-semibold">Connect With Us</h3>
 				<div class="flex flex-wrap items-center justify-center gap-3">
 					{#each socialLinks as link}
 						<a
@@ -91,17 +91,17 @@
 							target={link.icon === 'email' ? '_self' : '_blank'}
 							rel={link.icon === 'email' ? '' : 'noopener noreferrer'}
 							aria-label={link.ariaLabel}
-							class="bg-ecsess-800 hover:bg-ecsess-600 flex h-10 w-10 items-center justify-center rounded-full transition-all hover:scale-110"
+							class="bg-primary-soft hover:bg-primary focus-visible:ring-muted focus-visible:ring-offset-primary-background flex h-10 w-10 items-center justify-center rounded-full transition-all hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
 						>
 							{#if link.icon === 'instagram'}
-								<InstagramIcon class="text-white" />
+								<InstagramIcon class="text-primary-content" />
 							{:else if link.icon === 'facebook'}
-								<FacebookIcon class="text-white" fill="white" color="transparent" />
+								<FacebookIcon class="text-primary-content" />
 							{:else if link.icon === 'linkedin'}
-								<LinkedinIcon class="text-white" fill="white" color="transparent" />
+								<LinkedinIcon class="text-primary-content" />
 							{:else if link.icon === 'linktree'}
 								<svg
-									class="h-5 w-5 text-white"
+									class="text-primary-content h-5 w-5"
 									fill="currentColor"
 									viewBox="0 0 24 24"
 									aria-hidden="true"
@@ -111,9 +111,9 @@
 									/>
 								</svg>
 							{:else if link.icon === 'email'}
-								<Mail class="text-white" />
+								<Mail class="text-primary-content" />
 							{:else if link.icon == 'github'}
-								<Github class="text-white" />
+								<Github class="text-primary-content" />
 							{/if}
 						</a>
 					{/each}
@@ -122,7 +122,7 @@
 
 			<!-- Right: Contribute -->
 			<div class="text-center md:text-right">
-				<p class="text-ecsess-200 mb-3 text-base">
+				<p class="text-base-content mb-3 text-lg">
 					Catch a bug or have an idea? <br />
 					Let us know!
 				</p>
@@ -130,7 +130,7 @@
 					href="https://forms.gle/hTA9hZdy3UPNs12R6"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="bg-ecsess-800 hover:bg-ecsess-600 inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors"
+					class="bg-primary-soft hover:bg-primary focus-visible:ring-muted focus-visible:ring-offset-primary-background text-primary-content inline-flex items-center gap-2 rounded-(--radius-control) px-4 py-2 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
 				>
 					<img src={ECSESS} alt="ECSESS Logo" class="w-8" />
 					<span>Bug Report Form</span>
@@ -139,11 +139,11 @@
 		</div>
 
 		<!-- Divider -->
-		<div class="border-ecsess-800 my-6 border-t"></div>
+		<div class="border-primary-soft my-6 border-t"></div>
 
 		<!-- Copyright -->
 		<div>
-			<p class="text-ecsess-200 text-center text-sm">
+			<p class="text-base-content text-center text-sm">
 				&copy; ECSESS {year} under GNU General Public License v3.0. <br />
 				Designed with love {'<3'}.
 			</p>

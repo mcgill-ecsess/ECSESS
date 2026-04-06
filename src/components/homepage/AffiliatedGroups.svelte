@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Globe, Instagram, Wrench, Users, CodeXml, Cpu } from '@lucide/svelte';
+	import Button from 'components/Button.svelte';
 
 	// All icons from @lucide/svelte share the same component type; reuse one for typing
 	type IconComponent = typeof Wrench;
@@ -56,10 +57,10 @@
 <div class="container mx-auto px-4">
 	<!-- Section Header -->
 	<div class="my-12 text-center">
-		<h2 id="affiliated-clubs-title" class="text-ecsess-100 mb-2 text-4xl font-bold md:text-5xl">
+		<h2 id="affiliated-clubs-title" class="text-base-content mb-2 text-5xl font-bold">
 			Subcommittees & Affiliated Groups
 		</h2>
-		<p class="text-ecsess-200 mx-auto max-w-2xl text-base">
+		<p class="text-base-content mx-auto max-w-2xl text-lg leading-relaxed">
 			Explore opportunities to enhance your skills, build innovative projects, and connect with the
 			engineering community through our subcommittees and affiliated groups.
 		</p>
@@ -70,68 +71,70 @@
 		{#each groups as group, i (group.name)}
 			{@const Icon = group.icon}
 			<article
-				class="bg-ecsess-950 border-ecsess-800 flex flex-col overflow-hidden rounded-lg border text-left"
+				class="bg-primary-background border-primary-soft flex flex-col overflow-hidden rounded-lg border text-left"
 				aria-labelledby={`group-${i}-title`}
 			>
 				<div class="flex flex-1 flex-col p-7 md:p-8">
 					<!-- Header: icon + name -->
 					<header class="mb-5 flex items-center justify-start gap-4">
 						<div
-							class="bg-ecsess-800 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl"
+							class="bg-primary-soft flex h-14 w-14 shrink-0 items-center justify-center rounded-xl"
 						>
 							<Icon
-								class="text-ecsess-300 size-7"
+								class="text-primary-content size-7"
 								strokeWidth={2.5}
 								aria-hidden="true"
 								focusable="false"
 							/>
 						</div>
-						<h3 id={`group-${i}-title`} class="text-ecsess-50 text-2xl font-bold">
+						<h3 id={`group-${i}-title`} class="text-primary-content text-2xl font-bold">
 							{group.name}
 						</h3>
 					</header>
 
 					<!-- Description -->
-					<p class="text-ecsess-200 mb-5 text-base leading-relaxed md:text-lg">
+					<p class="text-base-content mb-5 text-lg leading-relaxed">
 						{group.description}
 					</p>
 
 					<!-- Features -->
-					<ul class="mb-5 list-none space-y-2 ps-0 text-base md:text-lg" role="list">
+					<ul class="mb-5 list-none space-y-2 ps-0 text-lg" role="list">
 						{#each group.features as feature (feature)}
 							<li class="flex items-center gap-2">
-								<span class="bg-ecsess-500 h-1.5 w-1.5 shrink-0 rounded-full" aria-hidden="true"
+								<span class="bg-primary h-1.5 w-1.5 shrink-0 rounded-full" aria-hidden="true"
 								></span>
-								<span class="text-ecsess-100 font-medium">{feature}</span>
+								<span class="text-base-content font-medium">{feature}</span>
 							</li>
 						{/each}
 					</ul>
 
 					<!-- Links -->
-					<div class="border-ecsess-800 mt-auto flex flex-wrap items-center gap-3 border-t pt-5">
+					<div class="border-primary-soft mt-auto flex flex-wrap items-center gap-3 border-t pt-5">
 						{#if group.instagram}
-							<a
+							<Button
 								href={group.instagram}
-								target="_blank"
-								rel="noopener noreferrer external"
-								aria-label={`Follow ${group.name} on Instagram`}
-								class="text-ecsess-300 hover:text-ecsess-100 border-ecsess-700 bg-ecsess-900/50 hover:bg-ecsess-800/80 inline-flex items-center gap-2 rounded-md border px-4 py-2 text-base"
+								external
+								variant="secondary"
+								size="md"
+								class="inline-flex items-center gap-2"
+								ariaLabel={`Follow ${group.name} on Instagram`}
 							>
 								<Instagram class="size-5" strokeWidth={2.5} aria-hidden="true" focusable="false" />
 								<span>Instagram</span>
-							</a>
+							</Button>
 						{/if}
 						{#if group.website}
-							<a
+							<Button
 								href={group.website}
-								target="_blank"
-								rel="noopener noreferrer external"
-								aria-label={`Visit ${group.name} website`}
-								class="text-ecsess-300 hover:text-ecsess-100 border-ecsess-700 bg-ecsess-900/50 hover:bg-ecsess-800/80 inline-flex items-center gap-2 rounded-md border px-4 py-2 text-base"
+								external
+								variant="secondary"
+								size="md"
+								class="inline-flex items-center gap-2"
+								ariaLabel={`Visit ${group.name} website`}
 							>
 								<Globe class="size-5" strokeWidth={2.5} aria-hidden="true" focusable="false" />
 								<span>Website</span>
-							</a>
+							</Button>
 						{/if}
 					</div>
 				</div>

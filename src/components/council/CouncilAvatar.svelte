@@ -16,7 +16,7 @@
 	}
 </script>
 
-<div class="bg-ecsess-600 relative aspect-square size-24 overflow-hidden rounded-full sm:size-24">
+<div class="bg-primary relative aspect-square size-24 overflow-hidden rounded-full sm:size-24">
 	{#if src && !imageError}
 		<img
 			{src}
@@ -26,7 +26,7 @@
 		/>
 	{:else}
 		<div
-			class="bg-ecsess-500 text-ecsess-950 flex h-full w-full items-center justify-center text-lg font-bold"
+			class="bg-primary text-primary-background flex h-full w-full items-center justify-center text-lg font-bold"
 		>
 			{getInitials(name)}
 		</div>

@@ -16,12 +16,12 @@
 	<!-- Year Label -->
 	<div
 		class="flex shrink-0 items-center justify-center font-mono text-xl font-bold tracking-wide uppercase transition-colors md:justify-start {active
-			? 'text-ecsess-300'
-			: 'text-ecsess-400'}"
+			? 'text-primary-content'
+			: 'text-base-content'}"
 	>
 		<span>{term}</span>
 	</div>
 
 	<!-- Branch Line -->
-	<div class="h-px min-w-[100px] flex-1 {active ? 'bg-ecsess-500' : 'bg-ecsess-600'}"></div>
+	<div class="h-px min-w-[100px] flex-1 {active ? 'bg-primary' : 'bg-muted'}"></div>
 </div>

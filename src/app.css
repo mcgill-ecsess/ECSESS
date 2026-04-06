@@ -1,41 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols:wght@100..900&display=swap');
 @import 'tailwindcss';
-/* @import '@skeletonlabs/skeleton-svelte';  */
+
+/*
+ * ECSESS UI: DaisyUI-style primary family (no numbered ramp).
+ * Pairing (contrast):
+ * - Dark surfaces (base, primary-background, primary-soft): use text-base-content or text-primary-content.
+ * - Light surfaces (primary-content, accent): use text-primary-background or text-accent-content.
+ * - Medium badge (muted): use text-accent-content on bg-muted — never text-muted on bg-muted.
+ * - Brand actions (bg-primary): use text-primary-content.
+ */
 
 @theme {
-	/* Light shades - for backgrounds and cards */
-	--color-ecsess-50: #e8ffd9;
-	--color-ecsess-100: #cce7ba;
-	--color-ecsess-150: #bae9a5;
-	--color-ecsess-200: #a9d0a0;
+	/* Primary — single hue family */
+	--color-primary: #3f6a3f;
+	--color-primary-content: #e8ffd9;
+	--color-primary-background: #031c15;
+	--color-primary-hover: #2f4d29;
+	--color-primary-soft: #0a3d2a;
 
-	/* Mid-light shades - for borders and hover states */
-	--color-ecsess-250: #9cc295;
-	--color-ecsess-300: #8fb98a;
-	--color-ecsess-350: #7daa7a;
-	--color-ecsess-400: #6a9a6a;
+	--color-accent: #bae9a5;
+	--color-accent-content: #062c20;
 
-	/* Mid shades - for accents and interactive elements */
-	--color-ecsess-450: #62925a;
-	--color-ecsess-500: #5a8b5a;
-	--color-ecsess-550: #4c7a4f;
-	--color-ecsess-600: #3f6a3f;
-	--color-ecsess-650: #306032;
+	--color-base: #062c20;
+	--color-base-content: #cce7ba;
 
-	/* Mid-dark shades - for text on light backgrounds */
-	--color-ecsess-700: #2f4d29;
-	--color-ecsess-750: #1c4a1e;
-	--color-ecsess-800: #0a3d2a;
+	--color-muted: #8fb98a;
+	--color-border: #5a8b5a;
+	--color-ring: #8fb98a;
 
-	/* Dark shades - for text and backgrounds */
-	--color-ecsess-850: #083525;
-	--color-ecsess-900: #062c20;
-	--color-ecsess-950: #031c15;
-
-	/* Black variants for UI elements */
-	--color-ecsess-black: #1f1f1f;
-	--color-ecsess-black-hover: #161917;
+	--radius-control: 0.5rem;
+	--radius-panel: 0.75rem;
 
 	--animate-wiggle: wiggle 0.5s ease-in-out 1;
 	@keyframes wiggle {
@@ -60,6 +55,17 @@
 	}
 }
 
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
 * {
 	font-family: 'Saira', 'Noto Sans Symbols', sans-serif;
 	font-optical-sizing: auto;
@@ -81,7 +87,7 @@ h2 {
 }
 
 .typography {
-	@apply text-sm md:text-base lg:text-lg;
+	@apply text-sm lg:text-lg;
 
 	p {
 		@apply my-2 leading-relaxed;
@@ -97,7 +103,7 @@ h2 {
 	}
 
 	blockquote {
-		@apply bg-ecsess-100 text-ecsess-700 border-l-ecsess-600 my-4 rounded-md border-l-4 py-[0.01rem] ps-4 italic;
+		@apply border-l-primary bg-primary-content text-primary-hover my-4 rounded-(--radius-control) border-l-4 py-[0.01rem] ps-4 italic;
 	}
 
 	h1 {
@@ -128,7 +134,7 @@ h2 {
 
 	code,
 	kbd {
-		@apply rounded-md font-mono text-sm;
+		@apply rounded-(--radius-control) font-mono text-sm;
 	}
 
 	h2 code {
@@ -140,7 +146,7 @@ h2 {
 	}
 
 	pre {
-		@apply my-3 rounded-md px-4 pt-3 pb-3 font-mono text-sm leading-6;
+		@apply my-3 rounded-(--radius-control) px-4 pt-3 pb-3 font-mono text-sm leading-6;
 	}
 
 	ol,
@@ -196,16 +202,16 @@ h2 {
 	}
 
 	thead {
-		@apply border-ecsess-500 border-b-2;
+		@apply border-primary border-b-2;
 	}
 
 	thead th {
-		@apply text-ecsess-500 p-2 text-left text-base font-bold;
+		@apply text-primary-content p-2 text-left text-lg font-bold;
 	}
 
 	tbody td,
 	tfoot td {
-		@apply p-2.5;
+		@apply text-base-content p-2.5;
 	}
 
 	td > a {
@@ -213,7 +219,7 @@ h2 {
 	}
 
 	tbody tr:nth-child(odd) {
-		@apply bg-ecsess-200/24;
+		@apply bg-primary-soft;
 	}
 
 	td + td {
@@ -243,25 +249,25 @@ h2 {
 }
 
 *::-webkit-scrollbar-track {
-	@apply bg-ecsess-700 rounded;
+	@apply bg-primary-hover rounded;
 }
 
 *::-webkit-scrollbar-track:hover {
-	@apply bg-ecsess-900;
+	@apply bg-base;
 }
 
 *::-webkit-scrollbar-track:active {
-	@apply bg-ecsess-900;
+	@apply bg-base;
 }
 
 *::-webkit-scrollbar-thumb {
-	@apply bg-ecsess-100 rounded-md;
+	@apply bg-primary-content rounded-(--radius-control);
 }
 
 *::-webkit-scrollbar-thumb:hover {
-	@apply bg-ecsess-300;
+	@apply bg-muted;
 }
 
 *::-webkit-scrollbar-thumb:active {
-	@apply bg-ecsess-300;
+	@apply bg-muted;
 }

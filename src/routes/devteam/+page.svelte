@@ -44,16 +44,21 @@
 
 <SeoMetaTags />
 
-<Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-800" direction="to-b">
+<Section
+	from="from-primary-background"
+	to="to-primary-background"
+	via="via-primary-soft"
+	direction="to-b"
+>
 	<div class="relative flex h-full w-full flex-col items-center">
 		<!-- Hero -->
 		<div class="my-8">
 			<span class="page-title"> git log --dev-team </span>
-			<p class="text-ecsess-300 mt-6 font-mono text-lg">
+			<p class="text-base-content mt-6 font-mono text-lg">
 				Want to build the future of ECSESS? <br />
 				<Link href="https://github.com/mcgill-ecsess/ECSESS" external>
 					<span
-						class="text-ecsess-400 decoration-ecsess-500 hover:text-ecsess-300 hover:decoration-ecsess-400 font-semibold underline decoration-2 underline-offset-4 transition-all"
+						class="text-primary-content decoration-primary hover:text-base-content hover:decoration-base-content font-semibold underline decoration-2 underline-offset-4 transition-all"
 					>
 						Contribute on GitHub →
 					</span>

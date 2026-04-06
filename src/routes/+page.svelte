@@ -15,7 +15,7 @@
 <SeoMetaTags canonical={data.canonical} />
 
 <!-- ECSESS Introduction -->
-<Section from="from-ecsess-black" to="to-ecsess-900" via="via-ecsess-950">
+<Section from="from-primary-background" to="to-base" via="via-primary-background">
 	<div
 		class="mx-auto grid w-full max-w-[84dvw] grid-cols-1 place-items-center gap-16 py-6 lg:min-h-[75vh] lg:grid-cols-[1fr_2fr]"
 	>
@@ -28,17 +28,15 @@
 					</span>
 				{/each}
 			</h1>
-			<p
-				class="text-ecsess-200/90 max-w-xl text-base leading-relaxed md:text-lg lg:max-w-lg lg:leading-8"
-			>
-				<span class="text-ecsess-50 font-bold"
+			<p class="text-base-content max-w-xl text-lg leading-8 lg:max-w-lg">
+				<span class="text-primary-content font-bold"
 					>Electrical, Computer & Software Engineering Students' Society at McGill (ECSESS)</span
 				>
 				is the student council which helps McGill ECSE students in their
-				<span class="text-ecsess-50 font-bold">academic</span>,
-				<span class="text-ecsess-50 font-bold">technical</span>,
-				<span class="text-ecsess-50 font-bold">social</span> and
-				<span class="text-ecsess-50 font-bold">professional</span> progression.
+				<span class="text-primary-content font-bold">academic</span>,
+				<span class="text-primary-content font-bold">technical</span>,
+				<span class="text-primary-content font-bold">social</span> and
+				<span class="text-primary-content font-bold">professional</span> progression.
 			</p>
 
 			<div class="mt-8 w-full max-w-xl lg:max-w-none">
@@ -49,10 +47,10 @@
 		<!-- Right: Council Photo -->
 		<div class="relative flex w-full items-center justify-center lg:max-w-none">
 			<div
-				class="ring-ecsess-400/20 ring-offset-ecsess-900/50 relative flex items-center justify-center overflow-hidden rounded-2xl shadow-2xl ring-1 ring-offset-2"
+				class="ring-border ring-offset-base relative flex items-center justify-center overflow-hidden rounded-2xl shadow-2xl ring-1 ring-offset-2"
 			>
 				<div
-					class="from-ecsess-500/10 absolute inset-0 rounded-2xl bg-linear-to-br to-transparent"
+					class="from-primary-soft absolute inset-0 rounded-2xl bg-linear-to-br to-transparent"
 					aria-hidden="true"
 				></div>
 				<img
@@ -66,15 +64,15 @@
 </Section>
 
 <!-- Office Hours Calendar -->
-<Section from="from-ecsess-900" to="to-ecsess-700" via="via-ecsess-650">
+<Section from="from-base" to="to-primary-hover" via="via-primary-hover">
 	<div class="w-full">
 		<h2 class="text-2xl font-bold" id="office-hours">Lounge Office Hours</h2>
-		<p class="text-ecsess-200">
+		<p class="text-base-content text-lg">
 			Come visit us in our student lounge at ENGTR 1060 to grab a coffee (free), play Mario Kart, or
 			just chat about anything!
 			{#if data.ohLastUpdated}
 				<br />
-				<span class="text-ecsess-200/70 mb-4 inline-block italic">
+				<span class="text-primary-content mb-4 inline-block italic">
 					Semester: {data.ohLastUpdated}
 				</span>
 			{/if}
@@ -84,11 +82,11 @@
 </Section>
 
 <!-- Sponsors -->
-<Section from="from-ecsess-700" to="to-ecsess-800" via="via-ecsess-750">
+<Section from="from-primary-hover" to="to-primary-soft" via="via-primary-soft">
 	<Sponsors sponsors={data.sponsors} lastUpdated={data.sponsorsLastUpdated} />
 </Section>
 
 <!-- Affiliated Clubs -->
-<Section from="from-ecsess-800" to="to-ecsess-black" via="via-ecsess-850">
+<Section from="from-primary-soft" to="to-primary-background" via="via-primary-soft">
 	<AffiliatedGroups />
 </Section>
