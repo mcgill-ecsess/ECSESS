@@ -44,7 +44,7 @@
 			</div>
 		</div>
 
-		<!-- Right: Council Photo -->
+		<!-- Right: Featured Video for April Fool's Day -->
 		<div class="relative flex w-full items-center justify-center lg:max-w-none">
 			<div
 				class="ring-border ring-offset-base relative flex items-center justify-center overflow-hidden rounded-2xl shadow-2xl ring-1 ring-offset-2"
@@ -53,6 +53,7 @@
 					class="from-primary-soft absolute inset-0 rounded-2xl bg-linear-to-br to-transparent"
 					aria-hidden="true"
 				></div>
+
 				<img
 					src={data.councilPhoto}
 					alt="ECSESS Council"

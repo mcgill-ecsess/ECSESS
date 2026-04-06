@@ -5,8 +5,8 @@
 	import { slide } from 'svelte/transition';
 	let menuHidden = $state(true);
 
-	const announcementIntro = 'ECSESS Election: Voting period is happening! Vote now: ';
-	const announcementLinkUrl = 'https://ssmu.simplyvoting.com';
+	const announcementIntro = 'ECSESS Election results are out! Check them out here: ';
+	const announcementLinkUrl = 'https://ssmu.simplyvoting.com/voting/guest/elections/286648/results';
 	const announcementLinkText = 'ssmu.simplyvoting.com';
 </script>
 
