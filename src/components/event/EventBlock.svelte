@@ -86,7 +86,7 @@
 	>
 		<!-- Front Side -->
 		<div
-			class="bg-ecsess-950 col-start-1 row-start-1 flex h-full w-full transform-[rotateY(0)] cursor-pointer flex-col rounded-2xl transition-opacity duration-500 backface-hidden {showDescription
+			class="bg-primary-background col-start-1 row-start-1 flex h-full w-full transform-[rotateY(0)] cursor-pointer flex-col rounded-2xl transition-opacity duration-500 backface-hidden {showDescription
 				? 'pointer-events-none opacity-0'
 				: 'opacity-100'}"
 			data-flip-side="front"
@@ -108,13 +108,13 @@
 			{/if}
 
 			<div class="p-4 lg:hidden">
-				<p class="text-ecsess-400 text-sm">Click to view more</p>
+				<p class="text-base-content text-sm">Click to view more</p>
 			</div>
 		</div>
 
 		<!-- Back Side -->
 		<div
-			class="bg-ecsess-950 col-start-1 row-start-1 flex h-full w-full transform-[rotateY(180deg)] cursor-pointer flex-col rounded-2xl transition-opacity duration-500 backface-hidden transform-3d {showDescription
+			class="bg-primary-background col-start-1 row-start-1 flex h-full w-full transform-[rotateY(180deg)] cursor-pointer flex-col rounded-2xl transition-opacity duration-500 backface-hidden transform-3d {showDescription
 				? 'opacity-100'
 				: 'pointer-events-none opacity-0'}"
 			data-flip-side="back"

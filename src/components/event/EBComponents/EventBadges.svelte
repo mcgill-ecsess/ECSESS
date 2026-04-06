@@ -10,13 +10,13 @@
 >
 	{#if isPastEvent}
 		<span
-			class="bg-ecsess-800/90 rounded-full px-4 py-1.5 text-xs font-bold tracking-wider text-gray-300 uppercase backdrop-blur-sm"
+			class="bg-primary-soft text-base-content rounded-full px-4 py-1.5 text-xs font-bold tracking-wider uppercase backdrop-blur-sm"
 		>
 			Past Event
 		</span>
 	{:else}
 		<span
-			class="bg-ecsess-400 rounded-full px-4 py-1.5 text-xs font-bold tracking-wider text-white uppercase backdrop-blur-sm"
+			class="bg-muted text-accent-content rounded-full px-4 py-1.5 text-xs font-bold tracking-wider uppercase backdrop-blur-sm"
 		>
 			Upcoming
 		</span>
@@ -26,7 +26,7 @@
 		<div class="flex flex-wrap justify-end gap-2">
 			{#each eventCategory as category}
 				<span
-					class="bg-ecsess-500/90 rounded-full px-3 py-1.5 text-xs font-bold tracking-wider text-white uppercase backdrop-blur-sm"
+					class="bg-primary text-primary-content rounded-full px-3 py-1.5 text-xs font-bold tracking-wider uppercase backdrop-blur-sm"
 				>
 					{category}
 				</span>

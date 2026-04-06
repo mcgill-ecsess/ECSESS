@@ -6,13 +6,13 @@
 
 <div class="relative">
 	<div
-		class="bg-ecsess-500 relative inline-flex size-2.5 items-center justify-center rounded-full transition-all duration-200 {active
-			? 'bg-ecsess-200'
-			: 'bg-ecsess-500'}"
+		class="relative inline-flex size-2.5 items-center justify-center rounded-full transition-all duration-200 {active
+			? 'bg-accent'
+			: 'bg-primary'}"
 	>
 		{#if active}
 			<div
-				class="bg-ecsess-100 relative inline-flex size-2.5 animate-ping items-center justify-center rounded-full"
+				class="bg-primary-content relative inline-flex size-2.5 animate-ping items-center justify-center rounded-full"
 			></div>
 		{/if}
 	</div>

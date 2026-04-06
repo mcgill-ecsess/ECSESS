@@ -6,7 +6,12 @@
 
 <title> Hmm... you're not supposed to be here :/ </title>
 
-<Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-800" direction="to-b">
+<Section
+	from="from-primary-background"
+	to="to-primary-background"
+	via="via-primary-soft"
+	direction="to-b"
+>
 	<p class="page-title">Can't redirect you to <code>"r/{data.shortname}"</code>!</p>
 	<hr class="w-1/2 border-2" />
 	<div>

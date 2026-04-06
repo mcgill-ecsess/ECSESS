@@ -1,7 +1,7 @@
 <script>
 	/**
 	 * Props:
-	 * - from/to: pass full Tailwind gradient color classes (e.g., 'from-ecsess-950', 'to-ecsess-800')
+	 * - from/to: pass full Tailwind gradient color classes (e.g., 'from-primary-background', 'to-primary-soft')
 	 * - direction: Tailwind gradient direction suffix (e.g., 'to-b', 'to-r'), defaults to vertical
 	 * - black: legacy toggle for solid background (kept for backward compatibility)
 	 */
@@ -16,7 +16,7 @@
 	} = $props();
 
 	const base =
-		'mx-auto flex min-h-[90vh] flex-col items-center gap-4 p-4 text-center text-ecsess-100';
+		'mx-auto flex min-h-[90vh] flex-col items-center gap-4 p-4 text-center text-base-content';
 
 	let tailwindClasses = $state(base);
 
@@ -26,7 +26,7 @@
 		if (from && to) {
 			tailwindClasses = `${withJustify} bg-gradient-${direction} ${from} ${to} ${via}`;
 		} else {
-			tailwindClasses = withJustify + (black ? ' bg-ecsess-black' : ' bg-ecsess-800');
+			tailwindClasses = withJustify + (black ? ' bg-primary-background' : ' bg-primary-soft');
 		}
 	});
 </script>

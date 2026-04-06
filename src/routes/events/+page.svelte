@@ -28,7 +28,12 @@
 	canonical={data.canonical}
 />
 
-<Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-600" direction="to-b">
+<Section
+	from="from-primary-background"
+	to="to-primary-background"
+	via="via-primary"
+	direction="to-b"
+>
 	<p class="page-title">Events</p>
 
 	<div>

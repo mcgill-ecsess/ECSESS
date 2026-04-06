@@ -1,7 +1,7 @@
 <script>
 	import NavButton from './NavButton.svelte';
 	import ECSESS from 'assets/ECSESS.png';
-	import { Menu } from '@lucide/svelte';
+	import { Menu, X } from '@lucide/svelte';
 	import { slide } from 'svelte/transition';
 	let menuHidden = $state(true);
 
@@ -11,29 +11,40 @@
 </script>
 
 <div class="sticky top-0 z-40 w-full">
-	<nav class="bg-ecsess-black text-ecsess-100 w-full py-1">
+	<nav class="border-border bg-primary-background w-full border-b" aria-label="Main navigation">
 		<!-- Small screens -->
 		<div class="block md:hidden">
-			<div class="mx-4 flex items-center-safe justify-between">
-				<a href="/">
-					<img src={ECSESS} alt="ECSESS Logo" class="w-20 p-2" />
+			<div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-3 py-2">
+				<a
+					href="/"
+					class="focus-visible:ring-ring focus-visible:ring-offset-primary-background shrink-0 rounded-(--radius-control) p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+				>
+					<img src={ECSESS} alt="ECSESS home" class="w-18" width="72" height="72" />
 				</a>
 
 				<button
 					type="button"
-					class="bg-ecsess-black-hover hover:bg-ecsess-800 active:bg-ecsess-900 grid size-10 place-items-center rounded-md transition-colors ease-in-out"
+					class="text-primary-content hover:bg-primary-soft focus-visible:ring-ring focus-visible:ring-offset-primary-background grid size-10 shrink-0 place-items-center rounded-(--radius-control) transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
 					onclick={() => {
 						menuHidden = !menuHidden;
 					}}
+					aria-expanded={!menuHidden}
+					aria-controls="mobile-nav-menu"
+					aria-label={menuHidden ? 'Open menu' : 'Close menu'}
 				>
-					<Menu class="size-6 transition-transform duration-300 ease-in-out" />
+					{#if menuHidden}
+						<Menu class="size-6" strokeWidth={2} />
+					{:else}
+						<X class="size-6" strokeWidth={2} />
+					{/if}
 				</button>
 			</div>
 
 			{#if !menuHidden}
 				<div
-					class="bg-ecsess-900 border-ecsess-700 mx-2 mb-2 flex w-auto flex-col gap-1 rounded-lg border-2 px-2 py-2 shadow-lg"
-					transition:slide
+					id="mobile-nav-menu"
+					class="border-border bg-primary-background mx-3 mb-3 flex flex-col overflow-hidden rounded-(--radius-panel) border px-0 py-0"
+					transition:slide={{ duration: 200 }}
 				>
 					<NavButton href="/">Home</NavButton>
 					<NavButton href="/council">Meet the council</NavButton>
@@ -41,31 +52,40 @@
 					<NavButton href="/resources">Resources</NavButton>
 					<NavButton href="/devteam">Dev Team</NavButton>
 					<NavButton href="/join">Join ECSESS</NavButton>
+					<NavButton href="/branding">Branding</NavButton>
 				</div>
 			{/if}
 		</div>
 
-		<!-- Medium and larger screens -->
+		<!-- Medium and larger -->
 		<div class="hidden md:block">
-			<div class="flex place-content-center items-end">
-				<a href="/">
-					<img src={ECSESS} alt="ECSESS Logo" class="h-12 p-2" />
+			<div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 py-0 lg:px-6">
+				<a
+					href="/"
+					class="focus-visible:ring-ring focus-visible:ring-offset-primary-background flex shrink-0 py-2 focus:outline-none focus-visible:rounded-(--radius-control) focus-visible:ring-2 focus-visible:ring-offset-2"
+				>
+					<img src={ECSESS} alt="ECSESS home" class="h-10 w-auto" height="40" />
 				</a>
-				<NavButton href="/">Home</NavButton>
-				<NavButton href="/council">Meet the council</NavButton>
-				<NavButton href="/events">Events</NavButton>
-				<NavButton href="/resources">Resources</NavButton>
-				<NavButton href="/devteam">Dev Team</NavButton>
-				<NavButton href="/join">Join ECSESS</NavButton>
+				<div
+					class="flex min-w-0 flex-1 flex-wrap items-end justify-end gap-x-0.5 gap-y-0 lg:gap-x-1"
+				>
+					<NavButton href="/">Home</NavButton>
+					<NavButton href="/council">Meet the council</NavButton>
+					<NavButton href="/events">Events</NavButton>
+					<NavButton href="/resources">Resources</NavButton>
+					<NavButton href="/devteam">Dev Team</NavButton>
+					<NavButton href="/join">Join ECSESS</NavButton>
+					<NavButton href="/branding">Branding</NavButton>
+				</div>
 			</div>
 		</div>
 	</nav>
-	<!-- Small announcement underneath navbar -->
-	<div class="border-ecsess-black bg-ecsess-800 border-b px-4 py-2 shadow-sm" role="alert">
-		<p class="text-ecsess-100 text-center text-sm font-medium md:text-base">
+
+	<div class="border-border bg-primary-background border-b px-4 py-2.5" role="alert">
+		<p class="text-primary-content text-center text-lg leading-snug font-medium">
 			{announcementIntro}<a
 				href={announcementLinkUrl}
-				class="text-ecsess-50 decoration-ecsess-400 hover:decoration-ecsess-300 underline underline-offset-2"
+				class="text-accent decoration-accent hover:text-primary-content font-semibold underline underline-offset-2 transition-colors"
 			>
 				{announcementLinkText}
 			</a>

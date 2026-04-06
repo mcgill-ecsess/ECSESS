@@ -37,19 +37,19 @@
 <div class="fadeup group relative flex flex-col">
 	<!-- Commit Card -->
 	<div
-		class="hover:shadow-ecsess-black/50 relative w-full overflow-hidden rounded-xl transition-all duration-100 ease-linear hover:scale-101 hover:shadow-md {active
-			? 'bg-ecsess-800 shadow-ecsess-black shadow-sm'
-			: 'bg-ecsess-900 shadow-ecsess-black'}"
+		class="relative w-full overflow-hidden rounded-xl transition-all duration-100 ease-linear hover:scale-101 hover:shadow-lg {active
+			? 'bg-primary-soft shadow-sm'
+			: 'bg-base shadow-md'}"
 	>
 		<!-- Header -->
 		<div class="px-6 pt-5 pb-3">
 			<div class="flex flex-col items-center gap-2.5 text-center">
 				<img src={githubAvatar} alt={name} class="size-20 shrink-0 rounded-full object-cover" />
 				<div class="w-full">
-					<h3 class="text-ecsess-100 text-lg font-semibold">
+					<h3 class="text-base-content text-lg font-semibold">
 						{name}
 					</h3>
-					<p class="text-ecsess-400 text-base">{role}</p>
+					<p class="text-primary-content">{role}</p>
 				</div>
 			</div>
 		</div>
@@ -59,9 +59,9 @@
 			<!-- Year Badge -->
 			<div class="flex items-center justify-center gap-2">
 				<span
-					class="rounded-full px-4 py-1.5 text-base font-medium {active
-						? 'bg-ecsess-900 text-ecsess-300'
-						: 'bg-ecsess-800 text-ecsess-400'}"
+					class="rounded-full px-4 py-1.5 font-medium {active
+						? 'bg-base text-base-content'
+						: 'bg-primary-soft text-base-content'}"
 				>
 					{year}
 				</span>
@@ -69,7 +69,7 @@
 
 			<!-- Fun Fact / Commit Message -->
 			<div class="min-h-[60px]">
-				<p class="text-ecsess-300 text-sm leading-relaxed italic">
+				<p class="text-primary-content text-sm leading-relaxed italic">
 					{funFact || ``}
 				</p>
 			</div>
@@ -80,9 +80,9 @@
 					<a
 						href={github}
 						target="_blank"
-						class="items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-base font-medium transition-colors {active
-							? 'bg-ecsess-900 text-ecsess-300 hover:bg-ecsess-950'
-							: 'bg-ecsess-800 text-ecsess-400 hover:bg-ecsess-700'} {active && email
+						class="items-center justify-center gap-2 rounded-lg px-4 py-2.5 font-medium transition-colors {active
+							? 'bg-base text-base-content hover:bg-primary-background'
+							: 'bg-primary-soft text-base-content hover:bg-primary-hover'} {active && email
 							? 'flex flex-1'
 							: 'flex w-full'}"
 					>
@@ -93,9 +93,9 @@
 				{#if email && active}
 					<a
 						href="mailto:{email}"
-						class="flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-base font-medium transition-colors {active
-							? 'bg-ecsess-900 text-ecsess-300 hover:bg-ecsess-950'
-							: 'bg-ecsess-800 text-ecsess-400 hover:bg-ecsess-700'}"
+						class="flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-2.5 font-medium transition-colors {active
+							? 'bg-base text-base-content hover:bg-primary-background'
+							: 'bg-primary-soft text-base-content hover:bg-primary-hover'}"
 					>
 						<Mail class="size-4.5" />
 						Email

@@ -25,16 +25,16 @@
 
 <div class="space-y-3">
 	{#each entries as entry, index}
-		<div class="border-ecsess-300 rounded-md border-2 transition-colors duration-200">
+		<div class="border-muted rounded-(--radius-control) border-2 transition-colors duration-200">
 			<!-- Question -->
 			<button
 				type="button"
 				onclick={() => toggleItem(index)}
-				class="bg-ecsess-600/20 hover:bg-ecsess-500/40 flex w-full items-center gap-3 px-3 py-2 text-left text-lg font-bold transition-colors duration-200 {isOpen(
+				class="bg-base hover:bg-primary-soft text-base-content focus-visible:ring-muted focus-visible:ring-offset-base flex w-full items-center gap-3 px-3 py-2 text-left text-lg font-bold transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none {isOpen(
 					index
 				)
-					? 'rounded-t-md'
-					: 'rounded-md'}"
+					? 'rounded-t-(--radius-control)'
+					: 'rounded-(--radius-control)'}"
 			>
 				{entry.question}
 				<span class="ml-auto">
@@ -59,8 +59,8 @@
 			<!-- Panel -->
 			{#if isOpen(index)}
 				<div
-					class="border-t-ecsess-300 h-fit overflow-hidden border-t-2 bg-transparent px-4 py-3
-					 text-base leading-relaxed transition-all duration-200"
+					class="border-t-muted text-base-content h-fit overflow-hidden border-t-2 bg-transparent px-4 py-3
+					  text-lg leading-relaxed transition-all duration-200"
 					transition:slide={{ duration: 200 }}
 				>
 					{entry.answer}

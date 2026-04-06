@@ -113,61 +113,65 @@
 />
 
 <!-- Section 1: Election timeline & documents -->
-<Section from="from-ecsess-black" to="to-ecsess-800" direction="to-b">
+<Section from="from-primary-background" to="to-primary-soft" direction="to-b">
 	<p class="page-title">ECSESS Election 2026</p>
 
-	<p class="text-ecsess-200 mb-2 text-center text-3xl">
-		<Link href="https://ecsess.mcgilleus.ca/r/candidate-package" external>
-			<Button
-				class="text-ecsess-50 bg-ecsess-800 text-bold hover:bg-ecsess-700 border-ecsess-400/50 rounded-md border-2 text-lg shadow-md transition-all hover:cursor-pointer"
-			>
-				View the full <span class="underline underline-offset-4">candidate package</span>
-				<br /><span class="text-ecsess-200 text-sm">ecsess.mcgilleus.ca/r/candidate-package</span>
-			</Button>
-		</Link>
-	</p>
-	<p class="text-ecsess-200 mb-2 text-center text-3xl">
-		<Link
-			href="https://docs.google.com/document/d/1UEvnwzQ4fyLBYDDRpACKPr9zdXcH76UWtYLZ0E1CCBg/edit?usp=sharing
-"
+	<p class="text-base-content mb-2 flex justify-center text-3xl">
+		<Button
+			href="https://ecsess.mcgilleus.ca/r/candidate-package"
 			external
+			variant="outline"
+			size="lg"
+			class="mx-auto flex max-w-xl flex-col gap-1 text-center"
 		>
-			<Button
-				class="text-ecsess-50 bg-ecsess-800 text-bold hover:bg-ecsess-700 border-ecsess-400/50 rounded-md border-2 text-base shadow-md transition-all hover:cursor-pointer"
+			View the full <span class="underline underline-offset-4">candidate package</span>
+			<span class="text-base-content text-sm font-normal"
+				>ecsess.mcgilleus.ca/r/candidate-package</span
 			>
-				Nomination Form Guidelines
-			</Button>
-		</Link>
+		</Button>
+	</p>
+	<p class="text-base-content mb-2 flex justify-center text-3xl">
+		<Button
+			href="https://docs.google.com/document/d/1UEvnwzQ4fyLBYDDRpACKPr9zdXcH76UWtYLZ0E1CCBg/edit?usp=sharing"
+			external
+			variant="outline"
+			size="lg"
+			class="mx-auto"
+		>
+			Nomination Form Guidelines
+		</Button>
 	</p>
 
 	<!-- File explorer - style timeline -->
 	<div
-		class="border-ecsess-700 bg-ecsess-800 mx-auto w-full max-w-2xl overflow-hidden rounded-lg border shadow-xl"
+		class="border-primary-hover bg-primary-soft mx-auto w-full max-w-2xl overflow-hidden rounded-lg border shadow-xl"
 	>
 		<!-- Title bar -->
-		<div class="border-ecsess-700 bg-ecsess-850 flex items-center gap-2 border-b px-4 py-2.5">
+		<div class="border-primary-hover bg-primary-soft flex items-center gap-2 border-b px-4 py-2.5">
 			<div class="flex gap-1.5">
-				<span class="bg-ecsess-150 h-3 w-3 rounded-full"></span>
-				<span class="bg-ecsess-500 h-3 w-3 rounded-full"></span>
-				<span class="bg-ecsess-300 h-3 w-3 rounded-full"></span>
+				<span class="bg-primary-content h-3 w-3 rounded-full"></span>
+				<span class="bg-primary h-3 w-3 rounded-full"></span>
+				<span class="bg-muted h-3 w-3 rounded-full"></span>
 			</div>
-			<span class="text-ecsess-300 ml-2 font-mono text-xs">ecsess / election-2026 / key-dates</span>
+			<span class="text-primary-content ml-2 font-mono text-xs"
+				>ecsess / election-2026 / key-dates</span
+			>
 		</div>
 		<!-- File list -->
-		<div class="divide-ecsess-700 divide-y font-mono">
+		<div class="divide-primary-hover divide-y font-mono">
 			{#each keyDates as date}
 				<details
-					class="group hover:bg-ecsess-800/80 [[open]]:bg-ecsess-800/80 cursor-pointer transition-colors"
+					class="group hover:bg-primary-soft [[open]]:bg-primary-soft cursor-pointer transition-colors"
 				>
 					<summary
 						class="flex list-none items-center gap-3 px-4 py-3.5 focus:outline-none [&::-webkit-details-marker]:hidden"
 					>
 						<div class="min-w-0 flex-1">
-							<p class="text-ecsess-100 text-base font-medium">{date.label}</p>
-							<p class="text-ecsess-400 mt-0.5 text-sm">{date.range}</p>
+							<p class="text-base-content font-medium">{date.label}</p>
+							<p class="text-primary-content mt-0.5 text-sm">{date.range}</p>
 						</div>
 						<svg
-							class="text-ecsess-400 h-5 w-5 shrink-0 transition-transform group-open:rotate-90"
+							class="text-primary-content h-5 w-5 shrink-0 transition-transform group-open:rotate-90"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
@@ -181,10 +185,11 @@
 							/>
 						</svg>
 					</summary>
-					<div class="border-ecsess-700 bg-ecsess-900 border-t px-4 py-3.5 pl-4">
-						<p class="text-ecsess-300 text-base leading-relaxed">
+					<div class="border-primary-hover bg-base border-t px-4 py-3.5 pl-4">
+						<p class="text-base-content text-lg leading-relaxed">
 							{#each date.instruction as instruction}
-								<span class="text-ecsess-300 text-base leading-relaxed">{instruction}</span> <br />
+								<span class="text-base-content text-lg leading-relaxed">{instruction}</span>
+								<br />
 							{/each}
 						</p>
 					</div>
@@ -195,57 +200,59 @@
 </Section>
 
 <!-- Section 2: Positions & contact -->
-<Section from="from-ecsess-800" to="to-ecsess-black" direction="to-b">
+<Section from="from-primary-soft" to="to-primary-background" direction="to-b">
 	<div class="mx-auto mb-12 w-full max-w-4xl text-center">
-		<p class="text-ecsess-100 my-4 text-3xl font-extrabold">Important documents</p>
+		<p class="text-base-content my-4 text-3xl font-extrabold">Important documents</p>
 		<div class="mx-auto flex flex-col flex-wrap items-center justify-center gap-3">
 			{#each importantDocuments.filter((d) => d.link) as doc}
-				<Link href={doc.link} external>
-					<Button
-						class="border-ecsess-600 bg-ecsess-800 text-ecsess-100 hover:bg-ecsess-700 inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium"
+				<Button
+					href={doc.link}
+					external
+					variant="secondary"
+					size="md"
+					class="inline-flex items-center gap-2"
+				>
+					<svg
+						class="text-primary-content h-4 w-4 shrink-0"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+						aria-hidden="true"
 					>
-						<svg
-							class="text-ecsess-400 h-4 w-4 shrink-0"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-							aria-hidden="true"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-							/>
-						</svg>
-						{doc.label}
-					</Button>
-				</Link>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+						/>
+					</svg>
+					{doc.label}
+				</Button>
 			{/each}
 		</div>
 	</div>
 
-	<p class="text-ecsess-100 mb-4 text-3xl font-bold">Available positions</p>
+	<p class="text-base-content mb-4 text-3xl font-bold">Available positions</p>
 
 	<div class="mx-auto grid w-full max-w-4xl grid-cols-1 gap-8 md:grid-cols-2">
-		<div class="bg-ecsess-400/20 border-ecsess-700 rounded-xl border p-6 text-left">
-			<h2 class="text-ecsess-100 text-xl font-bold">Elected positions</h2>
-			<p class="text-ecsess-200 border-ecsess-700 mb-4 border-b pb-4 text-sm">
+		<div class="bg-base border-primary-hover rounded-xl border p-6 text-left">
+			<h2 class="text-base-content text-xl font-bold">Elected positions</h2>
+			<p class="text-base-content border-primary-hover mb-4 border-b pb-4 text-sm">
 				Positions that are elected by the student body via voting.
 			</p>
-			<ul class="text-ecsess-200 space-y-2">
+			<ul class="text-base-content space-y-2">
 				{#each electedPositions as position}
 					<li>{position}</li>
 				{/each}
 			</ul>
 		</div>
 
-		<div class="bg-ecsess-400/20 border-ecsess-700 rounded-xl border p-6 text-left">
-			<h2 class="text-ecsess-100 text-xl font-bold">Selected positions</h2>
-			<p class="text-ecsess-200 border-ecsess-700 mb-4 border-b pb-4 text-sm">
+		<div class="bg-base border-primary-hover rounded-xl border p-6 text-left">
+			<h2 class="text-base-content text-xl font-bold">Selected positions</h2>
+			<p class="text-base-content border-primary-hover mb-4 border-b pb-4 text-sm">
 				Positions that are selected by the ECSESS Council, via selection committee process.
 			</p>
-			<ul class="text-ecsess-200 space-y-2">
+			<ul class="text-base-content space-y-2">
 				{#each selectedPositions as position}
 					<li>{position}</li>
 				{/each}
@@ -255,18 +262,20 @@
 
 	<!-- Contact (DRO) -->
 	<div class="mx-auto my-12 w-full max-w-4xl">
-		<h2 class="text-ecsess-100 border-ecsess-700 mb-4 border-b pb-4 text-xl font-bold">Contact</h2>
-		<p class="text-ecsess-200 mb-4 text-base">Please direct any questions to:</p>
+		<h2 class="text-base-content border-primary-hover mb-4 border-b pb-4 text-xl font-bold">
+			Contact
+		</h2>
+		<p class="text-base-content mb-4 text-lg">Please direct any questions to:</p>
 		<div class="flex flex-col items-center justify-start">
-			<p class="text-ecsess-100 text-lg font-semibold">{droContact.name}</p>
+			<p class="text-base-content text-lg font-semibold">{droContact.name}</p>
 			<Link
 				href={`mailto:${droContact.email}`}
 				external
-				class="text-ecsess-200 hover:text-ecsess-100 underline underline-offset-3 transition-colors hover:cursor-pointer"
+				class="text-base-content hover:text-base-content underline underline-offset-3 transition-colors hover:cursor-pointer"
 			>
 				{droContact.email}
 			</Link>
-			<p class="text-ecsess-200 my-2 text-xs font-medium tracking-wider uppercase">
+			<p class="text-base-content my-2 text-xs font-medium tracking-wider uppercase">
 				ECSESS Deputy Returning Officer (DRO)
 			</p>
 		</div>
