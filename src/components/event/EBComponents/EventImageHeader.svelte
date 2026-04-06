@@ -29,7 +29,7 @@
 <div class="pointer-events-none relative z-30 h-80 overflow-hidden rounded-t-2xl">
 	<img class="pointer-events-none h-full w-full object-cover" src={imageSrc} alt={imageAlt} />
 	<div
-		class="via-base to-primary-background pointer-events-none absolute inset-0 rounded-t-2xl bg-gradient-to-b from-transparent"
+		class="via-base to-primary-background pointer-events-none absolute inset-0 rounded-t-2xl bg-linear-to-b from-transparent"
 	></div>
 	<div class="pointer-events-none absolute right-0 bottom-0 left-0 p-6">
 		<h3 class="text-primary-content text-2xl leading-tight font-bold">{eventTitle}</h3>

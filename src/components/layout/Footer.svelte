@@ -49,16 +49,16 @@
 		<!-- Business Card Layout -->
 		<div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
 			<!-- Left: ECSESS Lounge -->
-			<div class="border-primary-soft border-b-1 pb-4 text-center md:border-0 md:text-left">
+			<div class="border-primary-soft border-b pb-4 text-center md:border-0 md:text-left">
 				<p class="text-base-content mb-3 text-lg">Visit the ECSESS lounge!</p>
 				<a
 					href="https://maps.app.goo.gl/m9ZqjTrPM7pcBzhbA"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="text-primary-content hover:text-base-content hover:border-b-base-content focus-visible:ring-muted focus-visible:ring-offset-primary-background inline-flex items-center justify-baseline gap-2 border-b-1 border-b-transparent pb-0.5 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+					class="text-primary-content hover:text-base-content hover:border-b-base-content focus-visible:ring-muted focus-visible:ring-offset-primary-background inline-flex items-center justify-baseline gap-2 border-b border-b-transparent pb-0.5 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
 				>
 					<svg
-						class="h-4 w-4 flex-shrink-0"
+						class="h-4 w-4 shrink-0"
 						fill="none"
 						stroke="currentColor"
 						viewBox="0 0 24 24"
@@ -82,7 +82,7 @@
 			</div>
 
 			<!-- Center: Connect With Us -->
-			<div class="border-primary-soft border-b-1 pb-8 text-center md:border-0">
+			<div class="border-primary-soft border-b pb-8 text-center md:border-0">
 				<h3 class="text-base-content mb-3 text-lg font-semibold">Connect With Us</h3>
 				<div class="flex flex-wrap items-center justify-center gap-3">
 					{#each socialLinks as link}
