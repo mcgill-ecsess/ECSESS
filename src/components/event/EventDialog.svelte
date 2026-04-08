@@ -36,18 +36,25 @@
 		if (!category || category.length === 0) return '/ECSESS.png';
 		const cat = Array.isArray(category) ? category[0] : category;
 		switch (cat) {
-			case 'social': return '/Social.jpg';
-			case 'technical': return '/Technical.jpg';
-			case 'professional': return '/Professional.jpg';
-			case 'academic': return '/Academic.jpg';
-			default: return '/ECSESS.png';
+			case 'social':
+				return '/Social.jpg';
+			case 'technical':
+				return '/Technical.jpg';
+			case 'professional':
+				return '/Professional.jpg';
+			case 'academic':
+				return '/Academic.jpg';
+			default:
+				return '/ECSESS.png';
 		}
 	};
 
 	const imageSrc = $derived(thumbnail || getDefaultImage(eventCategory));
 	const categoryLabel = $derived(
 		eventCategory && eventCategory.length > 0
-			? (Array.isArray(eventCategory) ? eventCategory : [eventCategory])
+			? Array.isArray(eventCategory)
+				? eventCategory
+				: [eventCategory]
 			: []
 	);
 
@@ -98,19 +105,21 @@
 	aria-modal="true"
 	aria-label={eventTitle}
 	class="fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-200
-		{open ? 'pointer-events-auto bg-ecsess-950/80 backdrop-blur-sm' : 'pointer-events-none bg-transparent backdrop-blur-none opacity-0'}"
+		{open
+		? 'bg-ecsess-950/80 pointer-events-auto backdrop-blur-sm'
+		: 'pointer-events-none bg-transparent opacity-0 backdrop-blur-none'}"
 >
 	<div
-		class="relative flex w-full max-w-2xl flex-col overflow-hidden rounded-xl border border-ecsess-800 bg-ecsess-950
+		class="border-ecsess-800 bg-ecsess-950 relative flex w-full max-w-2xl flex-col overflow-hidden rounded-xl border
 			shadow-2xl transition-all duration-200
-			{open ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-4 opacity-0 scale-95'}"
+			{open ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-4 scale-95 opacity-0'}"
 		style="max-height: 90dvh;"
 	>
 		<!-- Close button -->
 		<button
 			type="button"
 			onclick={onclose}
-			class="absolute right-3 top-3 z-10 rounded-full bg-ecsess-950/70 p-1.5 text-ecsess-400 backdrop-blur-sm transition-colors hover:bg-ecsess-800 hover:text-ecsess-50"
+			class="bg-ecsess-950/70 text-ecsess-400 hover:bg-ecsess-800 hover:text-ecsess-50 absolute top-3 right-3 z-10 rounded-full p-1.5 backdrop-blur-sm transition-colors"
 			aria-label="Close dialog"
 		>
 			<X class="h-4 w-4" strokeWidth={2} />
@@ -129,17 +138,23 @@
 				<!-- Badges over image -->
 				<div class="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
 					{#if isPastEvent}
-						<span class="rounded bg-ecsess-950/80 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-ecsess-300 backdrop-blur-sm">
+						<span
+							class="bg-ecsess-950/80 text-ecsess-300 rounded px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase backdrop-blur-sm"
+						>
 							Past
 						</span>
 					{:else}
-						<span class="inline-flex items-center gap-1 rounded bg-ecsess-500 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-white">
-							<span class="h-1.5 w-1.5 rounded-full bg-white animate-pulse"></span>
+						<span
+							class="bg-ecsess-500 inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px] font-bold tracking-widest text-white uppercase"
+						>
+							<span class="h-1.5 w-1.5 animate-pulse rounded-full bg-white"></span>
 							Upcoming
 						</span>
 					{/if}
 					{#each categoryLabel as cat}
-						<span class="rounded bg-ecsess-900/80 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-ecsess-200 backdrop-blur-sm">
+						<span
+							class="bg-ecsess-900/80 text-ecsess-200 rounded px-2 py-0.5 text-[10px] font-bold tracking-widest uppercase backdrop-blur-sm"
+						>
 							{cat}
 						</span>
 					{/each}
@@ -149,26 +164,26 @@
 			<!-- Dialog body -->
 			<div class="flex flex-col gap-4 p-5">
 				<!-- Title -->
-				<h2 class="text-xl font-bold leading-snug text-ecsess-50 text-balance">
+				<h2 class="text-ecsess-50 text-xl leading-snug font-bold text-balance">
 					{eventTitle}
 				</h2>
 
 				<!-- Meta -->
-				<div class="flex flex-col gap-1.5 text-sm text-ecsess-300">
+				<div class="text-ecsess-300 flex flex-col gap-1.5 text-sm">
 					<span class="flex items-center gap-2">
-						<CalendarDays class="h-4 w-4 shrink-0 text-ecsess-500" strokeWidth={2} />
+						<CalendarDays class="text-ecsess-500 h-4 w-4 shrink-0" strokeWidth={2} />
 						{date}
 					</span>
 					<span class="flex items-center gap-2">
-						<MapPin class="h-4 w-4 shrink-0 text-ecsess-500" strokeWidth={2} />
+						<MapPin class="text-ecsess-500 h-4 w-4 shrink-0" strokeWidth={2} />
 						{location ?? 'TBA'}
 					</span>
 				</div>
 
 				<!-- Description -->
 				{#if eventDescription}
-					<div class="border-t border-ecsess-800 pt-4">
-						<div class="typography text-sm text-ecsess-200">
+					<div class="border-ecsess-800 border-t pt-4">
+						<div class="typography text-ecsess-200 text-sm">
 							<RichText value={eventDescription} />
 						</div>
 					</div>
@@ -176,13 +191,13 @@
 
 				<!-- Action buttons -->
 				{#if !isPastEvent || generalLink}
-					<div class="flex flex-wrap gap-2 border-t border-ecsess-800 pt-4">
+					<div class="border-ecsess-800 flex flex-wrap gap-2 border-t pt-4">
 						{#if !isPastEvent && registrationLink}
 							<a
 								href={registrationLink[0].url}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="inline-flex items-center gap-1.5 rounded-md bg-ecsess-500 px-3.5 py-2 text-sm font-semibold text-white transition-colors hover:bg-ecsess-400"
+								class="bg-ecsess-500 hover:bg-ecsess-400 inline-flex items-center gap-1.5 rounded-md px-3.5 py-2 text-sm font-semibold text-white transition-colors"
 							>
 								<FilePen class="h-3.5 w-3.5" strokeWidth={2.5} />
 								Register
@@ -194,7 +209,7 @@
 								href={paymentLink[0].url}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="inline-flex items-center gap-1.5 rounded-md border border-ecsess-600 px-3.5 py-2 text-sm font-semibold text-ecsess-200 transition-colors hover:border-ecsess-400 hover:text-ecsess-50"
+								class="border-ecsess-600 text-ecsess-200 hover:border-ecsess-400 hover:text-ecsess-50 inline-flex items-center gap-1.5 rounded-md border px-3.5 py-2 text-sm font-semibold transition-colors"
 							>
 								<ExternalLink class="h-3.5 w-3.5" strokeWidth={2.5} />
 								Pay
@@ -205,7 +220,7 @@
 							<button
 								type="button"
 								onclick={addToCalendar}
-								class="inline-flex items-center gap-1.5 rounded-md border border-ecsess-600 px-3.5 py-2 text-sm font-semibold text-ecsess-200 transition-colors hover:border-ecsess-400 hover:text-ecsess-50"
+								class="border-ecsess-600 text-ecsess-200 hover:border-ecsess-400 hover:text-ecsess-50 inline-flex items-center gap-1.5 rounded-md border px-3.5 py-2 text-sm font-semibold transition-colors"
 							>
 								<CalendarPlus class="h-3.5 w-3.5" strokeWidth={2.5} />
 								Add to Calendar
@@ -218,7 +233,7 @@
 									href={link.url}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="inline-flex items-center gap-1.5 rounded-md border border-ecsess-600 px-3.5 py-2 text-sm font-semibold text-ecsess-200 transition-colors hover:border-ecsess-400 hover:text-ecsess-50"
+									class="border-ecsess-600 text-ecsess-200 hover:border-ecsess-400 hover:text-ecsess-50 inline-flex items-center gap-1.5 rounded-md border px-3.5 py-2 text-sm font-semibold transition-colors"
 								>
 									<ExternalLink class="h-3.5 w-3.5" strokeWidth={2.5} />
 									{link.title}

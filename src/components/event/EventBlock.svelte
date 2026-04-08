@@ -29,11 +29,16 @@
 		if (!category || category.length === 0) return '/ECSESS.png';
 		const cat = Array.isArray(category) ? category[0] : category;
 		switch (cat) {
-			case 'social': return '/Social.jpg';
-			case 'technical': return '/Technical.jpg';
-			case 'professional': return '/Professional.jpg';
-			case 'academic': return '/Academic.jpg';
-			default: return '/ECSESS.png';
+			case 'social':
+				return '/Social.jpg';
+			case 'technical':
+				return '/Technical.jpg';
+			case 'professional':
+				return '/Professional.jpg';
+			case 'academic':
+				return '/Academic.jpg';
+			default:
+				return '/ECSESS.png';
 		}
 	};
 
@@ -41,7 +46,9 @@
 
 	const categoryLabel = $derived(
 		eventCategory && eventCategory.length > 0
-			? (Array.isArray(eventCategory) ? eventCategory : [eventCategory])
+			? Array.isArray(eventCategory)
+				? eventCategory
+				: [eventCategory]
 			: []
 	);
 </script>
@@ -66,24 +73,35 @@
 		/>
 
 		<!-- Hover overlay -->
-		<div class="absolute inset-0 flex items-center justify-center bg-ecsess-950/0 transition-colors duration-200 group-hover:bg-ecsess-950/50">
-			<Eye class="h-7 w-7 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100" strokeWidth={1.5} />
+		<div
+			class="bg-ecsess-950/0 group-hover:bg-ecsess-950/50 absolute inset-0 flex items-center justify-center transition-colors duration-200"
+		>
+			<Eye
+				class="h-7 w-7 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+				strokeWidth={1.5}
+			/>
 		</div>
 
 		<!-- Status + category badges -->
 		<div class="absolute top-2 left-2 flex flex-wrap gap-1">
 			{#if isPastEvent}
-				<span class="rounded bg-ecsess-950/75 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-ecsess-400 backdrop-blur-sm">
+				<span
+					class="bg-ecsess-950/75 text-ecsess-400 rounded px-1.5 py-0.5 text-[9px] font-bold tracking-widest uppercase backdrop-blur-sm"
+				>
 					Past
 				</span>
 			{:else}
-				<span class="inline-flex items-center gap-1 rounded bg-ecsess-500 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-white">
-					<span class="h-1 w-1 rounded-full bg-white animate-pulse"></span>
+				<span
+					class="bg-ecsess-500 inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[9px] font-bold tracking-widest text-white uppercase"
+				>
+					<span class="h-1 w-1 animate-pulse rounded-full bg-white"></span>
 					Upcoming
 				</span>
 			{/if}
 			{#each categoryLabel as cat}
-				<span class="rounded bg-ecsess-900/80 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-ecsess-300 backdrop-blur-sm">
+				<span
+					class="bg-ecsess-900/80 text-ecsess-300 rounded px-1.5 py-0.5 text-[9px] font-bold tracking-widest uppercase backdrop-blur-sm"
+				>
 					{cat}
 				</span>
 			{/each}
@@ -92,16 +110,16 @@
 
 	<!-- Post meta below image -->
 	<div class="pt-2">
-		<h2 class="text-[11px] font-bold leading-snug text-ecsess-50 text-balance mb-1 line-clamp-2">
+		<h2 class="text-ecsess-50 mb-1 line-clamp-2 text-[11px] leading-snug font-bold text-balance">
 			{eventTitle}
 		</h2>
-		<div class="flex flex-col gap-0.5 text-[10px] text-ecsess-400">
+		<div class="text-ecsess-400 flex flex-col gap-0.5 text-[10px]">
 			<span class="flex items-center gap-1">
-				<CalendarDays class="h-2.5 w-2.5 shrink-0 text-ecsess-500" strokeWidth={2} />
+				<CalendarDays class="text-ecsess-500 h-2.5 w-2.5 shrink-0" strokeWidth={2} />
 				{date}
 			</span>
 			<span class="flex items-center gap-1">
-				<MapPin class="h-2.5 w-2.5 shrink-0 text-ecsess-500" strokeWidth={2} />
+				<MapPin class="text-ecsess-500 h-2.5 w-2.5 shrink-0" strokeWidth={2} />
 				{location ?? 'TBA'}
 			</span>
 		</div>

@@ -32,12 +32,21 @@
 		const isMidnight = date.getUTCHours() === 0 && date.getUTCMinutes() === 0;
 		if (isMidnight) {
 			return date.toLocaleDateString('en-US', {
-				weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC'
+				weekday: 'short',
+				year: 'numeric',
+				month: 'short',
+				day: 'numeric',
+				timeZone: 'UTC'
 			});
 		}
 		return date.toLocaleDateString('en-US', {
-			weekday: 'short', year: 'numeric', month: 'short', day: 'numeric',
-			hour: 'numeric', minute: '2-digit', hour12: true
+			weekday: 'short',
+			year: 'numeric',
+			month: 'short',
+			day: 'numeric',
+			hour: 'numeric',
+			minute: '2-digit',
+			hour12: true
 		});
 	};
 
@@ -49,7 +58,11 @@
 	const getLink = (e: EventPost, type: EventLinkKind): LinkType[] | null => {
 		let generalLinks: LinkType[] = [];
 		for (const link of e.links ?? []) {
-			if (type === EventLinkKind.GENERAL && link.kind === EventLinkKind.GENERAL && link.url !== '') {
+			if (
+				type === EventLinkKind.GENERAL &&
+				link.kind === EventLinkKind.GENERAL &&
+				link.url !== ''
+			) {
 				generalLinks.push(link);
 				if (generalLinks.length >= 4) break;
 			} else if (link.kind === type && link.url !== '') {
@@ -87,26 +100,19 @@
 </script>
 
 <div class="w-full max-w-7xl py-8">
-
 	<!-- Upcoming Events -->
 	{#if upcomingEvents.length > 0}
-		<section
-			class="mb-10 transition-all duration-300"
-			class:hidden={!hasVisibleUpcoming}
-		>
+		<section class="mb-10 transition-all duration-300" class:hidden={!hasVisibleUpcoming}>
 			<div class="mb-5 flex items-center gap-3">
-				<span class="h-px flex-1 bg-ecsess-800"></span>
-				<h2 class="text-[10px] font-bold uppercase tracking-[0.2em] text-ecsess-400">Upcoming</h2>
-				<span class="h-px flex-1 bg-ecsess-800"></span>
+				<span class="bg-ecsess-800 h-px flex-1"></span>
+				<h2 class="text-ecsess-400 text-[10px] font-bold tracking-[0.2em] uppercase">Upcoming</h2>
+				<span class="bg-ecsess-800 h-px flex-1"></span>
 			</div>
 
 			<!-- Grid: all upcoming events rendered; hidden class toggled by CSS only -->
 			<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 				{#each upcomingEvents as e (e._id ?? e.name)}
-					<div
-						class="transition-opacity duration-150"
-						class:hidden={!isVisible(e)}
-					>
+					<div class="transition-opacity duration-150" class:hidden={!isVisible(e)}>
 						<EventBlock
 							eventTitle={e.name}
 							date={formatEventDate(e.date)}
@@ -124,22 +130,18 @@
 
 	<!-- Past Events -->
 	{#if pastEvents.length > 0}
-		<section
-			class="transition-all duration-300"
-			class:hidden={!hasVisiblePast}
-		>
+		<section class="transition-all duration-300" class:hidden={!hasVisiblePast}>
 			<div class="mb-5 flex items-center gap-3">
-				<span class="h-px flex-1 bg-ecsess-800"></span>
-				<h2 class="text-[10px] font-bold uppercase tracking-[0.2em] text-ecsess-600">Past Events</h2>
-				<span class="h-px flex-1 bg-ecsess-800"></span>
+				<span class="bg-ecsess-800 h-px flex-1"></span>
+				<h2 class="text-ecsess-600 text-[10px] font-bold tracking-[0.2em] uppercase">
+					Past Events
+				</h2>
+				<span class="bg-ecsess-800 h-px flex-1"></span>
 			</div>
 
 			<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 				{#each pastEvents as e (e._id ?? e.name)}
-					<div
-						class="transition-opacity duration-150"
-						class:hidden={!isVisible(e)}
-					>
+					<div class="transition-opacity duration-150" class:hidden={!isVisible(e)}>
 						<EventBlock
 							eventTitle={e.name}
 							date={formatEventDate(e.date)}
@@ -159,8 +161,8 @@
 	{#if !hasAnyVisible}
 		<div class="flex min-h-[40vh] items-center justify-center">
 			<div class="text-center">
-				<p class="text-sm font-semibold text-ecsess-400">No events in this category yet</p>
-				<p class="mt-1 text-xs text-ecsess-600">Check back soon for updates!</p>
+				<p class="text-ecsess-400 text-sm font-semibold">No events in this category yet</p>
+				<p class="text-ecsess-600 mt-1 text-xs">Check back soon for updates!</p>
 			</div>
 		</div>
 	{/if}
