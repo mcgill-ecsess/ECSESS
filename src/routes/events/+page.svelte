@@ -30,7 +30,7 @@
 
 <Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-600" direction="to-b" contentStart={true}>
 	<!-- Page header -->
-	<div class="w-full max-w-3xl pt-6 text-left">
+	<div class="w-full max-w-7xl pt-6 text-left">
 		<p class="text-xs font-bold uppercase tracking-[0.2em] text-ecsess-500 mb-2">ECSESS</p>
 		<h1 class="text-4xl font-bold text-ecsess-50 md:text-5xl lg:text-6xl text-balance py-0 mb-6">Events</h1>
 

@@ -24,17 +24,17 @@
 
 		if (isMidnight) {
 			return date.toLocaleDateString('en-US', {
-				weekday: 'long',
+				weekday: 'short',
 				year: 'numeric',
-				month: 'long',
+				month: 'short',
 				day: 'numeric',
 				timeZone: 'UTC'
 			});
 		} else {
 			return date.toLocaleDateString('en-US', {
-				weekday: 'long',
+				weekday: 'short',
 				year: 'numeric',
-				month: 'long',
+				month: 'short',
 				day: 'numeric',
 				hour: 'numeric',
 				minute: '2-digit',
@@ -78,17 +78,18 @@
 	};
 </script>
 
-<div class="w-full max-w-3xl py-10 text-left">
+<div class="w-full max-w-7xl py-8 text-left">
+
 	<!-- Upcoming Events -->
 	{#if upcomingEvents.length > 0}
 		<section class="mb-12">
-			<div class="mb-8 flex items-center gap-4">
-				<span class="h-px flex-1 bg-ecsess-800/60"></span>
-				<h2 class="text-xs font-bold uppercase tracking-[0.2em] text-ecsess-400">Upcoming</h2>
-				<span class="h-px flex-1 bg-ecsess-800/60"></span>
+			<div class="mb-6 flex items-center gap-3">
+				<span class="h-px flex-1 bg-ecsess-800"></span>
+				<h2 class="text-[11px] font-bold uppercase tracking-[0.2em] text-ecsess-400">Upcoming</h2>
+				<span class="h-px flex-1 bg-ecsess-800"></span>
 			</div>
 
-			<div class="space-y-10">
+			<div class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
 				{#each upcomingEvents as e (e._id ?? e.name)}
 					<EventBlock
 						eventTitle={e.name}
@@ -110,13 +111,13 @@
 	<!-- Past Events -->
 	{#if finishedEvents.length > 0}
 		<section>
-			<div class="mb-8 flex items-center gap-4">
-				<span class="h-px flex-1 bg-ecsess-800/60"></span>
-				<h2 class="text-xs font-bold uppercase tracking-[0.2em] text-ecsess-600">Past Events</h2>
-				<span class="h-px flex-1 bg-ecsess-800/60"></span>
+			<div class="mb-6 flex items-center gap-3">
+				<span class="h-px flex-1 bg-ecsess-800"></span>
+				<h2 class="text-[11px] font-bold uppercase tracking-[0.2em] text-ecsess-600">Past Events</h2>
+				<span class="h-px flex-1 bg-ecsess-800"></span>
 			</div>
 
-			<div class="space-y-10">
+			<div class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
 				{#each finishedEvents as e (e._id ?? e.name)}
 					<EventBlock
 						eventTitle={e.name}
@@ -139,8 +140,8 @@
 	{#if upcomingEvents.length === 0 && finishedEvents.length === 0}
 		<div class="flex min-h-[40vh] items-center justify-center">
 			<div class="text-center">
-				<p class="text-lg font-semibold text-ecsess-400">No events in this category yet</p>
-				<p class="mt-2 text-sm text-ecsess-600">Check back soon for updates!</p>
+				<p class="text-base font-semibold text-ecsess-400">No events in this category yet</p>
+				<p class="mt-1.5 text-sm text-ecsess-600">Check back soon for updates!</p>
 			</div>
 		</div>
 	{/if}
