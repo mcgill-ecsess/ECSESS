@@ -1,5 +1,6 @@
 <script lang="ts">
 	import EventBlock from 'components/event/EventBlock.svelte';
+	import EventDialog from 'components/event/EventDialog.svelte';
 	import { type EventPost, type EventCategory, EventLinkKind, type LinkType } from '$lib/schemas';
 
 	let { category, events } = $props<{
@@ -7,12 +8,20 @@
 		events: EventPost[];
 	}>();
 
-	const matchCategory = (e: EventPost): boolean => {
-		if (category === 'allEvents') return true;
-		const c: unknown = e.category ?? [];
-		return Array.isArray(c) ? c.includes(category) : (c as string) === category;
-	};
+	// ─── Dialog state ────────────────────────────────────────────────
+	let dialogOpen = $state(false);
+	let selectedEvent = $state<EventPost | null>(null);
 
+	function openDialog(event: EventPost) {
+		selectedEvent = event;
+		dialogOpen = true;
+	}
+
+	function closeDialog() {
+		dialogOpen = false;
+	}
+
+	// ─── Date helpers ────────────────────────────────────────────────
 	const parseEventDate = (dateString: string): Date => {
 		const parsed = new Date(dateString);
 		return isNaN(parsed.getTime()) ? new Date() : parsed;
@@ -21,48 +30,21 @@
 	const formatEventDate = (dateString: string): string => {
 		const date = parseEventDate(dateString);
 		const isMidnight = date.getUTCHours() === 0 && date.getUTCMinutes() === 0;
-
 		if (isMidnight) {
 			return date.toLocaleDateString('en-US', {
-				weekday: 'short',
-				year: 'numeric',
-				month: 'short',
-				day: 'numeric',
-				timeZone: 'UTC'
-			});
-		} else {
-			return date.toLocaleDateString('en-US', {
-				weekday: 'short',
-				year: 'numeric',
-				month: 'short',
-				day: 'numeric',
-				hour: 'numeric',
-				minute: '2-digit',
-				hour12: true
+				weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC'
 			});
 		}
+		return date.toLocaleDateString('en-US', {
+			weekday: 'short', year: 'numeric', month: 'short', day: 'numeric',
+			hour: 'numeric', minute: '2-digit', hour12: true
+		});
 	};
 
-	const isPastEvent = (dateString: string): boolean => {
+	const isPast = (dateString: string): boolean => {
 		const eventDate = parseEventDate(dateString);
-		const now = new Date();
-		const eventDatePlusOneDay = new Date(eventDate.getTime() + 24 * 60 * 60 * 1000);
-		return now > eventDatePlusOneDay;
+		return new Date() > new Date(eventDate.getTime() + 24 * 60 * 60 * 1000);
 	};
-
-	const filtered = $derived((events ?? []).filter(matchCategory));
-
-	const upcomingEvents = $derived(
-		filtered
-			.filter((e) => !isPastEvent(e.date))
-			.sort((a, b) => parseEventDate(a.date).getTime() - parseEventDate(b.date).getTime())
-	);
-
-	const finishedEvents = $derived(
-		filtered
-			.filter((e) => isPastEvent(e.date))
-			.sort((a, b) => parseEventDate(b.date).getTime() - parseEventDate(a.date).getTime())
-	);
 
 	const getLink = (e: EventPost, type: EventLinkKind): LinkType[] | null => {
 		let generalLinks: LinkType[] = [];
@@ -76,73 +58,128 @@
 		}
 		return generalLinks.length > 0 ? generalLinks : null;
 	};
+
+	// ─── CSS-class filtering: all events stay mounted, only visibility changes ──
+	// This avoids grid reflow and re-mount on every filter click.
+	const isVisible = (e: EventPost): boolean => {
+		if (category === 'allEvents') return true;
+		const c: unknown = e.category ?? [];
+		return Array.isArray(c) ? c.includes(category) : (c as string) === category;
+	};
+
+	// Sorted lists (all events, pre-sorted, never filtered out of DOM)
+	const allEvents = $derived(
+		[...(events ?? [])].sort((a, b) => {
+			const aIsPast = isPast(a.date);
+			const bIsPast = isPast(b.date);
+			if (aIsPast !== bIsPast) return aIsPast ? 1 : -1;
+			if (!aIsPast) return parseEventDate(a.date).getTime() - parseEventDate(b.date).getTime();
+			return parseEventDate(b.date).getTime() - parseEventDate(a.date).getTime();
+		})
+	);
+
+	const upcomingEvents = $derived(allEvents.filter((e) => !isPast(e.date)));
+	const pastEvents = $derived(allEvents.filter((e) => isPast(e.date)));
+
+	const hasVisibleUpcoming = $derived(upcomingEvents.some(isVisible));
+	const hasVisiblePast = $derived(pastEvents.some(isVisible));
+	const hasAnyVisible = $derived(hasVisibleUpcoming || hasVisiblePast);
 </script>
 
-<div class="w-full max-w-7xl py-8 text-left">
+<div class="w-full max-w-7xl py-8">
 
 	<!-- Upcoming Events -->
 	{#if upcomingEvents.length > 0}
-		<section class="mb-12">
-			<div class="mb-6 flex items-center gap-3">
+		<section
+			class="mb-10 transition-all duration-300"
+			class:hidden={!hasVisibleUpcoming}
+		>
+			<div class="mb-5 flex items-center gap-3">
 				<span class="h-px flex-1 bg-ecsess-800"></span>
-				<h2 class="text-[11px] font-bold uppercase tracking-[0.2em] text-ecsess-400">Upcoming</h2>
+				<h2 class="text-[10px] font-bold uppercase tracking-[0.2em] text-ecsess-400">Upcoming</h2>
 				<span class="h-px flex-1 bg-ecsess-800"></span>
 			</div>
 
-			<div class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+			<!-- Grid: all upcoming events rendered; hidden class toggled by CSS only -->
+			<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 				{#each upcomingEvents as e (e._id ?? e.name)}
-					<EventBlock
-						eventTitle={e.name}
-						date={formatEventDate(e.date)}
-						location={e.location}
-						eventDescription={e.description}
-						thumbnail={e.thumbnail}
-						registrationLink={getLink(e, EventLinkKind.REGISTRATION)}
-						paymentLink={getLink(e, EventLinkKind.PAYMENT)}
-						generalLink={getLink(e, EventLinkKind.GENERAL)}
-						eventCategory={e.category}
-						isPastEvent={false}
-					/>
+					<div
+						class="transition-opacity duration-150"
+						class:hidden={!isVisible(e)}
+					>
+						<EventBlock
+							eventTitle={e.name}
+							date={formatEventDate(e.date)}
+							location={e.location}
+							thumbnail={e.thumbnail}
+							eventCategory={e.category}
+							isPastEvent={false}
+							onopen={() => openDialog(e)}
+						/>
+					</div>
 				{/each}
 			</div>
 		</section>
 	{/if}
 
 	<!-- Past Events -->
-	{#if finishedEvents.length > 0}
-		<section>
-			<div class="mb-6 flex items-center gap-3">
+	{#if pastEvents.length > 0}
+		<section
+			class="transition-all duration-300"
+			class:hidden={!hasVisiblePast}
+		>
+			<div class="mb-5 flex items-center gap-3">
 				<span class="h-px flex-1 bg-ecsess-800"></span>
-				<h2 class="text-[11px] font-bold uppercase tracking-[0.2em] text-ecsess-600">Past Events</h2>
+				<h2 class="text-[10px] font-bold uppercase tracking-[0.2em] text-ecsess-600">Past Events</h2>
 				<span class="h-px flex-1 bg-ecsess-800"></span>
 			</div>
 
-			<div class="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
-				{#each finishedEvents as e (e._id ?? e.name)}
-					<EventBlock
-						eventTitle={e.name}
-						date={formatEventDate(e.date)}
-						location={e.location}
-						eventDescription={e.description}
-						thumbnail={e.thumbnail}
-						registrationLink={getLink(e, EventLinkKind.REGISTRATION)}
-						paymentLink={getLink(e, EventLinkKind.PAYMENT)}
-						generalLink={getLink(e, EventLinkKind.GENERAL)}
-						eventCategory={e.category}
-						isPastEvent={true}
-					/>
+			<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+				{#each pastEvents as e (e._id ?? e.name)}
+					<div
+						class="transition-opacity duration-150"
+						class:hidden={!isVisible(e)}
+					>
+						<EventBlock
+							eventTitle={e.name}
+							date={formatEventDate(e.date)}
+							location={e.location}
+							thumbnail={e.thumbnail}
+							eventCategory={e.category}
+							isPastEvent={true}
+							onopen={() => openDialog(e)}
+						/>
+					</div>
 				{/each}
 			</div>
 		</section>
 	{/if}
 
 	<!-- Empty state -->
-	{#if upcomingEvents.length === 0 && finishedEvents.length === 0}
+	{#if !hasAnyVisible}
 		<div class="flex min-h-[40vh] items-center justify-center">
 			<div class="text-center">
-				<p class="text-base font-semibold text-ecsess-400">No events in this category yet</p>
-				<p class="mt-1.5 text-sm text-ecsess-600">Check back soon for updates!</p>
+				<p class="text-sm font-semibold text-ecsess-400">No events in this category yet</p>
+				<p class="mt-1 text-xs text-ecsess-600">Check back soon for updates!</p>
 			</div>
 		</div>
 	{/if}
 </div>
+
+<!-- Single shared dialog — avoids mounting/unmounting per card -->
+{#if selectedEvent}
+	<EventDialog
+		open={dialogOpen}
+		eventTitle={selectedEvent.name}
+		date={formatEventDate(selectedEvent.date)}
+		location={selectedEvent.location}
+		eventDescription={selectedEvent.description}
+		thumbnail={selectedEvent.thumbnail}
+		registrationLink={getLink(selectedEvent, EventLinkKind.REGISTRATION)}
+		paymentLink={getLink(selectedEvent, EventLinkKind.PAYMENT)}
+		generalLink={getLink(selectedEvent, EventLinkKind.GENERAL)}
+		eventCategory={selectedEvent.category}
+		isPastEvent={isPast(selectedEvent.date)}
+		onclose={closeDialog}
+	/>
+{/if}

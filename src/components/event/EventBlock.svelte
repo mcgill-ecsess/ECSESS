@@ -1,20 +1,16 @@
 <script lang="ts">
 	import type { LinkType } from '$lib/schemas';
 	import type { InputValue } from '@portabletext/svelte';
-	import { CalendarDays, MapPin, FilePen, CalendarPlus, ExternalLink, ChevronDown } from '@lucide/svelte';
-	import RichText from 'components/RichText.svelte';
+	import { CalendarDays, MapPin, Eye } from '@lucide/svelte';
 
 	let {
 		eventTitle,
 		date,
 		location,
-		eventDescription,
 		thumbnail,
-		registrationLink,
-		paymentLink,
-		generalLink,
 		eventCategory,
-		isPastEvent = false
+		isPastEvent = false,
+		onopen
 	} = $props<{
 		eventTitle: string;
 		date: string;
@@ -26,9 +22,8 @@
 		generalLink?: LinkType[] | null;
 		eventCategory?: string[];
 		isPastEvent?: boolean;
+		onopen?: () => void;
 	}>();
-
-	let expanded = $state(false);
 
 	const getDefaultImage = (category?: string[]): string => {
 		if (!category || category.length === 0) return '/ECSESS.png';
@@ -49,163 +44,66 @@
 			? (Array.isArray(eventCategory) ? eventCategory : [eventCategory])
 			: []
 	);
-
-	const addToCalendar = () => {
-		const eventDate = new Date(date);
-		const endDate = new Date(eventDate.getTime() + 2 * 60 * 60 * 1000);
-		const formatDate = (d: Date) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-		const icsContent = [
-			'BEGIN:VCALENDAR',
-			'VERSION:2.0',
-			'PRODID:-//ECSESS//Events//EN',
-			'BEGIN:VEVENT',
-			`DTSTART:${formatDate(eventDate)}`,
-			`DTEND:${formatDate(endDate)}`,
-			`SUMMARY:${eventTitle}`,
-			`LOCATION:${location || 'TBA'}`,
-			`DESCRIPTION:${eventTitle} - ECSESS Event`,
-			'END:VEVENT',
-			'END:VCALENDAR'
-		].join('\n');
-		const blob = new Blob([icsContent], { type: 'text/calendar' });
-		const url = URL.createObjectURL(blob);
-		const a = document.createElement('a');
-		a.href = url;
-		a.download = `${eventTitle.replace(/\s+/g, '_')}.ics`;
-		document.body.appendChild(a);
-		a.click();
-		document.body.removeChild(a);
-		URL.revokeObjectURL(url);
-	};
 </script>
 
-<!-- Instagram-style post -->
-<article class="flex flex-col" class:opacity-60={isPastEvent}>
-
-	<!-- Poster image — 4:5 portrait, object-cover; non-standard sizes fill gracefully -->
-	<div class="relative w-full overflow-hidden rounded-lg" style="aspect-ratio: 4/5;">
+<!-- Post tile -->
+<article
+	class="group flex cursor-pointer flex-col"
+	class:opacity-55={isPastEvent}
+	onclick={onopen}
+	role="button"
+	tabindex="0"
+	onkeydown={(e) => e.key === 'Enter' && onopen?.()}
+	aria-label="View {eventTitle} details"
+>
+	<!-- Poster image — 4:5 portrait -->
+	<div class="relative w-full overflow-hidden rounded-md" style="aspect-ratio: 4/5;">
 		<img
 			src={imageSrc}
 			alt={eventTitle}
-			class="absolute inset-0 h-full w-full object-cover"
+			class="absolute inset-0 h-full w-full object-cover transition-[filter] duration-300"
 			class:grayscale={isPastEvent}
 		/>
-		<!-- Status badge — top-left overlay -->
-		<div class="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5">
+
+		<!-- Hover overlay -->
+		<div class="absolute inset-0 flex items-center justify-center bg-ecsess-950/0 transition-colors duration-200 group-hover:bg-ecsess-950/50">
+			<Eye class="h-7 w-7 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100" strokeWidth={1.5} />
+		</div>
+
+		<!-- Status + category badges -->
+		<div class="absolute top-2 left-2 flex flex-wrap gap-1">
 			{#if isPastEvent}
-				<span class="rounded-sm bg-ecsess-950/80 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-ecsess-300 backdrop-blur-sm">
+				<span class="rounded bg-ecsess-950/75 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-ecsess-400 backdrop-blur-sm">
 					Past
 				</span>
 			{:else}
-				<span class="inline-flex items-center gap-1 rounded-sm bg-ecsess-500 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-sm">
-					<span class="h-1.5 w-1.5 rounded-full bg-ecsess-100 animate-pulse-ring"></span>
+				<span class="inline-flex items-center gap-1 rounded bg-ecsess-500 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-white">
+					<span class="h-1 w-1 rounded-full bg-white animate-pulse"></span>
 					Upcoming
 				</span>
 			{/if}
-
 			{#each categoryLabel as cat}
-				<span class="rounded-sm bg-ecsess-900/80 px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest text-ecsess-200 backdrop-blur-sm">
+				<span class="rounded bg-ecsess-900/80 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-ecsess-300 backdrop-blur-sm">
 					{cat}
 				</span>
 			{/each}
 		</div>
 	</div>
 
-	<!-- Post body -->
-	<div class="flex flex-1 flex-col gap-2 pt-3">
-
-		<!-- Title -->
-		<h2 class="text-sm font-bold leading-snug text-ecsess-50 text-balance">
+	<!-- Post meta below image -->
+	<div class="pt-2">
+		<h2 class="text-[11px] font-bold leading-snug text-ecsess-50 text-balance mb-1 line-clamp-2">
 			{eventTitle}
 		</h2>
-
-		<!-- Date & location -->
-		<div class="flex flex-col gap-0.5 text-xs text-ecsess-300">
+		<div class="flex flex-col gap-0.5 text-[10px] text-ecsess-400">
 			<span class="flex items-center gap-1">
-				<CalendarDays class="h-3 w-3 shrink-0 text-ecsess-400" strokeWidth={2} />
+				<CalendarDays class="h-2.5 w-2.5 shrink-0 text-ecsess-500" strokeWidth={2} />
 				{date}
 			</span>
 			<span class="flex items-center gap-1">
-				<MapPin class="h-3 w-3 shrink-0 text-ecsess-400" strokeWidth={2} />
+				<MapPin class="h-2.5 w-2.5 shrink-0 text-ecsess-500" strokeWidth={2} />
 				{location ?? 'TBA'}
 			</span>
 		</div>
-
-		<!-- Action buttons -->
-		<div class="flex flex-wrap items-center gap-1.5 pt-1">
-			{#if !isPastEvent && registrationLink}
-				<a
-					href={registrationLink[0].url}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="inline-flex items-center gap-1 rounded bg-ecsess-500 px-2.5 py-1 text-xs font-semibold text-white transition-colors hover:bg-ecsess-400"
-				>
-					<FilePen class="h-3 w-3" strokeWidth={2.5} />
-					Register
-				</a>
-			{/if}
-
-			{#if !isPastEvent && paymentLink}
-				<a
-					href={paymentLink[0].url}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="inline-flex items-center gap-1 rounded border border-ecsess-600 px-2.5 py-1 text-xs font-semibold text-ecsess-200 transition-colors hover:border-ecsess-400 hover:text-ecsess-50"
-				>
-					<ExternalLink class="h-3 w-3" strokeWidth={2.5} />
-					Pay
-				</a>
-			{/if}
-
-			{#if !isPastEvent}
-				<button
-					type="button"
-					onclick={addToCalendar}
-					class="inline-flex items-center gap-1 rounded border border-ecsess-600 px-2.5 py-1 text-xs font-semibold text-ecsess-200 transition-colors hover:border-ecsess-400 hover:text-ecsess-50"
-				>
-					<CalendarPlus class="h-3 w-3" strokeWidth={2.5} />
-					Calendar
-				</button>
-			{/if}
-
-			{#if generalLink && generalLink.length > 0}
-				{#each generalLink.slice(0, 2) as link}
-					<a
-						href={link.url}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="inline-flex items-center gap-1 rounded border border-ecsess-600 px-2.5 py-1 text-xs font-semibold text-ecsess-200 transition-colors hover:border-ecsess-400 hover:text-ecsess-50"
-					>
-						<ExternalLink class="h-3 w-3" strokeWidth={2.5} />
-						{link.title}
-					</a>
-				{/each}
-			{/if}
-
-			<!-- Toggle description -->
-			{#if eventDescription}
-				<button
-					type="button"
-					onclick={() => (expanded = !expanded)}
-					class="ml-auto inline-flex items-center gap-0.5 text-xs font-semibold text-ecsess-400 transition-colors hover:text-ecsess-200"
-					aria-expanded={expanded}
-				>
-					{expanded ? 'Less' : 'More'}
-					<ChevronDown
-						class="h-3.5 w-3.5 transition-transform duration-200 {expanded ? 'rotate-180' : ''}"
-						strokeWidth={2.5}
-					/>
-				</button>
-			{/if}
-		</div>
-
-		<!-- Expandable description -->
-		{#if expanded && eventDescription}
-			<div class="mt-2 border-t border-ecsess-800 pt-3">
-				<div class="typography text-ecsess-100 text-xs">
-					<RichText value={eventDescription} />
-				</div>
-			</div>
-		{/if}
 	</div>
 </article>
