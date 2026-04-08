@@ -1,23 +1,16 @@
 <script lang="ts">
 	import type { LinkType } from '$lib/schemas';
 	import type { InputValue } from '@portabletext/svelte';
-	import EventImageHeader from './EBComponents/EventImageHeader.svelte';
-	import EventBadges from './EBComponents/EventBadges.svelte';
-	import EventInfoGrid from './EBComponents/EventInfoGrid.svelte';
-	import EventActionButtons from './EBComponents/EventActionButtons.svelte';
-	import EventDescription from './EBComponents/EventDescription.svelte';
+	import { CalendarDays, MapPin, Eye } from '@lucide/svelte';
 
 	let {
 		eventTitle,
 		date,
 		location,
-		eventDescription,
 		thumbnail,
-		registrationLink,
-		paymentLink,
-		generalLink,
 		eventCategory,
-		isPastEvent = false
+		isPastEvent = false,
+		onopen
 	} = $props<{
 		eventTitle: string;
 		date: string;
@@ -29,103 +22,106 @@
 		generalLink?: LinkType[] | null;
 		eventCategory?: string[];
 		isPastEvent?: boolean;
+		onopen?: () => void;
 	}>();
 
-	let showDescription = $state(false);
-
-	const addToCalendar = () => {
-		const eventDate = new Date(date);
-		const endDate = new Date(eventDate.getTime() + 2 * 60 * 60 * 1000);
-
-		const formatDate = (d: Date) => {
-			return d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
-		};
-
-		const icsContent = [
-			'BEGIN:VCALENDAR',
-			'VERSION:2.0',
-			'PRODID:-//ECSESS//Events//EN',
-			'BEGIN:VEVENT',
-			`DTSTART:${formatDate(eventDate)}`,
-			`DTEND:${formatDate(endDate)}`,
-			`SUMMARY:${eventTitle}`,
-			`LOCATION:${location || 'TBA'}`,
-			`DESCRIPTION:${eventTitle} - ECSESS Event`,
-			'END:VEVENT',
-			'END:VCALENDAR'
-		].join('\n');
-
-		const blob = new Blob([icsContent], { type: 'text/calendar' });
-		const url = URL.createObjectURL(blob);
-		const link = document.createElement('a');
-		link.href = url;
-		link.download = `${eventTitle.replace(/\s+/g, '_')}.ics`;
-		document.body.appendChild(link);
-		link.click();
-		document.body.removeChild(link);
-		URL.revokeObjectURL(url);
-	};
-
-	const flipCard = () => {
-		showDescription = !showDescription;
-	};
-
-	const handleKeyDown = (e: KeyboardEvent) => {
-		if (e.key === 'Enter' || e.key === ' ') {
-			e.preventDefault();
-			flipCard();
+	const getDefaultImage = (category?: string[]): string => {
+		if (!category || category.length === 0) return '/ECSESS.png';
+		const cat = Array.isArray(category) ? category[0] : category;
+		switch (cat) {
+			case 'social':
+				return '/Social.jpg';
+			case 'technical':
+				return '/Technical.jpg';
+			case 'professional':
+				return '/Professional.jpg';
+			case 'academic':
+				return '/Academic.jpg';
+			default:
+				return '/ECSESS.png';
 		}
 	};
+
+	const imageSrc = $derived(thumbnail || getDefaultImage(eventCategory));
+
+	const categoryLabel = $derived(
+		eventCategory && eventCategory.length > 0
+			? Array.isArray(eventCategory)
+				? eventCategory
+				: [eventCategory]
+			: []
+	);
 </script>
 
-<div class="group relative flex h-full w-full flex-col rounded-2xl perspective-[1000px]">
-	<div
-		class="grid h-full w-full rounded-2xl text-center transition-transform duration-500 transform-3d {showDescription
-			? 'transform-[rotateY(180deg)]'
-			: 'hover:animate-wiggle transform-[rotateY(0)]'}"
-	>
-		<!-- Front Side -->
+<!-- Post tile -->
+<article
+	class="group flex cursor-pointer flex-col"
+	class:opacity-55={isPastEvent}
+	onclick={onopen}
+	role="button"
+	tabindex="0"
+	onkeydown={(e) => e.key === 'Enter' && onopen?.()}
+	aria-label="View {eventTitle} details"
+>
+	<!-- Poster image — 4:5 portrait -->
+	<div class="relative w-full overflow-hidden rounded-md" style="aspect-ratio: 4/5;">
+		<img
+			src={imageSrc}
+			alt={eventTitle}
+			class="absolute inset-0 h-full w-full object-cover transition-[filter] duration-300"
+			class:grayscale={isPastEvent}
+		/>
+
+		<!-- Hover overlay -->
 		<div
-			class="bg-ecsess-950 col-start-1 row-start-1 flex h-full w-full transform-[rotateY(0)] cursor-pointer flex-col rounded-2xl transition-opacity duration-500 backface-hidden {showDescription
-				? 'pointer-events-none opacity-0'
-				: 'opacity-100'}"
-			data-flip-side="front"
-			role="button"
-			tabindex="0"
-			onclick={flipCard}
-			onkeydown={handleKeyDown}
-			aria-label="Flip event card to view description"
+			class="bg-ecsess-950/0 group-hover:bg-ecsess-950/50 absolute inset-0 flex items-center justify-center transition-colors duration-200"
 		>
-			<EventImageHeader {eventTitle} {thumbnail} {eventCategory} />
-			<EventBadges {isPastEvent} {eventCategory} />
-
-			<EventInfoGrid {date} {location} />
-
-			{#if !isPastEvent}
-				<div class="pointer-events-auto relative z-30 flex-1 px-6 pt-0 pb-4">
-					<EventActionButtons {registrationLink} {paymentLink} {addToCalendar} />
-				</div>
-			{/if}
-
-			<div class="p-4 lg:hidden">
-				<p class="text-ecsess-400 text-sm">Click to view more</p>
-			</div>
+			<Eye
+				class="h-7 w-7 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+				strokeWidth={1.5}
+			/>
 		</div>
 
-		<!-- Back Side -->
-		<div
-			class="bg-ecsess-950 col-start-1 row-start-1 flex h-full w-full transform-[rotateY(180deg)] cursor-pointer flex-col rounded-2xl transition-opacity duration-500 backface-hidden transform-3d {showDescription
-				? 'opacity-100'
-				: 'pointer-events-none opacity-0'}"
-			data-flip-side="back"
-			class:flipped={showDescription}
-			role="button"
-			tabindex="0"
-			onclick={flipCard}
-			onkeydown={handleKeyDown}
-			aria-label="Flip event card back to front"
-		>
-			<EventDescription {eventTitle} {eventDescription} {generalLink} />
+		<!-- Status + category badges -->
+		<div class="absolute top-2 left-2 flex flex-wrap gap-1">
+			{#if isPastEvent}
+				<span
+					class="bg-ecsess-950/75 text-ecsess-400 rounded px-1.5 py-0.5 text-[9px] font-bold tracking-widest uppercase backdrop-blur-sm"
+				>
+					Past
+				</span>
+			{:else}
+				<span
+					class="bg-ecsess-500 inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[9px] font-bold tracking-widest text-white uppercase"
+				>
+					<span class="h-1 w-1 animate-pulse rounded-full bg-white"></span>
+					Upcoming
+				</span>
+			{/if}
+			{#each categoryLabel as cat}
+				<span
+					class="bg-ecsess-900/80 text-ecsess-300 rounded px-1.5 py-0.5 text-[9px] font-bold tracking-widest uppercase backdrop-blur-sm"
+				>
+					{cat}
+				</span>
+			{/each}
 		</div>
 	</div>
-</div>
+
+	<!-- Post meta below image -->
+	<div class="pt-2">
+		<h2 class="text-ecsess-50 mb-1 line-clamp-2 text-[11px] leading-snug font-bold text-balance">
+			{eventTitle}
+		</h2>
+		<div class="text-ecsess-400 flex flex-col gap-0.5 text-[10px]">
+			<span class="flex items-center gap-1">
+				<CalendarDays class="text-ecsess-500 h-2.5 w-2.5 shrink-0" strokeWidth={2} />
+				{date}
+			</span>
+			<span class="flex items-center gap-1">
+				<MapPin class="text-ecsess-500 h-2.5 w-2.5 shrink-0" strokeWidth={2} />
+				{location ?? 'TBA'}
+			</span>
+		</div>
+	</div>
+</article>
