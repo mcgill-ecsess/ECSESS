@@ -79,13 +79,7 @@
 	canonical={data.canonical}
 />
 
-<Section
-	from="from-ecsess-black"
-	to="to-ecsess-black"
-	via="via-ecsess-800"
-	direction="to-b"
-	contentStart
->
+<Section contentStart>
 	<div class="w-full max-w-360 px-4">
 		<!-- Hero -->
 		<h1 class="page-title text-ecsess-50">Meet the ECSESS Council</h1>

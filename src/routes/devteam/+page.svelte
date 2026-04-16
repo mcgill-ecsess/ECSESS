@@ -44,7 +44,7 @@
 
 <SeoMetaTags />
 
-<Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-800" direction="to-b">
+<Section>
 	<div class="relative flex h-full w-full flex-col items-center">
 		<!-- Hero -->
 		<div class="my-8">

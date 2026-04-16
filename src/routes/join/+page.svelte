@@ -113,7 +113,7 @@
 />
 
 <!-- Section 1: Election timeline & documents -->
-<Section from="from-ecsess-black" to="to-ecsess-800" direction="to-b">
+<Section>
 	<p class="page-title">ECSESS Election 2026</p>
 
 	<p class="text-ecsess-200 mb-2 text-center text-3xl">
@@ -195,7 +195,7 @@
 </Section>
 
 <!-- Section 2: Positions & contact -->
-<Section from="from-ecsess-800" to="to-ecsess-black" direction="to-b">
+<Section>
 	<div class="mx-auto mb-12 w-full max-w-4xl text-center">
 		<p class="text-ecsess-100 my-4 text-3xl font-extrabold">Important documents</p>
 		<div class="mx-auto flex flex-col flex-wrap items-center justify-center gap-3">
