@@ -28,13 +28,7 @@
 	canonical={data.canonical}
 />
 
-<Section
-	from="from-ecsess-black"
-	to="to-ecsess-black"
-	via="via-ecsess-600"
-	direction="to-b"
-	contentStart={true}
->
+<Section contentStart={true}>
 	<!-- Page header -->
 	<div class="w-full max-w-7xl pt-6 text-left">
 		<p class="text-ecsess-500 mb-2 text-xs font-bold tracking-[0.2em] uppercase">ECSESS</p>

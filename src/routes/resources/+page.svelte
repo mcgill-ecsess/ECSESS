@@ -11,7 +11,7 @@
 	canonical={data.canonical}
 />
 
-<Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-800" direction="to-b">
+<Section>
 	<p class="page-title">Resources</p>
 
 	<div class="grid gap-4">

@@ -60,6 +60,15 @@
 	}
 }
 
+html,
+body {
+	background-color: #031c15; /* ecsess-950 */
+	/* Subtle tiling dot grid pattern */
+	background-image: radial-gradient(circle, rgba(140, 185, 138, 0.12) 1px, transparent 1px);
+	background-size: 28px 28px;
+	min-height: 100%;
+}
+
 * {
 	font-family: 'Saira', 'Noto Sans Symbols', sans-serif;
 	font-optical-sizing: auto;
