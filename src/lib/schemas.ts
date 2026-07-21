@@ -62,8 +62,8 @@ export enum ResourceCategory {
 	TECHNICAL = 'technical',
 	INVOLVEMENT = 'involvement',
 	SUSTAINABILITY = 'sustainability',
-	EQUITY = 'equity',
-	CAMPUS_LIFE = 'campusLife'
+	EQUITY_MENTALHEALTH = 'e&m',
+	CAMPUS_LIFE = 'campuslife'
 }
 
 export type Resource = {

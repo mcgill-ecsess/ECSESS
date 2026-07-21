@@ -18,7 +18,7 @@
 		{ value: ResourceCategory.TECHNICAL, label: 'Technical', icon: '⚙' },
 		{ value: ResourceCategory.INVOLVEMENT, label: 'Involvement', icon: '🤝' },
 		{ value: ResourceCategory.SUSTAINABILITY, label: 'Sustainability', icon: '🌱' },
-		{ value: ResourceCategory.EQUITY, label: 'Equity', icon: '⚖' },
+		{ value: ResourceCategory.EQUITY_MENTALHEALTH, label: 'Equity & Mental Health', icon: '⚖' },
 		{ value: ResourceCategory.CAMPUS_LIFE, label: 'Campus Life', icon: '🎓' }
 	];
 
