@@ -56,10 +56,21 @@ export type CouncilMember = {
 	linkedin?: string; // URL to profile, optional
 };
 
+export enum ResourceCategory {
+	ALL = 'all',
+	ACADEMIC = 'academic',
+	TECHNICAL = 'technical',
+	INVOLVEMENT = 'involvement',
+	SUSTAINABILITY = 'sustainability',
+	EQUITY = 'equity',
+	CAMPUS_LIFE = 'campusLife'
+}
+
 export type Resource = {
 	title: string;
 	url: string;
 	description: string;
+	category: ResourceCategory;
 };
 
 export type Sponsors = {
