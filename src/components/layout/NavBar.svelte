@@ -9,10 +9,12 @@
 	let menuHidden = $state(true);
 
 	const teamItems = [
+		{href: '/council', label: 'Council' },
 		{ href: '/socialcom', label: 'Social Committee' },
 		{ href: '/externalcom', label: 'External Committee' },
 		{ href: '/devteam', label: 'Dev Team' },
-		{ href: '/bits', label: 'ECSESS Bits' }
+		{ href: '/bits', label: 'ECSESS Bits' },
+		{ href: '/alumni', label: 'ECSESS Alumni' }
 	];
 
 	const sponsorItems = [
@@ -71,8 +73,8 @@
 					<img src={ECSESS} alt="ECSESS Logo" class="h-12 p-2" />
 				</a>
 				<NavButton href="/events">Events</NavButton>
-				<NavButton href="/council">Meet the Council</NavButton>
-				<NavExpansion label="SubTeam" items={teamItems} />
+				<!-- <NavButton href="/council">Council</NavButton> -->
+				<NavExpansion label="Council" items={teamItems} />
 				<NavButton href="/join">Join ECSESS</NavButton>
 				<NavExpansion label="Sponsor" items={sponsorItems} />
 				<NavExpansion label="Resources" items={resourcesItems} />

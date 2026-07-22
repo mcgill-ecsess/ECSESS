@@ -85,3 +85,8 @@ export type DevTeam = {
 	github: string;
 	image: string; //URL
 };
+
+export type AlumniYear = {
+	year: string;
+	names: string[];
+};
