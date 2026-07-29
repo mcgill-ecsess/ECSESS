@@ -82,7 +82,7 @@
 					<span class="flex items-center gap-1.5">
 						{cat.value === 'all' ? 'All' : cat.value}
 						<span
-							class="rounded-full px-1.5 py-0.5 text-[10px] font-bold leading-none
+							class="rounded-full px-1.5 py-0.5 text-[10px] leading-none font-bold
 							{activeCategory === cat.value
 								? 'bg-ecsess-400/30 text-ecsess-50'
 								: 'bg-ecsess-800 text-ecsess-400'}"

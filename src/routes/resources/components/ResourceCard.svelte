@@ -31,7 +31,7 @@
 			/>
 		</div>
 
-		<div class="flex flex-wrap gap-1 justify-start items-start">
+		<div class="flex flex-wrap items-start justify-start gap-1">
 			{#each categories as category}
 				<span
 					class="bg-ecsess-800 text-ecsess-300 self-start rounded-full px-2 py-0.5 text-sm font-medium"
