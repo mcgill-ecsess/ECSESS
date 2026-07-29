@@ -2,7 +2,7 @@
 	"name": "ecsess-website",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "bunx --bun vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
