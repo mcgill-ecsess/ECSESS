@@ -19,9 +19,9 @@
 
 <Link href={link} external={true} class="group block h-full">
 	<div
-		class="bg-ecsess-black border-ecsess-800 hover:border-ecsess-600 grid h-full grid-rows-[1fr_1fr_4fr] gap-2 rounded-xl border p-5 text-left transition-colors duration-200"
+		class="bg-ecsess-black border-ecsess-800 hover:border-ecsess-600 flex h-full flex-col gap-3 rounded-xl border p-5 text-left transition-colors duration-200"
 	>
-		<div class="flex flex-row justify-between gap-3">
+		<div class="flex shrink-0 flex-row justify-between gap-3">
 			<h3 class="text-ecsess-50 py-0 text-left text-lg leading-snug font-bold text-balance">
 				{title}
 			</h3>
@@ -31,17 +31,17 @@
 			/>
 		</div>
 
-		<div class="flex flex-wrap items-start justify-start gap-1">
-			{#each categories as category}
+		<div class="flex shrink-0 flex-wrap items-start justify-start gap-1">
+			{#each categories as cat (cat)}
 				<span
 					class="bg-ecsess-800 text-ecsess-300 self-start rounded-full px-2 py-0.5 text-sm font-medium"
 				>
-					{category}
+					{cat}
 				</span>
 			{/each}
 		</div>
 
-		<p class="text-ecsess-400 min-h-0 overflow-hidden text-left text-sm leading-relaxed">
+		<p class="text-ecsess-400 min-h-0 flex-1 overflow-hidden text-left text-sm leading-relaxed">
 			{description}
 		</p>
 	</div>
