@@ -24,7 +24,7 @@
 			aria-hidden="true"
 		></div>
 		<div class="mt-6">
-			<Link href="/sponsor">
+			<Link href="/sponsorship">
 				<Button>Become a Sponsor</Button>
 			</Link>
 		</div>
