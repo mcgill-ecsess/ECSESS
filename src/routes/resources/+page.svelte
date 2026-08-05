@@ -23,9 +23,7 @@
 	];
 
 	let filtered = $derived<Resource[]>(
-		activeCategory === 'all'
-			? resources
-			: resources.filter((r) => r.category === activeCategory)
+		activeCategory === 'all' ? resources : resources.filter((r) => r.category === activeCategory)
 	);
 
 	function setCategory(cat: ResourceCategory | 'all') {
@@ -63,7 +61,7 @@
 		</p>
 
 		<!-- Category filter pills -->
-		<ul class="flex flex-wrap gap-2 mb-8" role="tablist" aria-label="Filter resources by category">
+		<ul class="mb-8 flex flex-wrap gap-2" role="tablist" aria-label="Filter resources by category">
 			{#each categories as cat}
 				{#if countFor(cat.value) > 0 || cat.value === 'all'}
 					<EventTabsTrigger
@@ -74,7 +72,7 @@
 						<span class="flex items-center gap-1.5">
 							{cat.label}
 							<span
-								class="rounded-full px-1.5 py-0.5 text-[10px] font-bold leading-none
+								class="rounded-full px-1.5 py-0.5 text-[10px] leading-none font-bold
 								{activeCategory === cat.value
 									? 'bg-ecsess-400/30 text-ecsess-50'
 									: 'bg-ecsess-800 text-ecsess-400'}"

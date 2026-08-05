@@ -41,6 +41,7 @@
 					<NavButton href="/resources">Resources</NavButton>
 					<NavButton href="/devteam">Dev Team</NavButton>
 					<NavButton href="/join">Join ECSESS</NavButton>
+					<NavButton href="/sponsorship">Sponsorship</NavButton>
 				</div>
 			{/if}
 		</div>
@@ -57,6 +58,7 @@
 				<NavButton href="/resources">Resources</NavButton>
 				<NavButton href="/devteam">Dev Team</NavButton>
 				<NavButton href="/join">Join ECSESS</NavButton>
+				<NavButton href="/sponsorship">Sponsorship</NavButton>
 			</div>
 		</div>
 	</nav>
