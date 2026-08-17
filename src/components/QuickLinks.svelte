@@ -25,10 +25,10 @@
 			<Button class="flex h-full w-full items-center justify-center">Ctrl+Z feedback form</Button>
 		</Link>
 
-		<!-- Sponsorship disabled -->
-		<Link href="/sponsorship">
+		<!-- Partnership disabled -->
+		<Link href="/partnership">
 			<Button disabled class="flex h-full w-full items-center justify-center">
-				Sponsor ECSESS
+				Partner with ECSESS
 			</Button>
 		</Link>
 	</div>

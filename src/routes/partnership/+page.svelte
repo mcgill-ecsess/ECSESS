@@ -34,7 +34,6 @@
 	const externalEvents = [
 		{
 			title: 'ECSESScapade',
-			month: 'September',
 			location: 'Ottawa',
 			students: '~50 Students',
 			description:
@@ -43,7 +42,6 @@
 		},
 		{
 			title: 'Speed Networking',
-			month: 'November',
 			location: 'On Campus',
 			students: '~100 Students',
 			description:
@@ -52,7 +50,6 @@
 		},
 		{
 			title: 'ECC Internship Panel',
-			month: 'January',
 			location: 'On Campus',
 			students: '~30 Students',
 			description: 'Early-talent Q&A · Panel branding · Targeted interns',
@@ -60,7 +57,6 @@
 		},
 		{
 			title: 'Company Crawl',
-			month: 'October',
 			location: 'Montreal',
 			students: '~30 Students',
 			description: 'Host on-site tour · 30 top students · Showcase culture · Exclusive CV pool',
@@ -68,7 +64,6 @@
 		},
 		{
 			title: 'Wine and Cheese',
-			month: 'February',
 			location: 'Montreal',
 			students: '~100 Students',
 			description: 'Casual mingling · Branded table · CV access · Speech slot',
@@ -76,7 +71,6 @@
 		},
 		{
 			title: 'Themed Speaker Panel',
-			month: 'March',
 			location: 'On Campus',
 			students: '~70 Students',
 			description:
@@ -87,9 +81,9 @@
 </script>
 
 <SeoMetaTags
-	title="Sponsorship — ECSESS"
-	description="Support ECSESS by sponsoring our community, events, and student initiatives at McGill."
-	canonical="https://ecsess.mcgilleus.ca/sponsorship"
+	title="Partnership — ECSESS"
+	description="Support ECSESS through partnership with our community, events, and student initiatives at McGill."
+	canonical="https://ecsess.mcgilleus.ca/partnership"
 />
 
 <Section
@@ -101,7 +95,7 @@
 >
 	<div class="w-full max-w-6xl px-4 py-6 text-center">
 		<h1 class="text-ecsess-50 mb-0 text-5xl font-bold text-balance md:text-6xl lg:text-7xl">
-			SPONSORSHIP
+			PARTNERSHIP
 		</h1>
 
 		<div class="relative mx-auto grid w-full gap-8 overflow-hidden rounded-[2rem] p-8 text-left">
@@ -178,7 +172,7 @@
 		{/if}
 
 		<div class="mt-8 flex justify-center">
-			<Link href="/r/sponsor">
+			<Link href="/r/partner">
 				<Button>See Package</Button>
 			</Link>
 		</div>
@@ -234,9 +228,9 @@
 			}
 		</style>
 
-		<!-- Why sponsor us section -->
+		<!-- Why partner with us section -->
 		<div class="w-full max-w-6xl px-4 py-12 text-center">
-			<h2 class="text-ecsess-50 mb-8 text-3xl font-bold md:text-4xl">Why sponsor us?</h2>
+			<h2 class="text-ecsess-50 mb-8 text-3xl font-bold md:text-4xl">Why partner with us?</h2>
 
 			<hr class="bg-ecsess-100/30 my-6 h-px w-full border-0" />
 
@@ -328,7 +322,7 @@
 						<li>
 							Present at <span class="text-ecsess-50 font-semibold"
 								>technical panels, speaker series</span
-							>, or sponsor awards
+							>, or partnership awards
 						</li>
 						<li>Pull targeted CVs, all year, anytime</li>
 					</ul>

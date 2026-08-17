@@ -13,10 +13,10 @@
 	<!-- Section Header -->
 	<div class="my-12 text-center">
 		<h2 id="sponsors-title" class="text-ecsess-100 mb-2 text-4xl font-bold md:text-5xl">
-			Our Sponsors
+			Our Partners
 		</h2>
 		<p class="text-ecsess-200/90 mx-auto max-w-2xl text-base leading-relaxed md:text-lg">
-			We're grateful to our sponsors for their continued support of ECSESS, our events, activities,
+			We're grateful to our partners for their continued support of ECSESS, our events, activities,
 			and our community.
 		</p>
 		<div
@@ -24,8 +24,8 @@
 			aria-hidden="true"
 		></div>
 		<div class="mt-6">
-			<Link href="/sponsorship">
-				<Button>Become a Sponsor</Button>
+			<Link href="/partnership">
+				<Button>Become a Partner</Button>
 			</Link>
 		</div>
 	</div>
@@ -55,7 +55,7 @@
 		</div>
 	{:else}
 		<div class="text-ecsess-300 py-12 text-center">
-			<p>You can be our next sponsor!</p>
+			<p>You can be our next partner!</p>
 		</div>
 	{/if}
 </div>
