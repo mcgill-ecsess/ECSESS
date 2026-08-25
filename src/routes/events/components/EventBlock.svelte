@@ -54,13 +54,13 @@
 </script>
 
 <!-- Post tile -->
-<article
+<div
 	class="group flex cursor-pointer flex-col"
 	class:opacity-55={isPastEvent}
 	onclick={onopen}
 	role="button"
 	tabindex="0"
-	onkeydown={(e) => e.key === 'Enter' && onopen?.()}
+	onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), onopen?.())}
 	aria-label="View {eventTitle} details"
 >
 	<!-- Poster image — 4:5 portrait -->
@@ -124,4 +124,4 @@
 			</span>
 		</div>
 	</div>
-</article>
+</div>

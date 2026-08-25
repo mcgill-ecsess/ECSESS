@@ -1,6 +1,5 @@
-//Wait for CMS to setup
 import type { DevTeam } from '$lib/schemas';
-import { getFromCMS } from '$lib/utils';
+import { getFromCMS } from '$lib/utils.js';
 
 const query = `*[_type == "devTeam"]{
   name,
@@ -14,10 +13,11 @@ const query = `*[_type == "devTeam"]{
   "image": image.asset->url+"?h=300&fm=webp",
 }`;
 
-export const load = async ({ url }) => {
-	let devTeam: DevTeam[] = await getFromCMS(query);
+export const load = async ({ url }: { url: URL }) => {
+	const devTeam: DevTeam[] = await getFromCMS(query);
+
 	return {
-		devTeam: devTeam,
+		devTeam,
 		canonical: url.href
 	};
 };

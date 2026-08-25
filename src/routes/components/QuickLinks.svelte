@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Link from 'components/Link.svelte';
-	import Button from 'components/Button.svelte';
+	import Link from '$lib/components/Link.svelte';
+	import Button from '$lib/components/Button.svelte';
 </script>
 
 <div>

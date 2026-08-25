@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { Linkedin, Mail, X } from '@lucide/svelte';
+	import { scale } from 'svelte/transition';
+	import Link from '$lib/components/Link.svelte';
+
 	let {
 		name,
 		position,
@@ -10,8 +14,8 @@
 		onClose,
 		id = 'popup-title'
 	} = $props();
-	import { Linkedin, Mail, X } from '@lucide/svelte';
-	import Link from 'components/Link.svelte';
+
+	let imageError = $state(false);
 
 	function getInitials(name: string | null | undefined): string {
 		if (name == null || typeof name !== 'string') return '';
@@ -21,9 +25,6 @@
 			.map((w) => w.charAt(0).toUpperCase())
 			.join('');
 	}
-	import { scale } from 'svelte/transition';
-
-	let imageError = $state(false);
 
 	function handleImageError() {
 		imageError = true;
@@ -44,7 +45,6 @@
 		<X class="size-4 md:size-5" />
 	</button>
 
-	<!-- Photo block: top on small, left on md+ -->
 	<div
 		class="border-ecsess-700/60 bg-ecsess-850 md:border-ecsess-700/60 flex shrink-0 flex-col items-center justify-center border-b p-4 md:min-w-44 md:border-r md:border-b-0 md:p-6"
 	>
@@ -71,7 +71,6 @@
 		{/if}
 	</div>
 
-	<!-- Information: below photo on small, right on md+ -->
 	<div class="flex min-w-0 flex-1 flex-col justify-center p-0 px-4 md:p-6">
 		<div class="flex flex-wrap items-center justify-center gap-2">
 			<h2 {id} class="text-ecsess-50 mt-2 text-lg leading-tight font-bold md:text-2xl">{name}</h2>

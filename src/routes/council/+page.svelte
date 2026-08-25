@@ -1,10 +1,10 @@
 <script lang="ts">
-	import CouncilCardPopUp from 'components/council/CouncilCardPopUp.svelte';
-	import Section from 'components/layout/Section.svelte';
-	import CouncilCard from 'components/council/CouncilCard.svelte';
-	import Link from 'components/Link.svelte';
+	import CouncilCardPopUp from './components/CouncilCardPopUp.svelte';
+	import Section from '$lib/components/layout/Section.svelte';
+	import CouncilCard from './components/CouncilCard.svelte';
+	import Link from '$lib/components/Link.svelte';
 	import type { CouncilMember } from '$lib/schemas';
-	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
+	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
 	import { onMount } from 'svelte';
 	import { tick } from 'svelte';
 
@@ -86,7 +86,7 @@
 	direction="to-b"
 	contentStart
 >
-	<div class="w-full max-w-360 px-4">
+	<div class="w-full max-w-7xl px-4">
 		<!-- Hero -->
 		<h1 class="page-title text-ecsess-50">Meet the ECSESS Council</h1>
 

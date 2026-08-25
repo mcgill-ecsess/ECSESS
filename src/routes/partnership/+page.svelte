@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Section from 'components/layout/Section.svelte';
-	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
+	import Section from '$lib/components/layout/Section.svelte';
+	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
 	import {
 		Award,
 		Building2,
@@ -11,10 +11,12 @@
 		Megaphone,
 		Handshake
 	} from '@lucide/svelte';
-	import Button from 'components/Button.svelte';
-	import Link from 'components/Link.svelte';
-	import StudentDemographicsChart from 'components/partnership/StudentDemographicsChart.svelte';
+	import Button from '$lib/components/Button.svelte';
+	import Link from '$lib/components/Link.svelte';
+	import StudentDemographicsChart from './components/StudentDemographicsChart.svelte';
 	import { getCompanyLogos, getEventImageUrl } from '$lib/assets';
+
+	let { data } = $props();
 
 	const logos = getCompanyLogos();
 	const loopLogos = [...logos, ...logos];
@@ -71,7 +73,7 @@
 <SeoMetaTags
 	title="Partnership — ECSESS"
 	description="Support ECSESS through partnership with our community, events, and student initiatives at McGill."
-	canonical="https://ecsess.mcgilleus.ca/partnership"
+	canonical={data.canonical}
 />
 
 <Section

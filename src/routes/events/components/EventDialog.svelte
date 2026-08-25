@@ -2,7 +2,7 @@
 	import type { LinkType } from '$lib/schemas';
 	import type { InputValue } from '@portabletext/svelte';
 	import { CalendarDays, MapPin, FilePen, CalendarPlus, ExternalLink, X } from '@lucide/svelte';
-	import RichText from 'components/RichText.svelte';
+	import RichText from '$lib/components/RichText.svelte';
 
 	let {
 		open = false,
@@ -101,9 +101,11 @@
 <div
 	data-backdrop="true"
 	onclick={handleBackdropClick}
+	onkeydown={handleKeydown}
 	role="dialog"
 	aria-modal="true"
 	aria-label={eventTitle}
+	tabindex="-1"
 	class="fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-200
 		{open
 		? 'bg-ecsess-950/80 pointer-events-auto backdrop-blur-sm'

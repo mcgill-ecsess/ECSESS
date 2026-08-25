@@ -1,9 +1,10 @@
 <script lang="ts">
 	import type { Resource } from '$lib/schemas';
 	import ResourceCard from './components/ResourceCard.svelte';
-	import Section from 'components/layout/Section.svelte';
-	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
-	import EventTabsTrigger from 'components/event/EventTabsTrigger.svelte';
+	import Section from '$lib/components/layout/Section.svelte';
+	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
+	import PageHeader from '$lib/components/layout/PageHeader.svelte';
+	import EventTabsTrigger from '$lib/components/EventTabsTrigger.svelte';
 
 	let { data } = $props();
 
@@ -61,41 +62,37 @@
 	direction="to-b"
 	contentStart={true}
 >
-	<!-- Page header -->
-	<div class="w-full max-w-7xl pt-6 text-left">
-		<p class="text-ecsess-500 mb-2 text-xs font-bold tracking-[0.2em] uppercase">ECSESS</p>
-		<h1 class="text-ecsess-50 mb-2 py-0 text-4xl font-bold text-balance md:text-5xl lg:text-6xl">
-			Resources
-		</h1>
-		<p class="text-ecsess-400 mb-8 max-w-xl text-base leading-relaxed">
-			Your hub for academic support, technical tools, campus involvement, and more.
-		</p>
+	<PageHeader
+		title="Resources"
+		description="Your hub for academic support, technical tools, campus involvement, and more."
+	/>
 
-		<!-- Category filter pills -->
-		<ul class="mb-8 flex flex-wrap gap-2" role="tablist" aria-label="Filter resources by category">
-			{#each categories as cat (cat.value)}
-				<EventTabsTrigger
-					value={cat.value}
-					selected={activeCategory === cat.value}
-					onclick={setCategory}
-				>
-					<span class="flex items-center gap-1.5">
-						{cat.value === 'all' ? 'All' : cat.value}
-						<span
-							class="rounded-full px-1.5 py-0.5 text-[10px] leading-none font-bold
+	<ul
+		class="mb-8 flex w-full max-w-7xl flex-wrap gap-2"
+		role="tablist"
+		aria-label="Filter resources by category"
+	>
+		{#each categories as cat (cat.value)}
+			<EventTabsTrigger
+				value={cat.value}
+				selected={activeCategory === cat.value}
+				onclick={setCategory}
+			>
+				<span class="flex items-center gap-1.5">
+					{cat.value === 'all' ? 'All' : cat.value}
+					<span
+						class="rounded-full px-1.5 py-0.5 text-[10px] leading-none font-bold
 							{activeCategory === cat.value
-								? 'bg-ecsess-400/30 text-ecsess-50'
-								: 'bg-ecsess-800 text-ecsess-400'}"
-						>
-							{cat.count}
-						</span>
+							? 'bg-ecsess-400/30 text-ecsess-50'
+							: 'bg-ecsess-800 text-ecsess-400'}"
+					>
+						{cat.count}
 					</span>
-				</EventTabsTrigger>
-			{/each}
-		</ul>
-	</div>
+				</span>
+			</EventTabsTrigger>
+		{/each}
+	</ul>
 
-	<!-- Resource grid -->
 	<div class="w-full max-w-7xl pb-16">
 		{#if filtered.length === 0}
 			<div class="border-ecsess-800 rounded-xl border border-dashed py-16 text-center">

@@ -1,13 +1,13 @@
-<script>
-	import Section from 'components/layout/Section.svelte';
-	import OhSchedule from 'components/officehour/OHSchedule.svelte';
-	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
-	import AffiliatedGroups from 'components/homepage/AffiliatedGroups.svelte';
-	import Sponsors from 'components/homepage/Sponsors.svelte';
-	import QuickLinks from 'components/QuickLinks.svelte';
+<script lang="ts">
+	import Section from '$lib/components/layout/Section.svelte';
+	import OhSchedule from './components/OHSchedule.svelte';
+	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
+	import AffiliatedGroups from './components/AffiliatedGroups.svelte';
+	import Sponsors from './components/Sponsors.svelte';
+	import QuickLinks from './components/QuickLinks.svelte';
+	import FAQAccordion from './components/FAQAccordion.svelte';
 	import { fade } from 'svelte/transition';
 
-	/** loading things from the server side */
 	let { data } = $props();
 </script>
 
@@ -93,3 +93,12 @@
 <Section from="from-ecsess-800" to="to-ecsess-black" via="via-ecsess-850">
 	<AffiliatedGroups />
 </Section>
+
+{#if data.faqs?.length}
+	<Section from="from-ecsess-black" to="to-ecsess-900" via="via-ecsess-950" contentStart={true}>
+		<div class="w-full max-w-3xl pb-16 text-left">
+			<h2 class="text-ecsess-50 mb-6 text-3xl font-bold">Frequently Asked Questions</h2>
+			<FAQAccordion entries={data.faqs} />
+		</div>
+	</Section>
+{/if}

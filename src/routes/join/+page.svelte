@@ -1,8 +1,8 @@
-<script>
-	import Button from 'components/Button.svelte';
-	import Link from 'components/Link.svelte';
-	import Section from 'components/layout/Section.svelte';
-	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
+<script lang="ts">
+	import Button from '$lib/components/Button.svelte';
+	import Link from '$lib/components/Link.svelte';
+	import Section from '$lib/components/layout/Section.svelte';
+	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
 	let { data } = $props();
 
 	const keyDates = [

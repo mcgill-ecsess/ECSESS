@@ -7,12 +7,12 @@
 		type ChartConfiguration,
 		type Plugin
 	} from 'chart.js';
+	import { DEMOGRAPHICS_CHART_COLORS } from '$lib/theme.js';
 
 	Chart.register(DoughnutController, ArcElement);
 
 	const labels = ['International', 'Other Provinces', 'Québec'];
 	const values = [30, 19, 51];
-	const colors = ['#FF9844', '#FFD54F', '#FFF3E0'];
 
 	type LabelPosition = { x: number; y: number; align: CanvasTextAlign };
 
@@ -63,7 +63,7 @@
 				datasets: [
 					{
 						data: values,
-						backgroundColor: colors,
+						backgroundColor: [...DEMOGRAPHICS_CHART_COLORS],
 						borderWidth: 0,
 						hoverBorderWidth: 0
 					}
@@ -74,9 +74,7 @@
 				maintainAspectRatio: true,
 				cutout: '58%',
 				rotation: 240,
-				layout: {
-					padding
-				},
+				layout: { padding },
 				plugins: {
 					legend: { display: false },
 					tooltip: { enabled: false }
@@ -100,10 +98,8 @@
 			const width = chartStage.clientWidth;
 			const padding = getLayoutPadding(width);
 
-			if (chartInstance) {
-				if (chartInstance.options.layout) {
-					chartInstance.options.layout.padding = padding;
-				}
+			if (chartInstance?.options.layout) {
+				chartInstance.options.layout.padding = padding;
 				chartInstance.resize();
 				chartInstance.update('none');
 			}
@@ -119,25 +115,35 @@
 	});
 </script>
 
-<div class="demographics-chart">
-	<h3 class="demographics-title">Student Demographics</h3>
+<div class="flex w-full min-w-0 flex-col items-center gap-3 overflow-visible">
+	<h3
+		class="text-ecsess-50 m-0 px-2 text-center text-[clamp(1.1rem,2.5vw+0.5rem,1.75rem)] leading-tight font-extrabold tracking-[0.12em] uppercase drop-shadow-[0_2px_0_rgba(0,0,0,0.55)]"
+	>
+		Student Demographics
+	</h3>
 
-	<div class="chart-wrap">
-		<div class="chart-stage" bind:this={chartStage}>
+	<div class="w-full max-w-96 overflow-visible">
+		<div class="relative aspect-square w-full overflow-visible" bind:this={chartStage}>
 			<canvas bind:this={canvas} aria-label="Student demographics doughnut chart"></canvas>
 
 			{#each labels as label, index (label)}
 				{@const pos = labelPositions[index]}
 				{#if pos}
 					<div
-						class="chart-label"
-						class:chart-label-left={pos.align === 'right'}
-						class:chart-label-right={pos.align === 'left'}
+						class="text-ecsess-50 pointer-events-none absolute flex max-w-[min(9rem,42vw)] -translate-x-1/2 -translate-y-1/2 flex-col gap-0.5 text-center drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]"
+						class:-translate-x-full={pos.align === 'right'}
+						class:translate-x-0={pos.align === 'left'}
+						class:text-right={pos.align === 'right'}
+						class:text-left={pos.align === 'left'}
 						style:left="{pos.x}px"
 						style:top="{pos.y}px"
 					>
-						<span class="chart-label-name">{label}</span>
-						<span class="chart-label-value">{values[index]}%</span>
+						<span class="text-[clamp(0.65rem,2vw+0.25rem,0.875rem)] leading-tight font-bold">
+							{label}
+						</span>
+						<span class="text-[clamp(0.75rem,2.2vw+0.3rem,1rem)] leading-tight font-extrabold">
+							{values[index]}%
+						</span>
 					</div>
 				{/if}
 			{/each}
@@ -146,82 +152,9 @@
 </div>
 
 <style>
-	.demographics-chart {
-		display: flex;
-		width: 100%;
-		min-width: 0;
-		flex-direction: column;
-		align-items: center;
-		gap: 0.75rem;
-		overflow: visible;
-	}
-
-	.demographics-title {
-		margin: 0;
-		padding-inline: 0.5rem;
-		font-size: clamp(1.1rem, 2.5vw + 0.5rem, 1.75rem);
-		font-weight: 800;
-		line-height: 1.2;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		color: #fff;
-		text-shadow:
-			0 2px 0 rgba(0, 0, 0, 0.55),
-			0 0 18px rgba(0, 0, 0, 0.35);
-	}
-
-	.chart-wrap {
-		width: min(100%, 24rem);
-		overflow: visible;
-	}
-
-	.chart-stage {
-		position: relative;
-		width: 100%;
-		aspect-ratio: 1;
-		overflow: visible;
-	}
-
-	.chart-stage :global(canvas) {
+	canvas {
 		display: block;
 		width: 100% !important;
 		height: 100% !important;
-	}
-
-	.chart-label {
-		position: absolute;
-		display: flex;
-		flex-direction: column;
-		gap: 0.1rem;
-		pointer-events: none;
-		transform: translate(-50%, -50%);
-		max-width: min(9rem, 42vw);
-		text-align: center;
-		color: #fff;
-		text-shadow:
-			0 1px 2px rgba(0, 0, 0, 0.85),
-			0 0 12px rgba(0, 0, 0, 0.45);
-	}
-
-	.chart-label-left {
-		transform: translate(-100%, -50%);
-		text-align: right;
-	}
-
-	.chart-label-right {
-		transform: translate(0, -50%);
-		text-align: left;
-	}
-
-	.chart-label-name {
-		font-size: clamp(0.65rem, 2vw + 0.25rem, 0.875rem);
-		font-weight: 700;
-		line-height: 1.15;
-	}
-
-	.chart-label-value {
-		font-size: clamp(0.75rem, 2.2vw + 0.3rem, 1rem);
-		font-weight: 800;
-		line-height: 1.1;
 	}
 </style>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ArrowUpRight } from '@lucide/svelte';
-	import Link from 'components/Link.svelte';
+	import Link from '$lib/components/Link.svelte';
 
 	let {
 		title = 'Resource Title',

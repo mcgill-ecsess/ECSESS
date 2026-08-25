@@ -1,15 +1,14 @@
 import type { InputValue } from '@portabletext/svelte';
 
 export type EventPost = {
-	id: string;
+	_id?: string;
 	name: string;
-	description: string;
+	description?: InputValue;
 	date: string;
-	time: string;
-	location: string;
-	thumbnail: string;
-	category: EventCategory;
-	links: LinkType[];
+	location?: string;
+	thumbnail?: string;
+	category?: string[];
+	links?: LinkType[];
 };
 
 export enum EventCategory {

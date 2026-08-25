@@ -1,0 +1,17 @@
+---
+description: Svelte 5 component patterns for ECSESS
+globs: **/*.svelte
+alwaysApply: false
+---
+
+# Svelte Conventions
+
+- Svelte 5 runes: `$props()`, `$state()`, `$derived()`, `$derived.by()`, `$effect()`
+- Snippets: `{@render children()}` — no legacy `export let` or `$$props`
+- Import shared components from `$lib/components/...`
+- Import page components with `./components/...`
+- Icons from `@lucide/svelte`
+- Tailwind utility classes only; palette is `ecsess-*` (see `src/app.css`)
+- Wrap portable text with `$lib/components/RichText.svelte`
+- Use `$lib/components/layout/Section.svelte` for page sections
+- Use the Svelte MCP server (`plugin-svelte-svelte`) when creating or editing components

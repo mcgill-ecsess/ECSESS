@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Sponsors } from '$lib/schemas';
-	import Link from 'components/Link.svelte';
-	import Button from 'components/Button.svelte';
+	import Link from '$lib/components/Link.svelte';
+	import Button from '$lib/components/Button.svelte';
 
 	let { sponsors, lastUpdated } = $props<{
 		sponsors: Sponsors[];
