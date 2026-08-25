@@ -13,22 +13,10 @@
 	} from '@lucide/svelte';
 	import Button from 'components/Button.svelte';
 	import Link from 'components/Link.svelte';
-	import demographicImage from '/src/assets/demographic.png';
-	// load company logos from src/assets/company_logo — alphabetical order
-	// use Vite glob to return URLs; duplicate array for seamless marquee
-	const _logoModules = import.meta.glob('/src/assets/company_logo/*.{png,jpg,jpeg,svg}', {
-		eager: true,
-		query: '?url',
-		import: 'default'
-	});
-	const _logos = Object.keys(_logoModules).map((p) => {
-		const filename = p.split('/').pop() || '';
-		const nameOnly = filename.replace(/\.[^.]+$/, '');
-		// @ts-ignore
-		return { name: nameOnly.toLowerCase(), url: _logoModules[p] };
-	});
-	_logos.sort((a, b) => a.name.localeCompare(b.name));
-	const logos = _logos.map((l) => l.url);
+	import StudentDemographicsChart from 'components/partnership/StudentDemographicsChart.svelte';
+	import { getCompanyLogos, getEventImageUrl } from '$lib/assets';
+
+	const logos = getCompanyLogos();
 	const loopLogos = [...logos, ...logos];
 
 	const externalEvents = [
@@ -38,7 +26,7 @@
 			students: '~50 Students',
 			description:
 				'Our LARGEST industry trip: 3-day trip branding · Merchandise bags · Exclusive CV pool',
-			image: '/src/assets/events/ecsesscapade.png'
+			image: getEventImageUrl('ecsesscapade')
 		},
 		{
 			title: 'Speed Networking',
@@ -46,28 +34,28 @@
 			students: '~100 Students',
 			description:
 				'Timed networking sessions with students: 40+ mini-interviews / rep · CV bundle · Speech slot',
-			image: '/src/assets/events/speednetworking.png'
+			image: getEventImageUrl('speednetworking')
 		},
 		{
 			title: 'ECC Internship Panel',
 			location: 'On Campus',
 			students: '~30 Students',
 			description: 'Early-talent Q&A · Panel branding · Targeted interns',
-			image: '/src/assets/events/eccinternshippanel.png'
+			image: getEventImageUrl('eccinternshippanel')
 		},
 		{
 			title: 'Company Crawl',
 			location: 'Montreal',
 			students: '~30 Students',
 			description: 'Host on-site tour · 30 top students · Showcase culture · Exclusive CV pool',
-			image: '/src/assets/events/companycrawl.png'
+			image: getEventImageUrl('companycrawl')
 		},
 		{
 			title: 'Wine and Cheese',
 			location: 'Montreal',
 			students: '~100 Students',
 			description: 'Casual mingling · Branded table · CV access · Speech slot',
-			image: '/src/assets/events/wineandcheese.png'
+			image: getEventImageUrl('wineandcheese')
 		},
 		{
 			title: 'Themed Speaker Panel',
@@ -75,7 +63,7 @@
 			students: '~70 Students',
 			description:
 				'Thought-leadership talk · Demo spotlight · Recruit niche talent (Theme example: Product Management)',
-			image: '/src/assets/events/themedspeakerpanel.png'
+			image: getEventImageUrl('themedspeakerpanel')
 		}
 	];
 </script>
@@ -93,57 +81,60 @@
 	direction="to-b"
 	contentStart={true}
 >
-	<div class="w-full max-w-6xl px-4 py-6 text-center">
-		<h1 class="text-ecsess-50 mb-0 text-5xl font-bold text-balance md:text-6xl lg:text-7xl">
-			PARTNERSHIP
-		</h1>
-
-		<div class="relative mx-auto grid w-full gap-8 overflow-hidden rounded-[2rem] p-8 text-left">
+	<div class="w-full max-w-6xl px-4 py-6 text-center sm:px-6">
+		<h1 class="page-title text-ecsess-50 text-balance">Partnership with ECSESS</h1>
+		<div class="flex justify-center">
+			<Link href="/r/partnership" external>
+				<Button class="text-xl">ECSESS Partnership Package</Button>
+			</Link>
+		</div>
+		<div
+			class="relative mx-auto mt-6 w-full rounded-[2rem] px-2 py-6 text-left sm:px-4 sm:py-8 md:px-6"
+		>
 			<div class="text-ecsess-100 space-y-6 text-center">
-				<div class="mx-auto max-w-2xl space-y-4 bg-transparent p-8">
-					<div class="mb-5 flex items-center justify-center gap-3">
-						<span class="bg-ecsess-800 h-px flex-1"></span>
-						<h2
-							class="text-ecsess-300 text-2xl font-bold tracking-[0.2em] uppercase md:text-3xl lg:text-3xl"
-						>
-							What is ECSESS?
-						</h2>
-						<span class="bg-ecsess-800 h-px flex-1"></span>
-					</div>
-					<h2 class="text-ecsess-50 mb-6 text-center text-2xl font-bold md:text-2xl">
-						Our community / audience
-					</h2>
-					<div class="grid items-start justify-items-center gap-8 lg:grid-cols-[1fr_1fr]">
+				<div class="mx-auto w-full max-w-6xl space-y-6">
+					<hr class="bg-ecsess-100/30 h-px w-full border-0" />
+					<h2 class="text-ecsess-50 text-xl font-bold sm:text-2xl">Our community / audience</h2>
+					<div
+						class="mx-auto grid w-full max-w-5xl items-center justify-items-center gap-10 md:grid-cols-2 md:gap-8 lg:gap-12"
+					>
 						<div
-							class="flex h-full w-full max-w-[30rem] flex-col items-center justify-start gap-0 bg-transparent p-0"
+							class="flex w-full min-w-0 flex-col items-center justify-center overflow-visible px-2 sm:px-4"
 						>
-							<img
-								src={demographicImage}
-								alt="Demographics visual"
-								class="mt-0 max-h-[400px] w-full object-contain p-0"
-							/>
-							<h3 class="text-ecsess-50 mt-0 text-xl font-bold">Student Demographics</h3>
+							<StudentDemographicsChart />
 						</div>
-						<div class="grid h-full w-full max-w-[30rem] gap-3 text-left">
-							<div class="grid w-full grid-cols-[auto_1fr] items-center gap-4 py-3">
-								<div class="flex items-center justify-center">
+						<div
+							class="grid w-full max-w-md min-w-0 gap-2 text-left md:max-w-none md:justify-self-center"
+						>
+							<div
+								class="grid w-full grid-cols-[auto_1fr] items-start gap-3 py-3 sm:items-center sm:gap-4"
+							>
+								<div class="flex shrink-0 items-center justify-center pt-0.5 sm:pt-0">
 									<Award class="text-ecsess-50" size="32" />
 								</div>
-								<p class="text-ecsess-50 font-semibold">3rd in Canada for Engineering</p>
-							</div>
-							<div class="grid w-full grid-cols-[auto_1fr] items-center gap-4 py-3">
-								<div class="flex items-center justify-center">
-									<GraduationCap class="text-ecsess-50" size="32" />
-								</div>
-								<p class="text-ecsess-50 font-semibold">
-									Electrical, Computer, Software Engineering (Co-op)
+								<p class="text-ecsess-50 text-sm font-semibold sm:text-base">
+									3rd in Canada for Engineering
 								</p>
 							</div>
-							<div class="grid w-full grid-cols-[auto_1fr] items-center gap-4 py-3">
-								<div class="flex items-center justify-center">
+							<div
+								class="grid w-full grid-cols-[auto_1fr] items-start gap-3 py-3 sm:items-center sm:gap-4"
+							>
+								<div class="flex shrink-0 items-center justify-center pt-0.5 sm:pt-0">
+									<GraduationCap class="text-ecsess-50" size="32" />
+								</div>
+								<p class="text-ecsess-50 text-sm font-semibold sm:text-base">
+									Electrical, Computer, and Software Engineering (Co-op)
+								</p>
+							</div>
+							<div
+								class="grid w-full grid-cols-[auto_1fr] items-start gap-3 py-3 sm:items-center sm:gap-4"
+							>
+								<div class="flex shrink-0 items-center justify-center pt-0.5 sm:pt-0">
 									<Building2 class="text-ecsess-50" size="32" />
 								</div>
-								<p class="text-ecsess-50 font-semibold">40 Professors, 20 Staff Members</p>
+								<p class="text-ecsess-50 text-sm font-semibold sm:text-base">
+									40 Professors, 20 Staff Members
+								</p>
 							</div>
 						</div>
 					</div>
@@ -171,26 +162,24 @@
 			</div>
 		{/if}
 
-		<div class="mt-8 flex justify-center">
-			<Link href="/r/partner">
-				<Button>See Package</Button>
-			</Link>
-		</div>
-
-		<div class="w-full max-w-6xl px-4 py-12 text-center">
-			<h2 class="text-ecsess-50 mb-4 text-3xl font-bold md:text-4xl">External Events</h2>
-			<div class="grid gap-6 md:grid-cols-2">
+		<div class="w-full max-w-6xl px-4 py-10 text-center sm:px-6 sm:py-12">
+			<h2 class="text-ecsess-50 mb-6 text-2xl font-bold sm:text-3xl md:text-4xl">
+				External Events
+			</h2>
+			<div class="grid gap-5 sm:gap-6 md:grid-cols-2">
 				{#each externalEvents as event}
 					<div
-						class="border-ecsess-700 bg-ecsess-900/70 rounded-3xl border p-6 text-left shadow-[0_20px_80px_rgba(0,0,0,0.35)] backdrop-blur-sm"
+						class="border-ecsess-700 bg-ecsess-900/70 rounded-3xl border p-5 text-left shadow-[0_20px_80px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:p-6"
 					>
-						<div class="grid items-center gap-6 lg:grid-cols-[1fr_16rem]">
-							<div>
-								<h3 class="text-ecsess-50 text-xl font-bold">{event.title}</h3>
+						<div class="grid items-center gap-5 sm:gap-6 lg:grid-cols-[1fr_minmax(0,16rem)]">
+							<div class="order-2 lg:order-1">
+								<h3 class="text-ecsess-50 text-lg font-bold sm:text-xl">{event.title}</h3>
 								<p class="text-ecsess-400 text-sm">{event.location} · {event.students}</p>
-								<p class="text-ecsess-300 mt-4">{event.description}</p>
+								<p class="text-ecsess-300 mt-3 text-sm sm:mt-4 sm:text-base">{event.description}</p>
 							</div>
-							<div class="bg-ecsess-800 h-44 w-full overflow-hidden rounded-3xl sm:h-52">
+							<div
+								class="bg-ecsess-800 order-1 h-40 w-full overflow-hidden rounded-3xl sm:h-44 lg:order-2 lg:h-52"
+							>
 								<img
 									src={event.image}
 									alt={event.title + ' image'}
@@ -229,17 +218,19 @@
 		</style>
 
 		<!-- Why partner with us section -->
-		<div class="w-full max-w-6xl px-4 py-12 text-center">
-			<h2 class="text-ecsess-50 mb-8 text-3xl font-bold md:text-4xl">Why partner with us?</h2>
+		<div class="w-full max-w-6xl px-4 py-10 text-center sm:px-6 sm:py-12">
+			<h2 class="text-ecsess-50 mb-6 text-2xl font-bold sm:mb-8 sm:text-3xl md:text-4xl">
+				Why partner with us?
+			</h2>
 
 			<hr class="bg-ecsess-100/30 my-6 h-px w-full border-0" />
 
-			<div class="grid gap-8 sm:grid-cols-3">
+			<div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
 				<div class="border-0 bg-transparent p-0">
 					<div class="mb-2 flex justify-center">
 						<Users class="text-ecsess-50" size="48" />
 					</div>
-					<p class="text-ecsess-50 text-center font-semibold whitespace-pre-line">
+					<p class="text-ecsess-50 mx-auto max-w-xs text-center text-sm font-semibold sm:text-base">
 						40+ company reps across ECSESS events in 24-25
 					</p>
 				</div>
@@ -248,16 +239,16 @@
 					<div class="mb-2 flex justify-center">
 						<GraduationCap class="text-ecsess-50" size="48" />
 					</div>
-					<p class="text-ecsess-50 text-center font-semibold whitespace-pre-line">
+					<p class="text-ecsess-50 mx-auto max-w-xs text-center text-sm font-semibold sm:text-base">
 						100+ students at our largest external events
 					</p>
 				</div>
 
-				<div class="border-0 bg-transparent p-0">
+				<div class="border-0 bg-transparent p-0 sm:col-span-2 md:col-span-1">
 					<div class="mb-2 flex justify-center">
 						<TrendingUp class="text-ecsess-50" size="48" />
 					</div>
-					<p class="text-ecsess-50 text-center font-semibold whitespace-pre-line">
+					<p class="text-ecsess-50 mx-auto max-w-xs text-center text-sm font-semibold sm:text-base">
 						20000+ monthly social media impressions
 					</p>
 				</div>
@@ -267,9 +258,9 @@
 		</div>
 
 		<!-- Bordered feature columns -->
-		<div class="w-full max-w-6xl px-4 py-12 text-center">
-			<div class="grid gap-6 sm:grid-cols-3">
-				<div class="bg-ecsess-900/40 border-ecsess-700 rounded-2xl border p-6">
+		<div class="w-full max-w-6xl px-4 py-10 text-center sm:px-6 sm:py-12">
+			<div class="grid gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+				<div class="bg-ecsess-900/40 border-ecsess-700 rounded-2xl border p-5 sm:p-6 lg:col-span-1">
 					<div class="flex flex-col items-center">
 						<h3 class="text-ecsess-50 mb-2 text-center font-bold">RECRUIT FASTER</h3>
 						<Rocket class="text-ecsess-100 mb-4" size="48" />
@@ -292,7 +283,7 @@
 					</ul>
 				</div>
 
-				<div class="bg-ecsess-900/40 border-ecsess-700 rounded-2xl border p-6">
+				<div class="bg-ecsess-900/40 border-ecsess-700 rounded-2xl border p-5 sm:p-6 lg:col-span-1">
 					<div class="flex flex-col items-center">
 						<h3 class="text-ecsess-50 mb-2 text-center font-bold">AMPLIFY YOUR BRAND</h3>
 						<Megaphone class="text-ecsess-100 mb-4" size="48" />
@@ -310,7 +301,9 @@
 					</ul>
 				</div>
 
-				<div class="bg-ecsess-900/40 border-ecsess-700 rounded-2xl border p-6">
+				<div
+					class="bg-ecsess-900/40 border-ecsess-700 rounded-2xl border p-5 sm:p-6 md:col-span-2 lg:col-span-1"
+				>
 					<div class="flex flex-col items-center">
 						<h3 class="text-ecsess-50 mb-2 text-center font-bold">BUILD RELATIONSHIPS</h3>
 						<Handshake class="text-ecsess-100 mb-4" size="48" />
@@ -329,7 +322,7 @@
 				</div>
 			</div>
 
-			<p class="text-ecsess-300 mx-auto mt-8 max-w-3xl">
+			<p class="text-ecsess-300 mx-auto mt-8 max-w-3xl px-2 text-sm sm:text-base">
 				Whether you're looking to host one event or support our entire year, ECSESS makes it easy.<br
 				/>All logistics are handled by our council. Just show up — we'll bring the students.
 			</p>
