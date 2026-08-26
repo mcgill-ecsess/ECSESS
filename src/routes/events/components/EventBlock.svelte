@@ -62,6 +62,7 @@
 	tabindex="0"
 	onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), onopen?.())}
 	aria-label="View {eventTitle} details"
+	data-component="EventBlock"
 >
 	<!-- Poster image — 4:5 portrait -->
 	<div class="relative w-full overflow-hidden rounded-md" style="aspect-ratio: 4/5;">

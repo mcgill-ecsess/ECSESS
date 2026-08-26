@@ -3,7 +3,7 @@
 	import Button from '$lib/components/Button.svelte';
 </script>
 
-<div>
+<div id="QuickLinks" data-component="QuickLinks">
 	<p
 		class="text-ecsess-50 decoration-ecsess-200 mt-2 mb-6 text-base font-bold tracking-wide underline decoration-2 underline-offset-8"
 	>

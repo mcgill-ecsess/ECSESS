@@ -41,6 +41,18 @@ export type Homepage = {
 	councilPhoto?: string;
 	councilGoofyPic?: string;
 	faqs?: FAQ[];
+	subcommittees?: Subcommittee[];
+};
+
+export type Subcommittee = {
+	name: string;
+	description: string;
+	/** Bullet highlights under the description. */
+	highlights: string[];
+	instagram?: string;
+	website?: string;
+	/** Lucide-style icon key from CMS (e.g. "wrench", "cpu", "users", "code"). */
+	icon?: string;
 };
 
 export type OfficeHour = {

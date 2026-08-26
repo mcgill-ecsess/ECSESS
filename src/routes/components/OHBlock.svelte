@@ -10,6 +10,7 @@
 
 <div
 	class="border-ecsess-500/35 bg-ecsess-600/75 text-ecsess-50 hover:border-ecsess-400/45 hover:bg-ecsess-550/85 grid h-full place-content-center rounded-xl border px-1 text-center transition-colors"
+	data-component="OHBlock"
 >
 	<p class="text-sm leading-tight font-medium md:text-base">
 		{officeHour.member.name.split(' ')[0]}

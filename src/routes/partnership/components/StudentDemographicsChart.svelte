@@ -115,7 +115,11 @@
 	});
 </script>
 
-<div class="flex w-full min-w-0 flex-col items-center gap-3 overflow-visible">
+<div
+	class="flex w-full min-w-0 flex-col items-center gap-3 overflow-visible"
+	id="StudentDemographicsChart"
+	data-component="StudentDemographicsChart"
+>
 	<div class="w-full max-w-96 overflow-visible">
 		<div class="relative aspect-square w-full overflow-visible" bind:this={chartStage}>
 			<canvas bind:this={canvas} aria-label="Student demographics doughnut chart"></canvas>

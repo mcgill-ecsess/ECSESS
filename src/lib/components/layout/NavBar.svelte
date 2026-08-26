@@ -13,7 +13,7 @@
 	const hasNotification = $derived(Array.isArray(notification) && notification.length > 0);
 </script>
 
-<div class="sticky top-0 z-40 w-full">
+<div class="sticky top-0 z-40 w-full" id="NavBar" data-component="NavBar">
 	<nav
 		class="bg-ecsess-black/75 text-ecsess-100 border-ecsess-800/60 w-full border-b py-1 backdrop-blur-md"
 	>
@@ -69,7 +69,10 @@
 	</nav>
 
 	{#if hasNotification}
-		<div class="nav-notification border-ecsess-900 bg-ecsess-900 border-b px-4 py-2" role="alert">
+		<div
+			class="nav-notification border-ecsess-700/40 bg-ecsess-800/45 border-b px-4 py-2.5 backdrop-blur-sm"
+			role="alert"
+		>
 			<RichText value={notification} />
 		</div>
 	{/if}

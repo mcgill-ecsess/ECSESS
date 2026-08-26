@@ -100,6 +100,7 @@
 <!-- Backdrop + dialog -->
 <div
 	data-backdrop="true"
+	data-component="EventDialog"
 	onclick={handleBackdropClick}
 	onkeydown={handleKeydown}
 	role="dialog"

@@ -5,7 +5,7 @@
 	 * Props:
 	 * - contentStart: align content to the top instead of center
 	 */
-	let { children = () => 'Section placeholder', contentStart = false } = $props();
+	let { children = () => 'Section placeholder', contentStart = false, id = undefined } = $props();
 
 	const base =
 		'mx-auto flex w-full flex-col items-center gap-4 px-4 py-[clamp(2.5rem,8dvh,6rem)] text-left text-ecsess-50';
@@ -13,6 +13,6 @@
 	let className = $derived(`${base} ${contentStart ? 'justify-start' : 'justify-center'}`);
 </script>
 
-<div class={className}>
+<div class={className} data-component="Section" {id}>
 	{@render children()}
 </div>

@@ -19,7 +19,7 @@
 </script>
 
 <!-- Wrapper: card + ring layer (ring pulses on small screen only) -->
-<div class="relative w-full max-w-full sm:contents">
+<div class="relative w-full max-w-full sm:contents" data-component="CouncilCard">
 	<div
 		class="group relative flex h-full min-w-0 cursor-pointer flex-row overflow-hidden rounded-xl shadow-md transition-all duration-500 ease-out sm:grid sm:grid-rows-[auto_1fr] {featured
 			? 'w-full sm:max-w-64 md:max-w-[13.6rem] lg:max-w-[16.2rem]'

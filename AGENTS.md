@@ -61,6 +61,10 @@ Do not reintroduce a top-level `src/components/` folder or a `components/` path 
 
 ## Design system
 
+### Dark mode only
+
+The site is **forced dark mode at all times**. Do not add a light theme, theme toggle, or `prefers-color-scheme` light variants. Design and implement for dark green / near-black surfaces with light text (`ecsess-*` on dark sections). UI should assume dark backgrounds always.
+
 ### Colors
 
 Custom palette `ecsess-*` defined in `src/app.css` `@theme`:
@@ -75,6 +79,33 @@ Custom palette `ecsess-*` defined in `src/app.css` `@theme`:
 
 Use semantic Tailwind classes (`bg-ecsess-800`, `text-ecsess-200`) — never hardcode hex in components.
 
+### Soft surfaces (preferred for cards / calendars / panels)
+
+On dark sections, prefer **soft** treatments over harsh solid blocks:
+
+- Surfaces: `bg-ecsess-950/40`–`/50` with `border-ecsess-800/60`–`/70`
+- Corners: `rounded-2xl` for cards/panels; `rounded-xl` for chips, buttons-in-cards, hour blocks
+- Body copy on dark: `text-ecsess-200` / `text-ecsess-300` (not near-white for long text)
+- Interactive fills on dark calendars/lists: translucent mid-green (e.g. `bg-ecsess-600/75`), **not** bright mint (`ecsess-100` / `ecsess-50` fills)
+- Sticky columns that sit over scrolling content: use **opaque** `bg-ecsess-950` so labels stay readable
+
+**No nested cards:** do not wrap a bordered/rounded panel inside another card. Use one outer shell **or** flush content — not both.
+
+### No eyebrow
+
+**Do not** put uppercase tracking eyebrow labels above page titles or section titles (e.g. no `ECSESS`, `Our Community`, `Campus & Beyond`).
+
+- `PageHeader` is title + optional description only
+- Section headers are title + optional supporting subtitle only
+- Avoid `text-xs font-bold tracking-[0.2em] uppercase` above titles
+
+Supporting subtitles under section titles are fine, e.g.:
+
+```svelte
+<h2 class="text-ecsess-50 text-2xl font-bold sm:text-3xl md:text-4xl">{title}</h2>
+<p class="text-ecsess-300 mt-3 text-sm leading-relaxed sm:text-base">{subtitle}</p>
+```
+
 ### Typography
 
 - **Font:** Saira (+ Noto Sans Symbols fallback), weight 500 default
@@ -88,7 +119,7 @@ Every page follows this pattern:
 
 1. `<SeoMetaTags title description canonical={data.canonical} />`
 2. One or more `<Section from="..." to="..." via="..." direction="to-b" contentStart={true}>` wrappers
-3. `<PageHeader title="..." description="..." />` on content pages
+3. `<PageHeader title="..." description="..." />` on content pages (no eyebrow)
 4. Inner content in `max-w-7xl` containers with left-aligned headers on content pages
 
 `Section` (`$lib/components/layout/Section.svelte`) renders full-viewport gradient bands. Homepage stacks dark-to-light green gradients top-to-bottom; inner pages often use solid dark (`from-ecsess-black`).
@@ -104,7 +135,33 @@ Standard page header — use `PageHeader` or this markup:
 - **Button** — `$lib/components/Button.svelte` — green filled, rounded
 - **Link** — `$lib/components/Link.svelte` — pass `external={true}` for off-site
 - **EventTabsTrigger** — shared pill/tab filter used on Events and Resources pages
-- **PageHeader** — `$lib/components/layout/PageHeader.svelte` — standard content-page eyebrow + title block
+- **PageHeader** — `$lib/components/layout/PageHeader.svelte` — title + optional description (no eyebrow)
+
+### Homepage: Lounge Office Hours
+
+Components: `src/routes/components/OHSchedule.svelte`, `OHBlock.svelte`.
+
+- Soft outer rounded shell around the schedule; **no** inner card around the grid
+- Opaque sticky time column (`bg-ecsess-950`) for horizontal scroll on small screens
+- Bright time labels (`text-ecsess-100` / `200`); no “Time” header word in the corner
+- Hour blocks: soft translucent mid-green, `rounded-xl`, higher opacity so names stay readable
+- Semester label (`ohLastUpdated` / `#office-hours-semester`) lives with the section heading, not inside the table unless explicitly requested
+- Prefer fitting the calendar to viewport width when possible; keep sticky time readable if days scroll
+
+Svelte note: opacity modifiers break `class:` directives — prefer ternaries in `class="..."` instead of `class:border-ecsess-700/40={cond}`.
+
+### Partnership page notes
+
+- Section title for demographics: **Student Demographics** (not “Our community / audience”)
+- Demographics chart + department stats sit **flush** (no outer card around that block)
+- Brand logo marquee: keep logos tall enough (`h-20` / `sm:h-24`)
+- Shared section heading pattern: title + supporting subtitle only
+
+### Homepage: Subcommittees & Affiliated Groups
+
+`src/routes/components/AffiliatedGroups.svelte` — soft translucent cards (`bg-ecsess-950/40`), muted borders, `rounded-2xl` cards / icon wells, `rounded-xl` link chips.
+
+Data comes from CMS `homepage.subcommittees[]` (`name`, `description`, `highlights`, `instagram`, `website`, `icon`) via `+page.server.ts`. Map `icon` strings to Lucide components in the UI (`code`/`codexml` → CodeXml, `wrench`/`factory` → Wrench, `users`/`bits` → Users, `cpu`/`ieee` → Cpu; default Users). Hide the section when the array is empty.
 
 ## Sanity CMS
 
@@ -129,7 +186,7 @@ const resources: Resource[] = await getFromCMS(query);
 
 | `_type`       | Used on               | Key fields                                                                  |
 | ------------- | --------------------- | --------------------------------------------------------------------------- |
-| `homepage`    | `/`, layout thumbnail | `councilPhoto`, `councilGoofyPic`, `faqs`                                   |
+| `homepage`    | `/`, layout thumbnail | `councilPhoto`, `councilGoofyPic`, `faqs`, `subcommittees`                  |
 | `officeHours` | `/`                   | `day`, `startTime`, `endTime`, `member` (ref)                               |
 | `sponsors`    | `/`                   | `name`, `url`, `logo` (asset)                                               |
 | `members`     | `/council`            | `name`, `email`, `position`, `image`, `yearProgram`, `linkedin`             |
@@ -171,3 +228,8 @@ When editing `.svelte` files, follow `.cursor/rules/svelte.mdc` and use the Svel
 - Co-locate new route components under `src/routes/{route}/components/`
 - Only add shared components to `src/lib/components/` when used by 2+ routes
 - Run `bun run format` after implementations
+- **Component inspection markers:** big components expose their Svelte name on the root DOM node for DevTools:
+  - Singletons: `id="ComponentName"` and `data-component="ComponentName"` (e.g. `NavBar`, `OHSchedule`, `Partners`)
+  - Repeated instances: `data-component="ComponentName"` only (e.g. `ResourceCard`, `OHBlock`, `EventBlock`) — do not reuse the same `id`
+  - `Section` always has `data-component="Section"` and accepts an optional `id` prop when a landmark is useful
+  - Prefer the exact `.svelte` filename (PascalCase) so inspectors map 1:1 to source files

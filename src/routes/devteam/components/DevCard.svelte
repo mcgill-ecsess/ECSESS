@@ -34,7 +34,7 @@
 	});
 </script>
 
-<div class="fadeup group relative flex flex-col">
+<div class="fadeup group relative flex flex-col" data-component="DevCard">
 	<!-- Commit Card -->
 	<div
 		class="hover:shadow-ecsess-black/50 relative w-full overflow-hidden rounded-xl transition-all duration-100 ease-linear hover:scale-101 hover:shadow-md {active

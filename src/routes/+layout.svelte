@@ -19,12 +19,15 @@
 
 <div class="relative flex min-h-dvh flex-col">
 	<BackgroundMotifs />
-	<div class="relative z-10 flex min-h-dvh flex-1 flex-col">
+	<!-- Content sits above motifs; footer is a sibling so its backdrop-blur can sample them -->
+	<div class="relative z-10 flex flex-1 flex-col">
 		<Navbar notification={data.notification} />
 		<PageThumbnail thumbnail={data.thumbnail} />
 		<main class="flex flex-1 flex-col [&>*:only-child]:flex-1">
 			{@render children()}
 		</main>
+	</div>
+	<div class="relative z-10">
 		<Footer />
 	</div>
 </div>

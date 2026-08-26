@@ -23,7 +23,7 @@
 	}
 </script>
 
-<div class="space-y-3">
+<div class="space-y-3" id="FAQAccordion" data-component="FAQAccordion">
 	{#each entries as entry, index}
 		<div class="border-ecsess-300 rounded-md border-2 transition-colors duration-200">
 			<!-- Question -->

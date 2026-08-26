@@ -22,7 +22,7 @@
 		<!-- Left: Description and Quick Links -->
 		<div class="ml-4 flex flex-col items-center gap-2 text-center lg:items-start lg:text-left">
 			<h1 class="mb-2">
-				{#each 'We are ECSESS!'.split('') as char, i}
+				{#each 'We are ECSESS!'.split('') as char, i (`${i}-${char}`)}
 					<span class="page-title" in:fade|global={{ delay: 150 + i * 60, duration: 800 }}>
 						{char}
 					</span>
@@ -95,9 +95,11 @@
 </Section>
 
 <!-- Affiliated Clubs -->
-<Section>
-	<AffiliatedGroups />
-</Section>
+{#if data.subcommittees?.length}
+	<Section>
+		<AffiliatedGroups groups={data.subcommittees} />
+	</Section>
+{/if}
 
 {#if data.faqs?.length}
 	<Section contentStart={true}>

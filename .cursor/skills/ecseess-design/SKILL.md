@@ -5,6 +5,10 @@ description: Apply ECSESS visual design — green color palette, typography, Sec
 
 # ECSESS Design System
 
+## Dark mode only
+
+The site is forced dark mode at all times — no light theme, theme toggle, or light `prefers-color-scheme` variants. Always design for dark green / near-black surfaces with light text.
+
 ## Colors
 
 All colors are Tailwind tokens from `src/app.css` `@theme`. Use `ecsess-{50..950}` and `ecsess-black`.
@@ -19,8 +23,13 @@ All colors are Tailwind tokens from `src/app.css` `@theme`. Use `ecsess-{50..950
 
 - Font: Saira (global in `app.css`)
 - Page hero: `.page-title` or `text-4xl md:text-5xl lg:text-6xl font-bold text-ecsess-50`
-- Eyebrow label: `text-ecsess-500 text-xs font-bold tracking-[0.2em] uppercase`
+- **No eyebrow** above page or section titles (see `AGENTS.md`)
+- Section supporting subtitle: `text-ecsess-300 mt-3 text-sm leading-relaxed sm:text-base`
 - CMS prose: wrap content in `.typography`
+
+## Soft surfaces
+
+Prefer soft translucent panels on dark sections: `bg-ecsess-950/40`–`/50`, `border-ecsess-800/60`–`/70`, `rounded-2xl`. No nested cards. Avoid bright mint fills for blocks on dark calendars — use mid-green translucency instead.
 
 ## Section layout
 

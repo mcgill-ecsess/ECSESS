@@ -35,6 +35,7 @@
 	class="border-ecsess-650/70 bg-ecsess-900 text-ecsess-100 relative flex w-full max-w-xl flex-col overflow-hidden rounded-2xl border shadow-2xl md:max-w-2xl md:flex-row"
 	transition:scale
 	role="article"
+	data-component="CouncilCardPopUp"
 >
 	<button
 		type="button"

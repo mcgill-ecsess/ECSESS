@@ -44,13 +44,18 @@
 		Zap
 	} from '@lucide/svelte';
 
+	type SizeOption = {
+		className: string;
+		/** Collision radius in mixed %-of-width units (see distance check). */
+		radius: number;
+	};
+
 	type Motif = {
 		icon: Component;
-		/** Size only — must be full Tailwind literals */
 		sizeClass: string;
+		radius: number;
 		topDvh: number;
-		leftPct: number | null;
-		rightPct: number | null;
+		leftPct: number;
 		rotate: number;
 		opacity: number;
 	};
@@ -98,12 +103,25 @@
 		GitCommitHorizontal
 	];
 
-	const sizes = [
-		'size-12 md:size-16',
-		'size-14 md:size-20',
-		'size-16 md:size-24',
-		'size-20 md:size-28'
-	] as const;
+	const sizes: SizeOption[] = [
+		{ className: 'size-12 md:size-16', radius: 3.2 },
+		{ className: 'size-14 md:size-20', radius: 3.8 },
+		{ className: 'size-16 md:size-24', radius: 4.6 },
+		{ className: 'size-20 md:size-28', radius: 5.4 }
+	];
+
+	/** Target motif count — denser than before, still sparse in the center column. */
+	const TARGET_COUNT = 54;
+	const MAX_ATTEMPTS = 2400;
+	/** Extra gap between icon edges (same units as radius). */
+	const PADDING = 1.6;
+	/** Vertical page height covered by motifs (dvh). */
+	const MAX_TOP_DVH = 460;
+	/**
+	 * Scale dvh → %-of-width so distance checks are roughly isotropic
+	 * (assumes ~viewport-width ≈ 100% and tall pages in dvh).
+	 */
+	const DVH_TO_PCT = 0.55;
 
 	function rand(min: number, max: number) {
 		return min + Math.random() * (max - min);
@@ -113,43 +131,49 @@
 		return items[Math.floor(Math.random() * items.length)];
 	}
 
+	function distance(a: Motif, b: Motif) {
+		const dx = a.leftPct - b.leftPct;
+		const dy = (a.topDvh - b.topDvh) * DVH_TO_PCT;
+		return Math.hypot(dx, dy);
+	}
+
+	function overlaps(candidate: Motif, placed: Motif[]) {
+		return placed.some(
+			(other) => distance(candidate, other) < candidate.radius + other.radius + PADDING
+		);
+	}
+
+	/** Prefer edge gutters; occasionally soft inner accents. Center column stays clear. */
+	function sampleLeftPct(): number {
+		const roll = Math.random();
+		if (roll < 0.42) return rand(1, 12); // left outer
+		if (roll < 0.84) return rand(88, 99); // right outer
+		if (roll < 0.92) return rand(14, 24); // left soft
+		return rand(76, 86); // right soft
+	}
+
 	/**
-	 * Random placement within strategic lanes (edges dense, center clear).
+	 * Pack motifs with rejection sampling so icons do not overlap.
 	 * Built client-side only to avoid SSR/client Math.random mismatches.
 	 */
 	function buildMotifs(): Motif[] {
 		const motifs: Motif[] = [];
 
-		// Edge gutters — random side, inset, and vertical spacing
-		let top = rand(8, 16);
-		while (top <= 420) {
-			const onLeft = Math.random() < 0.5;
-			motifs.push({
+		for (let attempt = 0; attempt < MAX_ATTEMPTS && motifs.length < TARGET_COUNT; attempt++) {
+			const size = Math.random() < 0.7 ? pick(sizes.slice(0, 3)) : pick(sizes);
+			const candidate: Motif = {
 				icon: pick(icons),
-				sizeClass: pick(sizes),
-				topDvh: top + rand(-3, 3),
-				leftPct: onLeft ? rand(1, 11) : null,
-				rightPct: onLeft ? null : rand(1, 11),
-				rotate: rand(-26, 26),
-				opacity: rand(0.28, 0.36)
-			});
-			top += rand(18, 28);
-		}
+				sizeClass: size.className,
+				radius: size.radius,
+				topDvh: rand(6, MAX_TOP_DVH),
+				leftPct: sampleLeftPct(),
+				rotate: rand(-28, 28),
+				opacity: rand(0.24, 0.36)
+			};
 
-		// Soft inner accents — still outside the dead-center content column
-		top = rand(28, 48);
-		while (top <= 400) {
-			const onLeft = Math.random() < 0.5;
-			motifs.push({
-				icon: pick(icons),
-				sizeClass: pick(sizes.slice(0, 2)),
-				topDvh: top + rand(-4, 4),
-				leftPct: onLeft ? rand(16, 26) : null,
-				rightPct: onLeft ? null : rand(16, 26),
-				rotate: rand(-22, 22),
-				opacity: rand(0.24, 0.32)
-			});
-			top += rand(44, 62);
+			if (!overlaps(candidate, motifs)) {
+				motifs.push(candidate);
+			}
 		}
 
 		return motifs;
@@ -162,15 +186,19 @@
 	});
 </script>
 
-<div class="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-	{#each motifs as motif, i (`${i}-${motif.topDvh}`)}
+<div
+	class="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+	aria-hidden="true"
+	id="BackgroundMotifs"
+	data-component="BackgroundMotifs"
+>
+	{#each motifs as motif, i (`${i}-${motif.topDvh.toFixed(2)}-${motif.leftPct.toFixed(2)}`)}
 		{@const Icon = motif.icon}
 		<div
 			class="text-ecsess-700 absolute {motif.sizeClass}"
 			style="
 				top: {motif.topDvh}dvh;
-				{motif.leftPct != null ? `left: ${motif.leftPct}%;` : ''}
-				{motif.rightPct != null ? `right: ${motif.rightPct}%;` : ''}
+				left: {motif.leftPct}%;
 				opacity: {motif.opacity};
 				transform: rotate({motif.rotate}deg);
 			"

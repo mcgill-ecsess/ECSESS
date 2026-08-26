@@ -14,7 +14,7 @@
 	}>();
 </script>
 
-<div class="relative w-full">
+<div class="relative w-full" data-component="ContribTimeline">
 	<!-- Branch Line with Year -->
 	<div class="mb-6">
 		<YearLine {term} {active} />

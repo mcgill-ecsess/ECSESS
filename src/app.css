@@ -96,7 +96,12 @@ h2 {
 }
 
 .nav-notification .typography a {
-	@apply text-ecsess-50 decoration-ecsess-400 hover:decoration-ecsess-300 underline underline-offset-2;
+	@apply text-ecsess-50 decoration-ecsess-400/70 hover:decoration-ecsess-200 underline underline-offset-2;
+}
+
+.nav-notification .typography strong,
+.nav-notification .typography b {
+	@apply text-ecsess-50 font-semibold;
 }
 
 .typography {

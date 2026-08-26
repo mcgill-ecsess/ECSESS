@@ -89,7 +89,7 @@
 			case 'gold':
 				return 'bg-amber-950/85 group-hover:bg-amber-950/95';
 			case 'silver':
-				return 'bg-zinc-950/90 group-hover:bg-zinc-950';
+				return 'bg-zinc-700 group-hover:bg-zinc-600';
 			default:
 				return 'bg-ecsess-950/90 group-hover:bg-ecsess-950';
 		}
@@ -109,7 +109,7 @@
 	}
 </script>
 
-<div class="container mx-auto px-4">
+<div class="container mx-auto px-4" id="Partners" data-component="Partners">
 	<!-- Section Header -->
 	<div class="my-12 text-center">
 		<h2 id="partners-title" class="text-ecsess-50 mb-2 text-4xl font-bold md:text-5xl">

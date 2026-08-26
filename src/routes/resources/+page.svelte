@@ -89,7 +89,7 @@
 
 	<div class="w-full max-w-7xl pb-16">
 		{#if filtered.length === 0}
-			<div class="border-ecsess-800 rounded-xl border border-dashed py-16 text-center">
+			<div class="border-ecsess-800/60 rounded-2xl border border-dashed py-16 text-center">
 				<p class="text-ecsess-200 text-lg font-semibold">No resources in this category yet.</p>
 				<p class="text-ecsess-300 mt-1 text-sm">Check back soon or explore another category.</p>
 			</div>

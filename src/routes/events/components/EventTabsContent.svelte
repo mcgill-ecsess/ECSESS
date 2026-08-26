@@ -47,7 +47,7 @@
 	const hasAnyVisible = $derived(hasVisibleUpcoming || hasVisiblePast);
 </script>
 
-<div class="w-full max-w-7xl py-8">
+<div class="w-full max-w-7xl py-8" id="EventTabsContent" data-component="EventTabsContent">
 	{#if upcomingEvents.length > 0}
 		<section class="mb-10 transition-all duration-300" class:hidden={!hasVisibleUpcoming}>
 			<div class="mb-5 flex items-center gap-3">

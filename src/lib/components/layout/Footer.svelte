@@ -46,6 +46,8 @@
 
 <footer
 	class="bg-ecsess-black/75 text-ecsess-100 border-ecsess-800/60 w-full border-t px-4 py-8 backdrop-blur-md"
+	id="Footer"
+	data-component="Footer"
 >
 	<div class="mx-auto max-w-7xl">
 		<!-- Business Card Layout -->

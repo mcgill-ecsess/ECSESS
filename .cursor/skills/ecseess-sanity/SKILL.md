@@ -38,4 +38,6 @@ export const load = async ({ url }) => ({
 
 `homepage`, `officeHours`, `sponsors`, `members`, `events`, `resources`, `devTeam`, `redirects`
 
+Homepage nested fields include `faqs` and `subcommittees[]` (`name`, `description`, `highlights`, `instagram`, `website`, `icon`).
+
 See `AGENTS.md` for field details per type.
