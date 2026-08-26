@@ -110,8 +110,9 @@
 		{ className: 'size-20 md:size-28', radius: 5.4 }
 	];
 
-	/** Target motif count — denser than before, still sparse in the center column. */
-	const TARGET_COUNT = 54;
+	/** Motif count — randomized per page load, still sparse in the center column. */
+	const TARGET_COUNT_MIN = 45;
+	const TARGET_COUNT_MAX = 64;
 	const MAX_ATTEMPTS = 2400;
 	/** Extra gap between icon edges (same units as radius). */
 	const PADDING = 1.6;
@@ -158,8 +159,9 @@
 	 */
 	function buildMotifs(): Motif[] {
 		const motifs: Motif[] = [];
+		const targetCount = Math.floor(rand(TARGET_COUNT_MIN, TARGET_COUNT_MAX + 1));
 
-		for (let attempt = 0; attempt < MAX_ATTEMPTS && motifs.length < TARGET_COUNT; attempt++) {
+		for (let attempt = 0; attempt < MAX_ATTEMPTS && motifs.length < targetCount; attempt++) {
 			const size = Math.random() < 0.7 ? pick(sizes.slice(0, 3)) : pick(sizes);
 			const candidate: Motif = {
 				icon: pick(icons),
