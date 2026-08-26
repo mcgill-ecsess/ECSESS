@@ -69,16 +69,21 @@
 <!-- Office Hours Calendar -->
 <Section>
 	<div class="w-full text-center">
-		<h2 class="text-ecsess-50 text-2xl font-bold" id="office-hours">Lounge Office Hours</h2>
-		<p class="text-ecsess-100">
-			Come visit us in our student lounge at ENGTR 1060 to grab a coffee (free), play Mario Kart, or
-			just chat about anything!
+		<h2 class="text-ecsess-50 text-2xl font-bold md:text-3xl" id="office-hours">
+			Lounge Office Hours
+			<br />
 			{#if data.ohLastUpdated}
-				<br />
-				<span class="text-ecsess-200 mb-4 inline-block italic">
-					Semester: {data.ohLastUpdated}
+				<span
+					class="text-ecsess-400 mt-2 inline-block text-base italic md:text-lg"
+					id="office-hours-semester"
+				>
+					~ {data.ohLastUpdated} ~
 				</span>
 			{/if}
+		</h2>
+		<p class="text-ecsess-200 mx-auto mt-2 mb-6 max-w-2xl text-sm md:text-base">
+			Come visit us in our student lounge at ENGTR 1060 to grab a coffee (free), play Mario Kart, or
+			just chat about anything!
 		</p>
 		<OhSchedule allOhs={data.allOHs} />
 	</div>

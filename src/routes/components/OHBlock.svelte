@@ -9,14 +9,14 @@
 </script>
 
 <div
-	class="bg-ecsess-100 text-ecsess-900 hover:bg-ecsess-200 grid h-full place-content-center rounded-md text-center shadow-md transition-all hover:shadow-lg"
+	class="border-ecsess-500/35 bg-ecsess-600/75 text-ecsess-50 hover:border-ecsess-400/45 hover:bg-ecsess-550/85 grid h-full place-content-center rounded-xl border px-1 text-center transition-colors"
 >
-	<p class="text-base leading-tight font-semibold">
+	<p class="text-sm leading-tight font-medium md:text-base">
 		{officeHour.member.name.split(' ')[0]}
 	</p>
 
 	{#if !isShortBlock}
-		<p class="text-ecsess-700 mt-0.5 text-[11px] leading-tight opacity-90">
+		<p class="text-ecsess-200/80 mt-0.5 text-[11px] leading-tight">
 			{shortenPosition(officeHour.member.position)}
 		</p>
 	{/if}

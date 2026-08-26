@@ -16,7 +16,7 @@ const homepageQuery = `{
       "position": member->position
     }
   },
-  "ohLastUpdated": *[_type=="officeHours"] | order(_updatedAt desc)[0]._updatedAt,
+  "ohLastUpdated": *[_type == "officeHours"] | order(_updatedAt desc)[0]._updatedAt,
   "partnerships": *[_type == "partnerships"] | order(tier asc, name asc) {
     name,
     url,

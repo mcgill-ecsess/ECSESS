@@ -70,6 +70,13 @@
 	];
 </script>
 
+{#snippet sectionHeading(title: string, subtitle: string)}
+	<div class="mx-auto mb-6 max-w-2xl sm:mb-8">
+		<h2 class="text-ecsess-50 text-2xl font-bold text-balance sm:text-3xl md:text-4xl">{title}</h2>
+		<p class="text-ecsess-300 mt-3 text-sm leading-relaxed sm:text-base">{subtitle}</p>
+	</div>
+{/snippet}
+
 <SeoMetaTags
 	title="Partnership — ECSESS"
 	description="Support ECSESS through partnership with our community, events, and student initiatives at McGill."
@@ -87,50 +94,63 @@
 		<div
 			class="relative mx-auto mt-6 w-full rounded-[2rem] px-2 py-6 text-left sm:px-4 sm:py-8 md:px-6"
 		>
-			<div class="text-ecsess-100 space-y-6 text-center">
-				<div class="mx-auto w-full max-w-6xl space-y-6">
+			<div class="text-ecsess-100 space-y-8 text-center">
+				<div class="mx-auto w-full max-w-6xl space-y-8">
 					<hr class="bg-ecsess-100/30 h-px w-full border-0" />
-					<h2 class="text-ecsess-50 text-xl font-bold sm:text-2xl">Our community / audience</h2>
+
+					{@render sectionHeading(
+						'Student Demographics',
+						'Where McGill ECSE students come from — and the department behind them.'
+					)}
+
 					<div
-						class="mx-auto grid w-full max-w-5xl items-center justify-items-center gap-10 md:grid-cols-2 md:gap-8 lg:gap-12"
+						class="mx-auto grid w-full max-w-5xl items-center gap-8 sm:gap-10 md:grid-cols-2 md:gap-12"
 					>
-						<div
-							class="flex w-full min-w-0 flex-col items-center justify-center overflow-visible px-2 sm:px-4"
-						>
+						<div class="flex w-full min-w-0 flex-col items-center justify-center overflow-visible">
 							<StudentDemographicsChart />
 						</div>
-						<div
-							class="grid w-full max-w-md min-w-0 gap-2 text-left md:max-w-none md:justify-self-center"
-						>
+
+						<div class="grid w-full min-w-0 gap-1 text-left">
 							<div
-								class="grid w-full grid-cols-[auto_1fr] items-start gap-3 py-3 sm:items-center sm:gap-4"
+								class="border-ecsess-800/50 grid w-full grid-cols-[auto_1fr] items-start gap-3 border-b py-4 sm:items-center sm:gap-4"
 							>
 								<div class="flex shrink-0 items-center justify-center pt-0.5 sm:pt-0">
-									<Award class="text-ecsess-50" size="32" />
+									<Award class="text-ecsess-200" size="28" />
 								</div>
-								<p class="text-ecsess-50 text-sm font-semibold sm:text-base">
-									3rd in Canada for Engineering
-								</p>
+								<div>
+									<p class="text-ecsess-50 text-sm font-semibold sm:text-base">
+										3rd in Canada for Engineering
+									</p>
+									<p class="text-ecsess-400 mt-0.5 text-xs sm:text-sm">McGill University ranking</p>
+								</div>
 							</div>
+
 							<div
-								class="grid w-full grid-cols-[auto_1fr] items-start gap-3 py-3 sm:items-center sm:gap-4"
+								class="border-ecsess-800/50 grid w-full grid-cols-[auto_1fr] items-start gap-3 border-b py-4 sm:items-center sm:gap-4"
 							>
 								<div class="flex shrink-0 items-center justify-center pt-0.5 sm:pt-0">
-									<GraduationCap class="text-ecsess-50" size="32" />
+									<GraduationCap class="text-ecsess-200" size="28" />
 								</div>
-								<p class="text-ecsess-50 text-sm font-semibold sm:text-base">
-									Electrical, Computer, and Software Engineering (Co-op)
-								</p>
+								<div>
+									<p class="text-ecsess-50 text-sm font-semibold sm:text-base">
+										Electrical, Computer & Software Engineering
+									</p>
+									<p class="text-ecsess-400 mt-0.5 text-xs sm:text-sm">Co-op programs included</p>
+								</div>
 							</div>
+
 							<div
-								class="grid w-full grid-cols-[auto_1fr] items-start gap-3 py-3 sm:items-center sm:gap-4"
+								class="grid w-full grid-cols-[auto_1fr] items-start gap-3 py-4 sm:items-center sm:gap-4"
 							>
 								<div class="flex shrink-0 items-center justify-center pt-0.5 sm:pt-0">
-									<Building2 class="text-ecsess-50" size="32" />
+									<Building2 class="text-ecsess-200" size="28" />
 								</div>
-								<p class="text-ecsess-50 text-sm font-semibold sm:text-base">
-									40 Professors, 20 Staff Members
-								</p>
+								<div>
+									<p class="text-ecsess-50 text-sm font-semibold sm:text-base">
+										40 Professors, 20 Staff Members
+									</p>
+									<p class="text-ecsess-400 mt-0.5 text-xs sm:text-sm">ECSE department support</p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -140,17 +160,18 @@
 
 		<!-- Company logos marquee (alphabetical) -->
 		<div class="w-full max-w-6xl px-4">
-			<h2 class="text-ecsess-50 mb-4 text-center text-2xl font-bold md:text-3xl">
-				WHERE OUR GRADS GO?
-			</h2>
+			{@render sectionHeading(
+				'Where Our Grads Go',
+				'A snapshot of companies that recruit Electrical, Computer, and Software Engineering talent from McGill.'
+			)}
 		</div>
 		{#if logos.length}
-			<div class="mt-6 mb-6 w-full overflow-hidden">
+			<div class="mt-2 mb-6 w-full overflow-hidden">
 				<div class="marquee">
 					<div class="marquee-track">
-						{#each loopLogos as src, i}
+						{#each loopLogos as src, i (i)}
 							<div class="marquee-item" style="--i:{i}">
-								<img {src} alt="company logo" class="h-12 object-contain" />
+								<img {src} alt="company logo" class="h-20 object-contain sm:h-24" />
 							</div>
 						{/each}
 					</div>
@@ -159,11 +180,12 @@
 		{/if}
 
 		<div class="w-full max-w-6xl px-4 py-10 text-center sm:px-6 sm:py-12">
-			<h2 class="text-ecsess-50 mb-6 text-2xl font-bold sm:text-3xl md:text-4xl">
-				External Events
-			</h2>
+			{@render sectionHeading(
+				'External Events',
+				'Partner-facing events that put your team in front of motivated ECSE students — on campus and on the road.'
+			)}
 			<div class="grid gap-5 sm:gap-6 md:grid-cols-2">
-				{#each externalEvents as event}
+				{#each externalEvents as event (event.title)}
 					<div
 						class="border-ecsess-700 bg-ecsess-900/70 rounded-3xl border p-5 text-left shadow-[0_20px_80px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:p-6"
 					>
@@ -215,9 +237,10 @@
 
 		<!-- Why partner with us section -->
 		<div class="w-full max-w-6xl px-4 py-10 text-center sm:px-6 sm:py-12">
-			<h2 class="text-ecsess-50 mb-6 text-2xl font-bold sm:mb-8 sm:text-3xl md:text-4xl">
-				Why partner with us?
-			</h2>
+			{@render sectionHeading(
+				'Why Partner With Us',
+				'Real reach across company reps, students, and socials — built through a full year of ECSESS programming.'
+			)}
 
 			<hr class="bg-ecsess-100/30 my-6 h-px w-full border-0" />
 
@@ -255,10 +278,15 @@
 
 		<!-- Bordered feature columns -->
 		<div class="w-full max-w-6xl px-4 py-10 text-center sm:px-6 sm:py-12">
+			{@render sectionHeading(
+				'What You Get',
+				'Concrete ways we help partners recruit faster, grow brand presence, and build lasting student relationships.'
+			)}
+
 			<div class="grid gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
 				<div class="bg-ecsess-900/40 border-ecsess-700 rounded-2xl border p-5 sm:p-6 lg:col-span-1">
 					<div class="flex flex-col items-center">
-						<h3 class="text-ecsess-50 mb-2 text-center font-bold">RECRUIT FASTER</h3>
+						<h3 class="text-ecsess-50 mb-2 text-center font-bold">Recruit Faster</h3>
 						<Rocket class="text-ecsess-100 mb-4" size="48" />
 					</div>
 					<ul class="text-ecsess-300 mt-4 list-inside list-disc space-y-2 text-left">
@@ -281,7 +309,7 @@
 
 				<div class="bg-ecsess-900/40 border-ecsess-700 rounded-2xl border p-5 sm:p-6 lg:col-span-1">
 					<div class="flex flex-col items-center">
-						<h3 class="text-ecsess-50 mb-2 text-center font-bold">AMPLIFY YOUR BRAND</h3>
+						<h3 class="text-ecsess-50 mb-2 text-center font-bold">Amplify Your Brand</h3>
 						<Megaphone class="text-ecsess-100 mb-4" size="48" />
 					</div>
 					<ul class="text-ecsess-300 mt-4 list-inside list-disc space-y-2 text-left">
@@ -301,7 +329,7 @@
 					class="bg-ecsess-900/40 border-ecsess-700 rounded-2xl border p-5 sm:p-6 md:col-span-2 lg:col-span-1"
 				>
 					<div class="flex flex-col items-center">
-						<h3 class="text-ecsess-50 mb-2 text-center font-bold">BUILD RELATIONSHIPS</h3>
+						<h3 class="text-ecsess-50 mb-2 text-center font-bold">Build Relationships</h3>
 						<Handshake class="text-ecsess-100 mb-4" size="48" />
 					</div>
 					<ul class="text-ecsess-300 mt-4 list-inside list-disc space-y-2 text-left">

@@ -116,12 +116,6 @@
 </script>
 
 <div class="flex w-full min-w-0 flex-col items-center gap-3 overflow-visible">
-	<h3
-		class="text-ecsess-50 m-0 px-2 text-center text-[clamp(1.1rem,2.5vw+0.5rem,1.75rem)] leading-tight font-extrabold tracking-[0.12em] uppercase drop-shadow-[0_2px_0_rgba(0,0,0,0.55)]"
-	>
-		Student Demographics
-	</h3>
-
 	<div class="w-full max-w-96 overflow-visible">
 		<div class="relative aspect-square w-full overflow-visible" bind:this={chartStage}>
 			<canvas bind:this={canvas} aria-label="Student demographics doughnut chart"></canvas>

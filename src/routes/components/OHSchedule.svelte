@@ -5,8 +5,8 @@
 	// Constants
 	const SLOT_HEIGHT = 40; // pixels per 30-minute slot
 	const SLOT_DURATION = 30; // minutes
-	const BLOCK_MARGIN = 4; // pixels
-	const BLOCK_VERTICAL_PADDING = 8; // pixels total (4px top + 4px bottom)
+	const BLOCK_MARGIN = 6; // pixels
+	const BLOCK_VERTICAL_PADDING = 10; // pixels total
 	const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as const;
 	const DEFAULT_START_TIME = 10 * 60; // 10 AM in minutes
 	const DEFAULT_END_TIME = 17 * 60; // 5 PM in minutes
@@ -114,39 +114,35 @@
 </script>
 
 <div class="overflow-x-auto">
-	<div class="border-ecsess-500 bg-ecsess-900 mx-auto max-w-7xl min-w-[800px] border-t pt-2">
+	<div
+		class="border-ecsess-800/70 bg-ecsess-950/50 mx-auto max-w-7xl min-w-[800px] rounded-2xl border p-3 md:p-4"
+	>
 		<!-- Header row -->
-		<div class="mb-2 grid gap-0" style:grid-template-columns="80px repeat(5, 1fr)">
-			<div
-				class="text-ecsess-50 bg-ecsess-900 sticky left-0 z-20 px-2 text-center text-base font-semibold"
-			>
-				Time
-			</div>
-			{#each DAYS as day}
-				<div class="text-ecsess-50 px-2 text-center text-base font-semibold md:text-lg">
+		<div class="mb-3 grid gap-0" style:grid-template-columns="80px repeat(5, 1fr)">
+			<div class="bg-ecsess-950 sticky left-0 z-20"></div>
+			{#each DAYS as day (day)}
+				<div class="text-ecsess-200 px-2 text-center text-sm font-medium md:text-base">
 					{day}
 				</div>
 			{/each}
 		</div>
 
 		<!-- Calendar grid -->
-		<div
-			class="border-ecsess-500 grid gap-0 border-t-2"
-			style:grid-template-columns="80px repeat(5, 1fr)"
-		>
-			{#each DAYS as day, dayIndex}
+		<div class="grid gap-0" style:grid-template-columns="80px repeat(5, 1fr)">
+			{#each DAYS as day, dayIndex (day)}
 				{@const segments = getSegmentsForDay(day)}
 
 				<!-- Time column (only for first day) -->
 				{#if dayIndex === 0}
-					<div class="border-ecsess-500 bg-ecsess-900 sticky left-0 z-20 border-b-2">
-						{#each timeSlots as timeSlot}
+					<div class="border-ecsess-800/40 bg-ecsess-950 sticky left-0 z-20 border-r">
+						{#each timeSlots as timeSlot (timeSlot)}
 							{@const isHourMark = timeSlot % 60 === 0}
 							<div
-								class="text-ecsess-50 border-ecsess-400 flex items-start justify-end border-t pt-1 pr-2 text-sm"
-								class:border-t-4={isHourMark}
-								class:border-ecsess-500={isHourMark}
-								class:font-semibold={isHourMark}
+								class="text-ecsess-200 flex items-start justify-end border-t pt-1 pr-2 text-xs {isHourMark
+									? 'border-ecsess-700/40'
+									: 'border-ecsess-800/30'}"
+								class:text-ecsess-100={isHourMark}
+								class:font-medium={isHourMark}
 								style:height="{SLOT_HEIGHT}px"
 							>
 								{#if isHourMark}{formatTime(timeSlot)}{/if}
@@ -157,37 +153,38 @@
 
 				<!-- Day column with segments -->
 				<div
-					class="border-ecsess-500 border-b-ecsess-500 relative border-b-2 border-l"
+					class="border-ecsess-800/40 relative border-l"
+					class:border-l-0={dayIndex === 0}
 					style:min-height="{timeSlots.length * SLOT_HEIGHT}px"
 				>
 					<!-- Background grid lines -->
-					{#each timeSlots as timeSlot, idx}
+					{#each timeSlots as timeSlot, idx (timeSlot)}
 						{@const isHourMark = timeSlot % 60 === 0}
 						<div
-							class="border-ecsess-400 absolute inset-x-0 border-t"
-							class:border-t-4={isHourMark}
-							class:border-ecsess-500={isHourMark}
+							class="absolute inset-x-0 border-t {isHourMark
+								? 'border-ecsess-700/40'
+								: 'border-ecsess-800/30'}"
 							style:top="{idx * SLOT_HEIGHT}px"
 							style:height="{SLOT_HEIGHT}px"
 						></div>
 					{/each}
 
 					<!-- Office hour segments -->
-					{#each segments as segment}
+					{#each segments as segment (`${day}-${segment.startSlot}-${getSegmentId(segment.ohs)}`)}
 						{@const startIndex = timeSlots.findIndex((ts) => ts >= segment.startSlot)}
 						{@const duration = segment.endSlot - segment.startSlot}
 						{@const heightPx = (duration / SLOT_DURATION) * SLOT_HEIGHT}
 						{@const isShortBlock = duration <= 30}
 
 						<div
-							class="absolute z-10 grid gap-0.5"
-							style:top="{startIndex * SLOT_HEIGHT + BLOCK_MARGIN + 3}px"
-							style:height="{heightPx - BLOCK_VERTICAL_PADDING - 3}px"
+							class="absolute z-10 grid gap-1"
+							style:top="{startIndex * SLOT_HEIGHT + BLOCK_MARGIN}px"
+							style:height="{heightPx - BLOCK_VERTICAL_PADDING}px"
 							style:left="{BLOCK_MARGIN}px"
 							style:right="{BLOCK_MARGIN}px"
 							style:grid-template-columns="repeat({segment.ohs.length}, 1fr)"
 						>
-							{#each segment.ohs as oh}
+							{#each segment.ohs as oh (`${oh.member.name}-${oh.startTime}-${oh.endTime}`)}
 								<OHBlock officeHour={oh} {isShortBlock} />
 							{/each}
 						</div>
