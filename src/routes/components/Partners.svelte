@@ -59,9 +59,9 @@
 	function cardSizeClass(tier: string) {
 		switch (tierKey(tier)) {
 			case 'platinum':
-				return 'aspect-[2/1] p-5 sm:p-6';
+				return 'aspect-[2/1] p-3 sm:p-4';
 			case 'gold':
-				return 'aspect-[5/3] p-5 sm:p-6';
+				return 'aspect-[5/3] p-3 sm:p-4';
 			case 'silver':
 				return 'aspect-[5/3] p-4';
 			default:
