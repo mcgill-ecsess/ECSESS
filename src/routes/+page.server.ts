@@ -3,7 +3,7 @@ import { formatMcGillSemester } from '$lib/format.js';
 import type { FAQ, OfficeHour, Sponsors } from '$lib/schemas';
 
 const homepageQuery = `{
-  "homepage": *[_type == "homepage"]{
+  "homepage": *[_id == "homepage"]{
     "councilPhoto": councilPhoto.asset->url+"?h=1200&fm=webp",
     "faqs": faqs[]{ question, answer },
   }[0],

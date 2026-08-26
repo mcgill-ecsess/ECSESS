@@ -94,3 +94,31 @@ export type DevTeam = {
 	github: string;
 	image: string; //URL
 };
+
+export type ElectionKeyDate = {
+	title: string;
+	period: string;
+};
+
+export type ElectionResource = {
+	title: string;
+	url: string;
+};
+
+export type ElectionPosition = {
+	title: string;
+	type: string;
+};
+
+export type ElectionContact = {
+	name: string;
+	email: string;
+};
+
+export type Election = {
+	isElectionSeason: boolean;
+	keyDates: ElectionKeyDate[];
+	resources: ElectionResource[];
+	positions: ElectionPosition[];
+	contact: ElectionContact | null;
+};
