@@ -3,7 +3,7 @@
 	import OhSchedule from './components/OHSchedule.svelte';
 	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
 	import AffiliatedGroups from './components/AffiliatedGroups.svelte';
-	import Sponsors from './components/Sponsors.svelte';
+	import Partners from './components/Partners.svelte';
 	import QuickLinks from './components/QuickLinks.svelte';
 	import FAQAccordion from './components/FAQAccordion.svelte';
 	import { fade } from 'svelte/transition';
@@ -84,9 +84,9 @@
 	</div>
 </Section>
 
-<!-- Sponsors -->
+<!-- Partners -->
 <Section>
-	<Sponsors sponsors={data.sponsors} lastUpdated={data.sponsorsLastUpdated} />
+	<Partners partnerships={data.partnerships} />
 </Section>
 
 <!-- Affiliated Clubs -->

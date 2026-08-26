@@ -44,7 +44,9 @@
 	];
 </script>
 
-<footer class="bg-ecsess-black text-ecsess-100 mx-auto min-w-fit px-4 py-8">
+<footer
+	class="bg-ecsess-black/75 text-ecsess-100 border-ecsess-800/60 w-full border-t px-4 py-8 backdrop-blur-md"
+>
 	<div class="mx-auto max-w-7xl">
 		<!-- Business Card Layout -->
 		<div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">

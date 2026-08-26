@@ -14,7 +14,9 @@
 </script>
 
 <div class="sticky top-0 z-40 w-full">
-	<nav class="bg-ecsess-black text-ecsess-100 w-full py-1">
+	<nav
+		class="bg-ecsess-black/75 text-ecsess-100 border-ecsess-800/60 w-full border-b py-1 backdrop-blur-md"
+	>
 		<!-- Small screens -->
 		<div class="block md:hidden">
 			<div class="mx-4 flex items-center-safe justify-between">
@@ -67,10 +69,7 @@
 	</nav>
 
 	{#if hasNotification}
-		<div
-			class="nav-notification border-ecsess-black bg-ecsess-800 border-b px-4 py-2 shadow-sm"
-			role="alert"
-		>
+		<div class="nav-notification border-ecsess-900 bg-ecsess-900 border-b px-4 py-2" role="alert">
 			<RichText value={notification} />
 		</div>
 	{/if}

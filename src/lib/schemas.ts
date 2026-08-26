@@ -71,9 +71,10 @@ export type Resource = {
 	category: string[];
 };
 
-export type Sponsors = {
+export type Partnership = {
 	name: string;
 	url: string;
+	tier: string;
 	logo: string;
 };
 
