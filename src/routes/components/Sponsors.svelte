@@ -12,10 +12,10 @@
 <div class="container mx-auto px-4">
 	<!-- Section Header -->
 	<div class="my-12 text-center">
-		<h2 id="sponsors-title" class="text-ecsess-100 mb-2 text-4xl font-bold md:text-5xl">
+		<h2 id="sponsors-title" class="text-ecsess-50 mb-2 text-4xl font-bold md:text-5xl">
 			Our Partners
 		</h2>
-		<p class="text-ecsess-200/90 mx-auto max-w-2xl text-base leading-relaxed md:text-lg">
+		<p class="text-ecsess-100 mx-auto max-w-2xl text-base leading-relaxed md:text-lg">
 			We're grateful to our partners for their continued support of ECSESS, our events, activities,
 			and our community.
 		</p>

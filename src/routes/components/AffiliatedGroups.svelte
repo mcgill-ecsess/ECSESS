@@ -56,10 +56,10 @@
 <div class="container mx-auto px-4">
 	<!-- Section Header -->
 	<div class="my-12 text-center">
-		<h2 id="affiliated-clubs-title" class="text-ecsess-100 mb-2 text-4xl font-bold md:text-5xl">
+		<h2 id="affiliated-clubs-title" class="text-ecsess-50 mb-2 text-4xl font-bold md:text-5xl">
 			Subcommittees & Affiliated Groups
 		</h2>
-		<p class="text-ecsess-200 mx-auto max-w-2xl text-base">
+		<p class="text-ecsess-100 mx-auto max-w-2xl text-base">
 			Explore opportunities to enhance your skills, build innovative projects, and connect with the
 			engineering community through our subcommittees and affiliated groups.
 		</p>
@@ -92,7 +92,7 @@
 					</header>
 
 					<!-- Description -->
-					<p class="text-ecsess-200 mb-5 text-base leading-relaxed md:text-lg">
+					<p class="text-ecsess-100 mb-5 text-base leading-relaxed md:text-lg">
 						{group.description}
 					</p>
 

@@ -52,7 +52,7 @@
 		<section class="mb-10 transition-all duration-300" class:hidden={!hasVisibleUpcoming}>
 			<div class="mb-5 flex items-center gap-3">
 				<span class="bg-ecsess-800 h-px flex-1"></span>
-				<h2 class="text-ecsess-400 text-[10px] font-bold tracking-[0.2em] uppercase">Upcoming</h2>
+				<h2 class="text-ecsess-200 text-[10px] font-bold tracking-[0.2em] uppercase">Upcoming</h2>
 				<span class="bg-ecsess-800 h-px flex-1"></span>
 			</div>
 
@@ -78,7 +78,7 @@
 		<section class="transition-all duration-300" class:hidden={!hasVisiblePast}>
 			<div class="mb-5 flex items-center gap-3">
 				<span class="bg-ecsess-800 h-px flex-1"></span>
-				<h2 class="text-ecsess-600 text-[10px] font-bold tracking-[0.2em] uppercase">
+				<h2 class="text-ecsess-300 text-[10px] font-bold tracking-[0.2em] uppercase">
 					Past Events
 				</h2>
 				<span class="bg-ecsess-800 h-px flex-1"></span>
@@ -105,8 +105,8 @@
 	{#if !hasAnyVisible}
 		<div class="flex min-h-[40vh] items-center justify-center">
 			<div class="text-center">
-				<p class="text-ecsess-400 text-sm font-semibold">No events in this category yet</p>
-				<p class="text-ecsess-600 mt-1 text-xs">Check back soon for updates!</p>
+				<p class="text-ecsess-200 text-sm font-semibold">No events in this category yet</p>
+				<p class="text-ecsess-300 mt-1 text-xs">Check back soon for updates!</p>
 			</div>
 		</div>
 	{/if}

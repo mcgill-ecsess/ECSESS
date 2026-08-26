@@ -109,17 +109,17 @@
 	</div>
 
 	<!-- Post meta below image -->
-	<div class="pt-2">
+	<div class="pt-2 text-left">
 		<h2 class="text-ecsess-50 mb-1 line-clamp-2 text-[11px] leading-snug font-bold text-balance">
 			{eventTitle}
 		</h2>
-		<div class="text-ecsess-400 flex flex-col gap-0.5 text-[10px]">
+		<div class="text-ecsess-200 flex flex-col gap-0.5 text-[10px]">
 			<span class="flex items-center gap-1">
-				<CalendarDays class="text-ecsess-500 h-2.5 w-2.5 shrink-0" strokeWidth={2} />
+				<CalendarDays class="text-ecsess-400 h-2.5 w-2.5 shrink-0" strokeWidth={2} />
 				{date}
 			</span>
 			<span class="flex items-center gap-1">
-				<MapPin class="text-ecsess-500 h-2.5 w-2.5 shrink-0" strokeWidth={2} />
+				<MapPin class="text-ecsess-400 h-2.5 w-2.5 shrink-0" strokeWidth={2} />
 				{location ?? 'TBA'}
 			</span>
 		</div>

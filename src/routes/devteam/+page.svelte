@@ -46,20 +46,14 @@
 	canonical={data.canonical}
 />
 
-<Section
-	from="from-ecsess-black"
-	to="to-ecsess-black"
-	via="via-ecsess-800"
-	direction="to-b"
-	contentStart={true}
->
+<Section contentStart={true}>
 	<PageHeader title="Dev Team" description="git log --dev-team" class="text-center" />
 
-	<p class="text-ecsess-300 mx-auto mb-8 max-w-2xl text-center font-mono text-lg">
+	<p class="text-ecsess-150 mx-auto mb-8 max-w-2xl text-center font-mono text-lg">
 		Want to build the future of ECSESS?
 		<Link href="https://github.com/mcgill-ecsess/ECSESS" external>
 			<span
-				class="text-ecsess-400 decoration-ecsess-500 hover:text-ecsess-300 hover:decoration-ecsess-400 font-semibold underline decoration-2 underline-offset-4 transition-all"
+				class="text-ecsess-100 decoration-ecsess-400 hover:text-ecsess-50 hover:decoration-ecsess-300 font-semibold underline decoration-2 underline-offset-4 transition-all"
 			>
 				Contribute on GitHub →
 			</span>

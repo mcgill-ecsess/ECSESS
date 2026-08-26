@@ -1,36 +1,16 @@
 <script>
 	/**
+	 * Transparent layout band — page background/texture is global on html/body.
 	 * Props:
-	 * - from/to: pass full Tailwind gradient color classes (e.g., 'from-ecsess-950', 'to-ecsess-800')
-	 * - direction: Tailwind gradient direction suffix (e.g., 'to-b', 'to-r'), defaults to vertical
-	 * - black: legacy toggle for solid background (kept for backward compatibility)
+	 * - contentStart: align content to the top instead of center
 	 */
-	let {
-		children = () => 'Section placeholder',
-		from = '',
-		to = '',
-		via = '',
-		direction = 'to-b', // to bottom
-		black = false,
-		contentStart = false
-	} = $props();
+	let { children = () => 'Section placeholder', contentStart = false } = $props();
 
-	const base =
-		'mx-auto flex min-h-[90vh] flex-col items-center gap-4 p-4 text-center text-ecsess-100';
+	const base = 'mx-auto flex min-h-[90vh] flex-col items-center gap-4 p-4 text-left text-ecsess-50';
 
-	let tailwindClasses = $state(base);
-
-	$effect(() => {
-		const justifyClass = contentStart ? 'justify-start' : 'justify-center';
-		const withJustify = `${base} ${justifyClass}`;
-		if (from && to) {
-			tailwindClasses = `${withJustify} bg-gradient-${direction} ${from} ${to} ${via}`;
-		} else {
-			tailwindClasses = withJustify + (black ? ' bg-ecsess-black' : ' bg-ecsess-800');
-		}
-	});
+	let className = $derived(`${base} ${contentStart ? 'justify-start' : 'justify-center'}`);
 </script>
 
-<div class={tailwindClasses}>
+<div class={className}>
 	{@render children()}
 </div>

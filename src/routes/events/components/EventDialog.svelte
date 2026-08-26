@@ -164,28 +164,28 @@
 			</div>
 
 			<!-- Dialog body -->
-			<div class="flex flex-col gap-4 p-5">
+			<div class="flex flex-col gap-4 p-5 text-left">
 				<!-- Title -->
 				<h2 class="text-ecsess-50 text-xl leading-snug font-bold text-balance">
 					{eventTitle}
 				</h2>
 
 				<!-- Meta -->
-				<div class="text-ecsess-300 flex flex-col gap-1.5 text-sm">
+				<div class="text-ecsess-200 flex flex-col gap-1.5 text-sm">
 					<span class="flex items-center gap-2">
-						<CalendarDays class="text-ecsess-500 h-4 w-4 shrink-0" strokeWidth={2} />
+						<CalendarDays class="text-ecsess-400 h-4 w-4 shrink-0" strokeWidth={2} />
 						{date}
 					</span>
 					<span class="flex items-center gap-2">
-						<MapPin class="text-ecsess-500 h-4 w-4 shrink-0" strokeWidth={2} />
+						<MapPin class="text-ecsess-400 h-4 w-4 shrink-0" strokeWidth={2} />
 						{location ?? 'TBA'}
 					</span>
 				</div>
 
 				<!-- Description -->
 				{#if eventDescription}
-					<div class="border-ecsess-800 border-t pt-4">
-						<div class="typography text-ecsess-200 text-sm">
+					<div class="border-ecsess-800 border-t pt-4 text-left">
+						<div class="text-ecsess-100 text-sm">
 							<RichText value={eventDescription} />
 						</div>
 					</div>

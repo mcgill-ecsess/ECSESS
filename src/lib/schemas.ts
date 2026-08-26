@@ -35,6 +35,14 @@ export type FAQ = {
 	answer: string;
 };
 
+/** Homepage CMS document fields used across layout / home. */
+export type Homepage = {
+	notification?: InputValue | null;
+	councilPhoto?: string;
+	councilGoofyPic?: string;
+	faqs?: FAQ[];
+};
+
 export type OfficeHour = {
 	day: string;
 	startTime: string;

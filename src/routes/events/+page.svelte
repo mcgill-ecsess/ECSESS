@@ -29,13 +29,7 @@
 	canonical={data.canonical}
 />
 
-<Section
-	from="from-ecsess-black"
-	to="to-ecsess-black"
-	via="via-ecsess-600"
-	direction="to-b"
-	contentStart={true}
->
+<Section contentStart={true}>
 	<PageHeader
 		title="Events"
 		description="Academic events, professional networking, technical workshops, and social gatherings."

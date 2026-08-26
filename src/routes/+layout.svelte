@@ -16,7 +16,7 @@
 	});
 </script>
 
-<Navbar />
+<Navbar notification={data.notification} />
 <PageThumbnail thumbnail={data.thumbnail} />
 {@render children()}
 <Footer />

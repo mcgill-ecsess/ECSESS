@@ -11,13 +11,7 @@
 	description="The page you requested could not be found."
 />
 
-<Section
-	from="from-ecsess-black"
-	to="to-ecsess-black"
-	via="via-ecsess-800"
-	direction="to-b"
-	contentStart={true}
->
+<Section contentStart={true}>
 	<div class="w-full max-w-7xl pb-16 text-center">
 		<h1 class="text-ecsess-100 text-8xl font-black tracking-tighter md:text-9xl">
 			Segmentation Fault

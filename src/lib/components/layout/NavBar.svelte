@@ -1,13 +1,16 @@
-<script>
+<script lang="ts">
 	import NavButton from './NavButton.svelte';
 	import ECSESS from 'assets/ECSESS.png';
 	import { Menu } from '@lucide/svelte';
 	import { slide } from 'svelte/transition';
+	import RichText from '$lib/components/RichText.svelte';
+	import type { InputValue } from '@portabletext/svelte';
+
+	let { notification = null }: { notification?: InputValue | null } = $props();
+
 	let menuHidden = $state(true);
 
-	const announcementIntro = 'ECSESS Election results are out! Check them out here: ';
-	const announcementLinkUrl = 'https://ssmu.simplyvoting.com/voting/guest/elections/286648/results';
-	const announcementLinkText = 'ssmu.simplyvoting.com';
+	const hasNotification = $derived(Array.isArray(notification) && notification.length > 0);
 </script>
 
 <div class="sticky top-0 z-40 w-full">
@@ -62,15 +65,13 @@
 			</div>
 		</div>
 	</nav>
-	<!-- Small announcement underneath navbar -->
-	<div class="border-ecsess-black bg-ecsess-800 border-b px-4 py-2 shadow-sm" role="alert">
-		<p class="text-ecsess-100 text-center text-sm font-medium md:text-base">
-			{announcementIntro}<a
-				href={announcementLinkUrl}
-				class="text-ecsess-50 decoration-ecsess-400 hover:decoration-ecsess-300 underline underline-offset-2"
-			>
-				{announcementLinkText}
-			</a>
-		</p>
-	</div>
+
+	{#if hasNotification}
+		<div
+			class="nav-notification border-ecsess-black bg-ecsess-800 border-b px-4 py-2 shadow-sm"
+			role="alert"
+		>
+			<RichText value={notification} />
+		</div>
+	{/if}
 </div>

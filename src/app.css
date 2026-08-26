@@ -68,6 +68,20 @@
 	scroll-behavior: smooth;
 }
 
+html,
+body {
+	min-height: 100%;
+	background-color: var(--color-ecsess-black);
+	/* Fine diagonal strips in ecsess-800 (not dots) */
+	background-image: repeating-linear-gradient(
+		135deg,
+		transparent 0,
+		transparent 11px,
+		color-mix(in oklab, var(--color-ecsess-800) 55%, transparent) 11px,
+		color-mix(in oklab, var(--color-ecsess-800) 55%, transparent) 12px
+	);
+}
+
 h1 {
 	@apply py-4 text-2xl font-bold md:text-3xl;
 }
@@ -80,8 +94,21 @@ h2 {
 	@apply my-6 text-3xl font-bold md:text-4xl lg:text-6xl;
 }
 
+/* Compact Portable Text for the navbar announcement bar */
+.nav-notification .typography {
+	@apply text-ecsess-100 text-center text-sm font-medium md:text-base;
+}
+
+.nav-notification .typography p {
+	@apply my-0 leading-normal;
+}
+
+.nav-notification .typography a {
+	@apply text-ecsess-50 decoration-ecsess-400 hover:decoration-ecsess-300 underline underline-offset-2;
+}
+
 .typography {
-	@apply text-sm md:text-base lg:text-lg;
+	@apply text-left text-sm md:text-base lg:text-lg;
 
 	p {
 		@apply my-2 leading-relaxed;

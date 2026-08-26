@@ -76,13 +76,7 @@
 	canonical={data.canonical}
 />
 
-<Section
-	from="from-ecsess-black"
-	to="to-ecsess-black"
-	via="via-ecsess-600"
-	direction="to-b"
-	contentStart={true}
->
+<Section contentStart={true}>
 	<div class="w-full max-w-6xl px-4 py-6 text-center sm:px-6">
 		<h1 class="page-title text-ecsess-50 text-balance">Partnership with ECSESS</h1>
 		<div class="flex justify-center">

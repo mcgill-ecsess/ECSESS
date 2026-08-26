@@ -15,7 +15,7 @@
 <SeoMetaTags canonical={data.canonical} />
 
 <!-- ECSESS Introduction -->
-<Section from="from-ecsess-black" to="to-ecsess-900" via="via-ecsess-950">
+<Section>
 	<div
 		class="mx-auto grid w-full max-w-[84dvw] grid-cols-1 place-items-center gap-16 py-6 lg:min-h-[75vh] lg:grid-cols-[1fr_2fr]"
 	>
@@ -29,7 +29,7 @@
 				{/each}
 			</h1>
 			<p
-				class="text-ecsess-200/90 max-w-xl text-base leading-relaxed md:text-lg lg:max-w-lg lg:leading-8"
+				class="text-ecsess-100/95 max-w-xl text-base leading-relaxed md:text-lg lg:max-w-lg lg:leading-8"
 			>
 				<span class="text-ecsess-50 font-bold"
 					>Electrical, Computer & Software Engineering Students' Society at McGill (ECSESS)</span
@@ -67,15 +67,15 @@
 </Section>
 
 <!-- Office Hours Calendar -->
-<Section from="from-ecsess-900" to="to-ecsess-700" via="via-ecsess-650">
-	<div class="w-full">
-		<h2 class="text-2xl font-bold" id="office-hours">Lounge Office Hours</h2>
-		<p class="text-ecsess-200">
+<Section>
+	<div class="w-full text-center">
+		<h2 class="text-ecsess-50 text-2xl font-bold" id="office-hours">Lounge Office Hours</h2>
+		<p class="text-ecsess-100">
 			Come visit us in our student lounge at ENGTR 1060 to grab a coffee (free), play Mario Kart, or
 			just chat about anything!
 			{#if data.ohLastUpdated}
 				<br />
-				<span class="text-ecsess-200/70 mb-4 inline-block italic">
+				<span class="text-ecsess-200 mb-4 inline-block italic">
 					Semester: {data.ohLastUpdated}
 				</span>
 			{/if}
@@ -85,17 +85,17 @@
 </Section>
 
 <!-- Sponsors -->
-<Section from="from-ecsess-700" to="to-ecsess-800" via="via-ecsess-750">
+<Section>
 	<Sponsors sponsors={data.sponsors} lastUpdated={data.sponsorsLastUpdated} />
 </Section>
 
 <!-- Affiliated Clubs -->
-<Section from="from-ecsess-800" to="to-ecsess-black" via="via-ecsess-850">
+<Section>
 	<AffiliatedGroups />
 </Section>
 
 {#if data.faqs?.length}
-	<Section from="from-ecsess-black" to="to-ecsess-900" via="via-ecsess-950" contentStart={true}>
+	<Section contentStart={true}>
 		<div class="w-full max-w-3xl pb-16 text-left">
 			<h2 class="text-ecsess-50 mb-6 text-3xl font-bold">Frequently Asked Questions</h2>
 			<FAQAccordion entries={data.faqs} />

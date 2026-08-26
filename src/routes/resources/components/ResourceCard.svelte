@@ -34,14 +34,14 @@
 		<div class="flex shrink-0 flex-wrap items-start justify-start gap-1">
 			{#each categories as cat (cat)}
 				<span
-					class="bg-ecsess-800 text-ecsess-300 self-start rounded-full px-2 py-0.5 text-sm font-medium"
+					class="bg-ecsess-800 text-ecsess-150 self-start rounded-full px-2 py-0.5 text-sm font-medium"
 				>
 					{cat}
 				</span>
 			{/each}
 		</div>
 
-		<p class="text-ecsess-400 min-h-0 flex-1 overflow-hidden text-left text-sm leading-relaxed">
+		<p class="text-ecsess-150 min-h-0 flex-1 overflow-hidden text-left text-sm leading-relaxed">
 			{description}
 		</p>
 	</div>

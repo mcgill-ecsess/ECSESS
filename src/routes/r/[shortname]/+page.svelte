@@ -13,13 +13,7 @@
 	canonical={data.canonical}
 />
 
-<Section
-	from="from-ecsess-black"
-	to="to-ecsess-black"
-	via="via-ecsess-800"
-	direction="to-b"
-	contentStart={true}
->
+<Section contentStart={true}>
 	<div class="w-full max-w-7xl pb-16">
 		<PageHeader
 			title="Link not found"

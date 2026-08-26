@@ -55,13 +55,7 @@
 	canonical={data.canonical}
 />
 
-<Section
-	from="from-ecsess-black"
-	to="to-ecsess-black"
-	via="via-ecsess-800"
-	direction="to-b"
-	contentStart={true}
->
+<Section contentStart={true}>
 	<PageHeader
 		title="Resources"
 		description="Your hub for academic support, technical tools, campus involvement, and more."
@@ -84,7 +78,7 @@
 						class="rounded-full px-1.5 py-0.5 text-[10px] leading-none font-bold
 							{activeCategory === cat.value
 							? 'bg-ecsess-400/30 text-ecsess-50'
-							: 'bg-ecsess-800 text-ecsess-400'}"
+							: 'bg-ecsess-800 text-ecsess-200'}"
 					>
 						{cat.count}
 					</span>
@@ -96,8 +90,8 @@
 	<div class="w-full max-w-7xl pb-16">
 		{#if filtered.length === 0}
 			<div class="border-ecsess-800 rounded-xl border border-dashed py-16 text-center">
-				<p class="text-ecsess-500 text-lg font-semibold">No resources in this category yet.</p>
-				<p class="text-ecsess-600 mt-1 text-sm">Check back soon or explore another category.</p>
+				<p class="text-ecsess-200 text-lg font-semibold">No resources in this category yet.</p>
+				<p class="text-ecsess-300 mt-1 text-sm">Check back soon or explore another category.</p>
 			</div>
 		{:else}
 			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
