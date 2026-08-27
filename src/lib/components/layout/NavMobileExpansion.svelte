@@ -27,7 +27,7 @@
 {#if open}
 	<div class="border-ecsess-700 ml-3 flex flex-col gap-1 border-l-2 pl-2" transition:slide>
 		{#each items as item}
-			<NavButton href={item.href}>{item.label}</NavButton>
+			<NavButton href={item.href} dropdown={true}>{item.label}</NavButton>
 		{/each}
 	</div>
 {/if}
