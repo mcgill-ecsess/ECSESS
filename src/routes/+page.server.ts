@@ -1,10 +1,19 @@
 import { getFromCMS } from '$lib/utils.js';
-import type { OfficeHour, Sponsors } from '$lib/schemas';
+import { formatMcGillSemester } from '$lib/format.js';
+import type { FAQ, OfficeHour, Partnership, Subcommittee } from '$lib/schemas';
 
 const homepageQuery = `{
-  "homepage": *[_type == "homepage"]{
+  "homepage": *[_id == "homepage"]{
     "councilPhoto": councilPhoto.asset->url+"?h=1200&fm=webp",
     "faqs": faqs[]{ question, answer },
+    "subcommittees": subcommittees[]{
+      name,
+      description,
+      highlights,
+      instagram,
+      website,
+      icon
+    }
   }[0],
   "officeHours": *[_type=="officeHours"]{
     day,
@@ -15,46 +24,44 @@ const homepageQuery = `{
       "position": member->position
     }
   },
-  "ohLastUpdated": *[_type=="officeHours"] | order(_updatedAt desc)[0]._updatedAt,
-  "sponsors": *[_type=="sponsors"]{
+  "ohLastUpdated": *[_type == "officeHours"] | order(_updatedAt desc)[0]._updatedAt,
+  "partnerships": *[_type == "partnerships"] | order(tier asc, name asc) {
     name,
     url,
-    "logo": logo.asset->url+"?h=100&fm=webp"
-  },
-  "sponsorsLastUpdated": *[_type=="sponsors"] | order(_updatedAt desc)[0]._updatedAt
+    tier,
+    "logo": logo.asset->url + "?h=100&fm=webp"
+  }
 }`;
 
-function formattingDate(date: Date) {
-	const month = date.getMonth() + 1;
-	const year = date.getFullYear();
+export const load = async ({ url }: { url: URL }) => {
+	const homePageResp = await getFromCMS(homepageQuery);
+	const rawSubcommittees = (homePageResp.homepage?.subcommittees ?? []) as Array<{
+		name?: string;
+		description?: string;
+		highlights?: string[] | null;
+		instagram?: string | null;
+		website?: string | null;
+		icon?: string | null;
+	}>;
 
-	if (month >= 1 && month <= 4) {
-		return `Winter ${year}`;
-	}
-
-	if (month >= 8 && month <= 12) {
-		return `Fall ${year}`;
-	}
-
-	return 'Closed for the summer';
-}
-
-export const load = async ({ url }) => {
-	/**
-	 * @description Response data type based on the combined query above.
-	 * Note that `description` is a rich/portable text type
-	 */
-	let homePageResp = await getFromCMS(homepageQuery);
-	let councilPhotoUrl: string = homePageResp.homepage.councilPhoto;
-	let officeHourResp: OfficeHour[] = homePageResp.officeHours;
-	let sponsorsResp: Sponsors[] = homePageResp.sponsors;
+	const subcommittees: Subcommittee[] = rawSubcommittees
+		.filter((s) => Boolean(s?.name))
+		.map((s) => ({
+			name: s.name!,
+			description: s.description ?? '',
+			highlights: Array.isArray(s.highlights) ? s.highlights.filter(Boolean) : [],
+			instagram: s.instagram || undefined,
+			website: s.website || undefined,
+			icon: s.icon || undefined
+		}));
 
 	return {
-		councilPhoto: councilPhotoUrl,
-		allOHs: officeHourResp,
-		sponsors: sponsorsResp,
+		councilPhoto: homePageResp.homepage.councilPhoto as string,
+		allOHs: homePageResp.officeHours as OfficeHour[],
+		partnerships: (homePageResp.partnerships ?? []) as Partnership[],
+		faqs: (homePageResp.homepage.faqs ?? []) as FAQ[],
+		subcommittees,
 		canonical: url.href,
-		ohLastUpdated: formattingDate(new Date(homePageResp.ohLastUpdated)),
-		sponsorsLastUpdated: formattingDate(new Date(homePageResp.sponsorsLastUpdated))
+		ohLastUpdated: formatMcGillSemester(homePageResp.ohLastUpdated)
 	};
 };

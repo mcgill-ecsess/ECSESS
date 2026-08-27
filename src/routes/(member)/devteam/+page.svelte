@@ -1,25 +1,23 @@
 <script lang="ts">
-	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
-	import Section from 'components/layout/Section.svelte';
-	import ContribTimeline from 'components/team/ContribTimeline.svelte';
-	import Link from 'components/Link.svelte';
-	import type { DevTeam } from '$lib/schemas.js';
+	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
+	import Section from '$lib/components/layout/Section.svelte';
+	import PageHeader from '$lib/components/layout/PageHeader.svelte';
+	import ContribTimeline from './components/ContribTimeline.svelte';
+	import Link from '$lib/components/Link.svelte';
+	import type { DevTeam } from '$lib/schemas';
 
 	let { data } = $props();
 
 	let devTeam = $derived(data.devTeam ?? []);
 
-	// Extract the starting year from a term string "xxxx-xxxx"
 	function termYear(term: string): number {
 		return parseInt(term.split('-')[0], 10);
 	}
 
-	// Sort by Active (Current) first, then by term year (newest/latest first)
 	let sortedTeam = $derived(
 		[...devTeam].sort((a, b) => {
 			if (a.active && !b.active) return -1;
 			if (!a.active && b.active) return 1;
-
 			return termYear(b.term) - termYear(a.term);
 		})
 	);
@@ -42,39 +40,31 @@
 	);
 </script>
 
-<SeoMetaTags />
+<SeoMetaTags
+	title="ECSESS Dev Team"
+	description="Meet the developers building the ECSESS website and digital tools."
+	canonical={data.canonical}
+/>
 
-<Section from="from-ecsess-black" to="to-ecsess-black" via="via-ecsess-800" direction="to-b">
-	<div class="relative flex h-full w-full flex-col items-center">
-		<!-- Hero -->
-		<div class="my-8">
-			<span class="page-title"> git log --dev-team </span>
-			<p class="text-ecsess-300 mt-6 font-mono text-lg">
-				Want to build the future of ECSESS? <br />
-				<Link href="https://github.com/mcgill-ecsess/ECSESS" external>
-					<span
-						class="text-ecsess-400 decoration-ecsess-500 hover:text-ecsess-300 hover:decoration-ecsess-400 font-semibold underline decoration-2 underline-offset-4 transition-all"
-					>
-						Contribute on GitHub →
-					</span>
-				</Link>
-			</p>
-		</div>
+<Section contentStart={true}>
+	<PageHeader title="Dev Team" description="git log --dev-team" class="text-center" />
 
-		<!-- Git Tree History -->
-		<div class="relative w-full max-w-6xl px-4">
-			<div class="relative mx-auto max-w-fit">
-				<!-- Main vertical timeline connector (centered in 12px node column, aligns with GitNode circles) -->
+	<p class="text-ecsess-150 mx-auto mb-8 max-w-2xl text-center font-mono text-lg">
+		Want to build the future of ECSESS?
+		<Link href="https://github.com/mcgill-ecsess/ECSESS" external>
+			<span
+				class="text-ecsess-100 decoration-ecsess-400 hover:text-ecsess-50 hover:decoration-ecsess-300 font-semibold underline decoration-2 underline-offset-4 transition-all"
+			>
+				Contribute on GitHub →
+			</span>
+		</Link>
+	</p>
 
-				<!-- Cohort Branches -->
-				<div class="space-y-16">
-					{#each groupedTeam as { group, members, active }}
-						<div class="relative">
-							<ContribTimeline term={group} {members} {active} />
-						</div>
-					{/each}
-				</div>
-			</div>
+	<div class="relative w-full max-w-6xl px-4 pb-16">
+		<div class="relative mx-auto max-w-fit space-y-16">
+			{#each groupedTeam as { group, members, active }}
+				<ContribTimeline term={group} {members} {active} />
+			{/each}
 		</div>
 	</div>
 </Section>

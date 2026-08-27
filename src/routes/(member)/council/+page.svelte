@@ -1,10 +1,10 @@
 <script lang="ts">
-	import CouncilCardPopUp from 'components/council/CouncilCardPopUp.svelte';
-	import Section from 'components/layout/Section.svelte';
-	import CouncilCard from 'components/council/CouncilCard.svelte';
-	import Link from 'components/Link.svelte';
+	import CouncilCardPopUp from './components/CouncilCardPopUp.svelte';
+	import Section from '$lib/components/layout/Section.svelte';
+	import CouncilCard from './components/CouncilCard.svelte';
+	import Link from '$lib/components/Link.svelte';
 	import type { CouncilMember } from '$lib/schemas';
-	import SeoMetaTags from 'components/layout/SeoMetaTags.svelte';
+	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
 	import { onMount } from 'svelte';
 	import { tick } from 'svelte';
 
@@ -79,14 +79,8 @@
 	canonical={data.canonical}
 />
 
-<Section
-	from="from-ecsess-black"
-	to="to-ecsess-black"
-	via="via-ecsess-800"
-	direction="to-b"
-	contentStart
->
-	<div class="w-full max-w-360 px-4">
+<Section contentStart>
+	<div class="w-full max-w-7xl px-4">
 		<!-- Hero -->
 		<h1 class="page-title text-ecsess-50">Meet the ECSESS Council</h1>
 
@@ -103,7 +97,7 @@
 			<section class="mb-16 w-full">
 				<div class="flex w-full items-center gap-4">
 					<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
-					<h2 class="text-ecsess-100 text-xl font-semibold tracking-wider uppercase">President</h2>
+					<h2 class="text-ecsess-50 text-xl font-semibold tracking-wider uppercase">President</h2>
 					<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
 				</div>
 				<div class="mt-4 flex justify-center">
@@ -122,7 +116,7 @@
 		<section class="mb-16 w-full">
 			<div class="flex w-full items-center gap-4">
 				<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
-				<h2 class="text-ecsess-100 text-2xl font-semibold tracking-wider uppercase">
+				<h2 class="text-ecsess-50 text-2xl font-semibold tracking-wider uppercase">
 					Vice Presidents
 				</h2>
 				<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
@@ -143,7 +137,7 @@
 		<section class="mb-16 w-full">
 			<div class="flex w-full items-center gap-4">
 				<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
-				<h2 class="text-ecsess-100 text-2xl font-semibold tracking-wider uppercase">
+				<h2 class="text-ecsess-50 text-2xl font-semibold tracking-wider uppercase">
 					Year Representatives
 				</h2>
 				<div class="bg-ecsess-300 h-0.5 flex-1" aria-hidden="true"></div>
@@ -163,7 +157,7 @@
 
 		<!-- Join CTA at bottom -->
 		<section class="mt-4 mb-12 text-center">
-			<p class="text-ecsess-200 text-lg sm:text-xl">
+			<p class="text-ecsess-100 text-lg sm:text-xl">
 				Curious to be involved with the Council?
 				<Link
 					href="/join"

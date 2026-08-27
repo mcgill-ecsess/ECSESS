@@ -1,15 +1,14 @@
 import type { InputValue } from '@portabletext/svelte';
 
 export type EventPost = {
-	id: string;
+	_id?: string;
 	name: string;
-	description: string;
+	description?: InputValue;
 	date: string;
-	time: string;
-	location: string;
-	thumbnail: string;
-	category: EventCategory;
-	links: LinkType[];
+	location?: string;
+	thumbnail?: string;
+	category?: string[];
+	links?: LinkType[];
 };
 
 export enum EventCategory {
@@ -36,6 +35,26 @@ export type FAQ = {
 	answer: string;
 };
 
+/** Homepage CMS document fields used across layout / home. */
+export type Homepage = {
+	notification?: InputValue | null;
+	councilPhoto?: string;
+	councilGoofyPic?: string;
+	faqs?: FAQ[];
+	subcommittees?: Subcommittee[];
+};
+
+export type Subcommittee = {
+	name: string;
+	description: string;
+	/** Bullet highlights under the description. */
+	highlights: string[];
+	instagram?: string;
+	website?: string;
+	/** Lucide-style icon key from CMS (e.g. "wrench", "cpu", "users", "code"). */
+	icon?: string;
+};
+
 export type OfficeHour = {
 	day: string;
 	startTime: string;
@@ -60,11 +79,14 @@ export type Resource = {
 	title: string;
 	url: string;
 	description: string;
+	/** Always a string[]; empty when missing from CMS. */
+	category: string[];
 };
 
-export type Sponsors = {
+export type Partnership = {
 	name: string;
 	url: string;
+	tier: string;
 	logo: string;
 };
 
@@ -89,4 +111,32 @@ export type DevTeam = {
 export type AlumniYear = {
 	year: string;
 	names: string[];
+};
+
+export type ElectionKeyDate = {
+	title: string;
+	period: string;
+};
+
+export type ElectionResource = {
+	title: string;
+	url: string;
+};
+
+export type ElectionPosition = {
+	title: string;
+	type: string;
+};
+
+export type ElectionContact = {
+	name: string;
+	email: string;
+};
+
+export type Election = {
+	isElectionSeason: boolean;
+	keyDates: ElectionKeyDate[];
+	resources: ElectionResource[];
+	positions: ElectionPosition[];
+	contact: ElectionContact | null;
 };

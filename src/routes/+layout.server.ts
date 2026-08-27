@@ -1,14 +1,22 @@
 import { getFromCMS } from '$lib/utils.js';
+import type { Homepage } from '$lib/schemas';
 
-const thumbnailQuery = `*[_type == "homepage"]{
-	"thumbnail": councilPhoto.asset->url+"?h=800&fm=webp",
-}[0]`;
+const homepageQuery = `*[_type == "homepage"][0]{
+    notification,
+    "councilPhoto": councilPhoto.asset->url + "?h=1200&fm=webp",
+    "councilGoofyPic": councilGoofyPic.asset->url + "?h=1200&fm=webp",
+    "faqs": faqs[]{ question, answer }
+  }`;
 
 export const load = async () => {
 	try {
-		return { thumbnail: (await getFromCMS(thumbnailQuery)).thumbnail };
+		const homepage = (await getFromCMS(homepageQuery)) as Homepage | null;
+		return {
+			notification: homepage?.notification ?? null,
+			thumbnail: homepage?.councilPhoto ?? null
+		};
 	} catch (err) {
-		console.error('Failed to fetch homepage thumbnail from CMS:', err);
-		return { thumbnail: null };
+		console.error('Failed to fetch homepage data from CMS:', err);
+		return { notification: null, thumbnail: null };
 	}
 };

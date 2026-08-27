@@ -1,0 +1,15 @@
+---
+description: ECSESS core project conventions
+alwaysApply: true
+---
+
+# ECSESS Project Rules
+
+Read `AGENTS.md` for full context. Key points:
+
+- Bun + SvelteKit 2 + Svelte 5 runes + Tailwind v4
+- Shared UI: `$lib/components/` — page UI: `src/routes/{route}/components/`
+- Sanity via `getFromCMS()` in `+page.server.ts` only; types in `$lib/schemas.ts`
+- Use `ecsess-*` Tailwind tokens from `src/app.css`, not raw hex colors
+- Every page: `SeoMetaTags` + `Section` gradient wrappers
+- Minimize diff scope; match existing code style

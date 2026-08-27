@@ -68,6 +68,12 @@
 	scroll-behavior: smooth;
 }
 
+html,
+body {
+	min-height: 100%;
+	background-color: var(--color-ecsess-black);
+}
+
 h1 {
 	@apply py-4 text-2xl font-bold md:text-3xl;
 }
@@ -80,8 +86,26 @@ h2 {
 	@apply my-6 text-3xl font-bold md:text-4xl lg:text-6xl;
 }
 
+/* Compact Portable Text for the navbar announcement bar */
+.nav-notification .typography {
+	@apply text-ecsess-100 text-center text-sm font-medium md:text-base;
+}
+
+.nav-notification .typography p {
+	@apply my-0 leading-normal;
+}
+
+.nav-notification .typography a {
+	@apply text-ecsess-50 decoration-ecsess-400/70 hover:decoration-ecsess-200 underline underline-offset-2;
+}
+
+.nav-notification .typography strong,
+.nav-notification .typography b {
+	@apply text-ecsess-50 font-semibold;
+}
+
 .typography {
-	@apply text-sm md:text-base lg:text-lg;
+	@apply text-left text-sm md:text-base lg:text-lg;
 
 	p {
 		@apply my-2 leading-relaxed;

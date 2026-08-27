@@ -2,7 +2,7 @@
 	"name": "ecsess-website",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "bunx --bun vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
@@ -33,6 +33,7 @@
 	"dependencies": {
 		"@lucide/svelte": "^0.561.0",
 		"@sanity/client": "^7.13.2",
+		"chart.js": "^4.5.1",
 		"vercel": "^50.0.1"
 	}
 }
