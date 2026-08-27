@@ -14,7 +14,8 @@ export const bitsTeam: CouncilMember[] = [
 		name: 'Tariq Hassan',
 		email: 'tariq.hassan@mail.mcgill.ca',
 		position: 'Writer',
-		positionDescription: 'Writes recap articles and feature pieces covering ECSESS events and student life.',
+		positionDescription:
+			'Writes recap articles and feature pieces covering ECSESS events and student life.',
 		image: '',
 		yearProgram: 'U2 Computer Engineering'
 	},

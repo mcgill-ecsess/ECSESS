@@ -14,7 +14,8 @@ export const socialCommittee: CouncilMember[] = [
 		name: 'Sam Lee',
 		email: 'sam.lee@mail.mcgill.ca',
 		position: 'Events Coordinator',
-		positionDescription: 'Plans and runs ECSESS social events from start to finish, including logistics and venue booking.',
+		positionDescription:
+			'Plans and runs ECSESS social events from start to finish, including logistics and venue booking.',
 		image: '',
 		yearProgram: 'U2 Computer Engineering'
 	},
@@ -22,7 +23,8 @@ export const socialCommittee: CouncilMember[] = [
 		name: 'Priya Nair',
 		email: 'priya.nair@mail.mcgill.ca',
 		position: 'Marketing Coordinator',
-		positionDescription: 'Designs promotional content and manages social media announcements for upcoming events.',
+		positionDescription:
+			'Designs promotional content and manages social media announcements for upcoming events.',
 		image: '',
 		yearProgram: 'U2 Electrical Engineering'
 	},
@@ -38,7 +40,8 @@ export const socialCommittee: CouncilMember[] = [
 		name: 'Aisha Khan',
 		email: 'aisha.khan@mail.mcgill.ca',
 		position: 'U1 Social Representative',
-		positionDescription: 'Represents first-year students and gathers feedback on social programming.',
+		positionDescription:
+			'Represents first-year students and gathers feedback on social programming.',
 		image: '',
 		yearProgram: 'U1 Computer Engineering'
 	},
@@ -46,7 +49,8 @@ export const socialCommittee: CouncilMember[] = [
 		name: 'Liam O’Connor',
 		email: 'liam.oconnor@mail.mcgill.ca',
 		position: 'U0 Social Representative',
-		positionDescription: 'Represents Frosh-year students and helps plan orientation-focused social events.',
+		positionDescription:
+			'Represents Frosh-year students and helps plan orientation-focused social events.',
 		image: '',
 		yearProgram: 'U0 Engineering'
 	}

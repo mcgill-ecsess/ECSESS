@@ -14,7 +14,8 @@ export const externalCommittee: CouncilMember[] = [
 		name: 'Emily Zhang',
 		email: 'emily.zhang@mail.mcgill.ca',
 		position: 'Sponsorship Coordinator',
-		positionDescription: 'Manages sponsor relationships and coordinates sponsorship packages for ECSESS events.',
+		positionDescription:
+			'Manages sponsor relationships and coordinates sponsorship packages for ECSESS events.',
 		image: '',
 		yearProgram: 'U2 Software Engineering'
 	},
@@ -22,7 +23,8 @@ export const externalCommittee: CouncilMember[] = [
 		name: 'Carlos Mendez',
 		email: 'carlos.mendez@mail.mcgill.ca',
 		position: 'Industry Liaison',
-		positionDescription: 'Connects students with industry contacts and organizes networking sessions.',
+		positionDescription:
+			'Connects students with industry contacts and organizes networking sessions.',
 		image: '',
 		yearProgram: 'U3 Computer Engineering'
 	},
@@ -30,7 +32,8 @@ export const externalCommittee: CouncilMember[] = [
 		name: 'Fatima Al-Rashid',
 		email: 'fatima.alrashid@mail.mcgill.ca',
 		position: 'Inter-Society Coordinator',
-		positionDescription: 'Builds partnerships with other McGill student societies for joint events and initiatives.',
+		positionDescription:
+			'Builds partnerships with other McGill student societies for joint events and initiatives.',
 		image: '',
 		yearProgram: 'U2 Electrical Engineering'
 	},
@@ -38,7 +41,8 @@ export const externalCommittee: CouncilMember[] = [
 		name: 'Ben Whitfield',
 		email: 'ben.whitfield@mail.mcgill.ca',
 		position: 'U1 External Representative',
-		positionDescription: 'Represents first-year students in external committee planning and initiatives.',
+		positionDescription:
+			'Represents first-year students in external committee planning and initiatives.',
 		image: '',
 		yearProgram: 'U1 Software Engineering'
 	}
