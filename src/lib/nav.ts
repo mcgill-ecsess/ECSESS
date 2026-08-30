@@ -33,5 +33,5 @@ export const navConfig: NavEntry[] = [
 	},
 	{ type: 'link', href: '/join', label: 'Join ECSESS' },
 	{ type: 'link', href: '/partnership', label: 'Partnership' },
-	{ type: 'link', href: '/resources', label: 'Resources' },
+	{ type: 'link', href: '/resources', label: 'Resources' }
 ];

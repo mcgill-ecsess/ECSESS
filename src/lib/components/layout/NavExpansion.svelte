@@ -15,22 +15,23 @@
 		onToggle: () => void;
 	} = $props();
 
-	const isActive = $derived(items.some((item: NavItem) => page.url.pathname === item.href));
+	const isChildActive = $derived(items.some((item: NavItem) => page.url.pathname === item.href));
 </script>
 
-<div class="mx-1">
+<div class="inline-flex">
 	<button
 		type="button"
 		onclick={onToggle}
 		aria-expanded={open}
-		class="hover:text-ecsess-100 hover:border-ecsess-100 text-ecsess-200 active:text-ecsess-500 active:border-ecsess-500
-			mx-0.5 flex items-center gap-1 rounded-none border-b-4 px-6 py-2 font-semibold
-			transition-all hover:cursor-pointer active:scale-99
-			{isActive ? 'border-ecsess-300' : 'border-transparent'}"
+		data-component="NavExpansion"
+		class="group mx-0.5 inline-flex items-center gap-1 rounded-none border-b-4 px-6 py-2 text-sm font-semibold transition-all duration-150 hover:cursor-pointer
+			{open || isChildActive
+			? 'border-ecsess-300 text-ecsess-50'
+			: 'border-transparent text-ecsess-200 hover:border-ecsess-300 hover:text-ecsess-100'}"
 	>
-		{label}
+		<span>{label}</span>
 		<ChevronDown
-			class="size-4 transition-transform duration-200 ease-in-out {open ? 'rotate-180' : ''}"
+			class="size-4 transition-transform duration-200 ease-in-out {open ? 'rotate-180 text-ecsess-50' : 'text-ecsess-300 group-hover:text-ecsess-100'}"
 		/>
 	</button>
 </div>
