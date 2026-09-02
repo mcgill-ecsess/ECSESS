@@ -35,7 +35,7 @@
 		<span>{label}</span>
 		<ChevronDown
 			class="size-4 transition-transform duration-200 ease-in-out {open
-				? 'rotate-180 text-ecsess-50'
+				? 'text-ecsess-50 rotate-180'
 				: 'text-ecsess-300 group-hover:text-ecsess-100'}"
 		/>
 	</button>

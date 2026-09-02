@@ -27,11 +27,13 @@
 		class="group mx-0.5 inline-flex items-center gap-1 rounded-none border-b-4 px-6 py-2 text-sm font-semibold transition-all duration-150 hover:cursor-pointer
 			{open || isChildActive
 			? 'border-ecsess-300 text-ecsess-50'
-			: 'border-transparent text-ecsess-200 hover:border-ecsess-300 hover:text-ecsess-100'}"
+			: 'text-ecsess-200 hover:border-ecsess-300 hover:text-ecsess-100 border-transparent'}"
 	>
 		<span>{label}</span>
 		<ChevronDown
-			class="size-4 transition-transform duration-200 ease-in-out {open ? 'rotate-180 text-ecsess-50' : 'text-ecsess-300 group-hover:text-ecsess-100'}"
+			class="size-4 transition-transform duration-200 ease-in-out {open
+				? 'text-ecsess-50 rotate-180'
+				: 'text-ecsess-300 group-hover:text-ecsess-100'}"
 		/>
 	</button>
 </div>

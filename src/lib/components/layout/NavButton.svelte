@@ -20,9 +20,7 @@
 		class?: string;
 	} = $props();
 
-	const resolvedVariant = $derived<NavButtonVariant>(
-		dropdown ? 'mobile-secondary' : variant
-	);
+	const resolvedVariant = $derived<NavButtonVariant>(dropdown ? 'mobile-secondary' : variant);
 
 	const isActive = $derived(page.url.pathname === href);
 </script>
@@ -35,7 +33,7 @@
 		class="mx-0.5 inline-flex items-center rounded-none border-b-4 px-6 py-2 text-sm font-semibold transition-all duration-150 hover:cursor-pointer
 			{isActive
 			? 'border-ecsess-300 text-ecsess-50'
-			: 'border-transparent text-ecsess-200 hover:border-ecsess-300 hover:text-ecsess-100'} {className}"
+			: 'text-ecsess-200 hover:border-ecsess-300 hover:text-ecsess-100 border-transparent'} {className}"
 	>
 		{@render children()}
 	</a>
