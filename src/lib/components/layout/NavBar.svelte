@@ -1,79 +1,204 @@
 <script lang="ts">
 	import NavButton from './NavButton.svelte';
+	import NavExpansion from './NavExpansion.svelte';
+	import NavMobileExpansion from './NavMobileExpansion.svelte';
 	import ECSESS from 'assets/ECSESS.png';
-	import { Menu } from '@lucide/svelte';
-	import { slide } from 'svelte/transition';
+	import { Menu, X } from '@lucide/svelte';
 	import RichText from '$lib/components/RichText.svelte';
+	import { navConfig, type NavGroup } from '$lib/nav';
+	import { afterNavigate } from '$app/navigation';
+	import { page } from '$app/state';
+	import { fade, fly, slide } from 'svelte/transition';
 	import type { InputValue } from '@portabletext/svelte';
 
 	let { notification = null }: { notification?: InputValue | null } = $props();
 
 	let menuHidden = $state(true);
+	let openGroupLabel = $state<string | null>(null);
+	let desktopNavEl = $state<HTMLDivElement | null>(null);
 
 	const hasNotification = $derived(Array.isArray(notification) && notification.length > 0);
+	const openGroup = $derived(
+		navConfig.find(
+			(entry): entry is NavGroup => entry.type === 'group' && entry.label === openGroupLabel
+		) ?? null
+	);
+
+	afterNavigate(() => {
+		menuHidden = true;
+		openGroupLabel = null;
+	});
+
+	function toggleGroup(label: string) {
+		openGroupLabel = openGroupLabel === label ? null : label;
+	}
+
+	function handleDocumentClick(event: MouseEvent) {
+		if (desktopNavEl && !desktopNavEl.contains(event.target as Node)) {
+			openGroupLabel = null;
+		}
+	}
+
+	$effect(() => {
+		if (menuHidden) return;
+		const mql = window.matchMedia('(min-width: 1024px)');
+		const closeIfDesktop = () => {
+			if (mql.matches) menuHidden = true;
+		};
+		closeIfDesktop();
+		mql.addEventListener('change', closeIfDesktop);
+		const previous = document.body.style.overflow;
+		document.body.style.overflow = 'hidden';
+		return () => {
+			document.body.style.overflow = previous;
+			mql.removeEventListener('change', closeIfDesktop);
+		};
+	});
+
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key !== 'Escape') return;
+		menuHidden = true;
+		openGroupLabel = null;
+	}
 </script>
+
+<svelte:window onkeydown={handleKeydown} />
+<svelte:document onclick={handleDocumentClick} />
 
 <div class="sticky top-0 z-40 w-full" id="NavBar" data-component="NavBar">
 	<nav
-		class="bg-ecsess-black/75 text-ecsess-100 border-ecsess-800/60 w-full border-b py-1 backdrop-blur-md"
+		class="border-ecsess-800/70 bg-ecsess-950/80 text-ecsess-100 relative z-10 w-full border-b py-1 backdrop-blur-md"
 	>
 		<!-- Small screens -->
-		<div class="block md:hidden">
-			<div class="mx-4 flex items-center-safe justify-between">
-				<a href="/">
-					<img src={ECSESS} alt="ECSESS Logo" class="w-20 p-2" />
+		<div class="block lg:hidden">
+			<div class="mx-4 flex items-center justify-between">
+				<a href="/" class="flex items-center">
+					<img src={ECSESS} alt="ECSESS Logo" class="h-10 p-1" />
 				</a>
 
 				<button
 					type="button"
-					class="bg-ecsess-black-hover hover:bg-ecsess-800 active:bg-ecsess-900 grid size-10 place-items-center rounded-md transition-colors ease-in-out"
+					class="border-ecsess-800/70 bg-ecsess-900/80 text-ecsess-200 hover:border-ecsess-700/80 hover:bg-ecsess-800 hover:text-ecsess-50 active:bg-ecsess-950 grid size-10 place-items-center rounded-md border transition-colors ease-in-out hover:cursor-pointer"
+					aria-expanded={!menuHidden}
+					aria-controls="mobile-nav-drawer"
 					onclick={() => {
 						menuHidden = !menuHidden;
 					}}
 				>
-					<Menu class="size-6 transition-transform duration-300 ease-in-out" />
+					<Menu class="size-5 transition-transform duration-200 ease-in-out" />
+					<span class="sr-only">Open menu</span>
 				</button>
 			</div>
-
-			{#if !menuHidden}
-				<div
-					class="bg-ecsess-900 border-ecsess-700 mx-2 mb-2 flex w-auto flex-col gap-1 rounded-lg border-2 px-2 py-2 shadow-lg"
-					transition:slide
-				>
-					<NavButton href="/">Home</NavButton>
-					<NavButton href="/council">Meet the council</NavButton>
-					<NavButton href="/events">Events</NavButton>
-					<NavButton href="/resources">Resources</NavButton>
-					<NavButton href="/devteam">Dev Team</NavButton>
-					<NavButton href="/join">Join ECSESS</NavButton>
-					<NavButton href="/partnership">Partnership</NavButton>
-				</div>
-			{/if}
 		</div>
 
 		<!-- Medium and larger screens -->
-		<div class="hidden md:block">
+		<div class="z-100 hidden lg:block" bind:this={desktopNavEl}>
 			<div class="flex place-content-center items-end">
 				<a href="/">
 					<img src={ECSESS} alt="ECSESS Logo" class="h-12 p-2" />
 				</a>
-				<NavButton href="/">Home</NavButton>
-				<NavButton href="/council">Meet the council</NavButton>
-				<NavButton href="/events">Events</NavButton>
-				<NavButton href="/resources">Resources</NavButton>
-				<NavButton href="/devteam">Dev Team</NavButton>
-				<NavButton href="/join">Join ECSESS</NavButton>
-				<NavButton href="/partnership">Partnership</NavButton>
+				{#each navConfig as entry}
+					{#if entry.type === 'link'}
+						<NavButton href={entry.href} variant="desktop-primary">{entry.label}</NavButton>
+					{:else}
+						<NavExpansion
+							label={entry.label}
+							items={entry.items}
+							open={openGroupLabel === entry.label}
+							onToggle={() => toggleGroup(entry.label)}
+						/>
+					{/if}
+				{/each}
 			</div>
+			{#if openGroup}
+				<div
+					class="border-ecsess-800/70 bg-ecsess-950/95 flex w-full justify-center gap-2 border-t px-4 py-3 shadow-xl backdrop-blur-md"
+					transition:slide={{ duration: 180 }}
+				>
+					{#each openGroup.items as item}
+						<a
+							href={item.href}
+							onclick={() => (openGroupLabel = null)}
+							class="rounded-md px-6 py-2 text-sm font-semibold transition-colors duration-150
+								{page.url.pathname === item.href
+								? 'bg-ecsess-800/80 text-ecsess-50'
+								: 'text-ecsess-200 hover:bg-ecsess-800/50 hover:text-ecsess-100'}"
+						>
+							{item.label}
+						</a>
+					{/each}
+				</div>
+			{/if}
 		</div>
 	</nav>
 
 	{#if hasNotification}
 		<div
-			class="nav-notification border-ecsess-700/40 bg-ecsess-800/45 border-b px-4 py-2.5 backdrop-blur-sm"
+			class="nav-notification border-ecsess-700/60 bg-ecsess-900/80 border-b px-4 py-2.5 backdrop-blur-sm"
 			role="alert"
 		>
 			<RichText value={notification} />
 		</div>
 	{/if}
 </div>
+
+{#if !menuHidden}
+	<!-- Dimmed Backdrop -->
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<div
+		class="fixed inset-0 z-50 bg-black/65 backdrop-blur-xs transition-opacity lg:hidden"
+		transition:fade={{ duration: 180 }}
+		onclick={() => (menuHidden = true)}
+		aria-hidden="true"
+	></div>
+
+	<!-- Right Slide-in Drawer -->
+	<div
+		id="mobile-nav-drawer"
+		data-component="NavMobileDrawer"
+		role="dialog"
+		aria-modal="true"
+		aria-label="Mobile Navigation Menu"
+		class="border-ecsess-800/80 bg-ecsess-950/95 text-ecsess-100 fixed inset-y-0 right-0 z-50 flex w-[min(20rem,85vw)] flex-col border-l shadow-2xl backdrop-blur-xl sm:w-80 lg:hidden"
+		transition:fly={{ x: 320, duration: 240 }}
+	>
+		<div
+			class="border-ecsess-800/80 bg-ecsess-950/90 flex shrink-0 items-center justify-between border-b px-4 py-2"
+		>
+			<a href="/" onclick={() => (menuHidden = true)} class="flex items-center">
+				<img src={ECSESS} alt="ECSESS Logo" class="h-9 p-1" />
+			</a>
+			<button
+				type="button"
+				class="border-ecsess-800/70 bg-ecsess-900/80 text-ecsess-200 hover:border-ecsess-700/80 hover:bg-ecsess-800 hover:text-ecsess-50 active:bg-ecsess-950 grid size-10 place-items-center rounded-md border transition-colors ease-in-out hover:cursor-pointer"
+				aria-expanded="true"
+				aria-controls="mobile-nav-drawer"
+				onclick={() => (menuHidden = true)}
+			>
+				<X class="size-5" />
+				<span class="sr-only">Close menu</span>
+			</button>
+		</div>
+		<nav class="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain px-4 py-4">
+			<div class="flex flex-col gap-1">
+				{#each navConfig as entry}
+					{#if entry.type === 'link'}
+						<NavButton
+							href={entry.href}
+							variant="mobile-primary"
+							onclick={() => (menuHidden = true)}
+						>
+							{entry.label}
+						</NavButton>
+					{:else}
+						<NavMobileExpansion
+							label={entry.label}
+							items={entry.items}
+							onSelect={() => (menuHidden = true)}
+						/>
+					{/if}
+				{/each}
+			</div>
+		</nav>
+	</div>
+{/if}

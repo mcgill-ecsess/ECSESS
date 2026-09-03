@@ -108,6 +108,11 @@ export type DevTeam = {
 	image: string; //URL
 };
 
+export type AlumniYear = {
+	year: string;
+	names: string[];
+};
+
 export type ElectionKeyDate = {
 	title: string;
 	period: string;
