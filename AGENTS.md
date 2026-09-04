@@ -24,6 +24,21 @@ bun run lint     # Prettier check
 
 After completing an implementation, run `bun run format` so changes match project Prettier conventions before finishing.
 
+### Verify before finishing
+
+After non-trivial changes (new routes, CMS loaders, layout/nav, config, or dependency updates), verify with a production build on the **latest Node.js version Vercel supports** (currently **24.x** — confirm at [Vercel Node.js versions](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions) if unsure):
+
+```bash
+# Switch local Node to Vercel's latest supported major (example: 24)
+# e.g. nvm use 24  |  fnm use 24  |  volta install node@24
+node -v   # should report v24.x
+
+bun install
+bun run build
+```
+
+CI (`.github/workflows/test-build-on-PR.yml`) already builds with Node `24.x` and Bun. Keep `package.json` `engines.node` (if present) and local/CI Node aligned with that Vercel default.
+
 Requires `SANITY_ID` in env (see `.env.example` if present; set in Vercel for production).
 
 ## Project layout
@@ -228,6 +243,7 @@ When editing `.svelte` files, follow `.cursor/rules/svelte.mdc` and use the Svel
 - Co-locate new route components under `src/routes/{route}/components/`
 - Only add shared components to `src/lib/components/` when used by 2+ routes
 - Run `bun run format` after implementations
+- After non-trivial work, switch Node to Vercel's latest supported version (currently 24.x) and run `bun run build` (see **Verify before finishing**)
 - **Component inspection markers:** big components expose their Svelte name on the root DOM node for DevTools:
   - Singletons: `id="ComponentName"` and `data-component="ComponentName"` (e.g. `NavBar`, `OHSchedule`, `Partners`)
   - Repeated instances: `data-component="ComponentName"` only (e.g. `ResourceCard`, `OHBlock`, `EventBlock`) — do not reuse the same `id`

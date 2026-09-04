@@ -1,5 +1,4 @@
 import type { CouncilMember, SubcommitteeMember } from '$lib/schemas';
-import { getFromCMS } from '$lib/utils.js';
 
 export const councilMembersQuery = `*[_type == "members" && !(_id in path("drafts.**"))] | order(position.name asc) {
   _id,
@@ -139,20 +138,5 @@ export function subcommitteeToCouncilMember(member: SubcommitteeMember): Council
 		image: member.image ?? '',
 		yearProgram: member.yearProgram ?? '',
 		linkedin: member.linkedin || undefined
-	};
-}
-
-export function loadSubcommitteePage(key: SubcommitteePageKey) {
-	return async ({ url }: { url: URL }) => {
-		const allMembers: SubcommitteeMember[] = await getFromCMS(subcommitteeMembersQuery);
-		const meta = subcommitteePages[key];
-
-		return {
-			members: filterSubcommitteeMembers(allMembers ?? [], key),
-			title: meta.title,
-			seoTitle: meta.seoTitle,
-			seoDescription: meta.seoDescription,
-			canonical: url.href
-		};
 	};
 }
