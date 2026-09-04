@@ -82,15 +82,17 @@
 <Section contentStart>
 	<div class="w-full max-w-7xl px-4">
 		<!-- Hero -->
-		<h1 class="page-title text-ecsess-50">Meet the ECSESS Council</h1>
+		<h1 class="page-title text-ecsess-50 text-center">Meet the ECSESS Council</h1>
 
-		<figure class="ring-ecsess-400/50 mb-20 overflow-hidden rounded-2xl shadow-2xl ring-2">
-			<img
-				src={data.councilGoofyPic.url}
-				alt="ECSESS Council having fun"
-				class="w-full object-cover"
-			/>
-		</figure>
+		{#if data.councilGoofyPic?.url}
+			<figure class="ring-ecsess-400/50 mb-20 overflow-hidden rounded-2xl shadow-2xl ring-2">
+				<img
+					src={data.councilGoofyPic.url}
+					alt="ECSESS Council having fun"
+					class="w-full object-cover"
+				/>
+			</figure>
+		{/if}
 
 		<!-- President -->
 		{#if president}

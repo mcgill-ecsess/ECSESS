@@ -1,34 +1,28 @@
 import type { CouncilMember } from '$lib/schemas';
 import { getFromCMS } from '$lib/utils.js';
+import { councilMembersQuery, normalizeCouncilMember } from '$lib/subcommittee';
 
-// Note: council member image has height of 200px for
-// CouncilCard: image is `size-32` ~ 128px
-// CouncilCardPopUp: image is `size-42` ~ 168px
 const councilQuery = `{
-  "members": *[_type == "members"]{
-    name,
-    email,
-    position,
-    positionDescription,
-    "image": image.asset->url+"?h=750&fm=webp",
-    yearProgram,
-    linkedin
-  },
+  "members": ${councilMembersQuery},
   "councilGoofyPic": *[_type == "homepage"]{
-    "url": councilGoofyPic.asset->url+"?h=1200&fm=webp" 
+    "url": councilGoofyPic.asset->url+"?h=1200&fm=webp"
   }[0]
 }`;
 
 export const load = async ({ url }: { url: URL }) => {
 	const {
-		members,
+		members: rawMembers,
 		councilGoofyPic
-	}: { members: CouncilMember[]; councilGoofyPic: { url: string } } =
-		await getFromCMS(councilQuery);
+	}: {
+		members: Parameters<typeof normalizeCouncilMember>[0][];
+		councilGoofyPic: { url: string } | null;
+	} = await getFromCMS(councilQuery);
+
+	const members: CouncilMember[] = (rawMembers ?? []).map(normalizeCouncilMember);
 
 	return {
-		members: members,
-		councilGoofyPic,
+		members,
+		councilGoofyPic: councilGoofyPic ?? { url: '' },
 		canonical: url.href
 	};
 };

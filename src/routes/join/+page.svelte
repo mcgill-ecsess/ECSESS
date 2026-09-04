@@ -30,7 +30,7 @@
 
 <!-- Section 1: Election timeline & documents -->
 <Section>
-	<p class="page-title">
+	<p class="page-title text-center">
 		{data.isElectionSeason ? 'ECSESS Election' : 'Join ECSESS'}
 	</p>
 

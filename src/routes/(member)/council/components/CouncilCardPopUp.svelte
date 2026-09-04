@@ -72,7 +72,7 @@
 		{/if}
 	</div>
 
-	<div class="flex min-w-0 flex-1 flex-col justify-center p-0 px-4 md:p-6">
+	<div class="flex min-w-0 flex-1 flex-col justify-center p-0 px-4 text-center md:p-6">
 		<div class="flex flex-wrap items-center justify-center gap-2">
 			<h2 {id} class="text-ecsess-50 mt-2 text-lg leading-tight font-bold md:text-2xl">{name}</h2>
 		</div>

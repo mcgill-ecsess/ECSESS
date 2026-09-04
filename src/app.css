@@ -83,7 +83,7 @@ h2 {
 }
 
 .page-title {
-	@apply my-6 text-3xl font-bold md:text-4xl lg:text-6xl;
+	@apply my-6 text-5xl font-bold md:text-6xl lg:text-7xl;
 }
 
 /* Compact Portable Text for the navbar announcement bar */

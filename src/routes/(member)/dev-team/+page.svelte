@@ -47,7 +47,7 @@
 />
 
 <Section contentStart={true}>
-	<PageHeader title="Dev Team" description="git log --dev-team" class="text-center" />
+	<PageHeader title="Dev Team" description="git log --dev-team" />
 
 	<p class="text-ecsess-150 mx-auto mb-8 max-w-2xl text-center font-mono text-lg">
 		Want to build the future of ECSESS?

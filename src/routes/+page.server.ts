@@ -21,7 +21,7 @@ const homepageQuery = `{
     endTime,
     "member": {
       "name": member->name,
-      "position": member->position
+      "position": coalesce(member->position.name, member->position)
     }
   },
   "ohLastUpdated": *[_type == "officeHours"] | order(_updatedAt desc)[0]._updatedAt,

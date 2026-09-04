@@ -65,7 +65,9 @@ export type OfficeHour = {
 	};
 };
 
+/** Flattened council member shape used by UI (normalized in load from nested CMS position). */
 export type CouncilMember = {
+	_id?: string;
 	name: string;
 	email: string;
 	position: string;
@@ -73,6 +75,22 @@ export type CouncilMember = {
 	image: string; // URL
 	yearProgram: string;
 	linkedin?: string; // URL to profile, optional
+};
+
+/** Raw CMS shape for `subcommitteeMember` documents. */
+export type SubcommitteeMember = {
+	_id?: string;
+	name: string;
+	position?: string;
+	yearProgram?: string;
+	roleName?: string;
+	linkedin?: string;
+	contactEmail?: string;
+	image?: string;
+	subcommittee?: {
+		_id?: string;
+		name?: string;
+	} | null;
 };
 
 export type Resource = {
