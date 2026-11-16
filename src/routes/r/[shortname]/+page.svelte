@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Section from '$lib/components/layout/Section.svelte';
-	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
-	import PageHeader from '$lib/components/layout/PageHeader.svelte';
-	import Link from '$lib/components/Link.svelte';
+	import Section from '#lib/components/layout/Section.svelte';
+	import SeoMetaTags from '#lib/components/layout/SeoMetaTags.svelte';
+	import PageHeader from '#lib/components/layout/PageHeader.svelte';
+	import Link from '#lib/components/Link.svelte';
 
 	let { data } = $props();
 </script>
@@ -21,7 +21,7 @@
 		/>
 
 		{#if data.availableShortnames.length > 0}
-			<div class="text-ecsess-200 text-left">
+			<div class="text-left text-ecsess-200">
 				<p class="mb-4 text-lg">Available short links:</p>
 				<ul class="space-y-2">
 					{#each data.availableShortnames as redirect}

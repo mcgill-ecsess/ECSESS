@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { OfficeHour } from '$lib/schemas';
+	import type { OfficeHour } from '#lib/schemas.ts';
 	import OHBlock from './OHBlock.svelte';
 
 	// Constants
@@ -115,13 +115,13 @@
 
 <div class="overflow-x-auto" id="OHSchedule" data-component="OHSchedule">
 	<div
-		class="border-ecsess-800/70 bg-ecsess-950/50 mx-auto max-w-7xl min-w-[800px] rounded-2xl border p-3 md:p-4"
+		class="mx-auto max-w-7xl min-w-[800px] rounded-2xl border border-ecsess-800/70 bg-ecsess-950/50 p-3 md:p-4"
 	>
 		<!-- Header row -->
 		<div class="mb-3 grid gap-0" style:grid-template-columns="80px repeat(5, 1fr)">
-			<div class="bg-ecsess-950 sticky left-0 z-20"></div>
+			<div class="sticky left-0 z-20 bg-ecsess-950"></div>
 			{#each DAYS as day (day)}
-				<div class="text-ecsess-200 px-2 text-center text-sm font-medium md:text-base">
+				<div class="px-2 text-center text-sm font-medium text-ecsess-200 md:text-base">
 					{day}
 				</div>
 			{/each}
@@ -134,11 +134,11 @@
 
 				<!-- Time column (only for first day) -->
 				{#if dayIndex === 0}
-					<div class="border-ecsess-800/40 bg-ecsess-950 sticky left-0 z-20 border-r">
+					<div class="sticky left-0 z-20 border-r border-ecsess-800/40 bg-ecsess-950">
 						{#each timeSlots as timeSlot (timeSlot)}
 							{@const isHourMark = timeSlot % 60 === 0}
 							<div
-								class="text-ecsess-200 flex items-start justify-end border-t pt-1 pr-2 text-xs {isHourMark
+								class="flex items-start justify-end border-t pt-1 pr-2 text-xs text-ecsess-200 {isHourMark
 									? 'border-ecsess-700/40'
 									: 'border-ecsess-800/30'}"
 								class:text-ecsess-100={isHourMark}
@@ -153,7 +153,7 @@
 
 				<!-- Day column with segments -->
 				<div
-					class="border-ecsess-800/40 relative border-l"
+					class="relative border-l border-ecsess-800/40"
 					class:border-l-0={dayIndex === 0}
 					style:min-height="{timeSlots.length * SLOT_HEIGHT}px"
 				>

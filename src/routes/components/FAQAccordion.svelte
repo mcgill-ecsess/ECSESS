@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { FAQ } from '$lib/schemas';
+	import type { FAQ } from '#lib/schemas.ts';
 	import { slide } from 'svelte/transition';
 
 	// Variable to be included into the component
@@ -25,12 +25,12 @@
 
 <div class="space-y-3" id="FAQAccordion" data-component="FAQAccordion">
 	{#each entries as entry, index}
-		<div class="border-ecsess-300 rounded-md border-2 transition-colors duration-200">
+		<div class="rounded-md border-2 border-ecsess-300 transition-colors duration-200">
 			<!-- Question -->
 			<button
 				type="button"
 				onclick={() => toggleItem(index)}
-				class="bg-ecsess-600/20 hover:bg-ecsess-500/40 flex w-full items-center gap-3 px-3 py-2 text-left text-lg font-bold transition-colors duration-200 {isOpen(
+				class="flex w-full items-center gap-3 bg-ecsess-600/20 px-3 py-2 text-left text-lg font-bold transition-colors duration-200 hover:bg-ecsess-500/40 {isOpen(
 					index
 				)
 					? 'rounded-t-md'
@@ -59,7 +59,7 @@
 			<!-- Panel -->
 			{#if isOpen(index)}
 				<div
-					class="border-t-ecsess-300 h-fit overflow-hidden border-t-2 bg-transparent px-4 py-3
+					class="h-fit overflow-hidden border-t-2 border-t-ecsess-300 bg-transparent px-4 py-3
 					 text-base leading-relaxed transition-all duration-200"
 					transition:slide={{ duration: 200 }}
 				>

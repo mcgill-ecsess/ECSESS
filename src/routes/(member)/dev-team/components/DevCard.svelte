@@ -1,16 +1,7 @@
 <script lang="ts">
 	import { Github, Mail } from '@lucide/svelte';
 
-	let {
-		name,
-		role,
-		year,
-		src,
-		funFact,
-		github,
-		email,
-		active = false
-	} = $props<{
+	interface Props {
 		name: string;
 		role: string;
 		year: string;
@@ -19,7 +10,9 @@
 		github: string;
 		email: string;
 		active?: boolean;
-	}>();
+	}
+
+	let { name, role, year, src, funFact, github, email, active = false }: Props = $props();
 
 	// Extract GitHub username from URL and construct avatar URL
 	let githubAvatar = $derived.by(() => {
@@ -37,8 +30,8 @@
 <div class="fadeup group relative flex flex-col" data-component="DevCard">
 	<!-- Commit Card -->
 	<div
-		class="hover:shadow-ecsess-black/50 relative w-full overflow-hidden rounded-xl transition-all duration-100 ease-linear hover:scale-101 hover:shadow-md {active
-			? 'bg-ecsess-800 shadow-ecsess-black shadow-sm'
+		class="relative w-full overflow-hidden rounded-xl transition-all duration-100 ease-linear hover:scale-101 hover:shadow-md hover:shadow-ecsess-black/50 {active
+			? 'bg-ecsess-800 shadow-sm shadow-ecsess-black'
 			: 'bg-ecsess-900 shadow-ecsess-black'}"
 	>
 		<!-- Header -->
@@ -46,10 +39,10 @@
 			<div class="flex flex-col items-center gap-2.5 text-center">
 				<img src={githubAvatar} alt={name} class="size-20 shrink-0 rounded-full object-cover" />
 				<div class="w-full">
-					<h3 class="text-ecsess-100 text-lg font-semibold">
+					<h3 class="text-lg font-semibold text-ecsess-100">
 						{name}
 					</h3>
-					<p class="text-ecsess-400 text-base">{role}</p>
+					<p class="text-base text-ecsess-400">{role}</p>
 				</div>
 			</div>
 		</div>
@@ -69,7 +62,7 @@
 
 			<!-- Fun Fact / Commit Message -->
 			<div class="min-h-[60px]">
-				<p class="text-ecsess-300 text-sm leading-relaxed italic">
+				<p class="text-sm leading-relaxed text-ecsess-300 italic">
 					{funFact || ``}
 				</p>
 			</div>

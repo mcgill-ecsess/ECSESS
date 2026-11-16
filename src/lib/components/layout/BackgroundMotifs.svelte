@@ -197,7 +197,7 @@
 	{#each motifs as motif, i (`${i}-${motif.topDvh.toFixed(2)}-${motif.leftPct.toFixed(2)}`)}
 		{@const Icon = motif.icon}
 		<div
-			class="text-ecsess-700 absolute {motif.sizeClass}"
+			class="absolute text-ecsess-700 {motif.sizeClass}"
 			style="
 				top: {motif.topDvh}dvh;
 				left: {motif.leftPct}%;

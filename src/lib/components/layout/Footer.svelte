@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ECSESS from 'assets/ECSESS.png';
+	import ECSESS from '#assets/ECSESS.png';
 	import { FacebookIcon, Github, InstagramIcon, LinkedinIcon, Mail } from '@lucide/svelte';
 	const year = new Date().getFullYear();
 
@@ -45,7 +45,7 @@
 </script>
 
 <footer
-	class="bg-ecsess-black/75 text-ecsess-100 border-ecsess-800/60 w-full border-t px-4 py-8 backdrop-blur-md"
+	class="w-full border-t border-ecsess-800/60 bg-ecsess-black/75 px-4 py-8 text-ecsess-100 backdrop-blur-md"
 	id="Footer"
 	data-component="Footer"
 >
@@ -53,13 +53,13 @@
 		<!-- Business Card Layout -->
 		<div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
 			<!-- Left: ECSESS Lounge -->
-			<div class="border-ecsess-800 border-b-1 pb-4 text-center md:border-0 md:text-left">
-				<p class="text-ecsess-300 mb-3 text-lg">Visit the ECSESS lounge!</p>
+			<div class="border-b-1 border-ecsess-800 pb-4 text-center md:border-0 md:text-left">
+				<p class="mb-3 text-lg text-ecsess-300">Visit the ECSESS lounge!</p>
 				<a
 					href="https://maps.app.goo.gl/m9ZqjTrPM7pcBzhbA"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="text-ecsess-300 hover:text-ecsess-100 hover:border-b-ecsess-100 inline-flex items-center justify-baseline gap-2 border-b-1 border-b-transparent pb-0.5 transition-all"
+					class="inline-flex items-center justify-baseline gap-2 border-b-1 border-b-transparent pb-0.5 text-ecsess-300 transition-all hover:border-b-ecsess-100 hover:text-ecsess-100"
 				>
 					<svg
 						class="h-4 w-4 flex-shrink-0"
@@ -86,8 +86,8 @@
 			</div>
 
 			<!-- Center: Connect With Us -->
-			<div class="border-ecsess-800 border-b-1 pb-8 text-center md:border-0">
-				<h3 class="text-ecsess-200 mb-3 text-lg font-semibold">Connect With Us</h3>
+			<div class="border-b-1 border-ecsess-800 pb-8 text-center md:border-0">
+				<h3 class="mb-3 text-lg font-semibold text-ecsess-200">Connect With Us</h3>
 				<div class="flex flex-wrap items-center justify-center gap-3">
 					{#each socialLinks as link}
 						<a
@@ -95,7 +95,7 @@
 							target={link.icon === 'email' ? '_self' : '_blank'}
 							rel={link.icon === 'email' ? '' : 'noopener noreferrer'}
 							aria-label={link.ariaLabel}
-							class="bg-ecsess-800 hover:bg-ecsess-600 flex h-10 w-10 items-center justify-center rounded-full transition-all hover:scale-110"
+							class="flex h-10 w-10 items-center justify-center rounded-full bg-ecsess-800 transition-all hover:scale-110 hover:bg-ecsess-600"
 						>
 							{#if link.icon === 'instagram'}
 								<InstagramIcon class="text-white" />
@@ -126,7 +126,7 @@
 
 			<!-- Right: Contribute -->
 			<div class="text-center md:text-right">
-				<p class="text-ecsess-200 mb-3 text-base">
+				<p class="mb-3 text-base text-ecsess-200">
 					Catch a bug or have an idea? <br />
 					Let us know!
 				</p>
@@ -134,7 +134,7 @@
 					href="https://forms.gle/hTA9hZdy3UPNs12R6"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="bg-ecsess-800 hover:bg-ecsess-600 inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors"
+					class="inline-flex items-center gap-2 rounded-lg bg-ecsess-800 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-ecsess-600"
 				>
 					<img src={ECSESS} alt="ECSESS Logo" class="w-8" />
 					<span>Bug Report Form</span>
@@ -143,11 +143,11 @@
 		</div>
 
 		<!-- Divider -->
-		<div class="border-ecsess-800 my-6 border-t"></div>
+		<div class="my-6 border-t border-ecsess-800"></div>
 
 		<!-- Copyright -->
 		<div>
-			<p class="text-ecsess-200 text-center text-sm">
+			<p class="text-center text-sm text-ecsess-200">
 				&copy; ECSESS {year} under GNU General Public License v3.0. <br />
 				Designed with love {'<3'}.
 			</p>

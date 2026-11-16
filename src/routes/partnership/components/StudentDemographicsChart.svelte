@@ -7,7 +7,7 @@
 		type ChartConfiguration,
 		type Plugin
 	} from 'chart.js';
-	import { DEMOGRAPHICS_CHART_COLORS } from '$lib/theme.js';
+	import { DEMOGRAPHICS_CHART_COLORS } from '#lib/theme.js';
 
 	Chart.register(DoughnutController, ArcElement);
 
@@ -128,7 +128,7 @@
 				{@const pos = labelPositions[index]}
 				{#if pos}
 					<div
-						class="text-ecsess-50 pointer-events-none absolute flex max-w-[min(9rem,42vw)] -translate-x-1/2 -translate-y-1/2 flex-col gap-0.5 text-center drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]"
+						class="pointer-events-none absolute flex max-w-[min(9rem,42vw)] -translate-x-1/2 -translate-y-1/2 flex-col gap-0.5 text-center text-ecsess-50 drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)]"
 						class:-translate-x-full={pos.align === 'right'}
 						class:translate-x-0={pos.align === 'left'}
 						class:text-right={pos.align === 'right'}

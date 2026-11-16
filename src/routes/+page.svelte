@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Section from '$lib/components/layout/Section.svelte';
+	import Section from '#lib/components/layout/Section.svelte';
 	import OhSchedule from './components/OHSchedule.svelte';
-	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
+	import SeoMetaTags from '#lib/components/layout/SeoMetaTags.svelte';
 	import AffiliatedGroups from './components/AffiliatedGroups.svelte';
 	import Partners from './components/Partners.svelte';
 	import QuickLinks from './components/QuickLinks.svelte';
@@ -29,16 +29,16 @@
 				{/each}
 			</h1>
 			<p
-				class="text-ecsess-100/95 max-w-xl text-base leading-relaxed md:text-lg lg:max-w-lg lg:leading-8"
+				class="max-w-xl text-base leading-relaxed text-ecsess-100/95 md:text-lg lg:max-w-lg lg:leading-8"
 			>
-				<span class="text-ecsess-50 font-bold"
+				<span class="font-bold text-ecsess-50"
 					>Electrical, Computer & Software Engineering Students' Society at McGill (ECSESS)</span
 				>
 				is the student council which helps McGill ECSE students in their
-				<span class="text-ecsess-50 font-bold">academic</span>,
-				<span class="text-ecsess-50 font-bold">technical</span>,
-				<span class="text-ecsess-50 font-bold">social</span> and
-				<span class="text-ecsess-50 font-bold">professional</span> progression.
+				<span class="font-bold text-ecsess-50">academic</span>,
+				<span class="font-bold text-ecsess-50">technical</span>,
+				<span class="font-bold text-ecsess-50">social</span> and
+				<span class="font-bold text-ecsess-50">professional</span> progression.
 			</p>
 
 			<div class="mt-8 w-full max-w-xl lg:max-w-none">
@@ -49,10 +49,10 @@
 		<!-- Right: Featured Video for April Fool's Day -->
 		<div class="relative flex w-full items-center justify-center lg:max-w-none">
 			<div
-				class="ring-ecsess-400/20 ring-offset-ecsess-900/50 relative flex w-full items-center justify-center overflow-hidden rounded-2xl shadow-2xl ring-1 ring-offset-2"
+				class="relative flex w-full items-center justify-center overflow-hidden rounded-2xl shadow-2xl ring-1 ring-ecsess-400/20 ring-offset-2 ring-offset-ecsess-900/50"
 			>
 				<div
-					class="from-ecsess-500/10 absolute inset-0 rounded-2xl bg-linear-to-br to-transparent"
+					class="absolute inset-0 rounded-2xl bg-linear-to-br from-ecsess-500/10 to-transparent"
 					aria-hidden="true"
 				></div>
 
@@ -69,19 +69,19 @@
 <!-- Office Hours Calendar -->
 <Section>
 	<div class="w-full text-center">
-		<h2 class="text-ecsess-50 text-2xl font-bold md:text-3xl" id="office-hours">
+		<h2 class="text-2xl font-bold text-ecsess-50 md:text-3xl" id="office-hours">
 			Lounge Office Hours
 			<br />
 			{#if data.ohLastUpdated}
 				<span
-					class="text-ecsess-400 mt-2 inline-block text-base italic md:text-lg"
+					class="mt-2 inline-block text-base text-ecsess-400 italic md:text-lg"
 					id="office-hours-semester"
 				>
 					~ {data.ohLastUpdated} ~
 				</span>
 			{/if}
 		</h2>
-		<p class="text-ecsess-200 mx-auto mt-2 mb-6 max-w-2xl text-sm md:text-base">
+		<p class="mx-auto mt-2 mb-6 max-w-2xl text-sm text-ecsess-200 md:text-base">
 			Come visit us in our student lounge at ENGTR 1060 to grab a coffee (free), play Mario Kart, or
 			just chat about anything!
 		</p>
@@ -104,7 +104,7 @@
 {#if data.faqs?.length}
 	<Section contentStart={true}>
 		<div class="w-full max-w-3xl pb-16 text-left">
-			<h2 class="text-ecsess-50 mb-6 text-3xl font-bold">Frequently Asked Questions</h2>
+			<h2 class="mb-6 text-3xl font-bold text-ecsess-50">Frequently Asked Questions</h2>
 			<FAQAccordion entries={data.faqs} />
 		</div>
 	</Section>

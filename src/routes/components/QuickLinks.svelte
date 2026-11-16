@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Link from '$lib/components/Link.svelte';
-	import Button from '$lib/components/Button.svelte';
+	import Link from '#lib/components/Link.svelte';
+	import Button from '#lib/components/Button.svelte';
 </script>
 
 <div id="QuickLinks" data-component="QuickLinks">
 	<p
-		class="text-ecsess-50 decoration-ecsess-200 mt-2 mb-6 text-base font-bold tracking-wide underline decoration-2 underline-offset-8"
+		class="mt-2 mb-6 text-base font-bold tracking-wide text-ecsess-50 underline decoration-ecsess-200 decoration-2 underline-offset-8"
 	>
 		Popular resources
 	</p>

@@ -1,9 +1,11 @@
 <script lang="ts">
-	let {
-		title,
-		description = '',
-		class: className = ''
-	} = $props<{ title: string; description?: string; class?: string }>();
+	interface Props {
+		title: string;
+		description?: string;
+		class?: string;
+	}
+
+	let { title, description = '', class: className = '' }: Props = $props();
 </script>
 
 <div
@@ -11,12 +13,12 @@
 	id="PageHeader"
 	data-component="PageHeader"
 >
-	<h1 class="text-ecsess-50 mb-2 py-0 text-5xl font-bold text-balance md:text-6xl lg:text-7xl">
+	<h1 class="mb-2 py-0 text-5xl font-bold text-balance text-ecsess-50 md:text-6xl lg:text-7xl">
 		{title}
 	</h1>
 	{#if description}
 		<p
-			class="text-ecsess-150 mx-auto mb-8 w-full max-w-3xl text-lg leading-relaxed md:text-xl lg:text-2xl"
+			class="mx-auto mb-8 w-full max-w-3xl text-lg leading-relaxed text-ecsess-150 md:text-xl lg:text-2xl"
 		>
 			{description}
 		</p>

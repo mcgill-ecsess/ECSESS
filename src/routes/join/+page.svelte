@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Button from '$lib/components/Button.svelte';
-	import Link from '$lib/components/Link.svelte';
-	import Section from '$lib/components/layout/Section.svelte';
-	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
+	import Button from '#lib/components/Button.svelte';
+	import Link from '#lib/components/Link.svelte';
+	import Section from '#lib/components/layout/Section.svelte';
+	import SeoMetaTags from '#lib/components/layout/SeoMetaTags.svelte';
 
 	let { data } = $props();
 
@@ -36,13 +36,13 @@
 
 	{#if data.isElectionSeason}
 		{#if candidatePackage}
-			<p class="text-ecsess-200 mb-2 text-center text-3xl">
+			<p class="mb-2 text-center text-3xl text-ecsess-200">
 				<Link href={candidatePackage.url} external>
 					<Button
-						class="text-ecsess-50 bg-ecsess-800 text-bold hover:bg-ecsess-700 border-ecsess-400/50 rounded-md border-2 text-lg shadow-md transition-all hover:cursor-pointer"
+						class="text-bold rounded-md border-2 border-ecsess-400/50 bg-ecsess-800 text-lg text-ecsess-50 shadow-md transition-all hover:cursor-pointer hover:bg-ecsess-700"
 					>
 						View the full <span class="underline underline-offset-4">candidate package</span>
-						<br /><span class="text-ecsess-200 text-sm"
+						<br /><span class="text-sm text-ecsess-200"
 							>{candidatePackage.url.replace(/^https?:\/\//, '')}</span
 						>
 					</Button>
@@ -50,10 +50,10 @@
 			</p>
 		{/if}
 		{#if nominationGuidelines}
-			<p class="text-ecsess-200 mb-2 text-center text-3xl">
+			<p class="mb-2 text-center text-3xl text-ecsess-200">
 				<Link href={nominationGuidelines.url} external>
 					<Button
-						class="text-ecsess-50 bg-ecsess-800 text-bold hover:bg-ecsess-700 border-ecsess-400/50 rounded-md border-2 text-base shadow-md transition-all hover:cursor-pointer"
+						class="text-bold rounded-md border-2 border-ecsess-400/50 bg-ecsess-800 text-base text-ecsess-50 shadow-md transition-all hover:cursor-pointer hover:bg-ecsess-700"
 					>
 						{nominationGuidelines.title}
 					</Button>
@@ -64,24 +64,24 @@
 		{#if data.keyDates.length > 0}
 			<!-- File explorer - style timeline -->
 			<div
-				class="border-ecsess-700 bg-ecsess-800 mx-auto w-full max-w-2xl overflow-hidden rounded-lg border shadow-xl"
+				class="mx-auto w-full max-w-2xl overflow-hidden rounded-lg border border-ecsess-700 bg-ecsess-800 shadow-xl"
 			>
 				<!-- Title bar -->
-				<div class="border-ecsess-700 bg-ecsess-850 flex items-center gap-2 border-b px-4 py-2.5">
+				<div class="flex items-center gap-2 border-b border-ecsess-700 bg-ecsess-850 px-4 py-2.5">
 					<div class="flex gap-1.5">
-						<span class="bg-ecsess-150 h-3 w-3 rounded-full"></span>
-						<span class="bg-ecsess-500 h-3 w-3 rounded-full"></span>
-						<span class="bg-ecsess-300 h-3 w-3 rounded-full"></span>
+						<span class="h-3 w-3 rounded-full bg-ecsess-150"></span>
+						<span class="h-3 w-3 rounded-full bg-ecsess-500"></span>
+						<span class="h-3 w-3 rounded-full bg-ecsess-300"></span>
 					</div>
-					<span class="text-ecsess-300 ml-2 font-mono text-xs">ecsess / election / key-dates</span>
+					<span class="ml-2 font-mono text-xs text-ecsess-300">ecsess / election / key-dates</span>
 				</div>
 				<!-- File list -->
-				<div class="divide-ecsess-700 divide-y font-mono">
+				<div class="divide-y divide-ecsess-700 font-mono">
 					{#each data.keyDates as date}
 						<div class="flex items-center gap-3 px-4 py-3.5">
 							<div class="min-w-0 flex-1 text-left">
-								<p class="text-ecsess-100 text-base font-medium">{date.title}</p>
-								<p class="text-ecsess-200 mt-0.5 text-sm">{date.period}</p>
+								<p class="text-base font-medium text-ecsess-100">{date.title}</p>
+								<p class="mt-0.5 text-sm text-ecsess-200">{date.period}</p>
 							</div>
 						</div>
 					{/each}
@@ -89,7 +89,7 @@
 			</div>
 		{/if}
 	{:else}
-		<p class="text-ecsess-100 mx-auto mb-8 max-w-2xl text-center text-lg leading-relaxed">
+		<p class="mx-auto mb-8 max-w-2xl text-center text-lg leading-relaxed text-ecsess-100">
 			Council elections are not open right now. Check back during election season (around
 			Febuary/March) if you want to get involved with ECSESS.
 		</p>
@@ -101,15 +101,15 @@
 	<Section>
 		{#if importantDocuments.length > 0}
 			<div class="mx-auto mb-12 w-full max-w-4xl text-center">
-				<p class="text-ecsess-100 my-4 text-3xl font-extrabold">Important documents</p>
+				<p class="my-4 text-3xl font-extrabold text-ecsess-100">Important documents</p>
 				<div class="mx-auto flex flex-col flex-wrap items-center justify-center gap-3">
 					{#each importantDocuments as doc}
 						<Link href={doc.url} external>
 							<Button
-								class="border-ecsess-600 bg-ecsess-800 text-ecsess-100 hover:bg-ecsess-700 inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium"
+								class="inline-flex items-center gap-2 rounded-lg border border-ecsess-600 bg-ecsess-800 px-4 py-2.5 text-sm font-medium text-ecsess-100 hover:bg-ecsess-700"
 							>
 								<svg
-									class="text-ecsess-400 h-4 w-4 shrink-0"
+									class="h-4 w-4 shrink-0 text-ecsess-400"
 									fill="none"
 									stroke="currentColor"
 									viewBox="0 0 24 24"
@@ -131,16 +131,16 @@
 		{/if}
 
 		{#if electedPositions.length > 0 || selectedPositions.length > 0}
-			<p class="text-ecsess-100 mb-4 text-3xl font-bold">Available positions</p>
+			<p class="mb-4 text-3xl font-bold text-ecsess-100">Available positions</p>
 
 			<div class="mx-auto grid w-full max-w-4xl grid-cols-1 gap-8 md:grid-cols-2">
 				{#if electedPositions.length > 0}
-					<div class="bg-ecsess-400/20 border-ecsess-700 rounded-xl border p-6 text-left">
-						<h2 class="text-ecsess-100 text-xl font-bold">Elected positions</h2>
-						<p class="text-ecsess-200 border-ecsess-700 mb-4 border-b pb-4 text-sm">
+					<div class="rounded-xl border border-ecsess-700 bg-ecsess-400/20 p-6 text-left">
+						<h2 class="text-xl font-bold text-ecsess-100">Elected positions</h2>
+						<p class="mb-4 border-b border-ecsess-700 pb-4 text-sm text-ecsess-200">
 							Positions that are elected by the student body via voting.
 						</p>
-						<ul class="text-ecsess-200 space-y-2">
+						<ul class="space-y-2 text-ecsess-200">
 							{#each electedPositions as position}
 								<li>{position}</li>
 							{/each}
@@ -149,12 +149,12 @@
 				{/if}
 
 				{#if selectedPositions.length > 0}
-					<div class="bg-ecsess-400/20 border-ecsess-700 rounded-xl border p-6 text-left">
-						<h2 class="text-ecsess-100 text-xl font-bold">Selected positions</h2>
-						<p class="text-ecsess-200 border-ecsess-700 mb-4 border-b pb-4 text-sm">
+					<div class="rounded-xl border border-ecsess-700 bg-ecsess-400/20 p-6 text-left">
+						<h2 class="text-xl font-bold text-ecsess-100">Selected positions</h2>
+						<p class="mb-4 border-b border-ecsess-700 pb-4 text-sm text-ecsess-200">
 							Positions that are selected by the ECSESS Council, via selection committee process.
 						</p>
-						<ul class="text-ecsess-200 space-y-2">
+						<ul class="space-y-2 text-ecsess-200">
 							{#each selectedPositions as position}
 								<li>{position}</li>
 							{/each}
@@ -167,24 +167,24 @@
 		<!-- Contact (DRO) -->
 		{#if contact?.name || contact?.email}
 			<div class="mx-auto my-12 w-full max-w-4xl">
-				<h2 class="text-ecsess-100 border-ecsess-700 mb-4 border-b pb-4 text-xl font-bold">
+				<h2 class="mb-4 border-b border-ecsess-700 pb-4 text-xl font-bold text-ecsess-100">
 					Contact
 				</h2>
-				<p class="text-ecsess-200 mb-4 text-base">Please direct any questions to:</p>
+				<p class="mb-4 text-base text-ecsess-200">Please direct any questions to:</p>
 				<div class="flex flex-col items-center justify-start">
 					{#if contact.name}
-						<p class="text-ecsess-100 text-lg font-semibold">{contact.name}</p>
+						<p class="text-lg font-semibold text-ecsess-100">{contact.name}</p>
 					{/if}
 					{#if contact.email}
 						<Link
 							href={`mailto:${contact.email}`}
 							external
-							class="text-ecsess-200 hover:text-ecsess-100 underline underline-offset-3 transition-colors hover:cursor-pointer"
+							class="text-ecsess-200 underline underline-offset-3 transition-colors hover:cursor-pointer hover:text-ecsess-100"
 						>
 							{contact.email}
 						</Link>
 					{/if}
-					<p class="text-ecsess-200 my-2 text-xs font-medium tracking-wider uppercase">
+					<p class="my-2 text-xs font-medium tracking-wider text-ecsess-200 uppercase">
 						ECSESS Deputy Returning Officer (DRO)
 					</p>
 				</div>

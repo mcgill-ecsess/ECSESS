@@ -1,5 +1,5 @@
-import type { Resource } from '$lib/schemas';
-import { getFromCMS } from '$lib/utils.js';
+import type { Resource } from '#lib/schemas.ts';
+import { getFromCMS } from '#lib/utils.js';
 
 const query = `*[_type == "resources"] | order(title asc) {
   title,

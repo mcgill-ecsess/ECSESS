@@ -3,7 +3,7 @@
 	import NavButton from './NavButton.svelte';
 	import { ChevronDown } from '@lucide/svelte';
 	import { slide } from 'svelte/transition';
-	import type { NavItem } from '$lib/nav';
+	import type { NavItem } from '#lib/nav.ts';
 
 	let {
 		label,
@@ -35,14 +35,14 @@
 		<span>{label}</span>
 		<ChevronDown
 			class="size-4 transition-transform duration-200 ease-in-out {open
-				? 'text-ecsess-50 rotate-180'
+				? 'rotate-180 text-ecsess-50'
 				: 'text-ecsess-300 group-hover:text-ecsess-100'}"
 		/>
 	</button>
 
 	{#if open}
 		<div
-			class="border-ecsess-700/60 my-1 ml-3 flex flex-col gap-1 border-l-2 py-1 pl-3"
+			class="my-1 ml-3 flex flex-col gap-1 border-l-2 border-ecsess-700/60 py-1 pl-3"
 			transition:slide={{ duration: 180 }}
 		>
 			{#each items as item}

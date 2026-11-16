@@ -1,5 +1,5 @@
-import { getFromCMS } from '$lib/utils.js';
-import type { Election } from '$lib/schemas';
+import { getFromCMS } from '#lib/utils.js';
+import type { Election } from '#lib/schemas.ts';
 
 const electionQuery = `*[_id == "election"][0]{
     isElectionSeason,

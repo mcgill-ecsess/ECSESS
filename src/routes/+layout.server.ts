@@ -1,5 +1,5 @@
-import { getFromCMS } from '$lib/utils.js';
-import type { Homepage } from '$lib/schemas';
+import { getFromCMS } from '#lib/utils.js';
+import type { Homepage } from '#lib/schemas.ts';
 
 const homepageQuery = `*[_type == "homepage"][0]{
     notification,

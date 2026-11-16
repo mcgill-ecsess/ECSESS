@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { OfficeHour } from '$lib/schemas';
+	import type { OfficeHour } from '#lib/schemas.ts';
 
 	let { officeHour, isShortBlock }: { officeHour: OfficeHour; isShortBlock: boolean } = $props();
 
@@ -9,7 +9,7 @@
 </script>
 
 <div
-	class="border-ecsess-500/35 bg-ecsess-600/75 text-ecsess-50 hover:border-ecsess-400/45 hover:bg-ecsess-550/85 grid h-full place-content-center rounded-xl border px-1 text-center transition-colors"
+	class="grid h-full place-content-center rounded-xl border border-ecsess-500/35 bg-ecsess-600/75 px-1 text-center text-ecsess-50 transition-colors hover:border-ecsess-400/45 hover:bg-ecsess-550/85"
 	data-component="OHBlock"
 >
 	<p class="text-sm leading-tight font-medium md:text-base">
@@ -17,7 +17,7 @@
 	</p>
 
 	{#if !isShortBlock}
-		<p class="text-ecsess-200/80 mt-0.5 text-[11px] leading-tight">
+		<p class="mt-0.5 text-[11px] leading-tight text-ecsess-200/80">
 			{shortenPosition(officeHour.member.position)}
 		</p>
 	{/if}

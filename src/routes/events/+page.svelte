@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { type EventPost, EventCategory } from '$lib/schemas';
-	import Section from '$lib/components/layout/Section.svelte';
-	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
-	import PageHeader from '$lib/components/layout/PageHeader.svelte';
-	import EventTabsTrigger from '$lib/components/EventTabsTrigger.svelte';
+	import { type EventPost, EventCategory } from '#lib/schemas.ts';
+	import Section from '#lib/components/layout/Section.svelte';
+	import SeoMetaTags from '#lib/components/layout/SeoMetaTags.svelte';
+	import PageHeader from '#lib/components/layout/PageHeader.svelte';
+	import EventTabsTrigger from '#lib/components/EventTabsTrigger.svelte';
 	import EventTabsContent from './components/EventTabsContent.svelte';
 
 	let { data } = $props();

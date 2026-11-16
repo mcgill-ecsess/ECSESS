@@ -1,18 +1,16 @@
 <script lang="ts">
-	let { active = false } = $props<{
-		active?: boolean;
-	}>();
+	let { active = false }: { active?: boolean } = $props();
 </script>
 
 <div class="relative">
 	<div
-		class="bg-ecsess-500 relative inline-flex size-2.5 items-center justify-center rounded-full transition-all duration-200 {active
+		class="relative inline-flex size-2.5 items-center justify-center rounded-full bg-ecsess-500 transition-all duration-200 {active
 			? 'bg-ecsess-200'
 			: 'bg-ecsess-500'}"
 	>
 		{#if active}
 			<div
-				class="bg-ecsess-100 relative inline-flex size-2.5 animate-ping items-center justify-center rounded-full"
+				class="relative inline-flex size-2.5 animate-ping items-center justify-center rounded-full bg-ecsess-100"
 			></div>
 		{/if}
 	</div>

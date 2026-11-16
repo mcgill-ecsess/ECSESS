@@ -1,5 +1,5 @@
-import type { EventPost } from '$lib/schemas';
-import { getFromCMS } from '$lib/utils.js';
+import type { EventPost } from '#lib/schemas.ts';
+import { getFromCMS } from '#lib/utils.js';
 
 const eventQuery = `*[_type == "events"]{
   name,

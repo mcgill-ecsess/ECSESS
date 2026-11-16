@@ -2,10 +2,10 @@
 	import NavButton from './NavButton.svelte';
 	import NavExpansion from './NavExpansion.svelte';
 	import NavMobileExpansion from './NavMobileExpansion.svelte';
-	import ECSESS from 'assets/ECSESS.png';
+	import ECSESS from '#assets/ECSESS.png';
 	import { Menu, X } from '@lucide/svelte';
-	import RichText from '$lib/components/RichText.svelte';
-	import { navConfig, type NavGroup } from '$lib/nav';
+	import RichText from '#lib/components/RichText.svelte';
+	import { navConfig, type NavGroup } from '#lib/nav.ts';
 	import { afterNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import { fade, fly, slide } from 'svelte/transition';
@@ -24,7 +24,9 @@
 		) ?? null
 	);
 
-	afterNavigate(() => {
+	afterNavigate(({ shallow, type }) => {
+		if (shallow && type === 'goto') return;
+
 		menuHidden = true;
 		openGroupLabel = null;
 	});
@@ -63,11 +65,11 @@
 </script>
 
 <svelte:window onkeydown={handleKeydown} />
-<svelte:document onclick={handleDocumentClick} />
+<svelte:document onclick={handleDocumentClick}></svelte:document>
 
 <div class="sticky top-0 z-40 w-full" id="NavBar" data-component="NavBar">
 	<nav
-		class="border-ecsess-800/70 bg-ecsess-950/80 text-ecsess-100 relative z-10 w-full border-b py-1 backdrop-blur-md"
+		class="relative z-10 w-full border-b border-ecsess-800/70 bg-ecsess-950/80 py-1 text-ecsess-100 backdrop-blur-md"
 	>
 		<!-- Small screens -->
 		<div class="block lg:hidden">
@@ -78,7 +80,7 @@
 
 				<button
 					type="button"
-					class="border-ecsess-800/70 bg-ecsess-900/80 text-ecsess-200 hover:border-ecsess-700/80 hover:bg-ecsess-800 hover:text-ecsess-50 active:bg-ecsess-950 grid size-10 place-items-center rounded-md border transition-colors ease-in-out hover:cursor-pointer"
+					class="grid size-10 place-items-center rounded-md border border-ecsess-800/70 bg-ecsess-900/80 text-ecsess-200 transition-colors ease-in-out hover:cursor-pointer hover:border-ecsess-700/80 hover:bg-ecsess-800 hover:text-ecsess-50 active:bg-ecsess-950"
 					aria-expanded={!menuHidden}
 					aria-controls="mobile-nav-drawer"
 					onclick={() => {
@@ -112,7 +114,7 @@
 			</div>
 			{#if openGroup}
 				<div
-					class="border-ecsess-800/70 bg-ecsess-950/95 flex w-full justify-center gap-2 border-t px-4 py-3 shadow-xl backdrop-blur-md"
+					class="flex w-full justify-center gap-2 border-t border-ecsess-800/70 bg-ecsess-950/95 px-4 py-3 shadow-xl backdrop-blur-md"
 					transition:slide={{ duration: 180 }}
 				>
 					{#each openGroup.items as item}
@@ -134,7 +136,7 @@
 
 	{#if hasNotification}
 		<div
-			class="nav-notification border-ecsess-700/60 bg-ecsess-900/80 border-b px-4 py-2.5 backdrop-blur-sm"
+			class="nav-notification border-b border-ecsess-700/60 bg-ecsess-900/80 px-4 py-2.5 backdrop-blur-sm"
 			role="alert"
 		>
 			<RichText value={notification} />
@@ -159,18 +161,19 @@
 		role="dialog"
 		aria-modal="true"
 		aria-label="Mobile Navigation Menu"
-		class="border-ecsess-800/80 bg-ecsess-950/95 text-ecsess-100 fixed inset-y-0 right-0 z-50 flex w-[min(20rem,85vw)] flex-col border-l shadow-2xl backdrop-blur-xl sm:w-80 lg:hidden"
+		class="fixed inset-y-0 right-0 z-50 flex w-[min(20rem,85vw)] flex-col border-l border-ecsess-800/80 bg-ecsess-950/95 text-ecsess-100 shadow-2xl backdrop-blur-xl sm:w-80 lg:hidden"
 		transition:fly={{ x: 320, duration: 240 }}
 	>
 		<div
-			class="border-ecsess-800/80 bg-ecsess-950/90 flex shrink-0 items-center justify-between border-b px-4 py-2"
+			class="flex shrink-0 items-center justify-between border-b border-ecsess-800/80 bg-ecsess-950/90 px-4 py-2"
 		>
-			<a href="/" onclick={() => (menuHidden = true)} class="flex items-center">
-				<img src={ECSESS} alt="ECSESS Logo" class="h-9 p-1" />
-			</a>
+			<a href="/" onclick={() => (menuHidden = true)} class="flex items-center"
+				><img src={ECSESS} alt="ECSESS Logo" class="h-9 p-1" /></a
+			>
+
 			<button
 				type="button"
-				class="border-ecsess-800/70 bg-ecsess-900/80 text-ecsess-200 hover:border-ecsess-700/80 hover:bg-ecsess-800 hover:text-ecsess-50 active:bg-ecsess-950 grid size-10 place-items-center rounded-md border transition-colors ease-in-out hover:cursor-pointer"
+				class="grid size-10 place-items-center rounded-md border border-ecsess-800/70 bg-ecsess-900/80 text-ecsess-200 transition-colors ease-in-out hover:cursor-pointer hover:border-ecsess-700/80 hover:bg-ecsess-800 hover:text-ecsess-50 active:bg-ecsess-950"
 				aria-expanded="true"
 				aria-controls="mobile-nav-drawer"
 				onclick={() => (menuHidden = true)}
@@ -186,10 +189,8 @@
 						<NavButton
 							href={entry.href}
 							variant="mobile-primary"
-							onclick={() => (menuHidden = true)}
+							onclick={() => (menuHidden = true)}>{entry.label}</NavButton
 						>
-							{entry.label}
-						</NavButton>
 					{:else}
 						<NavMobileExpansion
 							label={entry.label}
