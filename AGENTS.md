@@ -4,7 +4,7 @@ Official site for the Electrical, Computer & Software Engineering Students' Soci
 
 ## Stack
 
-- **Runtime / package manager:** Bun (`bun install`, `bun run dev`) — Vite CLI runs on Bun via `bunx --bun`
+- **Runtime / package manager:** Node.js `24.x` (Vite / SvelteKit / Vercel Functions) + Bun (`bun install`, `bun fmt`)
 - **Framework:** SvelteKit 3 + Svelte 5 (runes enabled in `vite.config.js`) + Vite 8
 - **Styling:** Tailwind CSS v4 via `@tailwindcss/vite` — theme tokens in `src/app.css`
 - **CMS:** Sanity (`@sanity/client`) — server-side only via `#lib/utils.ts`
@@ -200,16 +200,16 @@ const resources: Resource[] = await getFromCMS(query);
 
 ### Document types
 
-| `_type`       | Used on               | Key fields                                                                  |
-| ------------- | --------------------- | --------------------------------------------------------------------------- |
-| `homepage`    | `/`, layout thumbnail | `councilPhoto`, `councilGoofyPic`, `faqs`, `subcommittees`                  |
-| `officeHours` | `/`                   | `day`, `startTime`, `endTime`, `member` (ref)                               |
-| `sponsors`    | `/`                   | `name`, `url`, `logo` (asset)                                               |
-| `members`     | `/council`            | `name`, `email`, `position`, `image`, `yearProgram`, `linkedin`             |
-| `events`      | `/events`             | `name`, `category`, `date`, `location`, `description`, `links`, `thumbnail` |
-| `resources`   | `/resources`          | `title`, `url`, `description`, `category` (string \| string[])              |
-| `devTeam`     | `/devteam`            | `name`, `role`, `term`, `github`, `image`, `active`                         |
-| `redirects`   | `/r/[shortname]`      | `shortname`, `url`                                                          |
+| `_type`       | Used on               | Key fields                                                                        |
+| ------------- | --------------------- | --------------------------------------------------------------------------------- |
+| `homepage`    | `/`, layout thumbnail | `councilPhoto`, `councilGoofyPic`, `faqs`, `subcommittees`                        |
+| `officeHours` | `/`                   | `day`, `startTime`, `endTime`, `member` (ref)                                     |
+| `sponsors`    | `/`                   | `name`, `url`, `logo` (asset)                                                     |
+| `members`     | `/council`            | `name`, `email`, `position`, `image`, `yearProgram`, `linkedin`                   |
+| `events`      | `/events`             | `name`, `category`, `from`, `to`, `location`, `description`, `links`, `thumbnail` |
+| `resources`   | `/resources`          | `title`, `url`, `description`, `category` (string \| string[])                    |
+| `devTeam`     | `/devteam`            | `name`, `role`, `term`, `github`, `image`, `active`                               |
+| `redirects`   | `/r/[shortname]`      | `shortname`, `url`                                                                |
 
 Image URLs: append Sanity transforms — e.g. `"image": image.asset->url+"?h=750&fm=webp"`.
 

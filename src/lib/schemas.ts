@@ -4,7 +4,10 @@ export type EventPost = {
 	_id?: string;
 	name: string;
 	description?: InputValue;
-	date: string;
+	/** ISO datetime — event start. */
+	from?: string;
+	/** ISO datetime — event end (must be after `from`). */
+	to?: string;
 	location?: string;
 	thumbnail?: string;
 	category?: string[];
