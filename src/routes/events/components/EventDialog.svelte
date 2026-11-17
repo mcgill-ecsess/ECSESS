@@ -11,7 +11,14 @@
 		X
 	} from '@lucide/svelte';
 	import RichText from '#lib/components/RichText.svelte';
-	import { formatEventDialogWhen, getEventLink, isPastEvent, isSameDayEvent } from '#lib/events.js';
+	import {
+		formatEventWhen,
+		getEventImage,
+		getEventLink,
+		getEventLinks,
+		isPastEvent,
+		isSameDayEvent
+	} from '#lib/events.js';
 
 	interface Props {
 		open: boolean;
@@ -21,12 +28,13 @@
 
 	let { open = false, e, onclose }: Props = $props();
 
-	const when = $derived(formatEventDialogWhen(e.from, e.to));
+	const when = $derived(formatEventWhen(e.from, e.to, { detailed: true }));
 	const sameDay = $derived(isSameDayEvent(e.from, e.to));
 	const past = $derived(isPastEvent(e.from, e.to));
+	const imageSrc = $derived(getEventImage(e));
 	const registrationLink = $derived(getEventLink(e, EventLinkKind.REGISTRATION));
 	const paymentLink = $derived(getEventLink(e, EventLinkKind.PAYMENT));
-	const generalLink = $derived(getEventLink(e, EventLinkKind.GENERAL));
+	const generalLinks = $derived(getEventLinks(e, EventLinkKind.GENERAL));
 	const categories = $derived(e.category ?? []);
 
 	let canScrollDown = $state(false);
@@ -59,35 +67,17 @@
 		};
 	}
 
-	function defaultImage(category?: string[]): string {
-		if (!category || category.length === 0) return '/ECSESS.png';
-		switch (category[0]) {
-			case 'social':
-				return '/Social.jpg';
-			case 'technical':
-				return '/Technical.jpg';
-			case 'professional':
-				return '/Professional.jpg';
-			case 'academic':
-				return '/Academic.jpg';
-			default:
-				return '/ECSESS.png';
-		}
-	}
-
-	const imageSrc = $derived(e.thumbnail || defaultImage(e.category));
-
 	function addToCalendar() {
 		const eventDate = e.from ? new Date(e.from) : e.to ? new Date(e.to) : new Date();
 		const endDate = e.to ? new Date(e.to) : new Date(eventDate.getTime() + 2 * 60 * 60 * 1000);
-		const formatDate = (d: Date) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+		const formatIcsDate = (d: Date) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
 		const icsContent = [
 			'BEGIN:VCALENDAR',
 			'VERSION:2.0',
 			'PRODID:-//ECSESS//Events//EN',
 			'BEGIN:VEVENT',
-			`DTSTART:${formatDate(eventDate)}`,
-			`DTEND:${formatDate(endDate)}`,
+			`DTSTART:${formatIcsDate(eventDate)}`,
+			`DTEND:${formatIcsDate(endDate)}`,
 			`SUMMARY:${e.name}`,
 			`LOCATION:${e.location || 'TBA'}`,
 			`DESCRIPTION:${e.name} - ECSESS Event`,
@@ -239,11 +229,11 @@
 				{/if}
 
 				<!-- Action buttons -->
-				{#if !past || generalLink}
+				{#if !past || generalLinks.length > 0}
 					<div class="mt-4 flex shrink-0 flex-wrap gap-2 border-t border-ecsess-800 pt-4">
 						{#if !past && registrationLink}
 							<a
-								href={registrationLink[0].url}
+								href={registrationLink.url}
 								target="_blank"
 								rel="noopener noreferrer"
 								class="inline-flex items-center gap-1.5 rounded-md bg-ecsess-500 px-3.5 py-2 text-sm font-semibold text-white transition-colors hover:bg-ecsess-400"
@@ -255,7 +245,7 @@
 
 						{#if !past && paymentLink}
 							<a
-								href={paymentLink[0].url}
+								href={paymentLink.url}
 								target="_blank"
 								rel="noopener noreferrer"
 								class="inline-flex items-center gap-1.5 rounded-md border border-ecsess-600 px-3.5 py-2 text-sm font-semibold text-ecsess-200 transition-colors hover:border-ecsess-400 hover:text-ecsess-50"
@@ -276,19 +266,17 @@
 							</button>
 						{/if}
 
-						{#if generalLink}
-							{#each generalLink.slice(0, 4) as link (link.url)}
-								<a
-									href={link.url}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="inline-flex items-center gap-1.5 rounded-md border border-ecsess-600 px-3.5 py-2 text-sm font-semibold text-ecsess-200 transition-colors hover:border-ecsess-400 hover:text-ecsess-50"
-								>
-									<ExternalLink class="h-3.5 w-3.5" strokeWidth={2.5} />
-									{link.title}
-								</a>
-							{/each}
-						{/if}
+						{#each generalLinks as link (link.url)}
+							<a
+								href={link.url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex items-center gap-1.5 rounded-md border border-ecsess-600 px-3.5 py-2 text-sm font-semibold text-ecsess-200 transition-colors hover:border-ecsess-400 hover:text-ecsess-50"
+							>
+								<ExternalLink class="h-3.5 w-3.5" strokeWidth={2.5} />
+								{link.title}
+							</a>
+						{/each}
 					</div>
 				{/if}
 			</div>

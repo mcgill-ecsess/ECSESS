@@ -1,7 +1,7 @@
 <script lang="ts">
 	import EventBlock from './EventBlock.svelte';
 	import EventDialog from './EventDialog.svelte';
-	import { eventMatchesCategory, getEventStart, isPastEvent, parseEventDate } from '#lib/events.js';
+	import { eventMatchesCategory, getEventStartTime, isPastEvent } from '#lib/events.js';
 	import { type EventPost, type EventCategory } from '#lib/schemas.ts';
 
 	let { category, events }: { category: EventCategory; events: EventPost[] } = $props();
@@ -20,19 +20,16 @@
 
 	const isVisible = (event: EventPost): boolean => eventMatchesCategory(event, category);
 
-	const allEvents = $derived(
-		[...(events ?? [])].sort((a, b) => {
-			const aIsPast = isPastEvent(a.from, a.to);
-			const bIsPast = isPastEvent(b.from, b.to);
-			if (aIsPast !== bIsPast) return aIsPast ? 1 : -1;
-			const aStart = parseEventDate(getEventStart(a) ?? '').getTime();
-			const bStart = parseEventDate(getEventStart(b) ?? '').getTime();
-			return aIsPast ? bStart - aStart : aStart - bStart;
-		})
+	const upcomingEvents = $derived(
+		(events ?? [])
+			.filter((e) => !isPastEvent(e.from, e.to))
+			.sort((a, b) => getEventStartTime(a) - getEventStartTime(b))
 	);
-
-	const upcomingEvents = $derived(allEvents.filter((e) => !isPastEvent(e.from, e.to)));
-	const pastEvents = $derived(allEvents.filter((e) => isPastEvent(e.from, e.to)));
+	const pastEvents = $derived(
+		(events ?? [])
+			.filter((e) => isPastEvent(e.from, e.to))
+			.sort((a, b) => getEventStartTime(b) - getEventStartTime(a))
+	);
 
 	const hasVisibleUpcoming = $derived(upcomingEvents.some(isVisible));
 	const hasVisiblePast = $derived(pastEvents.some(isVisible));

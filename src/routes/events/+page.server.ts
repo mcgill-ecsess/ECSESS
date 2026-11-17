@@ -1,6 +1,6 @@
 import type { EventPost } from '#lib/schemas.ts';
 import { getFromCMS } from '#lib/utils.js';
-import { getEventStart } from '#lib/events.js';
+import { getEventStartTime } from '#lib/events.js';
 
 const eventQuery = `*[_type == "events"]{
   name,
@@ -19,18 +19,11 @@ const eventQuery = `*[_type == "events"]{
 }`;
 
 export const load = async ({ url }) => {
-	let listOfEvents: EventPost[] = await getFromCMS(eventQuery);
-
-	let sortedEvents = listOfEvents.sort((a, b) => {
-		const aStart = getEventStart(a);
-		const bStart = getEventStart(b);
-		const aTime = aStart ? new Date(aStart).getTime() : 0;
-		const bTime = bStart ? new Date(bStart).getTime() : 0;
-		return bTime - aTime;
-	});
+	const listOfEvents: EventPost[] = await getFromCMS(eventQuery);
+	const events = listOfEvents.sort((a, b) => getEventStartTime(b) - getEventStartTime(a));
 
 	return {
-		events: sortedEvents,
+		events,
 		canonical: url.href
 	};
 };

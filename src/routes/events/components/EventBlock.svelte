@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { EventPost } from '#lib/schemas.ts';
 	import { CalendarDays, Clock, MapPin, Eye } from '@lucide/svelte';
-	import { formatEventCardWhen, isPastEvent, isSameDayEvent } from '#lib/events.js';
+	import { formatEventWhen, getEventImage, isPastEvent } from '#lib/events.js';
 
 	interface Props {
 		e: EventPost;
@@ -10,27 +10,9 @@
 
 	let { e, onopen }: Props = $props();
 
-	const when = $derived(formatEventCardWhen(e.from, e.to));
-	const sameDay = $derived(isSameDayEvent(e.from, e.to));
+	const when = $derived(formatEventWhen(e.from, e.to));
 	const past = $derived(isPastEvent(e.from, e.to));
-
-	function defaultImage(category?: string[]): string {
-		if (!category || category.length === 0) return '/ECSESS.png';
-		switch (category[0]) {
-			case 'social':
-				return '/Social.jpg';
-			case 'technical':
-				return '/Technical.jpg';
-			case 'professional':
-				return '/Professional.jpg';
-			case 'academic':
-				return '/Academic.jpg';
-			default:
-				return '/ECSESS.png';
-		}
-	}
-
-	const imageSrc = $derived(e.thumbnail || defaultImage(e.category));
+	const imageSrc = $derived(getEventImage(e));
 	const categories = $derived(e.category ?? []);
 </script>
 
@@ -86,14 +68,9 @@
 		<div class="flex flex-col gap-0.5 text-sm text-ecsess-200">
 			<span class="flex items-start gap-1.5">
 				<CalendarDays class="mt-0.5 h-3.5 w-3.5 shrink-0 text-ecsess-400" strokeWidth={2} />
-				<span class="min-w-0 leading-snug text-pretty">
-					{when.date}
-					{#if when.time && !sameDay}
-						<br />{when.time}
-					{/if}
-				</span>
+				<span class="min-w-0 leading-snug text-pretty">{when.date}</span>
 			</span>
-			{#if when.time && sameDay}
+			{#if when.time}
 				<span class="flex items-start gap-1.5">
 					<Clock class="mt-0.5 h-3.5 w-3.5 shrink-0 text-ecsess-400" strokeWidth={2} />
 					<span class="min-w-0 leading-snug text-pretty">{when.time}</span>

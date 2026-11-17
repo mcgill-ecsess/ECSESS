@@ -1,162 +1,117 @@
-import type { EventPost } from '#lib/schemas.ts';
-import { EventLinkKind, type LinkType } from '#lib/schemas.ts';
+import { EventLinkKind, type EventPost, type LinkType } from '#lib/schemas.ts';
 
-export function parseEventDate(dateString: string): Date {
-	const parsed = new Date(dateString);
-	return isNaN(parsed.getTime()) ? new Date() : parsed;
-}
+const DAY_MS = 86_400_000;
 
-/** Sanity date-only datetimes are stored at midnight UTC. */
-function isDateOnly(date: Date): boolean {
-	return date.getUTCHours() === 0 && date.getUTCMinutes() === 0 && date.getUTCSeconds() === 0;
-}
+const CATEGORY_IMAGES: Record<string, string> = {
+	social: '/Social.jpg',
+	technical: '/Technical.jpg',
+	professional: '/Professional.jpg',
+	academic: '/Academic.jpg'
+};
 
-function sameUtcDay(a: Date, b: Date): boolean {
-	return (
-		a.getUTCFullYear() === b.getUTCFullYear() &&
-		a.getUTCMonth() === b.getUTCMonth() &&
-		a.getUTCDate() === b.getUTCDate()
-	);
-}
-
-function formatDateOnly(
-	date: Date,
-	{ includeYear = true }: { includeYear?: boolean } = {}
-): string {
-	return date.toLocaleDateString('en-US', {
-		weekday: 'short',
-		month: 'short',
-		day: 'numeric',
-		...(includeYear ? { year: 'numeric' as const } : {}),
-		timeZone: 'UTC'
-	});
-}
-
-function formatDateTime(
-	date: Date,
-	{ includeYear = true }: { includeYear?: boolean } = {}
-): string {
-	const datePart = date.toLocaleDateString('en-US', {
-		weekday: 'short',
-		month: 'short',
-		day: 'numeric',
-		...(includeYear ? { year: 'numeric' as const } : {})
-	});
-	return `${formatTime(date)}, ${datePart}`;
-}
-
-function formatTime(date: Date): string {
-	return date.toLocaleTimeString('en-US', {
-		hour: 'numeric',
-		minute: '2-digit',
-		hour12: true
-	});
-}
-
-/** Date + optional second line for event cards / dialogs. */
 export type EventWhenDisplay = {
 	date: string;
 	time?: string;
 };
 
-function resolveBounds(from?: string, to?: string): { start: Date; end: Date } | null {
-	if (!from && !to) return null;
-	const start = parseEventDate(from ?? to!);
-	const end = parseEventDate(to ?? from!);
-	return { start, end };
+function parseDate(value?: string): Date | null {
+	if (!value) return null;
+	const d = new Date(value);
+	return Number.isNaN(d.getTime()) ? null : d;
 }
+
+function resolveBounds(from?: string, to?: string): { start: Date; end: Date } | null {
+	const start = parseDate(from ?? to);
+	const end = parseDate(to ?? from);
+	return start && end ? { start, end } : null;
+}
+
+/** Sanity date-only datetimes are stored at midnight UTC. */
+const isDateOnly = (d: Date) => !d.getUTCHours() && !d.getUTCMinutes() && !d.getUTCSeconds();
+
+const sameUtcDay = (a: Date, b: Date) =>
+	a.toISOString().slice(0, 10) === b.toISOString().slice(0, 10);
+
+const formatDate = (d: Date, includeYear = true, utc = false) =>
+	d.toLocaleDateString('en-US', {
+		weekday: 'short',
+		month: 'short',
+		day: 'numeric',
+		...(includeYear && { year: 'numeric' }),
+		...(utc && { timeZone: 'UTC' })
+	});
+
+const formatTime = (d: Date) =>
+	d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+
+const formatDateTime = (d: Date) =>
+	isDateOnly(d) ? formatDate(d, true, true) : `${formatTime(d)}, ${formatDate(d)}`;
 
 /** True when from/to fall on the same UTC calendar day (or only one bound exists). */
 export function isSameDayEvent(from?: string, to?: string): boolean {
 	const bounds = resolveBounds(from, to);
-	if (!bounds) return true;
-	return sameUtcDay(bounds.start, bounds.end);
-}
-
-function sameDayWhen(start: Date, end: Date): EventWhenDisplay {
-	const date = formatDateOnly(start);
-	const startDateOnly = isDateOnly(start);
-	const endDateOnly = isDateOnly(end);
-
-	if (startDateOnly && endDateOnly) return { date };
-	if (startDateOnly) return { date, time: `ends ${formatTime(end)}` };
-	if (endDateOnly) return { date, time: formatTime(start) };
-	return { date, time: `${formatTime(start)} – ${formatTime(end)}` };
+	return !bounds || sameUtcDay(bounds.start, bounds.end);
 }
 
 /**
- * Preview card when:
- * - same day → date row + time row (if times exist)
- * - different days → date-only range (no times)
+ * Formats event start/end for cards (`detailed = false`) and dialogs (`detailed = true`):
+ * - same day → date line + optional time range line
+ * - multi-day card → compact date range on one line
+ * - multi-day dialog → detailed start / end datetimes on two lines
  */
-export function formatEventCardWhen(from?: string, to?: string): EventWhenDisplay {
+export function formatEventWhen(
+	from?: string,
+	to?: string,
+	{ detailed = false } = {}
+): EventWhenDisplay {
 	const bounds = resolveBounds(from, to);
 	if (!bounds) return { date: 'TBA' };
 
 	const { start, end } = bounds;
-	if (sameUtcDay(start, end)) return sameDayWhen(start, end);
+	if (sameUtcDay(start, end)) {
+		const startTime = isDateOnly(start) ? null : formatTime(start);
+		const endTime = isDateOnly(end) ? null : formatTime(end);
+		const time =
+			startTime && endTime
+				? `${startTime} – ${endTime}`
+				: endTime
+					? `ends ${endTime}`
+					: (startTime ?? undefined);
+		return { date: formatDate(start, true, true), time };
+	}
+
+	if (detailed) {
+		return { date: formatDateTime(start), time: formatDateTime(end) };
+	}
 
 	const sameYear = start.getUTCFullYear() === end.getUTCFullYear();
-	return {
-		date: `${formatDateOnly(start, { includeYear: !sameYear })} – ${formatDateOnly(end)}`
-	};
+	return { date: `${formatDate(start, !sameYear, true)} – ${formatDate(end, true, true)}` };
 }
 
-/**
- * Dialog when:
- * - same day → date row + time row (if times exist)
- * - different days → detailed from / to datetimes on separate rows
- */
-export function formatEventDialogWhen(from?: string, to?: string): EventWhenDisplay {
-	const bounds = resolveBounds(from, to);
-	if (!bounds) return { date: 'TBA' };
-
-	const { start, end } = bounds;
-	if (sameUtcDay(start, end)) return sameDayWhen(start, end);
-
-	const startLine = isDateOnly(start) ? formatDateOnly(start) : formatDateTime(start);
-	const endLine = isDateOnly(end) ? formatDateOnly(end) : formatDateTime(end);
-
-	return { date: startLine, time: endLine };
-}
-
-/** Format a single datetime (date-only when midnight UTC). */
-export function formatEventDate(dateString: string): string {
-	const date = parseEventDate(dateString);
-	return isDateOnly(date) ? formatDateOnly(date) : formatDateTime(date);
-}
-
-/** True when the event has ended (`to`, else end of `from` day). */
+/** True when the event has ended (`to`, else 24h after `from`). */
 export function isPastEvent(from?: string, to?: string): boolean {
-	if (to) return new Date() > parseEventDate(to);
-	if (from) {
-		const start = parseEventDate(from);
-		return new Date() > new Date(start.getTime() + 24 * 60 * 60 * 1000);
-	}
-	return false;
+	const endDate = parseDate(to);
+	if (endDate) return Date.now() > endDate.getTime();
+	const startDate = parseDate(from);
+	return startDate ? Date.now() > startDate.getTime() + DAY_MS : false;
 }
 
-export function getEventStart(event: EventPost): string | undefined {
-	return event.from ?? event.to;
+export function getEventStartTime(event: EventPost): number {
+	return parseDate(event.from ?? event.to)?.getTime() ?? 0;
 }
 
-export function getEventLink(event: EventPost, type: EventLinkKind): LinkType[] | null {
-	const generalLinks: LinkType[] = [];
+export function getEventImage(event: EventPost): string {
+	return event.thumbnail || CATEGORY_IMAGES[event.category?.[0] ?? ''] || '/ECSESS.png';
+}
 
-	for (const link of event.links ?? []) {
-		if (type === EventLinkKind.GENERAL && link.kind === EventLinkKind.GENERAL && link.url !== '') {
-			generalLinks.push(link);
-			if (generalLinks.length >= 4) break;
-		} else if (link.kind === type && link.url !== '') {
-			return [link];
-		}
-	}
+export function getEventLink(event: EventPost, kind: EventLinkKind): LinkType | undefined {
+	return event.links?.find((l) => l.kind === kind && Boolean(l.url));
+}
 
-	return generalLinks.length > 0 ? generalLinks : null;
+export function getEventLinks(event: EventPost, kind: EventLinkKind, limit = 4): LinkType[] {
+	return (event.links ?? []).filter((l) => l.kind === kind && Boolean(l.url)).slice(0, limit);
 }
 
 export function eventMatchesCategory(event: EventPost, category: string): boolean {
-	if (category === 'allEvents') return true;
-	const eventCategories = event.category ?? [];
-	return eventCategories.includes(category);
+	return category === 'allEvents' || Boolean(event.category?.includes(category));
 }
