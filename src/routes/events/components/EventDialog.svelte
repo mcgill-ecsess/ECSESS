@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { LinkType } from '#lib/schemas.ts';
-	import type { InputValue } from '@portabletext/svelte';
+	import type { EventPost } from '#lib/schemas.ts';
+	import { EventLinkKind } from '#lib/schemas.ts';
 	import {
 		CalendarDays,
 		Clock,
@@ -11,45 +11,24 @@
 		X
 	} from '@lucide/svelte';
 	import RichText from '#lib/components/RichText.svelte';
-	import { isSameDayEvent } from '#lib/events.js';
+	import { formatEventDialogWhen, getEventLink, isPastEvent, isSameDayEvent } from '#lib/events.js';
 
 	interface Props {
 		open: boolean;
-		eventTitle: string;
-		date: string;
-		time?: string;
-		from?: string;
-		to?: string;
-		location?: string;
-		eventDescription?: InputValue;
-		thumbnail?: string;
-		registrationLink?: LinkType[] | null;
-		paymentLink?: LinkType[] | null;
-		generalLink?: LinkType[] | null;
-		eventCategory?: string[];
-		isPastEvent?: boolean;
+		e: EventPost;
 		onclose: () => void;
 	}
 
-	let {
-		open = false,
-		eventTitle = '',
-		date = '',
-		time,
-		from,
-		to,
-		location,
-		eventDescription,
-		thumbnail,
-		registrationLink,
-		paymentLink,
-		generalLink,
-		eventCategory,
-		isPastEvent = false,
-		onclose
-	}: Props = $props();
+	let { open = false, e, onclose }: Props = $props();
 
-	const sameDay = $derived(isSameDayEvent(from, to));
+	const when = $derived(formatEventDialogWhen(e.from, e.to));
+	const sameDay = $derived(isSameDayEvent(e.from, e.to));
+	const past = $derived(isPastEvent(e.from, e.to));
+	const registrationLink = $derived(getEventLink(e, EventLinkKind.REGISTRATION));
+	const paymentLink = $derived(getEventLink(e, EventLinkKind.PAYMENT));
+	const generalLink = $derived(getEventLink(e, EventLinkKind.GENERAL));
+	const categories = $derived(e.category ?? []);
+
 	let canScrollDown = $state(false);
 
 	/** Escape page stacking contexts (footer/nav) by mounting on document.body. */
@@ -80,10 +59,9 @@
 		};
 	}
 
-	const getDefaultImage = (category?: string[]): string => {
+	function defaultImage(category?: string[]): string {
 		if (!category || category.length === 0) return '/ECSESS.png';
-		const cat = Array.isArray(category) ? category[0] : category;
-		switch (cat) {
+		switch (category[0]) {
 			case 'social':
 				return '/Social.jpg';
 			case 'technical':
@@ -95,20 +73,13 @@
 			default:
 				return '/ECSESS.png';
 		}
-	};
+	}
 
-	const imageSrc = $derived(thumbnail || getDefaultImage(eventCategory));
-	const categoryLabel = $derived(
-		eventCategory && eventCategory.length > 0
-			? Array.isArray(eventCategory)
-				? eventCategory
-				: [eventCategory]
-			: []
-	);
+	const imageSrc = $derived(e.thumbnail || defaultImage(e.category));
 
-	const addToCalendar = () => {
-		const eventDate = from ? new Date(from) : to ? new Date(to) : new Date();
-		const endDate = to ? new Date(to) : new Date(eventDate.getTime() + 2 * 60 * 60 * 1000);
+	function addToCalendar() {
+		const eventDate = e.from ? new Date(e.from) : e.to ? new Date(e.to) : new Date();
+		const endDate = e.to ? new Date(e.to) : new Date(eventDate.getTime() + 2 * 60 * 60 * 1000);
 		const formatDate = (d: Date) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
 		const icsContent = [
 			'BEGIN:VCALENDAR',
@@ -117,9 +88,9 @@
 			'BEGIN:VEVENT',
 			`DTSTART:${formatDate(eventDate)}`,
 			`DTEND:${formatDate(endDate)}`,
-			`SUMMARY:${eventTitle}`,
-			`LOCATION:${location || 'TBA'}`,
-			`DESCRIPTION:${eventTitle} - ECSESS Event`,
+			`SUMMARY:${e.name}`,
+			`LOCATION:${e.location || 'TBA'}`,
+			`DESCRIPTION:${e.name} - ECSESS Event`,
 			'END:VEVENT',
 			'END:VCALENDAR'
 		].join('\n');
@@ -127,20 +98,20 @@
 		const url = URL.createObjectURL(blob);
 		const a = document.createElement('a');
 		a.href = url;
-		a.download = `${eventTitle.replace(/\s+/g, '_')}.ics`;
+		a.download = `${e.name.replace(/\s+/g, '_')}.ics`;
 		document.body.appendChild(a);
 		a.click();
 		document.body.removeChild(a);
 		URL.revokeObjectURL(url);
-	};
+	}
 
-	const handleBackdropClick = (e: MouseEvent) => {
-		if ((e.target as HTMLElement).dataset.backdrop) onclose();
-	};
+	function handleBackdropClick(ev: MouseEvent) {
+		if ((ev.target as HTMLElement).dataset.backdrop) onclose();
+	}
 
-	const handleKeydown = (e: KeyboardEvent) => {
-		if (e.key === 'Escape') onclose();
-	};
+	function handleKeydown(ev: KeyboardEvent) {
+		if (ev.key === 'Escape') onclose();
+	}
 </script>
 
 <svelte:window onkeydown={handleKeydown} />
@@ -154,7 +125,7 @@
 	onkeydown={handleKeydown}
 	role="dialog"
 	aria-modal="true"
-	aria-label={eventTitle}
+	aria-label={e.name}
 	tabindex="-1"
 	class="fixed inset-0 z-[100] flex items-center justify-center p-4 transition-all duration-200
 		{open
@@ -181,8 +152,8 @@
 			<div class="relative h-[26%] min-h-36 w-full shrink-0 overflow-hidden md:h-[38%] md:min-h-72">
 				<img
 					src={imageSrc}
-					alt={eventTitle}
-					class="absolute inset-0 h-full w-full object-cover {isPastEvent ? 'grayscale' : ''}"
+					alt={e.name}
+					class="absolute inset-0 h-full w-full object-cover {past ? 'grayscale' : ''}"
 				/>
 				<!-- Fade into dialog body -->
 				<div
@@ -191,7 +162,7 @@
 				></div>
 				<!-- Status + category tags over fade -->
 				<div class="absolute bottom-3 left-3 z-[1] flex flex-wrap gap-1.5">
-					{#if isPastEvent}
+					{#if past}
 						<span
 							class="rounded bg-ecsess-950/80 px-2 py-0.5 text-[10px] font-bold tracking-widest text-ecsess-300 uppercase backdrop-blur-sm"
 						>
@@ -205,7 +176,7 @@
 							Upcoming
 						</span>
 					{/if}
-					{#each categoryLabel as cat (cat)}
+					{#each categories as cat (cat)}
 						<span
 							class="rounded bg-ecsess-900/80 px-2 py-0.5 text-[10px] font-bold tracking-widest text-ecsess-200 uppercase backdrop-blur-sm"
 						>
@@ -222,38 +193,38 @@
 				<div class="flex shrink-0 flex-col gap-2 md:gap-4">
 					<!-- Title -->
 					<h2 class="pr-8 text-xl leading-snug font-bold text-balance text-ecsess-50">
-						{eventTitle}
+						{e.name}
 					</h2>
 
 					<!-- Meta -->
 					<div class="flex flex-col gap-1.5 text-sm text-ecsess-200">
 						<span class="flex items-start gap-2">
 							<CalendarDays class="mt-0.5 h-4 w-4 shrink-0 text-ecsess-400" strokeWidth={2} />
-							<span class="min-w-0 leading-snug text-pretty">{date}</span>
+							<span class="min-w-0 leading-snug text-pretty">{when.date}</span>
 						</span>
-						{#if time}
+						{#if when.time}
 							<span class="flex items-start gap-2">
 								{#if sameDay}
 									<Clock class="mt-0.5 h-4 w-4 shrink-0 text-ecsess-400" strokeWidth={2} />
 								{:else}
 									<CalendarDays class="mt-0.5 h-4 w-4 shrink-0 text-ecsess-400" strokeWidth={2} />
 								{/if}
-								<span class="min-w-0 leading-snug text-pretty">{time}</span>
+								<span class="min-w-0 leading-snug text-pretty">{when.time}</span>
 							</span>
 						{/if}
 						<span class="flex items-start gap-2">
 							<MapPin class="mt-0.5 h-4 w-4 shrink-0 text-ecsess-400" strokeWidth={2} />
-							<span class="min-w-0 leading-snug">{location ?? 'TBA'}</span>
+							<span class="min-w-0 leading-snug">{e.location ?? 'TBA'}</span>
 						</span>
 					</div>
 				</div>
 
 				<!-- Description — fills remaining space and scrolls -->
-				{#if eventDescription}
+				{#if e.description}
 					<div class="relative mt-4 min-h-0 flex-1 border-t border-ecsess-800">
 						<div class="h-full min-h-0 overflow-y-auto pt-2 pr-1.5 text-left" use:scrollHint>
 							<div class="pb-3 text-sm text-ecsess-100">
-								<RichText value={eventDescription} />
+								<RichText value={e.description} />
 							</div>
 						</div>
 						{#if canScrollDown}
@@ -268,9 +239,9 @@
 				{/if}
 
 				<!-- Action buttons -->
-				{#if !isPastEvent || generalLink}
+				{#if !past || generalLink}
 					<div class="mt-4 flex shrink-0 flex-wrap gap-2 border-t border-ecsess-800 pt-4">
-						{#if !isPastEvent && registrationLink}
+						{#if !past && registrationLink}
 							<a
 								href={registrationLink[0].url}
 								target="_blank"
@@ -282,7 +253,7 @@
 							</a>
 						{/if}
 
-						{#if !isPastEvent && paymentLink}
+						{#if !past && paymentLink}
 							<a
 								href={paymentLink[0].url}
 								target="_blank"
@@ -294,7 +265,7 @@
 							</a>
 						{/if}
 
-						{#if !isPastEvent}
+						{#if !past}
 							<button
 								type="button"
 								onclick={addToCalendar}

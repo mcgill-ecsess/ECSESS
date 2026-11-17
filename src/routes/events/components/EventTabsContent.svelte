@@ -1,16 +1,8 @@
 <script lang="ts">
 	import EventBlock from './EventBlock.svelte';
 	import EventDialog from './EventDialog.svelte';
-	import {
-		eventMatchesCategory,
-		formatEventCardWhen,
-		formatEventDialogWhen,
-		getEventLink,
-		getEventStart,
-		isPastEvent,
-		parseEventDate
-	} from '#lib/events.js';
-	import { type EventPost, type EventCategory, EventLinkKind } from '#lib/schemas.ts';
+	import { eventMatchesCategory, getEventStart, isPastEvent, parseEventDate } from '#lib/events.js';
+	import { type EventPost, type EventCategory } from '#lib/schemas.ts';
 
 	let { category, events }: { category: EventCategory; events: EventPost[] } = $props();
 
@@ -58,20 +50,8 @@
 
 			<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
 				{#each upcomingEvents as e (e._id ?? e.name)}
-					{@const when = formatEventCardWhen(e.from, e.to)}
 					<div class="transition-opacity duration-150" class:hidden={!isVisible(e)}>
-						<EventBlock
-							eventTitle={e.name}
-							date={when.date}
-							time={when.time}
-							from={e.from}
-							to={e.to}
-							location={e.location}
-							thumbnail={e.thumbnail}
-							eventCategory={e.category}
-							isPastEvent={false}
-							onopen={() => openDialog(e)}
-						/>
+						<EventBlock {e} onopen={() => openDialog(e)} />
 					</div>
 				{/each}
 			</div>
@@ -90,20 +70,8 @@
 
 			<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
 				{#each pastEvents as e (e._id ?? e.name)}
-					{@const when = formatEventCardWhen(e.from, e.to)}
 					<div class="transition-opacity duration-150" class:hidden={!isVisible(e)}>
-						<EventBlock
-							eventTitle={e.name}
-							date={when.date}
-							time={when.time}
-							from={e.from}
-							to={e.to}
-							location={e.location}
-							thumbnail={e.thumbnail}
-							eventCategory={e.category}
-							isPastEvent={true}
-							onopen={() => openDialog(e)}
-						/>
+						<EventBlock {e} onopen={() => openDialog(e)} />
 					</div>
 				{/each}
 			</div>
@@ -121,22 +89,5 @@
 </div>
 
 {#if selectedEvent}
-	{@const dialogWhen = formatEventDialogWhen(selectedEvent.from, selectedEvent.to)}
-	<EventDialog
-		open={dialogOpen}
-		eventTitle={selectedEvent.name}
-		date={dialogWhen.date}
-		time={dialogWhen.time}
-		from={selectedEvent.from}
-		to={selectedEvent.to}
-		location={selectedEvent.location}
-		eventDescription={selectedEvent.description}
-		thumbnail={selectedEvent.thumbnail}
-		registrationLink={getEventLink(selectedEvent, EventLinkKind.REGISTRATION)}
-		paymentLink={getEventLink(selectedEvent, EventLinkKind.PAYMENT)}
-		generalLink={getEventLink(selectedEvent, EventLinkKind.GENERAL)}
-		eventCategory={selectedEvent.category}
-		isPastEvent={isPastEvent(selectedEvent.from, selectedEvent.to)}
-		onclose={closeDialog}
-	/>
+	<EventDialog open={dialogOpen} e={selectedEvent} onclose={closeDialog} />
 {/if}
