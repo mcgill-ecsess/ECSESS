@@ -4,7 +4,7 @@ Official site for the Electrical, Computer & Software Engineering Students' Soci
 
 ## Stack
 
-- **Runtime / package manager:** Bun (`bun install`, `bun run dev`)
+- **Runtime / package manager:** Bun (`bun install`, `bun run dev`) — Vite CLI runs on Bun via `bunx --bun`
 - **Framework:** SvelteKit 3 + Svelte 5 (runes enabled in `vite.config.js`) + Vite 8
 - **Styling:** Tailwind CSS v4 via `@tailwindcss/vite` — theme tokens in `src/app.css`
 - **CMS:** Sanity (`@sanity/client`) — server-side only via `#lib/utils.ts`
