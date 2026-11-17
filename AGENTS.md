@@ -200,16 +200,16 @@ const resources: Resource[] = await getFromCMS(query);
 
 ### Document types
 
-| `_type`       | Used on               | Key fields                                                                  |
-| ------------- | --------------------- | --------------------------------------------------------------------------- |
-| `homepage`    | `/`, layout thumbnail | `councilPhoto`, `councilGoofyPic`, `faqs`, `subcommittees`                  |
-| `officeHours` | `/`                   | `day`, `startTime`, `endTime`, `member` (ref)                               |
-| `sponsors`    | `/`                   | `name`, `url`, `logo` (asset)                                               |
-| `members`     | `/council`            | `name`, `email`, `position`, `image`, `yearProgram`, `linkedin`             |
-| `events`      | `/events`             | `name`, `category`, `date`, `location`, `description`, `links`, `thumbnail` |
-| `resources`   | `/resources`          | `title`, `url`, `description`, `category` (string \| string[])              |
-| `devTeam`     | `/devteam`            | `name`, `role`, `term`, `github`, `image`, `active`                         |
-| `redirects`   | `/r/[shortname]`      | `shortname`, `url`                                                          |
+| `_type`       | Used on               | Key fields                                                                        |
+| ------------- | --------------------- | --------------------------------------------------------------------------------- |
+| `homepage`    | `/`, layout thumbnail | `councilPhoto`, `councilGoofyPic`, `faqs`, `subcommittees`                        |
+| `officeHours` | `/`                   | `day`, `startTime`, `endTime`, `member` (ref)                                     |
+| `sponsors`    | `/`                   | `name`, `url`, `logo` (asset)                                                     |
+| `members`     | `/council`            | `name`, `email`, `position`, `image`, `yearProgram`, `linkedin`                   |
+| `events`      | `/events`             | `name`, `category`, `from`, `to`, `location`, `description`, `links`, `thumbnail` |
+| `resources`   | `/resources`          | `title`, `url`, `description`, `category` (string \| string[])                    |
+| `devTeam`     | `/devteam`            | `name`, `role`, `term`, `github`, `image`, `active`                               |
+| `redirects`   | `/r/[shortname]`      | `shortname`, `url`                                                                |
 
 Image URLs: append Sanity transforms — e.g. `"image": image.asset->url+"?h=750&fm=webp"`.
 

@@ -14,7 +14,7 @@ import { getFromCMS } from '#lib/utils.js';
 import type { EventPost } from '#lib/schemas.ts';
 
 const query = `*[_type == "events"]{
-  name, category, date, location, description,
+  name, category, from, to, location, description,
   "links": links[]{ kind, title, url },
   "thumbnail": thumbnail.asset->url+"?h=800&fm=webp"
 }`;

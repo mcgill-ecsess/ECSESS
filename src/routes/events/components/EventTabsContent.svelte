@@ -3,8 +3,10 @@
 	import EventDialog from './EventDialog.svelte';
 	import {
 		eventMatchesCategory,
-		formatEventDate,
+		formatEventCardWhen,
+		formatEventDialogWhen,
 		getEventLink,
+		getEventStart,
 		isPastEvent,
 		parseEventDate
 	} from '#lib/events.js';
@@ -28,16 +30,17 @@
 
 	const allEvents = $derived(
 		[...(events ?? [])].sort((a, b) => {
-			const aIsPast = isPastEvent(a.date);
-			const bIsPast = isPastEvent(b.date);
+			const aIsPast = isPastEvent(a.from, a.to);
+			const bIsPast = isPastEvent(b.from, b.to);
 			if (aIsPast !== bIsPast) return aIsPast ? 1 : -1;
-			if (!aIsPast) return parseEventDate(a.date).getTime() - parseEventDate(b.date).getTime();
-			return parseEventDate(b.date).getTime() - parseEventDate(a.date).getTime();
+			const aStart = parseEventDate(getEventStart(a) ?? '').getTime();
+			const bStart = parseEventDate(getEventStart(b) ?? '').getTime();
+			return aIsPast ? bStart - aStart : aStart - bStart;
 		})
 	);
 
-	const upcomingEvents = $derived(allEvents.filter((e) => !isPastEvent(e.date)));
-	const pastEvents = $derived(allEvents.filter((e) => isPastEvent(e.date)));
+	const upcomingEvents = $derived(allEvents.filter((e) => !isPastEvent(e.from, e.to)));
+	const pastEvents = $derived(allEvents.filter((e) => isPastEvent(e.from, e.to)));
 
 	const hasVisibleUpcoming = $derived(upcomingEvents.some(isVisible));
 	const hasVisiblePast = $derived(pastEvents.some(isVisible));
@@ -53,12 +56,16 @@
 				<span class="h-px flex-1 bg-ecsess-800"></span>
 			</div>
 
-			<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+			<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
 				{#each upcomingEvents as e (e._id ?? e.name)}
+					{@const when = formatEventCardWhen(e.from, e.to)}
 					<div class="transition-opacity duration-150" class:hidden={!isVisible(e)}>
 						<EventBlock
 							eventTitle={e.name}
-							date={formatEventDate(e.date)}
+							date={when.date}
+							time={when.time}
+							from={e.from}
+							to={e.to}
 							location={e.location}
 							thumbnail={e.thumbnail}
 							eventCategory={e.category}
@@ -81,12 +88,16 @@
 				<span class="h-px flex-1 bg-ecsess-800"></span>
 			</div>
 
-			<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+			<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
 				{#each pastEvents as e (e._id ?? e.name)}
+					{@const when = formatEventCardWhen(e.from, e.to)}
 					<div class="transition-opacity duration-150" class:hidden={!isVisible(e)}>
 						<EventBlock
 							eventTitle={e.name}
-							date={formatEventDate(e.date)}
+							date={when.date}
+							time={when.time}
+							from={e.from}
+							to={e.to}
 							location={e.location}
 							thumbnail={e.thumbnail}
 							eventCategory={e.category}
@@ -110,10 +121,14 @@
 </div>
 
 {#if selectedEvent}
+	{@const dialogWhen = formatEventDialogWhen(selectedEvent.from, selectedEvent.to)}
 	<EventDialog
 		open={dialogOpen}
 		eventTitle={selectedEvent.name}
-		date={formatEventDate(selectedEvent.date)}
+		date={dialogWhen.date}
+		time={dialogWhen.time}
+		from={selectedEvent.from}
+		to={selectedEvent.to}
 		location={selectedEvent.location}
 		eventDescription={selectedEvent.description}
 		thumbnail={selectedEvent.thumbnail}
@@ -121,7 +136,7 @@
 		paymentLink={getEventLink(selectedEvent, EventLinkKind.PAYMENT)}
 		generalLink={getEventLink(selectedEvent, EventLinkKind.GENERAL)}
 		eventCategory={selectedEvent.category}
-		isPastEvent={isPastEvent(selectedEvent.date)}
+		isPastEvent={isPastEvent(selectedEvent.from, selectedEvent.to)}
 		onclose={closeDialog}
 	/>
 {/if}

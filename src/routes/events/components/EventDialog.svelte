@@ -1,13 +1,25 @@
 <script lang="ts">
 	import type { LinkType } from '#lib/schemas.ts';
 	import type { InputValue } from '@portabletext/svelte';
-	import { CalendarDays, MapPin, FilePen, CalendarPlus, ExternalLink, X } from '@lucide/svelte';
+	import {
+		CalendarDays,
+		Clock,
+		MapPin,
+		FilePen,
+		CalendarPlus,
+		ExternalLink,
+		X
+	} from '@lucide/svelte';
 	import RichText from '#lib/components/RichText.svelte';
+	import { isSameDayEvent } from '#lib/events.js';
 
 	interface Props {
 		open: boolean;
 		eventTitle: string;
 		date: string;
+		time?: string;
+		from?: string;
+		to?: string;
 		location?: string;
 		eventDescription?: InputValue;
 		thumbnail?: string;
@@ -23,6 +35,9 @@
 		open = false,
 		eventTitle = '',
 		date = '',
+		time,
+		from,
+		to,
 		location,
 		eventDescription,
 		thumbnail,
@@ -33,6 +48,37 @@
 		isPastEvent = false,
 		onclose
 	}: Props = $props();
+
+	const sameDay = $derived(isSameDayEvent(from, to));
+	let canScrollDown = $state(false);
+
+	/** Escape page stacking contexts (footer/nav) by mounting on document.body. */
+	function portal(node: HTMLElement) {
+		document.body.appendChild(node);
+		return {
+			destroy() {
+				node.remove();
+			}
+		};
+	}
+
+	/** Tracks whether the description has more content below the fold. */
+	function scrollHint(node: HTMLElement) {
+		const update = () => {
+			canScrollDown = node.scrollHeight - node.scrollTop - node.clientHeight > 8;
+		};
+		update();
+		node.addEventListener('scroll', update, { passive: true });
+		const ro = new ResizeObserver(update);
+		ro.observe(node);
+		return {
+			destroy() {
+				node.removeEventListener('scroll', update);
+				ro.disconnect();
+				canScrollDown = false;
+			}
+		};
+	}
 
 	const getDefaultImage = (category?: string[]): string => {
 		if (!category || category.length === 0) return '/ECSESS.png';
@@ -61,8 +107,8 @@
 	);
 
 	const addToCalendar = () => {
-		const eventDate = new Date(date);
-		const endDate = new Date(eventDate.getTime() + 2 * 60 * 60 * 1000);
+		const eventDate = from ? new Date(from) : to ? new Date(to) : new Date();
+		const endDate = to ? new Date(to) : new Date(eventDate.getTime() + 2 * 60 * 60 * 1000);
 		const formatDate = (d: Date) => d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
 		const icsContent = [
 			'BEGIN:VCALENDAR',
@@ -99,8 +145,9 @@
 
 <svelte:window onkeydown={handleKeydown} />
 
-<!-- Backdrop + dialog -->
+<!-- Backdrop + dialog (portaled above footer/nav stacking contexts) -->
 <div
+	use:portal
 	data-backdrop="true"
 	data-component="EventDialog"
 	onclick={handleBackdropClick}
@@ -109,39 +156,41 @@
 	aria-modal="true"
 	aria-label={eventTitle}
 	tabindex="-1"
-	class="fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-200
+	class="fixed inset-0 z-[100] flex items-center justify-center p-4 transition-all duration-200
 		{open
-		? 'pointer-events-auto bg-ecsess-950/80 backdrop-blur-sm'
+		? 'pointer-events-auto bg-neutral-950/70 backdrop-blur-sm'
 		: 'pointer-events-none bg-transparent opacity-0 backdrop-blur-none'}"
 >
 	<div
-		class="relative flex w-full max-w-2xl flex-col overflow-hidden rounded-xl border border-ecsess-800 bg-ecsess-950
+		class="relative flex h-[80dvh] w-full max-w-2xl flex-col overflow-hidden rounded-xl bg-ecsess-950
 			shadow-2xl transition-all duration-200
 			{open ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-4 scale-95 opacity-0'}"
-		style="max-height: 90dvh;"
 	>
 		<!-- Close button -->
 		<button
 			type="button"
 			onclick={onclose}
-			class="absolute top-3 right-3 z-10 rounded-full bg-ecsess-950/70 p-1.5 text-ecsess-400 backdrop-blur-sm transition-colors hover:bg-ecsess-800 hover:text-ecsess-50"
+			class="absolute top-3 right-3 z-10 rounded-full bg-ecsess-950/70 p-1.5 text-ecsess-400 ring-1 ring-ecsess-600/80 backdrop-blur-sm transition-colors hover:bg-ecsess-800 hover:text-ecsess-50 hover:ring-ecsess-400"
 			aria-label="Close dialog"
 		>
 			<X class="h-4 w-4" strokeWidth={2} />
 		</button>
 
-		<!-- Scrollable content -->
-		<div class="overflow-y-auto">
-			<!-- Header image — 16:7 landscape for dialog -->
-			<div class="relative w-full" style="aspect-ratio: 16/7;">
+		<div class="flex min-h-0 flex-1 flex-col overflow-hidden">
+			<!-- Header image — shorter on small screens -->
+			<div class="relative h-[26%] min-h-36 w-full shrink-0 overflow-hidden md:h-[38%] md:min-h-72">
 				<img
 					src={imageSrc}
 					alt={eventTitle}
-					class="absolute inset-0 h-full w-full object-cover"
-					class:grayscale={isPastEvent}
+					class="absolute inset-0 h-full w-full object-cover {isPastEvent ? 'grayscale' : ''}"
 				/>
-				<!-- Badges over image -->
-				<div class="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
+				<!-- Fade into dialog body -->
+				<div
+					class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ecsess-950 via-ecsess-950/40 to-transparent"
+					aria-hidden="true"
+				></div>
+				<!-- Status + category tags over fade -->
+				<div class="absolute bottom-3 left-3 z-[1] flex flex-wrap gap-1.5">
 					{#if isPastEvent}
 						<span
 							class="rounded bg-ecsess-950/80 px-2 py-0.5 text-[10px] font-bold tracking-widest text-ecsess-300 uppercase backdrop-blur-sm"
@@ -156,7 +205,7 @@
 							Upcoming
 						</span>
 					{/if}
-					{#each categoryLabel as cat}
+					{#each categoryLabel as cat (cat)}
 						<span
 							class="rounded bg-ecsess-900/80 px-2 py-0.5 text-[10px] font-bold tracking-widest text-ecsess-200 uppercase backdrop-blur-sm"
 						>
@@ -167,36 +216,60 @@
 			</div>
 
 			<!-- Dialog body -->
-			<div class="flex flex-col gap-4 p-5 text-left">
-				<!-- Title -->
-				<h2 class="text-xl leading-snug font-bold text-balance text-ecsess-50">
-					{eventTitle}
-				</h2>
+			<div
+				class="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden px-5 pt-1 pb-5 text-left md:p-5"
+			>
+				<div class="flex shrink-0 flex-col gap-2 md:gap-4">
+					<!-- Title -->
+					<h2 class="pr-8 text-xl leading-snug font-bold text-balance text-ecsess-50">
+						{eventTitle}
+					</h2>
 
-				<!-- Meta -->
-				<div class="flex flex-col gap-1.5 text-sm text-ecsess-200">
-					<span class="flex items-center gap-2">
-						<CalendarDays class="h-4 w-4 shrink-0 text-ecsess-400" strokeWidth={2} />
-						{date}
-					</span>
-					<span class="flex items-center gap-2">
-						<MapPin class="h-4 w-4 shrink-0 text-ecsess-400" strokeWidth={2} />
-						{location ?? 'TBA'}
-					</span>
+					<!-- Meta -->
+					<div class="flex flex-col gap-1.5 text-sm text-ecsess-200">
+						<span class="flex items-start gap-2">
+							<CalendarDays class="mt-0.5 h-4 w-4 shrink-0 text-ecsess-400" strokeWidth={2} />
+							<span class="min-w-0 leading-snug text-pretty">{date}</span>
+						</span>
+						{#if time}
+							<span class="flex items-start gap-2">
+								{#if sameDay}
+									<Clock class="mt-0.5 h-4 w-4 shrink-0 text-ecsess-400" strokeWidth={2} />
+								{:else}
+									<CalendarDays class="mt-0.5 h-4 w-4 shrink-0 text-ecsess-400" strokeWidth={2} />
+								{/if}
+								<span class="min-w-0 leading-snug text-pretty">{time}</span>
+							</span>
+						{/if}
+						<span class="flex items-start gap-2">
+							<MapPin class="mt-0.5 h-4 w-4 shrink-0 text-ecsess-400" strokeWidth={2} />
+							<span class="min-w-0 leading-snug">{location ?? 'TBA'}</span>
+						</span>
+					</div>
 				</div>
 
-				<!-- Description -->
+				<!-- Description — fills remaining space and scrolls -->
 				{#if eventDescription}
-					<div class="border-t border-ecsess-800 pt-4 text-left">
-						<div class="text-sm text-ecsess-100">
-							<RichText value={eventDescription} />
+					<div class="relative mt-4 min-h-0 flex-1 border-t border-ecsess-800">
+						<div class="h-full min-h-0 overflow-y-auto pt-2 pr-1.5 text-left" use:scrollHint>
+							<div class="pb-3 text-sm text-ecsess-100">
+								<RichText value={eventDescription} />
+							</div>
 						</div>
+						{#if canScrollDown}
+							<div
+								class="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-ecsess-950 via-ecsess-950/90 to-transparent"
+								aria-hidden="true"
+							></div>
+						{/if}
 					</div>
+				{:else}
+					<div class="min-h-0 flex-1"></div>
 				{/if}
 
 				<!-- Action buttons -->
 				{#if !isPastEvent || generalLink}
-					<div class="flex flex-wrap gap-2 border-t border-ecsess-800 pt-4">
+					<div class="mt-4 flex shrink-0 flex-wrap gap-2 border-t border-ecsess-800 pt-4">
 						{#if !isPastEvent && registrationLink}
 							<a
 								href={registrationLink[0].url}
@@ -233,7 +306,7 @@
 						{/if}
 
 						{#if generalLink}
-							{#each generalLink.slice(0, 4) as link}
+							{#each generalLink.slice(0, 4) as link (link.url)}
 								<a
 									href={link.url}
 									target="_blank"

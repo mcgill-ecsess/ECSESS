@@ -1,11 +1,15 @@
 <script lang="ts">
 	import type { LinkType } from '#lib/schemas.ts';
 	import type { InputValue } from '@portabletext/svelte';
-	import { CalendarDays, MapPin, Eye } from '@lucide/svelte';
+	import { CalendarDays, Clock, MapPin, Eye } from '@lucide/svelte';
+	import { isSameDayEvent } from '#lib/events.js';
 
 	interface Props {
 		eventTitle: string;
 		date: string;
+		time?: string;
+		from?: string;
+		to?: string;
 		location?: string;
 		eventDescription?: InputValue;
 		thumbnail?: string;
@@ -20,12 +24,17 @@
 	let {
 		eventTitle,
 		date,
+		time,
+		from,
+		to,
 		location,
 		thumbnail,
 		eventCategory,
 		isPastEvent = false,
 		onopen
 	}: Props = $props();
+
+	const sameDay = $derived(isSameDayEvent(from, to));
 
 	const getDefaultImage = (category?: string[]): string => {
 		if (!category || category.length === 0) return '/ECSESS.png';
@@ -85,30 +94,18 @@
 			/>
 		</div>
 
-		<!-- Status + category badges -->
-		<div class="absolute top-2 left-2 flex flex-wrap gap-1">
-			{#if isPastEvent}
-				<span
-					class="rounded bg-ecsess-950/75 px-1.5 py-0.5 text-[9px] font-bold tracking-widest text-ecsess-400 uppercase backdrop-blur-sm"
-				>
-					Past
-				</span>
-			{:else}
-				<span
-					class="inline-flex items-center gap-1 rounded bg-ecsess-500 px-1.5 py-0.5 text-[9px] font-bold tracking-widest text-white uppercase"
-				>
-					<span class="h-1 w-1 animate-pulse rounded-full bg-white"></span>
-					Upcoming
-				</span>
-			{/if}
-			{#each categoryLabel as cat}
-				<span
-					class="rounded bg-ecsess-900/80 px-1.5 py-0.5 text-[9px] font-bold tracking-widest text-ecsess-300 uppercase backdrop-blur-sm"
-				>
-					{cat}
-				</span>
-			{/each}
-		</div>
+		<!-- Category badges -->
+		{#if categoryLabel.length > 0}
+			<div class="absolute top-2 left-2 flex flex-wrap gap-1">
+				{#each categoryLabel as cat (cat)}
+					<span
+						class="rounded bg-ecsess-900/80 px-1.5 py-0.5 text-[9px] font-bold tracking-widest text-ecsess-300 uppercase backdrop-blur-sm"
+					>
+						{cat}
+					</span>
+				{/each}
+			</div>
+		{/if}
 	</div>
 
 	<!-- Post meta below image -->
@@ -116,14 +113,25 @@
 		<h2 class="mb-1 line-clamp-2 text-[11px] leading-snug font-bold text-balance text-ecsess-50">
 			{eventTitle}
 		</h2>
-		<div class="flex flex-col gap-0.5 text-[10px] text-ecsess-200">
-			<span class="flex items-center gap-1">
-				<CalendarDays class="h-2.5 w-2.5 shrink-0 text-ecsess-400" strokeWidth={2} />
-				{date}
+		<div class="flex flex-col gap-0.5 text-sm text-ecsess-200">
+			<span class="flex items-start gap-1.5">
+				<CalendarDays class="mt-0.5 h-3.5 w-3.5 shrink-0 text-ecsess-400" strokeWidth={2} />
+				<span class="min-w-0 leading-snug text-pretty">
+					{date}
+					{#if time && !sameDay}
+						<br />{time}
+					{/if}
+				</span>
 			</span>
-			<span class="flex items-center gap-1">
-				<MapPin class="h-2.5 w-2.5 shrink-0 text-ecsess-400" strokeWidth={2} />
-				{location ?? 'TBA'}
+			{#if time && sameDay}
+				<span class="flex items-start gap-1.5">
+					<Clock class="mt-0.5 h-3.5 w-3.5 shrink-0 text-ecsess-400" strokeWidth={2} />
+					<span class="min-w-0 leading-snug text-pretty">{time}</span>
+				</span>
+			{/if}
+			<span class="flex items-start gap-1.5">
+				<MapPin class="mt-0.5 h-3.5 w-3.5 shrink-0 text-ecsess-400" strokeWidth={2} />
+				<span class="min-w-0 leading-snug">{location ?? 'TBA'}</span>
 			</span>
 		</div>
 	</div>
