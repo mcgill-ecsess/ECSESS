@@ -4,12 +4,12 @@ Official site for the Electrical, Computer & Software Engineering Students' Soci
 
 ## Stack
 
-- **Runtime / package manager:** Bun (`bun install`, `bun run dev`)
-- **Framework:** SvelteKit 2 + Svelte 5 (runes enabled in `svelte.config.js`)
+- **Runtime / package manager:** Bun (`bun install`, `bun run dev`) — Vite CLI runs on Bun via `bunx --bun`
+- **Framework:** SvelteKit 3 + Svelte 5 (runes enabled in `vite.config.js`) + Vite 8
 - **Styling:** Tailwind CSS v4 via `@tailwindcss/vite` — theme tokens in `src/app.css`
-- **CMS:** Sanity (`@sanity/client`) — server-side only via `$lib/utils.ts`
+- **CMS:** Sanity (`@sanity/client`) — server-side only via `#lib/utils.ts`
 - **Icons:** `@lucide/svelte`
-- **Rich text:** `@portabletext/svelte` via `$lib/components/RichText.svelte`
+- **Rich text:** `@portabletext/svelte` via `#lib/components/RichText.svelte`
 - **Deploy:** Vercel (`@sveltejs/adapter-vercel`)
 
 ## Commands
@@ -18,11 +18,11 @@ Official site for the Electrical, Computer & Software Engineering Students' Soci
 bun run dev      # dev server
 bun run build    # production build
 bun run check    # svelte-check + typecheck
-bun run format   # Prettier
-bun run lint     # Prettier check
+bun run format   # bun fmt
+bun run lint     # bun fmt --check
 ```
 
-After completing an implementation, run `bun run format` so changes match project Prettier conventions before finishing.
+After completing an implementation, run `bun run format` so changes match project formatting conventions before finishing.
 
 ### Verify before finishing
 
@@ -61,16 +61,17 @@ src/
       +page.svelte
       +page.server.ts  # CMS load functions (when data needed)
       components/      # Route-specific components
-  assets/              # Imported static files (alias: `assets/...`)
+  assets/              # Imported static files (subpath: `#assets/...`)
+  env.js               # defineEnvVars (e.g. SANITY_ID)
 ```
 
 **Import conventions**
 
-- Shared components: `$lib/components/...`
+- Shared components: `#lib/components/...`
 - Page-specific components: `./components/...` (relative to the route)
-- Static assets: `assets/...` (svelte.config alias)
-- Types: `$lib/schemas`
-- CMS fetch: `$lib/utils` → `getFromCMS(query)`
+- Static assets: `#assets/...` (`package.json` `imports`)
+- Types: `#lib/schemas.ts`
+- CMS fetch: `#lib/utils` → `getFromCMS(query)`
 
 Do not reintroduce a top-level `src/components/` folder or a `components/` path alias.
 
@@ -117,8 +118,8 @@ On dark sections, prefer **soft** treatments over harsh solid blocks:
 Supporting subtitles under section titles are fine, e.g.:
 
 ```svelte
-<h2 class="text-ecsess-50 text-2xl font-bold sm:text-3xl md:text-4xl">{title}</h2>
-<p class="text-ecsess-300 mt-3 text-sm leading-relaxed sm:text-base">{subtitle}</p>
+<h2 class="text-2xl font-bold text-ecsess-50 sm:text-3xl md:text-4xl">{title}</h2>
+<p class="mt-3 text-sm leading-relaxed text-ecsess-300 sm:text-base">{subtitle}</p>
 ```
 
 ### Typography
@@ -137,7 +138,7 @@ Every page follows this pattern:
 3. `<PageHeader title="..." description="..." />` on content pages (no eyebrow)
 4. Inner content in `max-w-7xl` containers with left-aligned headers on content pages
 
-`Section` (`$lib/components/layout/Section.svelte`) renders full-viewport gradient bands. Homepage stacks dark-to-light green gradients top-to-bottom; inner pages often use solid dark (`from-ecsess-black`).
+`Section` (`#lib/components/layout/Section.svelte`) renders full-viewport gradient bands. Homepage stacks dark-to-light green gradients top-to-bottom; inner pages often use solid dark (`from-ecsess-black`).
 
 Standard page header — use `PageHeader` or this markup:
 
@@ -147,10 +148,10 @@ Standard page header — use `PageHeader` or this markup:
 
 ### UI primitives
 
-- **Button** — `$lib/components/Button.svelte` — green filled, rounded
-- **Link** — `$lib/components/Link.svelte` — pass `external={true}` for off-site
+- **Button** — `#lib/components/Button.svelte` — green filled, rounded
+- **Link** — `#lib/components/Link.svelte` — pass `external={true}` for off-site
 - **EventTabsTrigger** — shared pill/tab filter used on Events and Resources pages
-- **PageHeader** — `$lib/components/layout/PageHeader.svelte` — title + optional description (no eyebrow)
+- **PageHeader** — `#lib/components/layout/PageHeader.svelte` — title + optional description (no eyebrow)
 
 ### Homepage: Lounge Office Hours
 
@@ -180,9 +181,9 @@ Data comes from CMS `homepage.subcommittees[]` (`name`, `description`, `highligh
 
 ## Sanity CMS
 
-Client config in `$lib/utils.ts`:
+Client config in `#lib/utils.ts`:
 
-- `projectId`: `$env/static/private` → `SANITY_ID`
+- `projectId`: `$app/env/private` → `SANITY_ID` (declared in `src/env.js`)
 - `dataset`: `production`
 - `useCdn`: `true`
 - `apiVersion`: `2025-02-06`
@@ -190,8 +191,8 @@ Client config in `$lib/utils.ts`:
 Fetch only in `+page.server.ts` / `+layout.server.ts` — never in client components.
 
 ```ts
-import { getFromCMS } from '$lib/utils.js';
-import type { Resource } from '$lib/schemas';
+import { getFromCMS } from '#lib/utils.js';
+import type { Resource } from '#lib/schemas.ts';
 
 const query = `*[_type == "resources"] | order(title asc) { title, url, description, category }`;
 const resources: Resource[] = await getFromCMS(query);
@@ -214,7 +215,7 @@ Image URLs: append Sanity transforms — e.g. `"image": image.asset->url+"?h=750
 
 Combined queries (homepage) return nested objects; single-type queries return arrays.
 
-Types live in `$lib/schemas.ts` — add new CMS shapes there before using in load functions.
+Types live in `#lib/schemas.ts` — add new CMS shapes there before using in load functions.
 
 ## Svelte 5 conventions
 

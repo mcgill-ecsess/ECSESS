@@ -88,7 +88,7 @@ h2 {
 
 /* Compact Portable Text for the navbar announcement bar */
 .nav-notification .typography {
-	@apply text-ecsess-100 text-center text-sm font-medium md:text-base;
+	@apply text-center text-sm font-medium text-ecsess-100 md:text-base;
 }
 
 .nav-notification .typography p {
@@ -96,12 +96,12 @@ h2 {
 }
 
 .nav-notification .typography a {
-	@apply text-ecsess-50 decoration-ecsess-400/70 hover:decoration-ecsess-200 underline underline-offset-2;
+	@apply text-ecsess-50 underline decoration-ecsess-400/70 underline-offset-2 hover:decoration-ecsess-200;
 }
 
 .nav-notification .typography strong,
 .nav-notification .typography b {
-	@apply text-ecsess-50 font-semibold;
+	@apply font-semibold text-ecsess-50;
 }
 
 .typography {
@@ -121,7 +121,7 @@ h2 {
 	}
 
 	blockquote {
-		@apply bg-ecsess-100 text-ecsess-700 border-l-ecsess-600 my-4 rounded-md border-l-4 py-[0.01rem] ps-4 italic;
+		@apply my-4 rounded-md border-l-4 border-l-ecsess-600 bg-ecsess-100 py-[0.01rem] ps-4 text-ecsess-700 italic;
 	}
 
 	h1 {
@@ -220,11 +220,11 @@ h2 {
 	}
 
 	thead {
-		@apply border-ecsess-500 border-b-2;
+		@apply border-b-2 border-ecsess-500;
 	}
 
 	thead th {
-		@apply text-ecsess-500 p-2 text-left text-base font-bold;
+		@apply p-2 text-left text-base font-bold text-ecsess-500;
 	}
 
 	tbody td,
@@ -267,7 +267,7 @@ h2 {
 }
 
 *::-webkit-scrollbar-track {
-	@apply bg-ecsess-700 rounded;
+	@apply rounded bg-ecsess-700;
 }
 
 *::-webkit-scrollbar-track:hover {
@@ -279,7 +279,7 @@ h2 {
 }
 
 *::-webkit-scrollbar-thumb {
-	@apply bg-ecsess-100 rounded-md;
+	@apply rounded-md bg-ecsess-100;
 }
 
 *::-webkit-scrollbar-thumb:hover {

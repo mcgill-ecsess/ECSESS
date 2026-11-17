@@ -1,17 +1,9 @@
 <script lang="ts">
-	import type { LinkType } from '$lib/schemas';
+	import type { LinkType } from '#lib/schemas.ts';
 	import type { InputValue } from '@portabletext/svelte';
 	import { CalendarDays, MapPin, Eye } from '@lucide/svelte';
 
-	let {
-		eventTitle,
-		date,
-		location,
-		thumbnail,
-		eventCategory,
-		isPastEvent = false,
-		onopen
-	} = $props<{
+	interface Props {
 		eventTitle: string;
 		date: string;
 		location?: string;
@@ -23,7 +15,17 @@
 		eventCategory?: string[];
 		isPastEvent?: boolean;
 		onopen?: () => void;
-	}>();
+	}
+
+	let {
+		eventTitle,
+		date,
+		location,
+		thumbnail,
+		eventCategory,
+		isPastEvent = false,
+		onopen
+	}: Props = $props();
 
 	const getDefaultImage = (category?: string[]): string => {
 		if (!category || category.length === 0) return '/ECSESS.png';
@@ -75,7 +77,7 @@
 
 		<!-- Hover overlay -->
 		<div
-			class="bg-ecsess-950/0 group-hover:bg-ecsess-950/50 absolute inset-0 flex items-center justify-center transition-colors duration-200"
+			class="absolute inset-0 flex items-center justify-center bg-ecsess-950/0 transition-colors duration-200 group-hover:bg-ecsess-950/50"
 		>
 			<Eye
 				class="h-7 w-7 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
@@ -87,13 +89,13 @@
 		<div class="absolute top-2 left-2 flex flex-wrap gap-1">
 			{#if isPastEvent}
 				<span
-					class="bg-ecsess-950/75 text-ecsess-400 rounded px-1.5 py-0.5 text-[9px] font-bold tracking-widest uppercase backdrop-blur-sm"
+					class="rounded bg-ecsess-950/75 px-1.5 py-0.5 text-[9px] font-bold tracking-widest text-ecsess-400 uppercase backdrop-blur-sm"
 				>
 					Past
 				</span>
 			{:else}
 				<span
-					class="bg-ecsess-500 inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[9px] font-bold tracking-widest text-white uppercase"
+					class="inline-flex items-center gap-1 rounded bg-ecsess-500 px-1.5 py-0.5 text-[9px] font-bold tracking-widest text-white uppercase"
 				>
 					<span class="h-1 w-1 animate-pulse rounded-full bg-white"></span>
 					Upcoming
@@ -101,7 +103,7 @@
 			{/if}
 			{#each categoryLabel as cat}
 				<span
-					class="bg-ecsess-900/80 text-ecsess-300 rounded px-1.5 py-0.5 text-[9px] font-bold tracking-widest uppercase backdrop-blur-sm"
+					class="rounded bg-ecsess-900/80 px-1.5 py-0.5 text-[9px] font-bold tracking-widest text-ecsess-300 uppercase backdrop-blur-sm"
 				>
 					{cat}
 				</span>
@@ -111,16 +113,16 @@
 
 	<!-- Post meta below image -->
 	<div class="pt-2 text-left">
-		<h2 class="text-ecsess-50 mb-1 line-clamp-2 text-[11px] leading-snug font-bold text-balance">
+		<h2 class="mb-1 line-clamp-2 text-[11px] leading-snug font-bold text-balance text-ecsess-50">
 			{eventTitle}
 		</h2>
-		<div class="text-ecsess-200 flex flex-col gap-0.5 text-[10px]">
+		<div class="flex flex-col gap-0.5 text-[10px] text-ecsess-200">
 			<span class="flex items-center gap-1">
-				<CalendarDays class="text-ecsess-400 h-2.5 w-2.5 shrink-0" strokeWidth={2} />
+				<CalendarDays class="h-2.5 w-2.5 shrink-0 text-ecsess-400" strokeWidth={2} />
 				{date}
 			</span>
 			<span class="flex items-center gap-1">
-				<MapPin class="text-ecsess-400 h-2.5 w-2.5 shrink-0" strokeWidth={2} />
+				<MapPin class="h-2.5 w-2.5 shrink-0 text-ecsess-400" strokeWidth={2} />
 				{location ?? 'TBA'}
 			</span>
 		</div>

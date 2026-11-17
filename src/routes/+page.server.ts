@@ -1,6 +1,6 @@
-import { getFromCMS } from '$lib/utils.js';
-import { formatMcGillSemester } from '$lib/format.js';
-import type { FAQ, OfficeHour, Partnership, Subcommittee } from '$lib/schemas';
+import { getFromCMS } from '#lib/utils.js';
+import { formatMcGillSemester } from '#lib/format.js';
+import type { FAQ, OfficeHour, Partnership, Subcommittee } from '#lib/schemas.ts';
 
 const homepageQuery = `{
   "homepage": *[_id == "homepage"]{

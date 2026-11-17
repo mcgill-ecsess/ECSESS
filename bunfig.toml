@@ -1,0 +1,14 @@
+[fmt]
+useTabs = true
+singleQuote = true
+trailingComma = "none"
+printWidth = 100
+ignorePatterns = ["package-lock.json", "pnpm-lock.yaml", "yarn.lock"]
+
+[fmt.svelte]
+sortOrder = "options-scripts-markup-styles"
+allowShorthand = true
+indentScriptAndStyle = true
+
+[fmt.sortTailwindcss]
+stylesheet = "./src/app.css"

@@ -1,17 +1,15 @@
 <script lang="ts">
-	import type { DevTeam } from '$lib/schemas';
+	import type { DevTeam } from '#lib/schemas.ts';
 	import YearLine from './YearLine.svelte';
 	import DevCard from './DevCard.svelte';
 
-	let {
-		term,
-		members,
-		active = false
-	} = $props<{
+	interface Props {
 		term: string;
 		members: DevTeam[];
 		active?: boolean;
-	}>();
+	}
+
+	let { term, members, active = false }: Props = $props();
 </script>
 
 <div class="relative w-full" data-component="ContribTimeline">

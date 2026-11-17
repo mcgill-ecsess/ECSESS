@@ -1,4 +1,4 @@
-import type { CouncilMember, SubcommitteeMember } from '$lib/schemas';
+import type { CouncilMember, SubcommitteeMember } from '#lib/schemas.ts';
 
 export const councilMembersQuery = `*[_type == "members" && !(_id in path("drafts.**"))] | order(position.name asc) {
   _id,
@@ -55,11 +55,7 @@ export function normalizeCouncilMember(raw: RawCouncilMember): CouncilMember {
 }
 
 export type SubcommitteePageKey =
-	| 'social-subcom'
-	| 'external-subcom'
-	| 'ecsessbits'
-	| 'dev-team'
-	| 'alumni';
+	'social-subcom' | 'external-subcom' | 'ecsessbits' | 'dev-team' | 'alumni';
 
 export type SubcommitteePageMeta = {
 	key: SubcommitteePageKey;

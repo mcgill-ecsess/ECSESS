@@ -1,10 +1,17 @@
+import adapter from '@sveltejs/adapter-vercel';
 import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-	plugins: [sveltekit(), tailwindcss()],
-
+	plugins: [
+		sveltekit({
+			preprocess: [],
+			compilerOptions: { runes: true },
+			adapter: adapter()
+		}),
+		tailwindcss()
+	],
 	// Optimize dependency pre-bundling
 	optimizeDeps: {
 		include: ['@portabletext/svelte', '@lucide/svelte', '@sanity/client'],

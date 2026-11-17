@@ -5,9 +5,9 @@
 <button
 	{disabled}
 	{onclick}
-	class="bg-ecsess-600 text-ecsess-50
-		hover:bg-ecsess-700 w-fit rounded-md
-		px-6 py-3 text-sm font-semibold transition-colors hover:cursor-pointer {className}"
+	class="w-fit rounded-md
+		bg-ecsess-600 px-6 py-3
+		text-sm font-semibold text-ecsess-50 transition-colors hover:cursor-pointer hover:bg-ecsess-700 {className}"
 >
 	{@render children()}
 </button>

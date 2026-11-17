@@ -1,6 +1,6 @@
 <script lang="ts">
-	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
-	import Section from '$lib/components/layout/Section.svelte';
+	import SeoMetaTags from '#lib/components/layout/SeoMetaTags.svelte';
+	import Section from '#lib/components/layout/Section.svelte';
 	import SubcommitteeRoster from '../components/SubcommitteeRoster.svelte';
 
 	let { data } = $props();

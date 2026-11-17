@@ -1,10 +1,10 @@
 <script lang="ts">
-	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
-	import Section from '$lib/components/layout/Section.svelte';
-	import PageHeader from '$lib/components/layout/PageHeader.svelte';
+	import SeoMetaTags from '#lib/components/layout/SeoMetaTags.svelte';
+	import Section from '#lib/components/layout/Section.svelte';
+	import PageHeader from '#lib/components/layout/PageHeader.svelte';
 	import ContribTimeline from './components/ContribTimeline.svelte';
-	import Link from '$lib/components/Link.svelte';
-	import type { DevTeam } from '$lib/schemas';
+	import Link from '#lib/components/Link.svelte';
+	import type { DevTeam } from '#lib/schemas.ts';
 
 	let { data } = $props();
 
@@ -49,11 +49,11 @@
 <Section contentStart={true}>
 	<PageHeader title="Dev Team" description="git log --dev-team" />
 
-	<p class="text-ecsess-150 mx-auto mb-8 max-w-2xl text-center font-mono text-lg">
+	<p class="mx-auto mb-8 max-w-2xl text-center font-mono text-lg text-ecsess-150">
 		Want to build the future of ECSESS?
 		<Link href="https://github.com/mcgill-ecsess/ECSESS" external>
 			<span
-				class="text-ecsess-100 decoration-ecsess-400 hover:text-ecsess-50 hover:decoration-ecsess-300 font-semibold underline decoration-2 underline-offset-4 transition-all"
+				class="font-semibold text-ecsess-100 underline decoration-ecsess-400 decoration-2 underline-offset-4 transition-all hover:text-ecsess-50 hover:decoration-ecsess-300"
 			>
 				Contribute on GitHub →
 			</span>

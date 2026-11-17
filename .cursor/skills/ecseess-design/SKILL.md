@@ -33,7 +33,7 @@ Prefer soft translucent panels on dark sections: `bg-ecsess-950/40`–`/50`, `bo
 
 ## Section layout
 
-Use `$lib/components/layout/Section.svelte`:
+Use `#lib/components/layout/Section.svelte`:
 
 ```svelte
 <Section from="from-ecsess-black" to="to-ecsess-900" via="via-ecsess-950" contentStart={true}>
@@ -50,4 +50,4 @@ Homepage stacks gradients from black → dark green → lighter green. Content p
 1. Add `SeoMetaTags` with title, description, `canonical={data.canonical}`
 2. Wrap content in `Section` with gradient props matching adjacent pages
 3. Use `max-w-7xl` content width, left-aligned headers
-4. Reuse `Button`, `Link`, `EventTabsTrigger`, `PageHeader` from `$lib/components/`
+4. Reuse `Button`, `Link`, `EventTabsTrigger`, `PageHeader` from `#lib/components/`

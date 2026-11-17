@@ -1,10 +1,7 @@
 <script lang="ts">
 	import CommitDot from './CommitDot.svelte';
 
-	let { term, active = false } = $props<{
-		term: string;
-		active?: boolean;
-	}>();
+	let { term, active = false }: { term: string; active?: boolean } = $props();
 </script>
 
 <div class="relative mb-6 flex items-center gap-4">

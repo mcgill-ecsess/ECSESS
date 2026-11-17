@@ -1,11 +1,11 @@
 <script>
 	import '../app.css';
-	import { dev } from '$app/environment';
+	import { dev } from '$app/env';
 	import { onMount } from 'svelte';
-	import Navbar from '$lib/components/layout/NavBar.svelte';
-	import Footer from '$lib/components/layout/Footer.svelte';
-	import PageThumbnail from '$lib/components/layout/PageThumbnail.svelte';
-	import BackgroundMotifs from '$lib/components/layout/BackgroundMotifs.svelte';
+	import Navbar from '#lib/components/layout/NavBar.svelte';
+	import Footer from '#lib/components/layout/Footer.svelte';
+	import PageThumbnail from '#lib/components/layout/PageThumbnail.svelte';
+	import BackgroundMotifs from '#lib/components/layout/BackgroundMotifs.svelte';
 
 	let { children, data } = $props();
 	// Lazy load analytics only in production for faster dev startup

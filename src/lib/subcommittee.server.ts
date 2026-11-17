@@ -1,13 +1,13 @@
-import type { SubcommitteeMember } from '$lib/schemas';
-import { getFromCMS } from '$lib/utils.js';
+import type { SubcommitteeMember } from '#lib/schemas.ts';
+import { getFromCMS } from '#lib/utils.js';
 import {
 	filterSubcommitteeMembers,
 	subcommitteeMembersQuery,
 	subcommitteePages,
 	type SubcommitteePageKey
-} from '$lib/subcommittee';
+} from '#lib/subcommittee.ts';
 
-/** Server-only: must not be imported from client components (uses `$env/static/private`). */
+/** Server-only: must not be imported from client components (uses `$app/env/private`). */
 export function loadSubcommitteePage(key: SubcommitteePageKey) {
 	return async ({ url }: { url: URL }) => {
 		const allMembers: SubcommitteeMember[] = await getFromCMS(subcommitteeMembersQuery);

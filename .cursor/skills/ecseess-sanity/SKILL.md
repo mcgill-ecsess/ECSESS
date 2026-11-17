@@ -1,17 +1,17 @@
 ---
 name: ecseess-sanity
-description: Query Sanity CMS for the ECSESS website using GROQ in SvelteKit load functions. Use when adding or editing CMS content types, +page.server.ts load functions, image URL transforms, or Sanity-related types in $lib/schemas.ts.
+description: Query Sanity CMS for the ECSESS website using GROQ in SvelteKit load functions. Use when adding or editing CMS content types, +page.server.ts load functions, image URL transforms, or Sanity-related types in #lib/schemas.ts.
 ---
 
 # ECSESS Sanity CMS
 
 ## Client
 
-Defined in `$lib/utils.ts`. Import `getFromCMS(query)` — never instantiate `@sanity/client` elsewhere.
+Defined in `#lib/utils.ts`. Import `getFromCMS(query)` — never instantiate `@sanity/client` elsewhere. `SANITY_ID` comes from `$app/env/private` (declared in `src/env.js`).
 
 ```ts
-import { getFromCMS } from '$lib/utils.js';
-import type { EventPost } from '$lib/schemas';
+import { getFromCMS } from '#lib/utils.js';
+import type { EventPost } from '#lib/schemas.ts';
 
 const query = `*[_type == "events"]{
   name, category, date, location, description,
@@ -28,7 +28,7 @@ export const load = async ({ url }) => ({
 ## Rules
 
 - Queries live in `+page.server.ts` or `+layout.server.ts` only
-- Add/update TypeScript types in `$lib/schemas.ts` before use
+- Add/update TypeScript types in `#lib/schemas.ts` before use
 - Image fields: dereference with `asset->url` and append `?h=N&fm=webp`
 - Reference fields: dereference inline — `"name": member->name`
 - Combined queries: wrap in `{ ... }` and destructure the response

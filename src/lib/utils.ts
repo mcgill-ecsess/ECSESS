@@ -1,5 +1,5 @@
 import { createClient } from '@sanity/client';
-import { SANITY_ID } from '$env/static/private';
+import { SANITY_ID } from '$app/env/private';
 
 const client = createClient({
 	projectId: SANITY_ID,

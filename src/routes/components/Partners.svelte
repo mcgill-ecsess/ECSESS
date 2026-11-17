@@ -1,11 +1,9 @@
 <script lang="ts">
-	import type { Partnership } from '$lib/schemas';
-	import Link from '$lib/components/Link.svelte';
-	import Button from '$lib/components/Button.svelte';
+	import type { Partnership } from '#lib/schemas.ts';
+	import Link from '#lib/components/Link.svelte';
+	import Button from '#lib/components/Button.svelte';
 
-	let { partnerships = [] } = $props<{
-		partnerships: Partnership[];
-	}>();
+	let { partnerships = [] }: { partnerships: Partnership[] } = $props();
 
 	const tierOrder = ['platinum', 'gold', 'silver', 'bronze', 'partner'];
 
@@ -112,15 +110,15 @@
 <div class="container mx-auto px-4" id="Partners" data-component="Partners">
 	<!-- Section Header -->
 	<div class="my-12 text-center">
-		<h2 id="partners-title" class="text-ecsess-50 mb-2 text-4xl font-bold md:text-5xl">
+		<h2 id="partners-title" class="mb-2 text-4xl font-bold text-ecsess-50 md:text-5xl">
 			Our Partners
 		</h2>
-		<p class="text-ecsess-100 mx-auto max-w-2xl text-base leading-relaxed md:text-lg">
+		<p class="mx-auto max-w-2xl text-base leading-relaxed text-ecsess-100 md:text-lg">
 			We're grateful to our partners for their continued support of ECSESS, our events, activities,
 			and our community.
 		</p>
 		<div
-			class="via-ecsess-150/40 mx-auto mt-2 h-px w-32 bg-linear-to-r from-transparent to-transparent"
+			class="mx-auto mt-2 h-px w-32 bg-linear-to-r from-transparent via-ecsess-150/40 to-transparent"
 			aria-hidden="true"
 		></div>
 		<div class="mt-6">
@@ -135,7 +133,7 @@
 		<div class="mx-auto max-w-6xl space-y-12" aria-labelledby="partners-title">
 			{#each partnersByTier as [tier, partners] (tier)}
 				<div>
-					<h3 class="text-ecsess-200 mb-5 text-center text-xs font-bold tracking-[0.2em] uppercase">
+					<h3 class="mb-5 text-center text-xs font-bold tracking-[0.2em] text-ecsess-200 uppercase">
 						{tier}
 					</h3>
 					<div class="flex flex-wrap items-center justify-center gap-5 sm:gap-7">
@@ -174,7 +172,7 @@
 			{/each}
 		</div>
 	{:else}
-		<div class="text-ecsess-300 py-12 text-center">
+		<div class="py-12 text-center text-ecsess-300">
 			<p>You can be our next partner!</p>
 		</div>
 	{/if}

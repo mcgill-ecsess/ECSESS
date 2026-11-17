@@ -1,5 +1,5 @@
-import type { EventPost } from '$lib/schemas';
-import { EventLinkKind, type LinkType } from '$lib/schemas';
+import type { EventPost } from '#lib/schemas.ts';
+import { EventLinkKind, type LinkType } from '#lib/schemas.ts';
 
 export function parseEventDate(dateString: string): Date {
 	const parsed = new Date(dateString);

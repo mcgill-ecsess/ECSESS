@@ -9,16 +9,16 @@ description: Build Svelte 5 components for the ECSESS SvelteKit site following p
 
 | Scope              | Location                                 | Import                               |
 | ------------------ | ---------------------------------------- | ------------------------------------ |
-| Shared (2+ routes) | `src/lib/components/`                    | `$lib/components/...`                |
+| Shared (2+ routes) | `src/lib/components/`                    | `#lib/components/...`                |
 | Page-specific      | `src/routes/{route}/components/`         | `./components/...`                   |
 | Homepage sections  | `src/routes/components/`                 | `./components/...` in `+page.svelte` |
-| Types / utils      | `src/lib/schemas.ts`, `src/lib/utils.ts` | `$lib/...`                           |
+| Types / utils      | `src/lib/schemas.ts`, `src/lib/utils.ts` | `#lib/...`                           |
 
 ## Component template
 
 ```svelte
 <script lang="ts">
-	import Button from '$lib/components/Button.svelte';
+	import Button from '#lib/components/Button.svelte';
 
 	let { title, data } = $props<{ title: string; data: SomeType }>();
 	let active = $state(false);
@@ -30,8 +30,8 @@ description: Build Svelte 5 components for the ECSESS SvelteKit site following p
 
 ```svelte
 <script lang="ts">
-	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
-	import Section from '$lib/components/layout/Section.svelte';
+	import SeoMetaTags from '#lib/components/layout/SeoMetaTags.svelte';
+	import Section from '#lib/components/layout/Section.svelte';
 	import MyWidget from './components/MyWidget.svelte';
 
 	let { data } = $props();
@@ -45,7 +45,7 @@ description: Build Svelte 5 components for the ECSESS SvelteKit site following p
 
 ## Rules
 
-- Svelte 5 runes only — compiler option `runes: true`
+- Svelte 5 runes only — compiler option `runes: true` in `vite.config.js`
 - Data fetching in `+page.server.ts`, not in components
 - Use `@lucide/svelte` for icons
 - Invoke Svelte MCP autofixer after editing `.svelte` files when available

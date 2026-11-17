@@ -1,6 +1,6 @@
-import type { CouncilMember } from '$lib/schemas';
-import { getFromCMS } from '$lib/utils.js';
-import { councilMembersQuery, normalizeCouncilMember } from '$lib/subcommittee';
+import type { CouncilMember } from '#lib/schemas.ts';
+import { getFromCMS } from '#lib/utils.js';
+import { councilMembersQuery, normalizeCouncilMember } from '#lib/subcommittee.ts';
 
 const councilQuery = `{
   "members": ${councilMembersQuery},

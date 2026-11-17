@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { Resource } from '$lib/schemas';
+	import type { Resource } from '#lib/schemas.ts';
 	import ResourceCard from './components/ResourceCard.svelte';
-	import Section from '$lib/components/layout/Section.svelte';
-	import SeoMetaTags from '$lib/components/layout/SeoMetaTags.svelte';
-	import PageHeader from '$lib/components/layout/PageHeader.svelte';
-	import EventTabsTrigger from '$lib/components/EventTabsTrigger.svelte';
+	import Section from '#lib/components/layout/Section.svelte';
+	import SeoMetaTags from '#lib/components/layout/SeoMetaTags.svelte';
+	import PageHeader from '#lib/components/layout/PageHeader.svelte';
+	import EventTabsTrigger from '#lib/components/EventTabsTrigger.svelte';
 
 	let { data } = $props();
 
@@ -89,9 +89,9 @@
 
 	<div class="w-full max-w-7xl pb-16">
 		{#if filtered.length === 0}
-			<div class="border-ecsess-800/60 rounded-2xl border border-dashed py-16 text-center">
-				<p class="text-ecsess-200 text-lg font-semibold">No resources in this category yet.</p>
-				<p class="text-ecsess-300 mt-1 text-sm">Check back soon or explore another category.</p>
+			<div class="rounded-2xl border border-dashed border-ecsess-800/60 py-16 text-center">
+				<p class="text-lg font-semibold text-ecsess-200">No resources in this category yet.</p>
+				<p class="mt-1 text-sm text-ecsess-300">Check back soon or explore another category.</p>
 			</div>
 		{:else}
 			<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

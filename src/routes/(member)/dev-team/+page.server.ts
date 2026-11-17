@@ -1,5 +1,5 @@
-import type { DevTeam } from '$lib/schemas';
-import { getFromCMS } from '$lib/utils.js';
+import type { DevTeam } from '#lib/schemas.ts';
+import { getFromCMS } from '#lib/utils.js';
 
 const query = `*[_type == "devTeam"]{
   name,
