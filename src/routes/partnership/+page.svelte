@@ -92,7 +92,7 @@
 			</Link>
 		</div>
 		<div
-			class="relative mx-auto mt-6 w-full rounded-[2rem] px-2 py-6 text-left sm:px-4 sm:py-8 md:px-6"
+			class="relative mx-auto mt-6 w-full rounded-4xl px-2 py-6 text-left sm:px-4 sm:py-8 md:px-6"
 		>
 			<div class="space-y-8 text-center text-ecsess-100">
 				<div class="mx-auto w-full max-w-6xl space-y-8">
