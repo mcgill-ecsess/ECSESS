@@ -1,51 +1,65 @@
 # Contribution Guide
 
-The website development is under the portfolio of ECSESS VP Technical Development. For content request, please refer to VP Communications for the content management.
-This document outlines the developer guides to contribute to the ECSESS website project. Developers can choose to contribute either by (1) working as an internal team member of ECSESS Website Subcommittee (make a branch and open PR), or (2) contributing as an external open-source contributor (fork the repo and open a PR).
+The website development is under the portfolio of ECSESS VP Technical Development. For content requests, please refer to VP Communications for content management.
+This document outlines the developer guide to contribute to the ECSESS website project. Developers can choose to contribute either by (1) working as an internal team member of ECSESS Website Subcommittee (make a branch and open a PR), or (2) contributing as an external open-source contributor (fork the repo and open a PR).
 
 ---
 
 ## Prerequisite knowledge
 
-- `npm` knowledge. We use `bun` for this project. See https://bun.sh for installation guide.
-- Svelte & SvelteKit: Follow the tutorial here: https://svelte.dev/tutorial/svelte/welcome-to-svelte
+- Node.js `24.x` and [`bun`](https://bun.sh) (`>= 1.4.4`). **Node.js v24 is required for Vercel deployment** — Vercel builds and runs our SvelteKit serverless functions on `nodejs24.x` (pinned in `package.json` `engines.node` and `vite.config.js`), so Vite/SvelteKit scripts must run on Node 24 rather than `bun --bun`, while `bun` is used for package management (`bun install`) and formatting (`bun fmt`).
+- Svelte 5 (runes) & SvelteKit: Follow the tutorial at https://svelte.dev/tutorial/svelte/welcome-to-svelte
 
 ## Collaboration workflow
 
 - Branches:
-  - `main` The development of the site, default branch on ECSESS org.
-  - All development branches: If you're working on an issue, **name your branch accordingly** so that we know what feature it is.
+  - `main`: Production/default branch on the ECSESS organization.
+  - All development branches: If you're working on an issue, **name your branch accordingly** so that we know what feature or fix it covers.
 - Pull Requests (PRs) & Code Review:
-  - Once your feature is complete, open a PR against `main`. Ensure to describe the changes made and link any relevant issues.
+  - Before opening or updating a PR, run `bun run format` and `bun run check` locally. CI checks formatting (`bun run lint`), types (`bun run check`), and production builds (`bun run build`) on Node.js `24.x`.
+  - Once your feature is complete, open a PR against `main`. Describe the changes made and link any relevant issues.
   - At least one code review approval from ECSESS dev team members is required before merging.
   - After merging, delete the feature branch to keep the repository clean.
 
 ## Tech stack
 
-- SvelteKit (Svelte v5, Kit v2)
-- TailwindCSS (v4.0)
-- [`bun`](https://bun.sh) as Node.js package manager (similar to `npm`, `yarn`, `pnpm`, and `deno` v2)
-- Content Management System: Sanity
+- SvelteKit 3 + Svelte 5 (runes) + Vite 8
+- Tailwind CSS v4 (`@tailwindcss/vite`)
+- Node.js `24.x` runtime (local build & Vercel `nodejs24.x` Serverless Functions)
+- [`bun`](https://bun.sh) for package management (`bun install`) and formatting (`bun fmt`, configured in `bunfig.toml`)
+- Content Management System: Sanity (`@sanity/client`)
+- Icons: [Lucide](https://lucide.dev/icons/) (`@lucide/svelte`)
+
+See [AGENTS.md](./AGENTS.md) for full project layout, `#lib/*` / `#assets/*` import aliases, component conventions, and design system rules.
 
 ## Development guide
 
-- Clone the repo and install dependencies, and start dev environment:
+- Ensure you are on Node.js `24.x` (`node -v`) and have Bun installed (`bun -v`).
+- Clone the repo and install dependencies:
 
 ```bash
-git clone https://github.com/mcgill-ecsess/ecsess-site.git # or use SSH
-cd ecsess-site
-bun i
+git clone https://github.com/mcgill-ecsess/ECSESS.git # or use SSH
+cd ECSESS
+bun install
 ```
 
-- Create `.env` by copy `.env.example`
-- Add the Sanity CMS project ID `SANITY_ID=the_project_id` -- Contact VP TechDev or VP Comms for this info
-- See the development website locally at `localhost:5173`:
+- Create `.env` by copying `.env.example`
+- Add the Sanity CMS project ID `SANITY_ID=the_project_id` — contact VP TechDev or VP Comms for this info (declared for SvelteKit in `src/env.js`)
+- Start the dev server locally at `http://localhost:5173`:
 
-```sh
+```bash
 bun run dev
 ```
 
-- To build and preview a production version of the website. This step is optional as Vercel handles the build and preview deployment automatically as you commit to a PR.
+- Format and typecheck your changes before committing:
+
+```bash
+bun run format   # format files with bun fmt
+bun run lint     # verify formatting
+bun run check    # svelte-kit sync + svelte-check
+```
+
+- Build and preview a production version of the website (optional locally, as Vercel builds preview deployments automatically on PRs):
 
 ```bash
 bun run build
@@ -54,11 +68,11 @@ bun run preview
 
 ---
 
-# Content Management
+## Content Management
 
 - See `ecsess-sanity-studio` for the development of the Sanity CMS studio.
-- Schemas are defined in `src/lib/schemas.ts` as reference based on what is configured in the Sanity studio
-- Each `+page.svelte` (client-side/frontend) has a corresponding `+page.server.ts` (server-side/backend) that fetches the content from Sanity CMS using GROQ queries. This data is loaded to `data` variable that can be accessed in the Svelte component.
+- Schemas are defined in `src/lib/schemas.ts` as reference based on what is configured in the Sanity studio.
+- Server-side Sanity queries use `getFromCMS()` from `#lib/utils` inside `+page.server.ts` / `+layout.server.ts` (never in client components). Loaded data is read via `let { data } = $props()` in `+page.svelte`.
 
 ---
 
@@ -70,19 +84,27 @@ bun run preview
 
 ### Colour Palette
 
-- The website relies on TailwindCSS custom colour variables:
+- The site is dark-mode only and uses custom Tailwind CSS v4 `@theme` colour tokens in `src/app.css` (use `ecsess-*` utility classes rather than raw hex values):
 
 | HEX CODE | Variable name              |
 | -------- | -------------------------- |
 | #e8ffd9  | --color-ecsess-50          |
 | #cce7ba  | --color-ecsess-100         |
+| #bae9a5  | --color-ecsess-150         |
 | #a9d0a0  | --color-ecsess-200         |
+| #9cc295  | --color-ecsess-250         |
 | #8fb98a  | --color-ecsess-300         |
+| #7daa7a  | --color-ecsess-350         |
 | #6a9a6a  | --color-ecsess-400         |
+| #62925a  | --color-ecsess-450         |
 | #5a8b5a  | --color-ecsess-500         |
+| #4c7a4f  | --color-ecsess-550         |
 | #3f6a3f  | --color-ecsess-600         |
-| #2d5a2d  | --color-ecsess-700         |
+| #306032  | --color-ecsess-650         |
+| #2f4d29  | --color-ecsess-700         |
+| #1c4a1e  | --color-ecsess-750         |
 | #0a3d2a  | --color-ecsess-800         |
+| #083525  | --color-ecsess-850         |
 | #062c20  | --color-ecsess-900         |
 | #031c15  | --color-ecsess-950         |
 | #1f1f1f  | --color-ecsess-black       |
@@ -90,7 +112,5 @@ bun run preview
 
 ### Typography
 
-- The website uses the Saira font family from Google Fonts:
-  - Saira: https://fonts.google.com/specimen/Saira
-
-- Instead of using TailwindCSS Typography plugin, we define our own typography styles in `src/app.css`, via `.typography` class.
+- The website uses the [Saira](https://fonts.google.com/specimen/Saira) font family (with Noto Sans Symbols fallback) from Google Fonts.
+- Instead of the Tailwind Typography plugin, prose styles are defined in `src/app.css` via the `.typography` class.
