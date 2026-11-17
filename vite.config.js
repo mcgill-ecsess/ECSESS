@@ -8,7 +8,7 @@ export default defineConfig({
 		sveltekit({
 			preprocess: [],
 			compilerOptions: { runes: true },
-			adapter: adapter()
+			adapter: adapter({ runtime: 'nodejs24.x' })
 		}),
 		tailwindcss()
 	],
